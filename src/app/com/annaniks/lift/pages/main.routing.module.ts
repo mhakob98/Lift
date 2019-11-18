@@ -16,6 +16,16 @@ let mainRoutes: Routes = [
                 loadChildren: () => import('src/app/com/annaniks/lift/pages/promotion/promotion.module')
                     .then(m => m.PromotionModule)
             },
+            {
+                path: 'autoposting',
+                loadChildren: () => import('src/app/com/annaniks/lift/pages/autoposting/autoposting.module')
+                    .then(m => m.AutopostingModule)
+            },
+            {
+                path: 'direct',
+                loadChildren: () => import('src/app/com/annaniks/lift/pages/direct/direct.module')
+                    .then(m => m.DirectModule)
+            }
         ]
     }
 ]

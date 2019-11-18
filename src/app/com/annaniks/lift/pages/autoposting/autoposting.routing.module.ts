@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+// Our Components
+import { AutopostingComponent } from './autoposting.component';
+
 let autopostingRoutes: Routes = [
-    // { path: '', component: CommonInformationView }
+    { path: '', component: AutopostingComponent }
 ]
 
 @NgModule({
@@ -10,5 +13,5 @@ let autopostingRoutes: Routes = [
     exports: [RouterModule]
 })
 export class AutopostingRoutingModule {
-    static components = [AutopostingRoutingModule]
+    static components = [AutopostingComponent]
 }
