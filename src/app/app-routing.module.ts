@@ -8,10 +8,20 @@ const appRoutes: Routes = [
     loadChildren: () => import('src/app/com/annaniks/lift/pages/main.module')
       .then(m => m.MainModule)
   },
-  { path: '**', redirectTo: 'not-found', pathMatch: 'full' },
+  {
+    path: 'auth',
+    loadChildren: () => import('src/app/com/annaniks/lift/pages/auth/auth.module')
+      .then(m => m.AuthModule)
+  },
   {
     path: 'not-found',
-    loadChildren: () => import('src/app/com/annaniks/lift/pages/not-found/not-found.module').then(m => m.NotFoundModule)
+    loadChildren: () => import('src/app/com/annaniks/lift/pages/not-found/not-found.module')
+      .then(m => m.NotFoundModule)
+  },
+  {
+    path: '**',
+    redirectTo: 'not-found',
+    pathMatch: 'full'
   },
 
 ];
