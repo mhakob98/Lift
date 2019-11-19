@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-let storiesAutoSubscribeRoutes: Routes = [
+const storiesAutoSubscribeRoutes: Routes = [
     // { path: '', component: CommonInformationView }
 ]
 

@@ -60,12 +60,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   private _initForm(): void {
-    const email = '';
-    const password = '';
-
     this.signInForm = this._fb.group({
-      email: [email, Validators.required],
-      password: [password, Validators.required]
+      email: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
 

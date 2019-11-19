@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DirectComponent } from './direct.component';
 
 
-let directRoutes: Routes = [
+const directRoutes: Routes = [
     { path: '', component: DirectComponent }
 ]
 

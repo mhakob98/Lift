@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SubscribersPostsComponent } from './subscribes-posts.component';
 
-let subscribesPostsRoutes: Routes = [
+const subscribesPostsRoutes: Routes = [
     { path: '', component: SubscribersPostsComponent }
 ]
 

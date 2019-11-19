@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-let autoSubscribeRoutes: Routes = [
+const autoSubscribeRoutes: Routes = [
     // { path: '', component: CommonInformationView }
 ]
 

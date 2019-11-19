@@ -20,7 +20,7 @@ export class ForgetPasswordComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.initForm();
+    this._initForm();
   }
 
   // onSubmit() {
@@ -53,15 +53,13 @@ export class ForgetPasswordComponent implements OnInit, OnDestroy {
   //   }
   // }
 
-  private pushErrorFor(ctrl_name: string, msg: string) {
+  private _pushErrorFor(ctrl_name: string, msg: string): void {
     this.forgetPasswordForm.controls[ctrl_name].setErrors({ msg: msg });
   }
 
-  initForm() {
-    const email = '';
-
+  private _initForm(): void {
     this.forgetPasswordForm = this._fb.group({
-      email: [email, Validators.required]
+      email: ['', Validators.required]
     });
   }
 

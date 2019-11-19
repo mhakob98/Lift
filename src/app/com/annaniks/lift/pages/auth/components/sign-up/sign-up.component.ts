@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 })
 export class SignUpComponent implements OnInit, OnDestroy {
   public signUpForm: FormGroup;
-  //private _title = environment.appName;
+  // private _title = environment.appName;
   private _registerSubs: Subscription;
 
   constructor(

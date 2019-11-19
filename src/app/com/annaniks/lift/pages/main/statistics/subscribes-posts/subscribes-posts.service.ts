@@ -10,7 +10,6 @@ import { Post } from '../../../../core/models/post';
 @Injectable()
 export class SubscribesPostsService {
 
-    constructor(private httpClient: HttpClient) { }
 
     subscribers$ = this.httpClient.get<Subscriber[]>('http://dummy.restapiexample.com/api/v1/employees')
         .pipe(
@@ -30,4 +29,6 @@ export class SubscribesPostsService {
             shareReplay(),
             catchError(of)
         )
+    constructor(private httpClient: HttpClient) { }
+
 }

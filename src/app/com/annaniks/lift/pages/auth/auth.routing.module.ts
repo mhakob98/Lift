@@ -12,7 +12,7 @@ import {
 } from './components/index';
 
 
-let authRoutes: Routes = [
+const authRoutes: Routes = [
   { path: '', redirectTo: '/auth/signup', pathMatch: 'full' },
   { path: 'signup', component: SignUpComponent },
   { path: 'login', component: LoginComponent },

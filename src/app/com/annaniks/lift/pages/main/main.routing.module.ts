@@ -2,28 +2,28 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './main.component';
 
-let mainRoutes: Routes = [
+const mainRoutes: Routes = [
     {
         path: '', component: MainComponent, children: [
             { path: '', redirectTo: '/statistics/preview', pathMatch: 'full' },
             {
                 path: 'statistics',
-                loadChildren: () => import('src/app/com/annaniks/lift/pages/main/statistics/statistics.module')
+                loadChildren: () => import('../../../../../com/annaniks/lift/pages/main/statistics/statistics.module')
                     .then(m => m.StatisticsModule)
             },
             {
                 path: 'promotion',
-                loadChildren: () => import('src/app/com/annaniks/lift/pages/main/promotion/promotion.module')
+                loadChildren: () => import('../../../../../com/annaniks/lift/pages/main/promotion/promotion.module')
                     .then(m => m.PromotionModule)
             },
             {
                 path: 'autoposting',
-                loadChildren: () => import('src/app/com/annaniks/lift/pages/main/autoposting/autoposting.module')
+                loadChildren: () => import('../../../../../com/annaniks/lift/pages/main/autoposting/autoposting.module')
                     .then(m => m.AutopostingModule)
             },
             {
                 path: 'direct',
-                loadChildren: () => import('src/app/com/annaniks/lift/pages/main/direct/direct.module')
+                loadChildren: () => import('../../../../../com/annaniks/lift/pages/main/direct/direct.module')
                     .then(m => m.DirectModule)
             }
         ]

@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 // Our Components
 import { AutopostingComponent } from './autoposting.component';
 
-let autopostingRoutes: Routes = [
+const autopostingRoutes: Routes = [
     { path: '', component: AutopostingComponent }
 ]
 

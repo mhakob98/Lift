@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { PreviewComponent } from './preview.component';
 
-let previewRoutes: Routes = [
+const previewRoutes: Routes = [
     { path: '', component: PreviewComponent }
 ]
 

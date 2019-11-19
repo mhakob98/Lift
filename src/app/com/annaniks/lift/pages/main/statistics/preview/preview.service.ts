@@ -9,7 +9,6 @@ import { Preview } from '../../../../core/models/statistics-preview';
 @Injectable()
 export class PreviewService {
 
-    constructor(private httpClient: HttpClient) { }
 
     preview$ = this.httpClient.get<Preview>('http://dummy.restapiexample.com/api/v1/employees')
         .pipe(
@@ -17,4 +16,5 @@ export class PreviewService {
             shareReplay(),
             catchError(of)
         )
+    constructor(private httpClient: HttpClient) { }
 }

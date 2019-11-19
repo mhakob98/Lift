@@ -9,7 +9,7 @@ export class MockServerService implements InMemoryDbService {
     constructor() { }
 
     createDb() {
-        let posts = [
+        const posts = [
             { id: 1, user: 'PO1', title: '', description: 'Insurance policy number PO1', img: '' },
             { id: 2, user: 'PO1', title: '', description: 'Insurance policy number PO1', img: '' },
             { id: 3, user: 'PO1', title: '', description: 'Insurance policy number PO1', img: '' },

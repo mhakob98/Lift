@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LikesCommentsBookmarksComponent } from './likes-comments-bookmarks.component';
 
-let likesCommentsBookmarksRoutes: Routes = [
+const likesCommentsBookmarksRoutes: Routes = [
     { path: '', component: LikesCommentsBookmarksComponent }
 ]
 

@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { NotFoundComponent } from './not-found.component';
 
-let notFoundRoutes: Routes = [
+const notFoundRoutes: Routes = [
     { path: '', component: NotFoundComponent }
 ]
 
