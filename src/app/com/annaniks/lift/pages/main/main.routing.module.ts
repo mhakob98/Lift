@@ -8,22 +8,22 @@ let mainRoutes: Routes = [
             { path: '', redirectTo: '/statistics/preview', pathMatch: 'full' },
             {
                 path: 'statistics',
-                loadChildren: () => import('src/app/com/annaniks/lift/pages/statistics/statistics.module')
+                loadChildren: () => import('src/app/com/annaniks/lift/pages/main/statistics/statistics.module')
                     .then(m => m.StatisticsModule)
             },
             {
                 path: 'promotion',
-                loadChildren: () => import('src/app/com/annaniks/lift/pages/promotion/promotion.module')
+                loadChildren: () => import('src/app/com/annaniks/lift/pages/main/promotion/promotion.module')
                     .then(m => m.PromotionModule)
             },
             {
                 path: 'autoposting',
-                loadChildren: () => import('src/app/com/annaniks/lift/pages/autoposting/autoposting.module')
+                loadChildren: () => import('src/app/com/annaniks/lift/pages/main/autoposting/autoposting.module')
                     .then(m => m.AutopostingModule)
             },
             {
                 path: 'direct',
-                loadChildren: () => import('src/app/com/annaniks/lift/pages/direct/direct.module')
+                loadChildren: () => import('src/app/com/annaniks/lift/pages/main/direct/direct.module')
                     .then(m => m.DirectModule)
             }
         ]

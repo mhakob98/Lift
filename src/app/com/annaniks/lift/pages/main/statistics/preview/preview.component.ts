@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { PreviewService } from './preview.service';
 import { catchError, map, filter } from 'rxjs/operators';
 import { of, combineLatest } from 'rxjs';
-import { Preview } from '../../../core/models/statistics-preview';
+import { Preview } from '../../../../core/models/statistics-preview';
 
 @Component({
   selector: 'app-preview',

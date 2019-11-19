@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 
 // Our Modules
 import { MainRoutingModule } from './main.routing.module';
-import { LayoutModule } from '../layout/layout-module';
+import { LayoutModule } from '../../layout/layout-module';
 
 @NgModule({
     declarations: [

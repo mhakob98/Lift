@@ -4,9 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { tap, catchError, shareReplay } from 'rxjs/operators';
 import { of } from 'rxjs';
 
-import { Bookmark } from '../../../core/models/bookmark';
-import { Comment } from '../../../core/models/comment';
-import { Like } from '../../../core/models/like';
+import { Bookmark } from '../../../../core/models/bookmark';
+import { Comment } from '../../../../core/models/comment';
+import { Like } from '../../../../core/models/like';
 
 @Injectable()
 export class LikesCommentsBookmarksService {

@@ -4,8 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { tap, catchError, shareReplay } from 'rxjs/operators';
 import { of } from 'rxjs';
 
-import { Subscriber } from '../../../core/models/subscriber';
-import { Post } from '../../../core/models/post';
+import { Subscriber } from '../../../../core/models/subscriber';
+import { Post } from '../../../../core/models/post';
 
 @Injectable()
 export class SubscribesPostsService {

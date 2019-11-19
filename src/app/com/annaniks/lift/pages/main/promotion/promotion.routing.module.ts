@@ -12,17 +12,17 @@ let promotionRoutes: Routes = [
             { path: '', redirectTo: '/promotion/autosubscribe', pathMatch: 'full' },
             {
                 path: 'autosubscribe',
-                loadChildren: () => import('src/app/com/annaniks/lift/pages/promotion/auto-subscribe/auto-subscribe.module')
+                loadChildren: () => import('src/app/com/annaniks/lift/pages/main/promotion/auto-subscribe/auto-subscribe.module')
                     .then(m => m.AutoSubscribeModule)
             },
             {
                 path: 'bonuses',
-                loadChildren: () => import('src/app/com/annaniks/lift/pages/promotion/bonuses/bonuses.module')
+                loadChildren: () => import('src/app/com/annaniks/lift/pages/main/promotion/bonuses/bonuses.module')
                     .then(m => m.BonusesModule)
             },
             {
                 path: 'stories-autosubscribe',
-                loadChildren: () => import('src/app/com/annaniks/lift/pages/promotion/stories-auto-subscribe/stories-auto-subscribe.module')
+                loadChildren: () => import('src/app/com/annaniks/lift/pages/main/promotion/stories-auto-subscribe/stories-auto-subscribe.module')
                     .then(m => m.StoriesAutoSubscribeModule)
             },
 

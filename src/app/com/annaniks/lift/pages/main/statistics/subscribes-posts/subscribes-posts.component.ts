@@ -3,10 +3,10 @@ import { SubscribesPostsService } from './subscribes-posts.service';
 
 import { catchError, map, filter } from 'rxjs/operators';
 import { of, combineLatest, Observable } from 'rxjs';
-import { Subscriber } from '../../../core/models/subscriber';
+import { Subscriber } from '../../../../core/models/subscriber';
 import { ActivatedRoute } from '@angular/router';
-import { Subscribe } from '../../../core/models/subscribe';
-import { Post } from '../../../core/models/post';
+import { Subscribe } from '../../../../core/models/subscribe';
+import { Post } from '../../../../core/models/post';
 
 @Component({
   selector: 'app-subscribers',

@@ -5,9 +5,9 @@ import { ActivatedRoute } from '@angular/router';
 
 import { catchError } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
-import { Like } from '../../../core/models/like';
-import { Comment } from '../../../core/models/comment';
-import { Bookmark } from '../../../core/models/bookmark';
+import { Like } from '../../../../core/models/like';
+import { Comment } from '../../../../core/models/comment';
+import { Bookmark } from '../../../../core/models/bookmark';
 
 @Component({
   selector: 'app-likes-comments-bookmarks',
