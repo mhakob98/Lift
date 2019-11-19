@@ -5,16 +5,17 @@ import { CommonModule } from '@angular/common';
 
 // Our Modules
 import { PreviewRoutingModule } from './preview.routing.module';
+import { PreviewService } from './preview.service';
 
 @NgModule({
     declarations: [
-        PreviewRoutingModule.components
+        PreviewRoutingModule.components,
     ],
     imports: [
         PreviewRoutingModule,
         CommonModule,
     ],
 
-    providers: []
+    providers: [PreviewService]
 })
 export class PreviewModule { }

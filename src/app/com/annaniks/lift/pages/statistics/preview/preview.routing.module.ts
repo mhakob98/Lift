@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { PreviewComponent } from './preview.component';
+
 let previewRoutes: Routes = [
-    // { path: '', component:  }
+    { path: '', component: PreviewComponent }
 ]
 
 @NgModule({
@@ -10,5 +12,5 @@ let previewRoutes: Routes = [
     exports: [RouterModule]
 })
 export class PreviewRoutingModule {
-    static components = []
+    static components = [PreviewComponent]
 }

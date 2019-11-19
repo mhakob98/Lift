@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // Our Components
-import { StatisticsComponent } from './statistics.component';
+import { StatisticsComponent } from './STATISTICS.component';
 
 let statisticsRoutes: Routes = [
     {
@@ -17,33 +17,42 @@ let statisticsRoutes: Routes = [
             },
             {
                 path: 'subscribers',
-                loadChildren: () => import('src/app/com/annaniks/lift/pages/statistics/subscribers/subscribers.module')
-                    .then(m => m.SubscribersModule)
+                loadChildren: () => import('src/app/com/annaniks/lift/pages/statistics/subscribes-posts/subscribes-posts.module')
+                    .then(m => m.SubscribesPostsModule),
+                data: { type: 'subscribers' }
             },
             {
                 path: 'my-subscribes',
-                loadChildren: () => import('src/app/com/annaniks/lift/pages/statistics/my-subscribes/my-subscribes.module')
-                    .then(m => m.MySubscribersModule)
+                loadChildren: () => import('src/app/com/annaniks/lift/pages/statistics/subscribes-posts/subscribes-posts.module')
+                    .then(m => m.SubscribesPostsModule),
+                data: { type: 'my-subscribes' }
             },
             {
                 path: 'posts',
-                loadChildren: () => import('src/app/com/annaniks/lift/pages/statistics/posts/posts.module')
-                    .then(m => m.PostsModule)
+                loadChildren: () => import('src/app/com/annaniks/lift/pages/statistics/subscribes-posts/subscribes-posts.module')
+                    .then(m => m.SubscribesPostsModule),
+                data: { type: 'posts' }
             },
             {
                 path: 'likes',
-                loadChildren: () => import('src/app/com/annaniks/lift/pages/statistics/likes/likes.module')
-                    .then(m => m.LikesModule)
+                loadChildren: () => import('src/app/com/annaniks/lift/pages/statistics/likes-comments-bookmarks/likes-comments-bookmarks.module')
+                    .then(m => m.LikesCommentsBookmarksModule),
+                data: { type: 'likes' }
+
             },
             {
                 path: 'comments',
-                loadChildren: () => import('src/app/com/annaniks/lift/pages/statistics/comments/comments.module')
-                    .then(m => m.CommentsModule)
+                loadChildren: () => import('src/app/com/annaniks/lift/pages/statistics/likes-comments-bookmarks/likes-comments-bookmarks.module')
+                    .then(m => m.LikesCommentsBookmarksModule),
+                data: { type: 'comments' }
+
             },
             {
                 path: 'bookmarks',
-                loadChildren: () => import('src/app/com/annaniks/lift/pages/statistics/bookmarks/bookmarks.module')
-                    .then(m => m.BookmarksModule)
+                loadChildren: () => import('src/app/com/annaniks/lift/pages/statistics/likes-comments-bookmarks/likes-comments-bookmarks.module')
+                    .then(m => m.LikesCommentsBookmarksModule),
+                data: { type: 'bookmarks' }
+
             }
 
         ]
