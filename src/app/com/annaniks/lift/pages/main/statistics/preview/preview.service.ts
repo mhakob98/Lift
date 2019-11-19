@@ -10,7 +10,7 @@ import { Preview } from '../../../../core/models/statistics-preview';
 export class PreviewService {
 
 
-    preview$ = this.httpClient.get<Preview>('http://dummy.restapiexample.com/api/v1/employees')
+    preview$ = this.httpClient.get<Preview>('preview')
         .pipe(
             tap(console.log),
             shareReplay(),

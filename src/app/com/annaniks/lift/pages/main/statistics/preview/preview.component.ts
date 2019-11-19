@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { PreviewService } from './preview.service';
-import { catchError, map, filter } from 'rxjs/operators';
+import { catchError, map, filter, tap } from 'rxjs/operators';
 import { of, combineLatest } from 'rxjs';
 import { Preview } from '../../../../core/models/statistics-preview';
 
@@ -34,6 +34,7 @@ export class PreviewComponent implements OnInit {
       map(([preview, bestPostsForLastMonth, mailingsForLastMonth]) =>
         ({ preview, bestPostsForLastMonth, mailingsForLastMonth }))
     )
+
   constructor(private _previewService: PreviewService) { }
 
   ngOnInit() {
