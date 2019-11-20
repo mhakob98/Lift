@@ -16,5 +16,4 @@ export interface Preview {
     bookmarksCountForToday: number
     bestPostsForLastMonth: Post[],
     mailingsForLastMonth: Mailing[]
-
 }

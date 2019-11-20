@@ -1,0 +1,1 @@
+export * from './subscription-suitable/subscription-suitable.component'

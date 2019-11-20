@@ -1,8 +1,13 @@
+// Angular Core Modules
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+// Our Components
+import { AutoSubscribeComponent } from './auto-subscribe.component';
+import { SubscriptionSuitableComponent } from './index';
+
 const autoSubscribeRoutes: Routes = [
-    // { path: '', component: CommonInformationView }
+    { path: '', component: AutoSubscribeComponent }
 ]
 
 @NgModule({
@@ -10,5 +15,5 @@ const autoSubscribeRoutes: Routes = [
     exports: [RouterModule]
 })
 export class AutoSubscribeRoutingModule {
-    static components = []
+    static components = [AutoSubscribeComponent, SubscriptionSuitableComponent]
 }
