@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 
-import { AutoSubscribeService } from '../auto-subscribe.service';
+import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
 import { ActionAfterSubscription } from '../../../../../core/models/action-after-subscription';
 
 import { Subject, of } from 'rxjs';
@@ -15,6 +15,7 @@ import { catchError, tap, takeUntil } from 'rxjs/operators';
 })
 export class AfterSubscriptionComponent implements OnInit, OnDestroy {
 
+
   public afterSubscriptionForm: FormGroup;
   private _actions: ActionAfterSubscription[];
 
@@ -23,16 +24,14 @@ export class AfterSubscriptionComponent implements OnInit, OnDestroy {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _autoSubscribeService: AutoSubscribeService
-  ) { }
+    private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService
+  ) {
+    this._actions = []
+  }
 
   ngOnInit() {
     this._initForm();
     this._fetchAllActions()
-    setTimeout(() => {
-      console.log(this.afterSubscriptionForm.value);
-
-    }, 5000);
   }
 
   private _initForm(): void {
@@ -42,12 +41,12 @@ export class AfterSubscriptionComponent implements OnInit, OnDestroy {
   }
 
   private _fetchAllActions(): void {
-    this._autoSubscribeService.fetchAllActions$.
+    this._autoSubscribeOrWatchStoryService.fetchAllActions$.
       pipe(
         takeUntil(this._unsubscribe$),
         tap((actions: ActionAfterSubscription[]) => {
           actions.map((action: ActionAfterSubscription) => {
-            this._addAction(action)
+            this._addAction(action);
           })
         }),
         catchError(of)
@@ -65,6 +64,6 @@ export class AfterSubscriptionComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this._unsubscribe$.next();
-    this._unsubscribe$.complete()
+    this._unsubscribe$.complete();
   }
 }

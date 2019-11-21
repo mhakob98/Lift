@@ -12,20 +12,19 @@ const promotionRoutes: Routes = [
             { path: '', redirectTo: '/promotion/autosubscribe', pathMatch: 'full' },
             {
                 path: 'autosubscribe',
-                loadChildren: () => import('./auto-subscribe/auto-subscribe.module')
-                    .then(m => m.AutoSubscribeModule)
+                loadChildren: () => import('./auto-subscribe-or-watch-story/auto-subscribe-watch-story.module')
+                    .then(m => m.AutoSubscribeOrWatchStoryModule)
+            },
+            {
+                path: 'auto-watch-story',
+                loadChildren: () => import('./auto-subscribe-or-watch-story/auto-subscribe-watch-story.module')
+                    .then(m => m.AutoSubscribeOrWatchStoryModule)
             },
             {
                 path: 'bonuses',
                 loadChildren: () => import('./bonuses/bonuses.module')
                     .then(m => m.BonusesModule)
             },
-            {
-                path: 'stories-autosubscribe',
-                loadChildren: () => import('./stories-auto-subscribe/stories-auto-subscribe.module')
-                    .then(m => m.StoriesAutoSubscribeModule)
-            },
-
         ]
     }
 ]

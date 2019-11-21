@@ -1,4 +1,4 @@
 <p>auto-subscribe works!</p>
 <app-subscription-suitable></app-subscription-suitable>
 <app-audience-filter></app-audience-filter>
-<app-after-subscription></app-after-subscription>
+<app-after-subscription *ngIf="currentRoute != '/promotion/auto-watch-story'"></app-after-subscription>

@@ -6,24 +6,25 @@ import { of } from 'rxjs';
 
 import { Subscriber } from '../../../../core/models/subscriber';
 import { Post } from '../../../../core/models/post';
+import { ServerResponse } from '../../../../core/models/server-response';
 
 @Injectable()
 export class SubscribesPostsService {
 
 
-    subscribers$ = this.httpClient.get<Subscriber[]>('http://dummy.restapiexample.com/api/v1/employees')
+    subscribers$ = this.httpClient.get<ServerResponse<Subscriber[]>>('http://dummy.restapiexample.com/api/v1/employees')
         .pipe(
             tap(console.log),
             shareReplay(),
             catchError(of)
         )
-    mySubscribes$ = this.httpClient.get<Subscriber[]>('my-subscribes')
+    mySubscribes$ = this.httpClient.get<ServerResponse<Subscriber[]>>('my-subscribes')
         .pipe(
             tap(console.log),
             shareReplay(),
             catchError(of)
         )
-    posts$ = this.httpClient.get<Post[]>('posts')
+    posts$ = this.httpClient.get<ServerResponse<Post[]>>('posts')
         .pipe(
             tap(console.log),
             shareReplay(),

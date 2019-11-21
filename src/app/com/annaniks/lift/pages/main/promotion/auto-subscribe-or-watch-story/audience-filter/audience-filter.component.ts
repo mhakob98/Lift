@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 
-import { AutoSubscribeService } from '../auto-subscribe.service';
+import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
 
 import { of, Subject } from 'rxjs';
 import { catchError, tap, takeUntil, take } from 'rxjs/operators';
@@ -19,7 +19,7 @@ export class AudienceFilterComponent implements OnInit, OnDestroy {
   private _unsubscribe$ = new Subject<void>()
   constructor(
     private _formBuilder: FormBuilder,
-    private _autoSubscribeService: AutoSubscribeService
+    private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService
   ) {
     this._filters = []
   }
@@ -27,6 +27,7 @@ export class AudienceFilterComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this._initForm()
     this._fetchAllFilter();
+
   }
   private _initForm(): void {
     this.filterAudienceForm = this._formBuilder.group({
@@ -35,7 +36,7 @@ export class AudienceFilterComponent implements OnInit, OnDestroy {
   }
 
   private _fetchAllFilter(): void {
-    this._autoSubscribeService.fetchAllFilters$
+    this._autoSubscribeOrWatchStoryService.fetchAllFilters$
       .pipe(
         takeUntil(this._unsubscribe$),
         tap((f: AudienceFilter[]) => {
