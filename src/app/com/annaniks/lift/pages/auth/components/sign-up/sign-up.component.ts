@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,7 +14,7 @@ import { environment } from 'src/environments/environment';
 export class SignUpComponent implements OnInit, OnDestroy {
   public signUpForm: FormGroup;
   // private _title = environment.appName;
-  private _registerSubs: Subscription;
+  private _subs = new SubSink();
 
   constructor(
     private fb: FormBuilder,
@@ -32,27 +33,29 @@ export class SignUpComponent implements OnInit, OnDestroy {
   //   const keys = Object.keys(values);
 
   //   if (this.signUpForm.valid) {
-  //     this.registerSubs = this.authService
-  //       .register(values)
-  //       .pipe(
-  //         tap(
-  //           _ => _,
-  //           user => {
-  //             const errors = user.error.errors || {};
-  //             keys.forEach(val => {
-  //               if (errors[val]) {
-  //                 this.pushErrorFor(val, errors[val][0]);
-  //               }
-  //             });
-  //           }
+  //     this._subs.add(
+  //       this.authService
+  //         .register(values)
+  //         .pipe(
+  //           tap(
+  //             _ => _,
+  //             user => {
+  //               const errors = user.error.errors || {};
+  //               keys.forEach(val => {
+  //                 if (errors[val]) {
+  //                   this._pushErrorFor(val, errors[val][0]);
+  //                 }
+  //               });
+  //             }
+  //           )
   //         )
-  //       )
-  //       .subscribe();
+  //         .subscribe()
+  //     )
   //   } else {
   //     keys.forEach(val => {
   //       const ctrl = this.signUpForm.controls[val];
   //       if (!ctrl.valid) {
-  //         this.pushErrorFor(val, null);
+  //         this._pushErrorFor(val, null);
   //         ctrl.markAsTouched();
   //       }
   //     });
@@ -95,8 +98,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy() {
-    if (this._registerSubs) {
-      this._registerSubs.unsubscribe();
-    }
+    this._subs.unsubscribe()
   }
 }

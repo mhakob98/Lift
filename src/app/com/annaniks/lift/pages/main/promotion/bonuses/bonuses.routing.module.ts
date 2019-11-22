@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BonusesComponent } from './bonuses.component';
+import { BonusesFromLiftItemComponent } from './bonuses-from-lift-item/bonuses-from-lift-item.component';
 
 const bonusesRoutes: Routes = [
     { path: '', component: BonusesComponent }
@@ -11,5 +12,5 @@ const bonusesRoutes: Routes = [
     exports: [RouterModule]
 })
 export class BonusesRoutingModule {
-    static components = [BonusesComponent]
+    static components = [BonusesComponent, BonusesFromLiftItemComponent]
 }

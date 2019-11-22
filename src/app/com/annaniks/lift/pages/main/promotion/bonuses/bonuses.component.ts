@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { BonusesService } from './bonuses.service';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-bonuses',
@@ -7,7 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BonusesComponent implements OnInit {
 
-  constructor() { }
+  public bonuses$ = this._bonusesService.fetchAllBonuses$
+    .pipe(catchError(of))
+
+  constructor(private _bonusesService: BonusesService) { }
 
   ngOnInit() {
   }

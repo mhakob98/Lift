@@ -6,7 +6,8 @@ import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.
 import { ActionAfterSubscription } from '../../../../../core/models/action-after-subscription';
 
 import { Subject, of } from 'rxjs';
-import { catchError, tap, takeUntil } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
+import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-after-subscription',
@@ -15,11 +16,9 @@ import { catchError, tap, takeUntil } from 'rxjs/operators';
 })
 export class AfterSubscriptionComponent implements OnInit, OnDestroy {
 
-
+  private _subs = new SubSink();
   public afterSubscriptionForm: FormGroup;
   private _actions: ActionAfterSubscription[];
-
-  private _unsubscribe$ = new Subject<void>()
 
 
   constructor(
@@ -41,16 +40,18 @@ export class AfterSubscriptionComponent implements OnInit, OnDestroy {
   }
 
   private _fetchAllActions(): void {
-    this._autoSubscribeOrWatchStoryService.fetchAllActions$.
-      pipe(
-        takeUntil(this._unsubscribe$),
-        tap((actions: ActionAfterSubscription[]) => {
-          actions.map((action: ActionAfterSubscription) => {
-            this._addAction(action);
-          })
-        }),
-        catchError(of)
-      ).subscribe()
+    this._subs.add(
+      this._autoSubscribeOrWatchStoryService.fetchAllActions$.
+        pipe(
+          tap((actions: ActionAfterSubscription[]) => {
+            actions.map((action: ActionAfterSubscription) => {
+              this._addAction(action);
+            })
+          }),
+          catchError(of)
+        ).subscribe()
+    )
+
   }
 
   private _addAction(action: ActionAfterSubscription): void {
@@ -63,7 +64,6 @@ export class AfterSubscriptionComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this._unsubscribe$.next();
-    this._unsubscribe$.complete();
+    this._subs.unsubscribe()
   }
 }

@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 
 import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
 
-import { of, Subject } from 'rxjs';
-import { catchError, tap, takeUntil, take } from 'rxjs/operators';
-
+import { of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { SubSink } from 'subsink'
 import { AudienceFilter } from '../../../../../core/models/audience-filter'
 
 @Component({
@@ -16,7 +16,7 @@ import { AudienceFilter } from '../../../../../core/models/audience-filter'
 export class AudienceFilterComponent implements OnInit, OnDestroy {
   public filterAudienceForm: FormGroup
   private _filters: AudienceFilter[];
-  private _unsubscribe$ = new Subject<void>()
+  private _subs = new SubSink();
   constructor(
     private _formBuilder: FormBuilder,
     private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService
@@ -36,16 +36,18 @@ export class AudienceFilterComponent implements OnInit, OnDestroy {
   }
 
   private _fetchAllFilter(): void {
-    this._autoSubscribeOrWatchStoryService.fetchAllFilters$
-      .pipe(
-        takeUntil(this._unsubscribe$),
-        tap((f: AudienceFilter[]) => {
-          f.map((filter: AudienceFilter) => {
-            this._addFilter(filter)
-          })
-        }),
-        catchError(of)
-      ).subscribe()
+    this._subs.add(
+      this._autoSubscribeOrWatchStoryService.fetchAllFilters$
+        .pipe(
+          tap((f: AudienceFilter[]) => {
+            f.map((filter: AudienceFilter) => {
+              this._addFilter(filter)
+            })
+          }),
+          catchError(of)
+        ).subscribe()
+    )
+
   }
 
   private _addFilter(filter: AudienceFilter): void {
@@ -53,12 +55,21 @@ export class AudienceFilterComponent implements OnInit, OnDestroy {
     this.filtersGetter.push(this._formBuilder.control(filter));
   }
 
+  public onSettingsSave(): void {
+    const settings = this.filterAudienceForm.value;
+    this._subs.add(
+      this._autoSubscribeOrWatchStoryService.saveSettings(settings).subscribe(() => {
+
+      })
+    )
+
+  }
+
   get filtersGetter() {
     return this.filterAudienceForm.get('filters') as FormArray;
   }
 
   ngOnDestroy() {
-    this._unsubscribe$.next()
-    this._unsubscribe$.complete()
+    this._subs.unsubscribe();
   }
 }

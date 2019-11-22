@@ -2,7 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { switchMap } from 'rxjs/operators';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
+import { SubSink } from 'subsink';
 
 import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
 
@@ -23,7 +24,7 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
   public locationAccountStream$: Observable<ServerResponse<Account[]>>;
   public commentsToStream$: Observable<ServerResponse<Account[]>>;
   public likesToStream$: Observable<ServerResponse<Account[]>>;
-  private _saveSettingsSubscription = new Subscription();
+  private _subs = new SubSink();
   constructor(
     private _formBuilder: FormBuilder,
     private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService
@@ -83,12 +84,12 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
 
   public onSettingsSave(): void {
     const settings = this.suitableSubsOrStoryForm.value;
-    this._saveSettingsSubscription = this._autoSubscribeOrWatchStoryService.saveSettings(settings).subscribe(() => {
+    this._subs.add(this._autoSubscribeOrWatchStoryService.saveSettings(settings).subscribe(() => {
 
-    })
+    }))
   }
 
   ngOnDestroy() {
-    this._saveSettingsSubscription.unsubscribe();
+    this._subs.unsubscribe();
   }
 }
