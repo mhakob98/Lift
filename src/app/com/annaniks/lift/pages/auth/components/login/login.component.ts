@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-login',
@@ -11,8 +12,7 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   public signInForm: FormGroup;
-  // private _title = environment.appName;
-  private _loginSubs: Subscription;
+  private _subs = new SubSink();
 
   constructor(
     private _fb: FormBuilder,
@@ -30,25 +30,27 @@ export class LoginComponent implements OnInit, OnDestroy {
   //   const keys = Object.keys(values);
 
   //   if (this.signInForm.valid) {
-  //     this.loginSubs = this.authService
-  //       .login(values)
-  //       .pipe(
-  //         tap(
-  //           _ => _,
-  //           error => {
-  //             const errors = error.error.error || 'invalid email or password';
-  //             keys.forEach(val => {
-  //               this.pushErrorFor(val, errors);
-  //             });
-  //           }
+  //     this._subs.add(
+  //       this.authService
+  //         .login(values)
+  //         .pipe(
+  //           tap(
+  //             _ => _,
+  //             error => {
+  //               const errors = error.error.error || 'invalid email or password';
+  //               keys.forEach(val => {
+  //                 this._pushErrorFor(val, errors);
+  //               });
+  //             }
+  //           )
   //         )
-  //       )
-  //       .subscribe();
+  //         .subscribe();)
+
   //   } else {
   //     keys.forEach(val => {
   //       const ctrl = this.signInForm.controls[val];
   //       if (!ctrl.valid) {
-  //         this.pushErrorFor(val, null);
+  //         this._pushErrorFor(val, null);
   //         ctrl.markAsTouched();
   //       }
   //     });
@@ -71,9 +73,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this._loginSubs) {
-      this._loginSubs.unsubscribe();
-    }
+    this._subs.unsubscribe()
   }
 
 }
