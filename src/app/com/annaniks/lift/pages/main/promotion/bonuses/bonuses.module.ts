@@ -8,7 +8,7 @@ import { BonusesRoutingModule } from './bonuses.routing.module';
 
 @NgModule({
     declarations: [
-        BonusesRoutingModule.components
+        BonusesRoutingModule.components,
     ],
     imports: [
         BonusesRoutingModule,

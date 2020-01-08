@@ -1,0 +1,4 @@
+Bonuses Work
+<div *ngIf="bonuses$ | async as bonuses">
+    <app-bonuses-from-lift-item *ngFor="let bonus of bonuses" [bonusInfo]="bonus"></app-bonuses-from-lift-item>
+</div>

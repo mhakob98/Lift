@@ -20,9 +20,7 @@ import {
         HeaderSwitchAccountComponent
     ],
     exports: [
-        HeaderNotificationComponent,
-        HeaderHelpComponent,
-        HeaderSwitchAccountComponent
+        HeaderComponent
     ],
     imports: [
     ]
