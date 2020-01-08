@@ -6,7 +6,7 @@ import { of, combineLatest, Observable } from 'rxjs';
 import { Subscriber } from '../../../../core/models/subscriber';
 import { ActivatedRoute } from '@angular/router';
 import { Subscribe } from '../../../../core/models/subscribe';
-import { Post } from '../../../../core/models/post';
+import { StatisticPost } from '../../../../core/models/statistic-post';
 
 @Component({
   selector: 'app-subscribers',
@@ -16,7 +16,7 @@ import { Post } from '../../../../core/models/post';
 })
 export class SubscribersPostsComponent implements OnInit {
 
-  private _data$: Observable<Subscriber | Subscribe | Post>;
+  private _data$: Observable<Subscriber | Subscribe | StatisticPost>;
   private _dataByDate$: Observable<any>;
   private _dataByDays$: Observable<any>;
   public vm$: Observable<any>;
@@ -36,7 +36,7 @@ export class SubscribersPostsComponent implements OnInit {
   ngOnInit() {
   }
 
-  private _loadPreferedDataBasedOnPageType(pageType: string): Observable<Subscriber | Subscribe | Post> {
+  private _loadPreferedDataBasedOnPageType(pageType: string): Observable<Subscriber | Subscribe | StatisticPost> {
     switch (pageType) {
       case 'subscribers':
         return this._subscribersService.subscribers$

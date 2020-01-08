@@ -5,14 +5,14 @@ import { tap, catchError, shareReplay } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import { Subscriber } from '../../../../core/models/subscriber';
-import { Post } from '../../../../core/models/post';
+import { StatisticPost } from '../../../../core/models/statistic-post';
 import { ServerResponse } from '../../../../core/models/server-response';
 
 @Injectable()
 export class SubscribesPostsService {
 
 
-    subscribers$ = this.httpClient.get<ServerResponse<Subscriber[]>>('http://dummy.restapiexample.com/api/v1/employees')
+    subscribers$ = this.httpClient.get<ServerResponse<Subscriber[]>>('subscribers')
         .pipe(
             tap(console.log),
             shareReplay(),
@@ -24,7 +24,7 @@ export class SubscribesPostsService {
             shareReplay(),
             catchError(of)
         )
-    posts$ = this.httpClient.get<ServerResponse<Post[]>>('posts')
+    posts$ = this.httpClient.get<ServerResponse<StatisticPost[]>>('posts')
         .pipe(
             tap(console.log),
             shareReplay(),
