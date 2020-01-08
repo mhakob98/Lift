@@ -1,25 +1,91 @@
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 30px 10%;
-  .logo {
-    cursor: pointer;
-  }
-  .nav-links {
-    list-style: none;
-    li {
-      display: inline-block;
-      padding: 0 20px;
-      a {
-        transition: all 0.3s ease 0s;
-        &:hover {
-          color: #0088a9;
+.header-container {
+  background-color: #305976;
+  height: 100px;
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // padding: 0 200px;
+    height: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    .logo {
+      cursor: pointer;
+    }
+    .nav-links {
+      list-style: none;
+      margin: 0;
+      li {
+        display: inline-block;
+        padding: 0 15px;
+        a {
+          transition: all 0.3s ease 0s;
+          text-decoration: none;
+          color: white;
+          font-size: 16px;
+          img {
+            &.active {
+              filter: sepia(100%) hue-rotate(150deg) saturate(500%);
+            }
+            margin: -3px 2px 0 0;
+            margin-right: 2px;
+            &.last {
+              margin-top: 0;
+            }
+          }
         }
       }
     }
-  }
-  button {
-    padding: 9px 25px;
+    .account {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 164px;
+      &-nots {
+        position: relative;
+        cursor: pointer;
+        .nots-panel {
+          top: -50%;
+          right: -70%;
+          width: 18px;
+          height: 18px;
+          display: flex;
+          position: absolute;
+          background-color: #fd7f04;
+          border-radius: 3px;
+          span {
+            margin: auto;
+            font-size: 16px;
+            color: white;
+          }
+        }
+      }
+      &-questions {
+        img {
+          cursor: pointer;
+        }
+      }
+      &-details {
+        display: flex;
+        align-items: center;
+
+        img.user {
+          border-radius: 50%;
+        }
+        .arrow {
+          cursor: pointer;
+          background-color: #3e6683;
+          position: relative;
+          width: 20px;
+          height: 15px;
+          img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+      }
+    }
   }
 }
