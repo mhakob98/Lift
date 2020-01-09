@@ -3,15 +3,23 @@
   .cp-content {
     max-width: 1200px;
     margin: 0 auto;
+    .demo-chart {
+      height: 281px;
+    }
     .sp-table {
+      color: #7d7d7d;
       td,
       th {
         vertical-align: middle;
         border: none;
         padding: 0;
       }
+      th {
+        font-weight: 400;
+      }
       tbody {
         tr {
+          height: 70px;
           border-bottom: 1px solid #e9e9e9;
         }
       }

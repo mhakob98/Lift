@@ -7,6 +7,9 @@ import { CommonModule } from '@angular/common';
 import { LimitsComponent } from './limits/limits.component';
 
 // 3rd Part Libraries
+import { NgxEchartsModule } from 'ngx-echarts';
+import { ClickOutsideModule } from 'ng-click-outside';
+
 @NgModule({
     declarations: [
         SubmenuComponent,
@@ -14,11 +17,15 @@ import { LimitsComponent } from './limits/limits.component';
     ],
     exports: [
         SubmenuComponent,
-        LimitsComponent
+        LimitsComponent,
+        NgxEchartsModule,
+        ClickOutsideModule
     ],
     imports: [
         CommonModule,
-        RouterModule
+        RouterModule,
+        NgxEchartsModule,
+        ClickOutsideModule
     ]
 })
 export class SharedModule { }

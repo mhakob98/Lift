@@ -1,5 +1,7 @@
 <div *ngIf="vm$ | async as vm" class="sp-container">
     <div class="cp-content">
+        <div echarts [options]="lineChartOption" class="demo-chart"></div>
+        <div echarts [options]="pieChartOption" class=""></div>
         <h4>Статистика по дням</h4>
         <table class="table table-image sp-table">
             <thead>
