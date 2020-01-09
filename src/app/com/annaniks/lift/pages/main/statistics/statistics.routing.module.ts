@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // Our Components
-import { StatisticsComponent } from './STATISTICS.component';
+import { StatisticsComponent } from './statistics.component';
 
 const statisticsRoutes: Routes = [
     {
