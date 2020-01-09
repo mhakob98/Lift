@@ -22,7 +22,10 @@
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
     "hammerjs": "^2.0.8",
+    "jquery": "^3.4.1",
+    "ngx-slick-carousel": "^0.4.7",
     "rxjs": "~6.4.0",
+    "slick-carousel": "^1.8.1",
     "subsink": "^1.0.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"

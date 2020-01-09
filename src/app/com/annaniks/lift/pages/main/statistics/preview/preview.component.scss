@@ -1,5 +1,6 @@
 .preview-content {
     width: 100%;
+
     .user-details {
         .user-image {
             width: 130px;
@@ -18,31 +19,91 @@
             }
         }
     }
-    .statistics{
+
+    .statistics {
         margin-top: 66px;
-        .statistics-card{
+
+        .statistics-card {
             height: 260px;
             border-radius: 4px;
             box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.23);
-            .card-content{
-                border: 1px solid black;
-                .card-descrption{
-                    .card-image{
+
+            .card-content {
+
+                .card-descrption {
+                    .card-image {
                         width: 80px;
                         height: 80px;
                     }
-                    .value{
+
+                    .value {
                         font-size: 36px;
                         color: #3c637e
                     }
-                .progress{
-                    .progress-text{
-                        font-size: 18px;
-                        color: #959595;
+
+                    .progress-description {
+                        .progress-text {
+                            font-size: 18px;
+                            color: #959595;
+                        }
+
+                        .progress-value {
+                            color: #71ceb5;
+                        }
                     }
                 }
+
+                .card-chart {}
+            }
+        }
+    }
+
+    .action {
+        .action-item {
+            height: 180px;
+            border-radius: 4px;
+            box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.23);
+
+            .action-content {
+
+                .action-image {
+                    height: 70px;
+                    width: 70px;
+                }
+
+                .action-text {
+                    .value {
+                        font-size: 30px;
+                        color: #3c637e
+                    }
+
+                    .action-icon {
+                        height: 15px;
+                        width: 15px;
+                    }
                 }
             }
+        }
+    }
+
+    .posts {
+        .title {
+            font-size: 24px;
+        }
+
+        .slide-item {
+            height: 180px;
+            border-radius: 4px;
+            box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.23);
+            .post-description{
+               .post-review{
+                   .review-icon{
+                       width: 20px;
+                       height: 20px;
+                   }
+               }
+            }
+
         }
     }
 }

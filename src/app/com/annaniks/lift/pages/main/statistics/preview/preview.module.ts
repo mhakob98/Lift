@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 // Our Modules
 import { PreviewRoutingModule } from './preview.routing.module';
 import { PreviewService } from './preview.service';
+///SlicCarouselModule
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 @NgModule({
     declarations: [
@@ -14,6 +16,7 @@ import { PreviewService } from './preview.service';
     imports: [
         PreviewRoutingModule,
         CommonModule,
+        SlickCarouselModule
     ],
 
     providers: [PreviewService]

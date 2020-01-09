@@ -40,4 +40,18 @@ export class PreviewComponent implements OnInit {
   ngOnInit() {
   }
 
+  public slideConfig = {
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    dots: true,
+    infinite:false,
+    speed: 300,
+    loop: true,
+    autoplay: true,
+    autoplayTimeout: 1000,
+    autoplayHoverPause: true,
+    // prevArrow: "<img class='a-left control-c prev slick-prev'  src='/assets/images/arrow-left.png' >",
+    // nextArrow: "<img class='a-right control-c next slick-next' src='/assets/images/arrow-right.png'>"
+}
+
 }
