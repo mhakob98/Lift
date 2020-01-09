@@ -1,11 +1,49 @@
-<header>
-    <img class="logo" src="" alt="logo">
-    <nav>
-        <ul class="nav-links">
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Projects</a></li>
-            <li><a href="#">About</a></li>
-        </ul>
-    </nav>
-    <a class="cta" href="#"><button>Contact</button></a>
-</header>
+<div class="header-container">
+    <header>
+        <img class="logo" src="assets/logo.png" alt="logo">
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#">
+                        <img class="active" src="assets/icons/pie-chart.png" alt="">
+                        Статистика</a></li>
+                <li><a href="#">
+                        <img src="assets/icons/rocket.png" alt="">
+                        Продвижение</a></li>
+                <li><a href="#">
+                        <img src="assets/icons/calendar.png" alt="">
+                        Автопостинг</a></li>
+                <li><a href="#">
+                        <img class="last" src="assets/icons/send.png" alt="">
+                        Директ</a></li>
+            </ul>
+        </nav>
+        <div class="account">
+            <div class="account-nots">
+                <img src="assets/icons/bell.png" alt="notifications" (click)="toggleNotsPanel()">
+                <div class="nots-panel" (click)="toggleNotsPanel()">
+                    <span>
+                        2
+                    </span>
+                </div>
+                <div class="nots-content" [ngClass]="{'show':showNots}">
+                    Notifications
+                </div>
+            </div>
+            <div class="account-questions">
+                <img src="assets/icons/question_icon.png" alt="questions">
+                <div class="questions-content">
+
+                </div>
+            </div>
+            <div class="account-details">
+                <img class="user" src="assets/boy.png" alt="account">
+                <div class="arrow" (click)="toggleUserDetails()">
+                    <img src="assets/icons/down.png" alt="dropdown">
+                </div>
+                <div class="accounts-content" [ngClass]="{'show':showUserDetails}">
+                    Profile
+                </div>
+            </div>
+        </div>
+    </header>
+</div>

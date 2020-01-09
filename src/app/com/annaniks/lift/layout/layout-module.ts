@@ -9,6 +9,7 @@ import {
     HeaderHelpComponent,
     HeaderSwitchAccountComponent,
 } from './index';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import {
         HeaderComponent
     ],
     imports: [
+        CommonModule
     ]
 })
 export class LayoutModule { }
