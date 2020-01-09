@@ -11,7 +11,36 @@ export class StatisticsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
+    this.items = [
+      {
+        label: 'Обзор',
+        routerLink: '/statistics/preview'
+      },
+      {
+        label: 'Подписчики',
+        routerLink: '/statistics/subscribers'
+      },
+      {
+        label: 'Мои подписки',
+        routerLink: '/statistics/my-subscribes'
+      },
+      {
+        label: 'Посты',
+        routerLink: '/statistics/posts'
+      },
+      {
+        label: 'Лайки',
+        routerLink: '/statistics/likes'
+      },
+      {
+        label: 'Комментарии',
+        routerLink: '/statistics/comments'
+      },
+      {
+        label: 'Закладки',
+        routerLink: '/statistics/bookmarks'
+      }
+    ]
   }
 
 }

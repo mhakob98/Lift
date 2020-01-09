@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SubmenuItem } from '../../core/models/submenu-Item';
 import { OnChange } from '../../core/decorators/watch-property-change';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-submenu',
@@ -8,6 +9,7 @@ import { OnChange } from '../../core/decorators/watch-property-change';
   styleUrls: ['./submenu.component.scss']
 })
 export class SubmenuComponent implements OnInit {
+  public currentRoute: string;
 
   @OnChange<SubmenuItem[]>(function (value) {
     console.log(value);
@@ -15,9 +17,20 @@ export class SubmenuComponent implements OnInit {
   @Input()
   items: SubmenuItem[];
 
-  constructor() { }
+  constructor(
+    private _router: Router,
+  ) {
+    this._takeOutCurrentRoute();
+  }
 
   ngOnInit() {
   }
 
+  private _takeOutCurrentRoute(): void {
+    this._router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.currentRoute = event.url;
+      }
+    });
+  }
 }

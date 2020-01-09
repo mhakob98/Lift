@@ -59,6 +59,19 @@
             color: white;
           }
         }
+        .nots-content {
+          position: absolute;
+          display: none;
+          background: silver;
+          border-radius: 5px;
+          width: 250px;
+          height: 250px;
+          transition: all 0.3s;
+          left: -250px;
+          &.show {
+            display: block;
+          }
+        }
       }
       &-questions {
         img {
@@ -68,7 +81,20 @@
       &-details {
         display: flex;
         align-items: center;
-
+        position: relative;
+        .accounts-content {
+          display: none;
+          position: absolute;
+          background: silver;
+          border-radius: 5px;
+          width: 200px;
+          height: 300px;
+          left: -125px;
+          bottom: -300px;
+          &.show {
+            display: block;
+          }
+        }
         img.user {
           border-radius: 50%;
         }
