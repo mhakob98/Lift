@@ -120,9 +120,7 @@
         }
 
         .slide-item {
-            height: 180px;
-            border-radius: 4px;
-            box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.23);
+          
 
             .mailing-list-image {
                 width: 130px;
@@ -169,10 +167,10 @@
             }
 
             .calendar-item {
-                padding: 15px 0;
-                border-radius: 4px;
-                box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.23);
-                max-height: 300px;
+                // padding: 15px 0;
+                // border-radius: 4px;
+                // box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.23);
+                // max-height: 300px;
 
                 .calendar-image {
                     height: 23px;
@@ -203,6 +201,13 @@
             }
         }
     }
+}
+
+.slide{
+    padding: 0 !important;
+    height: 180px;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.23);
 }
 
 
