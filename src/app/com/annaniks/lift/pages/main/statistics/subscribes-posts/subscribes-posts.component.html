@@ -1,8 +1,44 @@
-<div *ngIf="vm$ | async as vm" class="sp-container">
+<div class="sp-container">
     <div class="cp-content">
-        <div echarts [options]="lineChartOption" class="demo-chart"></div>
-        <div echarts [options]="pieChartOption" class=""></div>
-        <h4>Статистика по дням</h4>
+        <div class="post-statistic-heading">
+            <h4>Статистика постов с <span>25.12.19</span> по <span>25.01.20</span> </h4>
+            <div class="post-statistic-manage">
+                <span>Управление постами</span>
+                <img src="assets/icons/settings.png" alt="Manage posts">
+            </div>
+        </div>
+
+        <!-- POST STATISTIC CHART -->
+        <div class="post-statistic-chart-heading">
+            <button class="post-statistic-action active">Лайки</button>
+            <button class="post-statistic-action">Комментарии</button>
+            <button class="post-statistic-action">Закладки</button>
+        </div>
+        <div echarts [options]="lineChartOption" class="post-statistic-chart"></div>
+
+        <!-- END POST STATISTIC CHART -->
+
+        <!-- PIE STATISTIC CHART -->
+        <div class="pie-statistic-chart-heading">
+            <button class="pie-statistic-action active">География</button>
+            <button class="pie-statistic-action">Пол</button>
+            <button class="pie-statistic-action">Открытость профиля</button>
+            <button class="pie-statistic-action">Популярность</button>
+            <button class="pie-statistic-action">Язык</button>
+            <button class="pie-statistic-action">Сайт</button>
+        </div>
+        <div class="chart-map">
+            <div echarts [options]="pieChartOption" class="pie-chart"></div>
+            <div class="map-container">
+                <div id="map"></div>
+            </div>
+        </div>
+
+        <!-- END PIE STATISTIC CHART -->
+
+
+        <!-- STATISTIC BY DAY -->
+        <h4 class="statistic-by-day-heading">Статистика по дням</h4>
         <table class="table table-image sp-table">
             <thead>
                 <tr>
@@ -27,6 +63,9 @@
 
             </tbody>
         </table>
+        <button class="load-more">Загрузить еще</button>
+        <!-- END STATISTIC BY DAY -->
+
 
     </div>
 

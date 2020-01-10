@@ -3,11 +3,96 @@
   .cp-content {
     max-width: 1200px;
     margin: 0 auto;
-    .demo-chart {
-      height: 281px;
+    .post-statistic-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 59px 0 38px 0;
+      .post-statistic-manage {
+        cursor: pointer;
+        span {
+          color: #7d7d7d;
+          font-size: 18px;
+        }
+        img {
+          margin-left: 10px;
+        }
+      }
     }
+    .post-statistic-chart-heading {
+      display: flex;
+      height: 30px;
+      background-color: #eef1f2;
+      .post-statistic-action {
+        border-top: none;
+        border-bottom: none;
+        border-right: 1px solid #d2d2d2;
+        padding: 0 11px;
+        background: transparent;
+        font-size: 14px;
+        color: #3d3d3d;
+
+        &.active {
+          background-color: #3399cc;
+          color: white;
+        }
+      }
+    }
+    .post-statistic-chart {
+      height: 381px;
+      border: 1px solid #e1e1e1;
+    }
+    .pie-statistic-chart-heading {
+      display: flex;
+      justify-content: center;
+      margin: 63px 0 20px 0;
+      .pie-statistic-action {
+        border: none;
+        background: transparent;
+        color: #7d7d7d;
+        margin: 0 10px;
+        &.active {
+          background: #a0b0bc;
+          border-radius: 2px;
+          color: #ffffff;
+        }
+      }
+    }
+    .chart-map {
+      display: flex;
+      height: 400px;
+
+      .pie-chart {
+        width: 50%;
+      }
+      .map-container {
+        display: flex;
+        height: 100%;
+        width: 50%;
+      }
+      #map {
+        width: 100%;
+        height: 320px;
+        margin: auto;
+      }
+    }
+
+    h4 {
+      font-size: 24px;
+      color: #3d3d3d;
+      &.statistic-by-day-heading {
+        margin: 35px 0 50px 0;
+      }
+      span {
+        color: #3399cc;
+        text-decoration: underline;
+        text-decoration-style: dashed;
+      }
+    }
+
     .sp-table {
       color: #7d7d7d;
+      margin-bottom: 27px;
       td,
       th {
         vertical-align: middle;
@@ -30,6 +115,15 @@
           height: auto;
         }
       }
+    }
+    .load-more {
+      border-radius: 2px;
+      border: none;
+      background-color: #f4f4f4;
+      width: 100%;
+      padding: 29px 0 25px 0;
+      font-size: 16px;
+      color: #7d7d7d;
     }
   }
 }

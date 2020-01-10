@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { SubscribesPostsService } from './subscribes-posts.service';
 
-import { catchError, map, filter } from 'rxjs/operators';
+import { catchError, map, filter, first } from 'rxjs/operators';
 import { of, combineLatest, Observable } from 'rxjs';
 import { Subscriber } from '../../../../core/models/subscriber';
 import { ActivatedRoute } from '@angular/router';
@@ -9,7 +9,7 @@ import { Subscribe } from '../../../../core/models/subscribe';
 import { StatisticPost } from '../../../../core/models/statistic-post';
 
 import { EChartOption } from 'echarts';
-
+declare var google: any;
 
 @Component({
   selector: 'app-subscribers',
@@ -23,6 +23,7 @@ export class SubscribersPostsComponent implements OnInit {
   private _dataByDate$: Observable<any>;
   private _dataByDays$: Observable<any>;
   public vm$: Observable<any>;
+  private _map: any;
 
   lineChartOption: EChartOption = {
 
@@ -45,44 +46,59 @@ export class SubscribersPostsComponent implements OnInit {
       type: 'line'
     }]
   }
-  pieChartOption: EChartOption = {
-    title: {
-      text: '同名数量统计',
-      subtext: '纯属虚构',
-      left: 'center'
-    },
-    tooltip: {
-      trigger: 'item',
-      formatter: '{a} <br/>{b} : {c} ({d}%)'
-    },
+
+
+
+
+
+
+
+  pieChartOption = {
     legend: {
       type: 'scroll',
       orient: 'vertical',
-      right: 10,
-      top: 20,
-      bottom: 20,
-      data: this.genData(10).legendData,
+      right: 40,
+      top: 'center',
+      borderRadius: 5,
+      textStyle: { color: '#3d3d3d', fontSize: 16 },
+      // bottom: 20,
 
-      selected: this.genData(10).selected
     },
+    calculable: true,
+
     series: [
       {
         name: '姓名',
         type: 'pie',
-        radius: '55%',
-        center: ['40%', '50%'],
-        data: this.genData(10).seriesData,
+        radius: ['39px', '166px'],
+        center: ['185px', '50%'],
+        data: [
+          { value: 335, name: 'Параметр - 21.44%' },
+          { value: 310, name: 'Параметр - 19.84%' },
+          { value: 234, name: 'Параметр - 14.98%' },
+          { value: 135, name: 'Параметр - 8.64%' },
+          { value: 548, name: 'Параметр - 35.08%' }
+        ],
+        label: {
+          normal: {
+            show: false,
+          },
+          emphasis: {
+            show: false,
+
+          }
+        },
         emphasis: {
           itemStyle: {
             shadowBlur: 10,
             shadowOffsetX: 0,
             shadowColor: 'rgba(0, 0, 0, 0.5)'
           }
-        }
+        },
+
       }
     ]
   };
-
   constructor(
     private _subscribersService: SubscribesPostsService,
     _activatedRoute: ActivatedRoute
@@ -94,42 +110,21 @@ export class SubscribersPostsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.vm$.subscribe((data) => {
+      console.log(data);
+      if (data) this._initMap()
+    })
   }
 
-  genData(count) {
-    var nameList = [
-      '赵', '钱', '孙', '李', '周', '吴', '郑', '王', '冯', '陈', '褚', '卫', '蒋', '沈', '韩', '杨', '朱', '秦', '尤', '许', '何', '吕', '施', '张', '孔', '曹', '严', '华', '金', '魏', '陶', '姜', '戚', '谢', '邹', '喻', '柏', '水', '窦', '章', '云', '苏', '潘', '葛', '奚', '范', '彭', '郎', '鲁', '韦', '昌', '马', '苗', '凤', '花', '方', '俞', '任', '袁', '柳', '酆', '鲍', '史', '唐', '费', '廉', '岑', '薛', '雷', '贺', '倪', '汤', '滕', '殷', '罗', '毕', '郝', '邬', '安', '常', '乐', '于', '时', '傅', '皮', '卞', '齐', '康', '伍', '余', '元', '卜', '顾', '孟', '平', '黄', '和', '穆', '萧', '尹', '姚', '邵', '湛', '汪', '祁', '毛', '禹', '狄', '米', '贝', '明', '臧', '计', '伏', '成', '戴', '谈', '宋', '茅', '庞', '熊', '纪', '舒', '屈', '项', '祝', '董', '梁', '杜', '阮', '蓝', '闵', '席', '季', '麻', '强', '贾', '路', '娄', '危'
-    ];
-    var legendData = [];
-    var seriesData = [];
-    var selected = {};
-    for (var i = 0; i < count; i++) {
-      let name = Math.random() > 0.65
-        ? makeWord(4, 1) + '·' + makeWord(3, 0)
-        : makeWord(2, 1);
-      legendData.push(name);
-      seriesData.push({
-        name: name,
-        value: Math.round(Math.random() * 100000)
-      });
-      selected[name] = i < 6;
-    }
-
-    return {
-      legendData: legendData,
-      seriesData: seriesData,
-      selected: selected
-    };
-
-    function makeWord(max, min) {
-      var nameLen = Math.ceil(Math.random() * max + min);
-      var name = [];
-      for (var i = 0; i < nameLen; i++) {
-        name.push(nameList[Math.round(Math.random() * nameList.length - 1)]);
-      }
-      return name.join('');
-    }
+  private _initMap(corrdinates = { lat: 40.7865229, lng: 43.8476395 }, zoom = 15): void {
+    this._map = new google.maps.Map(document.getElementById("map"), {
+      zoom: zoom,
+      center: corrdinates,
+      disableDefaultUI: true
+    });
   }
+
+
   private _loadPreferedDataBasedOnPageType(pageType: string): Observable<Subscriber | Subscribe | StatisticPost> {
     switch (pageType) {
       case 'subscribers':
@@ -163,4 +158,5 @@ export class SubscribersPostsComponent implements OnInit {
           ({ data, dataByDate, dataByDays }))
       )
   }
+
 }
