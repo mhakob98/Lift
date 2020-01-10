@@ -18,7 +18,7 @@
             </ul>
         </nav>
         <div class="account">
-            <div class="account-nots">
+            <div class="account-nots" (clickOutside)="onClickedOutsideNots()">
                 <img src="assets/icons/bell.png" alt="notifications" (click)="toggleNotsPanel()">
                 <div class="nots-panel" (click)="toggleNotsPanel()">
                     <span>

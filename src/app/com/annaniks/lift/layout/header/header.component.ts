@@ -20,4 +20,8 @@ export class HeaderComponent implements OnInit {
   public toggleUserDetails(): void {
     this.showUserDetails = !this.showUserDetails
   }
+
+  public onClickedOutsideNots(): void {
+    this.showNots = false;
+  }
 }
