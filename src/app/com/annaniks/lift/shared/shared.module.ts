@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 // Our Shared Components
 import { SubmenuComponent } from './submenu/submenu.component';
@@ -16,7 +17,8 @@ import { LimitsComponent } from './limits/limits.component';
         LimitsComponent
     ],
     imports: [
-        CommonModule
+        CommonModule,
+        RouterModule
     ]
 })
 export class SharedModule { }

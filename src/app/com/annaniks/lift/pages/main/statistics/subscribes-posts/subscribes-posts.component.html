@@ -1,3 +1,31 @@
-<div *ngIf="vm$ | async as vm">
+<div *ngIf="vm$ | async as vm" class="sp-container">
+    <div class="cp-content">
+        <h4>Статистика по дням</h4>
+        <table class="table table-image sp-table">
+            <thead>
+                <tr>
+                    <th scope="col">Пост</th>
+                    <th scope="col">Лайков</th>
+                    <th scope="col">Комментариев</th>
+                    <th scope="col">Закладок</th>
+                    <th scope="col">Подписчиков за сутки</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of [1,2,3,4,5,6,7]">
+                    <td>
+                        <img src="assets/squirell.png" class="img-fluid img-thumbnail" alt="Sheep">
+                        Название поста в одну строку
+                    </td>
+                    <td>1500</td>
+                    <td>288</td>
+                    <td>106</td>
+                    <td>+52</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>
 
 </div>

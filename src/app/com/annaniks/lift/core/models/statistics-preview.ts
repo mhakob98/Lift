@@ -1,5 +1,5 @@
-import { Post } from './post';
-import { Mailing } from './mailing';
+import { StatisticPost } from './statistic-post';
+import { StatisticMailing } from './statistic-mailing';
 
 export interface Preview {
     subscribersCount: number,
@@ -14,6 +14,6 @@ export interface Preview {
     commentsCountForToday: number,
     bookmarksCount: number,
     bookmarksCountForToday: number
-    bestPostsForLastMonth: Post[],
-    mailingsForLastMonth: Mailing[]
+    bestPostsForLastMonth: StatisticPost[],
+    mailingsForLastMonth: StatisticMailing[]
 }

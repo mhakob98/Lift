@@ -10,6 +10,7 @@ import { SuitableSettingsRequest } from '../../../../core/models/suitable-settin
 import { EmptyResponse } from '../../../../core/models/empty-response';
 import { ServerResponse } from '../../../../core/models/server-response';
 import { Hashtag } from '../../../../core/models/hashtag';
+import { Account } from '../../../../core/models/account';
 
 @Injectable()
 export class AutoSubscribeOrWatchStoryService {
