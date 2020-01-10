@@ -8,6 +8,8 @@ import { PreviewRoutingModule } from './preview.routing.module';
 import { PreviewService } from './preview.service';
 ///SlicCarouselModule
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+//SlideToggle Module
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
     declarations: [
@@ -16,7 +18,8 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
     imports: [
         PreviewRoutingModule,
         CommonModule,
-        SlickCarouselModule
+        SlickCarouselModule,
+        MatSlideToggleModule
     ],
 
     providers: [PreviewService]
