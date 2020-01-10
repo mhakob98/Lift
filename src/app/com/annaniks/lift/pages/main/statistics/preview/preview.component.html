@@ -118,8 +118,8 @@
         </div>
         <div class="posts  mt-4">
             <p class="title mb-3">Лучшие посты за последний месяц</p>
-            <ngx-slick-carousel class="carousel  row ml-0 mr-0" #slickModal="slick-carousel" [config]="slideConfig">
-                <div ngxSlickItem class="slide">
+            <ngx-slick-carousel class="carousel  row ml-0 mr-0 mb-3" #slickModal="slick-carousel" [config]="slideConfig">
+                <div ngxSlickItem class="slide col-4 mr-3">
                     <div class="slide-item">
                         <div class="post-description  d-flex">
                             <img src="assets/images/post1.png" class="rounded img-responsive post-image ml-3 mt-3 mr-3">
@@ -145,8 +145,60 @@
                         </div>
                     </div>
                 </div>
-                <div ngxSlickItem class="slide">
-                    <div class="slide-item ml-3">
+                <div ngxSlickItem class="slide col-4 mr-3">
+                        <div class="slide-item">
+                            <div class="post-description  d-flex">
+                                <img src="assets/images/post1.png" class="rounded img-responsive post-image ml-3 mt-3 mr-3">
+                                <div class="mt-3 d-flex flex-column justify-content-between">
+                                    <div>
+                                        <p class="text">14 Декабря </p>
+                                        <p class="text">Utah Dream World </p>
+                                    </div>
+    
+                                    <div class="post-review d-flex">
+                                        <img class="rounded img-responsive review-icon mr-1" src="assets/images/like.png ">
+                                        <p class="value">12588</p>
+                                        <img class="rounded img-responsive review-icon ml-1 mr-1"
+                                            src="assets/images/chat.png ">
+                                        <p class="value">126</p>
+                                        <img class="rounded img-responsive review-icon ml-1 mr-1"
+                                            src="assets/images/bookmark.png">
+                                        <p class="value">718</p>
+                                    </div>
+                                </div>
+    
+    
+                            </div>
+                        </div>
+                    </div>
+                    <div ngxSlickItem class="slide col-4 mr-3">
+                            <div class="slide-item">
+                                <div class="post-description  d-flex">
+                                    <img src="assets/images/post1.png" class="rounded img-responsive post-image ml-3 mt-3 mr-3">
+                                    <div class="mt-3 d-flex flex-column justify-content-between">
+                                        <div>
+                                            <p class="text">14 Декабря </p>
+                                            <p class="text">Utah Dream World </p>
+                                        </div>
+        
+                                        <div class="post-review d-flex">
+                                            <img class="rounded img-responsive review-icon mr-1" src="assets/images/like.png ">
+                                            <p class="value">12588</p>
+                                            <img class="rounded img-responsive review-icon ml-1 mr-1"
+                                                src="assets/images/chat.png ">
+                                            <p class="value">126</p>
+                                            <img class="rounded img-responsive review-icon ml-1 mr-1"
+                                                src="assets/images/bookmark.png">
+                                            <p class="value">718</p>
+                                        </div>
+                                    </div>
+        
+        
+                                </div>
+                            </div>
+                        </div>
+                <div ngxSlickItem class="slide col-4 mr-3">
+                    <div class="slide-item">
                         <div class="post-description  d-flex">
                             <img src="assets/images/post2.png" class="rounded img-responsive post-image ml-3 mt-3 mr-3">
                             <div class="mt-3 d-flex flex-column justify-content-between">
@@ -168,8 +220,8 @@
                         </div>
                     </div>
                 </div>
-                <div ngxSlickItem class="slide">
-                    <div class="slide-item ml-3">
+                <div ngxSlickItem class="slide col-4 mr-3">
+                    <div class="slide-item">
                         <div class="post-description  d-flex">
                             <img src="assets/images/post3.png" class="rounded img-responsive post-image ml-3 mt-3 mr-3">
                             <div class="mt-3 d-flex flex-column justify-content-between">
@@ -192,9 +244,281 @@
                         </div>
                     </div>
                 </div>
-                
+
             </ngx-slick-carousel>
 
+        </div>
+
+        <div class="mailing-lists mt-4">
+            <p class="title mb-3">Рассылки за последний месяц</p>
+            <ngx-slick-carousel class="carousel  row ml-0 mr-0 mb-3" #slickModal="slick-carousel" [config]="slideConfig2">
+                <div ngxSlickItem class="slide col-4 mr-3">
+                    <div class="slide-item">
+                        <div class="mailing-list-description  d-flex">
+                            <img src="assets/images/mailing-lists1.png"
+                                class="rounded img-responsive mailing-list-image ml-3 mt-3 mr-3">
+                            <div class="mt-3 d-flex flex-column justify-content-between">
+                                <div>
+                                    <p class="text">3 часа назад </p>
+                                    <p class="text">Send me a message </p>
+                                </div>
+                                <div class="mailing-listing-review">
+
+                                    <p class="text"><b class="mr-1">10700</b>отправлено</p>
+
+                                    <p class="text"> <b class="mr-1">2854</b>ответили</p>
+
+                                    <p class="text"> <b class="mr-1">27%</b>успешность</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+                <div ngxSlickItem class="slide col-4 mr-3">
+                    <div class="slide-item">
+                        <div class="mailing-list-description  d-flex">
+                            <img src="assets/images/mailing-lists2.png"
+                                class="rounded img-responsive mailing-list-image ml-3 mt-3 mr-3">
+                            <div class="mt-3 d-flex flex-column justify-content-between">
+                                <div>
+                                    <p class="text">Вчера</p>
+                                    <p class="text">Please answer a couple
+                                        of fun questions </p>
+                                </div>
+                                <div class="mailing-listing-review">
+                                    <p class="text"><b class="mr-1">18510</b>отправлено</p>
+
+                                    <p class="text"> <b class="mr-1">10505</b>ответили</p>
+
+                                    <p class="text"> <b class="mr-1">56%</b>успешность</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ngxSlickItem class="slide col-4 mr-3">
+                    <div class="slide-item">
+                        <div class="mailing-list-description  d-flex">
+                            <img src="assets/images/mailing-lists3.png"
+                                class="rounded img-responsive mailing-list-image ml-3 mt-3 mr-3">
+                            <div class="mt-3 d-flex flex-column justify-content-between">
+                                <div>
+                                    <p class="text">26 Декабря</p>
+                                    <p class="text">Say Hello) </p>
+                                </div>
+                                <div class="mailing-listing-review">
+                                    <p class="text"><b class="mr-1">14321</b>отправлено</p>
+
+                                    <p class="text"> <b class="mr-1">3588</b>ответили</p>
+
+                                    <p class="text"> <b class="mr-1">23%</b>успешность</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ngxSlickItem class="slide col-4 mr-3">
+                        <div class="slide-item">
+                            <div class="mailing-list-description  d-flex">
+                                <img src="assets/images/mailing-lists3.png"
+                                    class="rounded img-responsive mailing-list-image ml-3 mt-3 mr-3">
+                                <div class="mt-3 d-flex flex-column justify-content-between">
+                                    <div>
+                                        <p class="text">26 Декабря</p>
+                                        <p class="text">Say Hello) </p>
+                                    </div>
+                                    <div class="mailing-listing-review">
+                                        <p class="text"><b class="mr-1">14321</b>отправлено</p>
+    
+                                        <p class="text"> <b class="mr-1">3588</b>ответили</p>
+    
+                                        <p class="text"> <b class="mr-1">23%</b>успешность</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ngxSlickItem class="slide col-4 mr-3">
+                            <div class="slide-item">
+                                <div class="mailing-list-description  d-flex">
+                                    <img src="assets/images/mailing-lists3.png"
+                                        class="rounded img-responsive mailing-list-image ml-3 mt-3 mr-3">
+                                    <div class="mt-3 d-flex flex-column justify-content-between">
+                                        <div>
+                                            <p class="text">26 Декабря</p>
+                                            <p class="text">Say Hello) </p>
+                                        </div>
+                                        <div class="mailing-listing-review">
+                                            <p class="text"><b class="mr-1">14321</b>отправлено</p>
+        
+                                            <p class="text"> <b class="mr-1">3588</b>ответили</p>
+        
+                                            <p class="text"> <b class="mr-1">23%</b>успешность</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div ngxSlickItem class="slide col-4 mr-3">
+                                <div class="slide-item">
+                                    <div class="mailing-list-description  d-flex">
+                                        <img src="assets/images/mailing-lists3.png"
+                                            class="rounded img-responsive mailing-list-image ml-3 mt-3 mr-3">
+                                        <div class="mt-3 d-flex flex-column justify-content-between">
+                                            <div>
+                                                <p class="text">26 Декабря</p>
+                                                <p class="text">Say Hello) </p>
+                                            </div>
+                                            <div class="mailing-listing-review">
+                                                <p class="text"><b class="mr-1">14321</b>отправлено</p>
+            
+                                                <p class="text"> <b class="mr-1">3588</b>ответили</p>
+            
+                                                <p class="text"> <b class="mr-1">23%</b>успешность</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            </ngx-slick-carousel>
+        </div>
+        <div class="settings mt-4 row ml-0 mr-0">
+            <div class="setting-detailes col">
+                <div class="setting-details-description d-flex ml-3 mt-3 mr-3 justify-content-between">
+                    <p class="title">Автопродвижение</p>
+                    <div class="d-flex align-items-center">
+                        <p class="text">Изменить настройки</p>
+                        <img class="rounded img-responsive ml-3" src="assets/images/action_str.png">
+                    </div>
+
+
+                </div>
+                <div class="ml-3 mr-3">
+                    <div class="rate">
+                        <p class="text ml-3 mt-3">Ваш тариф:</p>
+                        <div class="d-flex  ml-3 mt-3 mr-3 align-items-center">
+                            <p class="title"> Персональный</p>
+                            <img class="rounded img-responsive ml-3 controles-image" src="assets/images/controls.png">
+                        </div>
+                        <div class="rate-content row ml-0 mr-0">
+                            <div class="rate-item col-6 mt-3 d-flex align-items-center">
+                                <img class="rounded img-responsive rate-item-image" src="assets/images/check.png">
+                                <p class="item-text ml-3">Расширеная статистика</p>
+                            </div>
+                            <div class="rate-item col-6 mt-3 d-flex align-items-center">
+                                <img class="rounded img-responsive rate-item-image" src="assets/images/check.png">
+                                <p class="item-text ml-3">Расширеная статистика</p>
+                            </div>
+                            <div class="rate-item col-6 mt-3 d-flex align-items-center">
+                                <img class="rounded img-responsive rate-item-image" src="assets/images/check.png">
+                                <p class="item-text ml-3">Расширеная статистика</p>
+                            </div>
+                            <div class="rate-item col-6 mt-3 d-flex align-items-center">
+                                <img class="rounded img-responsive rate-item-image" src="assets/images/check.png">
+                                <p class="item-text ml-3">Расширеная статистика</p>
+                            </div>
+                            <div class="rate-item col-6 mt-3 d-flex align-items-center">
+                                <img class="rounded img-responsive rate-item-image" src="assets/images/check.png">
+                                <p class="item-text ml-3">Расширеная статистика</p>
+                            </div>
+                            <div class="rate-item col-6 mt-3 d-flex align-items-center">
+                                <img class="rounded img-responsive rate-item-image" src="assets/images/check.png">
+                                <p class="item-text ml-3">Расширеная статистика</p>
+                            </div>
+                            <div class="rate-item col-6 mt-3 d-flex align-items-center">
+                                <img class="rounded img-responsive rate-item-image" src="assets/images/check.png">
+                                <p class="item-text ml-3">Расширеная статистика</p>
+                            </div>
+                            <div class="rate-item col-6 mt-3 d-flex align-items-center">
+                                <img class="rounded img-responsive rate-item-image" src="assets/images/check.png">
+                                <p class="item-text ml-3">Расширеная статистика</p>
+                            </div>
+                            <div class="rate-item col-6 mt-3 d-flex align-items-center">
+                                <img class="rounded img-responsive rate-item-image" src="assets/images/check.png">
+                                <p class="item-text ml-3">Расширеная статистика</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="row ml-0 mr-0">
+                        <mat-slide-toggle class="slide-toggle col-6 mt-3">
+                            <p>Автоподписка</p>
+                        </mat-slide-toggle>
+                        <mat-slide-toggle class="slide-toggle col-6 mt-3">
+                            <p>Бонусы от LIFT</p>
+                        </mat-slide-toggle>
+                        <mat-slide-toggle class="slide-toggle col-6 mt-3">
+                            <p>Просмотр Stories</p>
+                        </mat-slide-toggle>
+                    </div>
+
+                </div>
+            </div>
+            <div class="setting-detailes col ml-3">
+                <div class="setting-details-description d-flex ml-3 mt-3 mr-3 justify-content-between">
+                    <p class="title">Календарь</p>
+                    <div class="d-flex align-items-center">
+                        <p class="text">Управление календарем</p>
+                        <img class="rounded img-responsive ml-3" src="assets/images/action_str.png">
+                    </div>
+                </div>
+                <div class="calendar-item row ml-3 mt-3 mr-3 d-flex align-items-center">
+                    <img src="assets/images/calendar-image.png" class="rounded img-responsive ml-3 calendar-image">
+                    <p class="time ml-3 mr-3">15:45 сегодня</p>
+                    <p class="text">Порогулка с друзьями по Дунаю. Австрия</p>
+                </div>
+                <div class="calendar-item row ml-3 mt-3 mr-3 d-flex align-items-center">
+                    <img src="assets/images/calendar-image.png" class="rounded img-responsive ml-3 calendar-image">
+                    <p class="time ml-3 mr-3">15:45 сегодня</p>
+                    <p class="text">Зимняя сказка в Таганроге</p>
+                </div>
+                <div class="calendar-item row ml-3 mt-3 mr-3 d-flex align-items-center">
+                    <img src="assets/images/calendar-image.png" class="rounded img-responsive ml-3 calendar-image">
+                    <p class="time ml-3 mr-3">15:45 сегодня</p>
+                    <p class="text">Рецепт приготовления Рождественского гуся</p>
+                </div>
+                <div class="calendar-item row ml-3 mt-3 mr-3 d-flex align-items-center">
+                    <img src="assets/images/calendar-image.png" class="rounded img-responsive ml-3 calendar-image">
+                    <p class="time ml-3 mr-3">15:45 сегодня</p>
+                    <p class="text">Порогулка с друзьями по Дунаю. Австрия</p>
+                </div>
+                <div class="calendar-item row ml-3 mt-3 mr-3 d-flex align-items-center">
+                    <img src="assets/images/calendar-image.png" class="rounded img-responsive ml-3 calendar-image">
+                    <p class="time ml-3 mr-3">15:45 сегодня</p>
+                    <p class="text">Из воспоминаний редкие моменты</p>
+                </div>
+                <div class="d-flex ml-3 mr-3 mt-3 align-items-center">
+                    <img class="add-image rounded img-responsive mr-3" src="assets/images/add-icon.png">
+                    <p class="add-text">Добавить событие</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="direc mt-4">
+            <p class="title">Директ - последние события</p>
+            <div class="direc-content row ml-0 mr-0">
+                <div class="answer-content col d-flex flex-wrap">
+                    <img class="rounded img-responsive direc-image mr-4 mt-4 mt-4" src="assets/images/direc-image1.png">
+                    <img class="rounded img-responsive direc-image mr-4 mt-4 mt-4" src="assets/images/direc-image2.png">
+                    <img class="rounded img-responsive direc-image mr-4 mt-4 mt-4" src="assets/images/direc-image1.png">
+                    <img class="rounded img-responsive direc-image mr-4 mt-4 mt-4" src="assets/images/direc-image2.png">
+                    <img class="rounded img-responsive direc-image mr-4 mt-4 mt-4" src="assets/images/direc-image1.png">
+                    <img class="rounded img-responsive direc-image mr-4 mt-4 mt-4" src="assets/images/direc-image2.png">
+                    <img class="rounded img-responsive direc-image mr-4 mt-4 mt-4" src="assets/images/direc-image1.png">
+                    <img class="rounded img-responsive direc-image mr-4 mt-4 mt-4" src="assets/images/direc-image2.png">
+                    <img class="rounded img-responsive direc-image mr-4 mt-4 mt-4" src="assets/images/direc-image1.png">
+                    <img class="rounded img-responsive direc-image mr-4 mt-4 mt-4" src="assets/images/direc-image2.png">
+                    <img class="rounded img-responsive direc-image mr-4 mt-4 mt-4" src="assets/images/direc-image1.png">
+                    <img class="rounded img-responsive direc-image mr-4 mt-4 mt-4" src="assets/images/direc-image2.png">
+                    <img class="rounded img-responsive direc-image mr-4 mt-4 mt-4" src="assets/images/direc-image1.png">
+                    <img class="rounded img-responsive direc-image mr-4 mt-4 mt-4" src="assets/images/direc-image2.png">
+
+                </div>
+            </div>
         </div>
     </section>
 </div>
