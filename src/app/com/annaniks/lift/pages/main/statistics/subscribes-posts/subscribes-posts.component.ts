@@ -26,31 +26,22 @@ export class SubscribersPostsComponent implements OnInit {
   private _map: any;
 
   lineChartOption: EChartOption = {
-
     xAxis: {
-      type: 'time',
-      splitLine: {
-        show: false
-      },
+      type: 'category',
+      boundaryGap: false,
       data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
     },
     yAxis: {
-      type: 'value',
-      boundaryGap: [0, '100%'],
-      splitLine: {
-        show: false
-      }
+      type: 'value'
     },
     series: [{
-      data: [0, 500, 1000, 1500, 0, 2500, 3000, 3500, 4000, 4500, 5000],
-      type: 'line'
+      data: [820, 932, 901, 934, 1290, 1330, 1320],
+      type: 'line',
+      areaStyle: {
+        color: 'rgba(160,176,188,0.2)'
+      }
     }]
-  }
-
-
-
-
-
+  };
 
 
   pieChartOption = {
@@ -64,8 +55,6 @@ export class SubscribersPostsComponent implements OnInit {
       // bottom: 20,
 
     },
-    calculable: true,
-
     series: [
       {
         name: '姓名',
@@ -73,11 +62,11 @@ export class SubscribersPostsComponent implements OnInit {
         radius: ['39px', '166px'],
         center: ['185px', '50%'],
         data: [
-          { value: 335, name: 'Параметр - 21.44%' },
-          { value: 310, name: 'Параметр - 19.84%' },
-          { value: 234, name: 'Параметр - 14.98%' },
-          { value: 135, name: 'Параметр - 8.64%' },
-          { value: 548, name: 'Параметр - 35.08%' }
+          { value: 335, name: 'Параметр - 21.44%', itemStyle: { color: '#edb593' } },
+          { value: 310, name: 'Параметр - 19.84%', itemStyle: { color: '#e5d2aa' } },
+          { value: 234, name: 'Параметр - 14.98%', itemStyle: { color: '#737a7f' } },
+          { value: 135, name: 'Параметр - 8.64%', itemStyle: { color: '#9dceaa' } },
+          { value: 548, name: 'Параметр - 35.08%', itemStyle: { color: '#95b8c8' } }
         ],
         label: {
           normal: {
