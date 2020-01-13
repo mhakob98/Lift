@@ -6,6 +6,10 @@ import { CommonModule } from '@angular/common';
 // Our Modules
 import { PreviewRoutingModule } from './preview.routing.module';
 import { PreviewService } from './preview.service';
+///SlicCarouselModule
+import { SlickCarouselModule } from 'ngx-slick-carousel';
+//SlideToggle Module
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
     declarations: [
@@ -14,6 +18,8 @@ import { PreviewService } from './preview.service';
     imports: [
         PreviewRoutingModule,
         CommonModule,
+        SlickCarouselModule,
+        MatSlideToggleModule
     ],
 
     providers: [PreviewService]

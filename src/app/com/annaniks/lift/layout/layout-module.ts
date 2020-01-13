@@ -8,8 +8,11 @@ import {
     HeaderNotificationComponent,
     HeaderHelpComponent,
     HeaderSwitchAccountComponent,
-} from './index';
+    SubmenuComponent
+} from './';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from '../shared/shared.module';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -18,13 +21,17 @@ import { CommonModule } from '@angular/common';
         HeaderUserComponent,
         HeaderNotificationComponent,
         HeaderHelpComponent,
-        HeaderSwitchAccountComponent
+        HeaderSwitchAccountComponent,
+        SubmenuComponent
     ],
     exports: [
-        HeaderComponent
+        HeaderComponent,
+        SubmenuComponent,
     ],
     imports: [
-        CommonModule
+        CommonModule,
+        SharedModule,
+        RouterModule
     ]
 })
 export class LayoutModule { }

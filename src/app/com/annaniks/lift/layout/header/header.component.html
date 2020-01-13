@@ -3,22 +3,22 @@
         <img class="logo" src="assets/logo.png" alt="logo">
         <nav>
             <ul class="nav-links">
-                <li><a href="#">
-                        <img class="active" src="assets/icons/pie-chart.png" alt="">
+                <li><a routerLink="/statistics/preview">
+                        <img routerLinkActive='active' src="assets/icons/pie-chart.png" alt="">
                         Статистика</a></li>
-                <li><a href="#">
-                        <img src="assets/icons/rocket.png" alt="">
+                <li><a routerLink="/promotion/autosubscribe">
+                        <img routerLinkActive='active' src="assets/icons/rocket.png" alt="">
                         Продвижение</a></li>
-                <li><a href="#">
-                        <img src="assets/icons/calendar.png" alt="">
+                <li><a routerLink="#">
+                        <img routerLinkActive='active' src="assets/icons/calendar.png" alt="">
                         Автопостинг</a></li>
-                <li><a href="#">
-                        <img class="last" src="assets/icons/send.png" alt="">
+                <li><a routerLink="#">
+                        <img routerLinkActive='active' class="last" src="assets/icons/send.png" alt="">
                         Директ</a></li>
             </ul>
         </nav>
         <div class="account">
-            <div class="account-nots">
+            <div class="account-nots" (clickOutside)="onClickedOutsideNots()">
                 <img src="assets/icons/bell.png" alt="notifications" (click)="toggleNotsPanel()">
                 <div class="nots-panel" (click)="toggleNotsPanel()">
                     <span>
