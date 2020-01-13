@@ -1,4 +1,68 @@
-Bonuses Work
 <div *ngIf="bonuses$ | async as bonuses">
     <app-bonuses-from-lift-item *ngFor="let bonus of bonuses" [bonusInfo]="bonus"></app-bonuses-from-lift-item>
+    <section class="bonuses-content">
+        <div class="pg-container">
+            <div class="bonuses-container">
+                <p class="text">Получать активность по тематике <b class="text-info">Красота и здоровье</b></p>
+                <p class="text">На каждый пост</p>
+                <div class="bonus-detailes">
+                    <div class="detailes-content">
+                        <div class="detailes-item comments-item d-flex align-items-center">
+                            <mat-checkbox></mat-checkbox>
+                            <p class="title ml-2">Комментарии</p>
+                            <div class="form-group ml-2 mt-3">
+                                    <div>
+                                      <input class="fild-input form-control text-align-center"   id="example-number-input">
+                                    </div>
+                                  </div>
+                            <p class="ml-2">( От 1 до 30, рекомендовано 25 )</p>
+
+                        </div>
+                        <div class="d-flex align-items-center add-comments">
+                            <img class="bonuses-icon rounded img-responsive" src="assets/images/bonuses-document-icon.png">
+                            <p class="title ml-2">Добавить шаблон комментариев</p>
+                            <img class="bonuses-icon rounded img-responsive ml-5" src="assets/images/bonus-download-icon.png">
+                            <p class="title ml-2">Загрузить файл с примерами</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bonus-detailes">
+                        <div class="detailes-content">
+                            <div class="detailes-item d-flex align-items-center">
+                                <mat-checkbox></mat-checkbox>
+                                <p class="title ml-2">Лайки</p>
+                                <div class="form-group ml-2 mt-3">
+                                        <div>
+                                          <input class="fild-input form-control text-align-center"  id="example-number-input">
+                                        </div>
+                                      </div>
+                                <p class="ml-2">( От 1 до 30, рекомендовано 25 )</p>
+    
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bonus-detailes">
+                            <div class="detailes-content">
+                                <div class="detailes-item d-flex align-items-center">
+                                    <mat-checkbox></mat-checkbox>
+                                    <p class="title ml-2">Закладки</p>
+                                    <div class="form-group ml-2 mt-3">
+                                            <div>
+                                              <input class="fild-input form-control text-align-center" id="example-number-input">
+                                            </div>
+                                          </div>
+                                    <p class="ml-2">( От 1 до 30, рекомендовано 25 )</p>
+        
+                                </div>
+                            </div>
+                        </div>
+
+
+
+            </div>
+        </div>
+    </section>
 </div>
+
+
