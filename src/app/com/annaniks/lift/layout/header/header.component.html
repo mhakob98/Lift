@@ -1,6 +1,15 @@
 <div class="header-container">
     <header>
         <img class="logo" src="assets/logo.png" alt="logo">
+        <div class="switch-account" (clickOutside)="onClickedOutsideSwitch()">
+            <div class="switch-account-action" (click)="toggleSwitchAccount()">
+                <img src="assets/icons/insta_icon.png" alt="Instagram">
+                <p>@jess.wandering</p>
+                <img src="assets/icons/arr_down_blue.png" alt="">
+            </div>
+            <app-header-switch-account *ngIf="showSwitchAccount">
+            </app-header-switch-account>
+        </div>
         <nav>
             <ul class="nav-links">
                 <li><a href="#">
@@ -25,24 +34,18 @@
                         2
                     </span>
                 </div>
-                <div class="nots-content" [ngClass]="{'show':showNots}">
-                    Notifications
-                </div>
+                <app-header-notification *ngIf="showNots"></app-header-notification>
             </div>
-            <div class="account-questions">
-                <img src="assets/icons/question_icon.png" alt="questions">
-                <div class="questions-content">
-
-                </div>
+            <div class="account-questions" (clickOutside)="onClickedOutsideQuestions()">
+                <img (click)="toggleQuestions()" src="assets/icons/question_icon.png" alt="questions">
+                <app-header-help *ngIf="showQuestion"></app-header-help>
             </div>
-            <div class="account-details">
+            <div class="account-details" (clickOutside)="onClickedOutsideUserDetails()">
                 <img class="user" src="assets/boy.png" alt="account">
                 <div class="arrow" (click)="toggleUserDetails()">
                     <img src="assets/icons/down.png" alt="dropdown">
                 </div>
-                <div class="accounts-content" [ngClass]="{'show':showUserDetails}">
-                    Profile
-                </div>
+                <app-header-user *ngIf="showUserDetails"></app-header-user>
             </div>
         </div>
     </header>

@@ -1,0 +1,41 @@
+.accounts-content {
+  display: block;
+  position: absolute;
+
+  // width: 333px;
+  width: 300px;
+  // height: 586px;
+  height: 540px;
+  // bottom: -586px;
+  bottom: -540px;
+  right: 0;
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 16px;
+  padding: 38px 21px;
+
+  .account-item {
+    display: flex;
+    align-items: center;
+    height: 65px;
+    // margin-bottom:30px ;
+    margin-bottom: 15px;
+    cursor: pointer;
+    &:not(:last-child) {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    }
+    img {
+      margin-right: 16px;
+    }
+    a {
+      text-decoration: none;
+      font-style: normal;
+      font-weight: normal;
+      // font-size: 24px;
+      font-size: 16px;
+
+      line-height: 28px;
+      color: #000000;
+    }
+  }
+}
