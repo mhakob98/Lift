@@ -16,9 +16,7 @@ import { LayoutModule } from '../../layout/layout-module';
         CommonModule,
         LayoutModule
     ],
-    providers: [
-
-    ],
+    providers: [],
 })
 export class MainModule {
 }
