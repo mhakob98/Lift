@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 
 // Our Modules
 import { BonusesRoutingModule } from './bonuses.routing.module';
+import { BonusesService } from './bonuses.service';
 
 @NgModule({
     declarations: [
@@ -14,8 +15,9 @@ import { BonusesRoutingModule } from './bonuses.routing.module';
         BonusesRoutingModule,
         CommonModule,
     ],
-
-    providers: []
+    providers: [
+        BonusesService
+    ]
 })
 export class BonusesModule {
 }
