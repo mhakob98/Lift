@@ -1,9 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
 import { SubSink } from 'subsink';
 
 @Component({
@@ -68,14 +65,14 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
   private _initForm() {
     this.signUpForm = this.fb.group({
-      first_name: ['', [Validators.required]],
-      last_name: ['', [Validators.required]],
-      patronymic: ['', [Validators.required]],
+      name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       password_confirmation: ['', [Validators.required, Validators.minLength(8)]]
     },
       { validator: this._matchingPasswords('password', 'password_confirmation') });
+    this.signUpForm.valueChanges.subscribe((data) => {
+    })
   }
 
   private _redirectIfUserLoggedIn(): void {
