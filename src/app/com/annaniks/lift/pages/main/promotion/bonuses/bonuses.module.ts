@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 
 // Our Modules
 import { BonusesRoutingModule } from './bonuses.routing.module';
+import { BonusesService } from './bonuses.service';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
     declarations: [
@@ -13,9 +15,11 @@ import { BonusesRoutingModule } from './bonuses.routing.module';
     imports: [
         BonusesRoutingModule,
         CommonModule,
+        MatCheckboxModule,
     ],
-
-    providers: []
+    providers: [
+        BonusesService
+    ]
 })
 export class BonusesModule {
 }
