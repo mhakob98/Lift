@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://aviastore.aviacomapi.com/',
+  apiUrl: 'http://192.168.1.110:8000/',
 
 };
 
