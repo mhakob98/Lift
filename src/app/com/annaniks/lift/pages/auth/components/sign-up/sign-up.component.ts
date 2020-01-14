@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
 import { SubSink } from 'subsink';
+import { AuthService } from '../../auth.service';
+import { tap } from 'rxjs/operators';
+import { BasicUser } from '../../../../core/models/basic-user';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,13 +13,12 @@ import { SubSink } from 'subsink';
 })
 export class SignUpComponent implements OnInit, OnDestroy {
   public signUpForm: FormGroup;
-  // private _title = environment.appName;
   private _subs = new SubSink();
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    // private authService: AuthService
+    private authService: AuthService
   ) {
     this._redirectIfUserLoggedIn();
   }
@@ -28,39 +27,46 @@ export class SignUpComponent implements OnInit, OnDestroy {
     this._initForm();
   }
 
-  // onSubmit() {
-  //   const values = this.signUpForm.value;
-  //   const keys = Object.keys(values);
+  onSubmit() {
+    const form = this.signUpForm.value
+    const values: BasicUser = {
+      name: form.name,
+      email: form.email,
+      password: form.password,
+    }
+    const keys = Object.keys(values);
 
-  //   if (this.signUpForm.valid) {
-  //     this._subs.add(
-  //       this.authService
-  //         .register(values)
-  //         .pipe(
-  //           tap(
-  //             _ => _,
-  //             user => {
-  //               const errors = user.error.errors || {};
-  //               keys.forEach(val => {
-  //                 if (errors[val]) {
-  //                   this._pushErrorFor(val, errors[val][0]);
-  //                 }
-  //               });
-  //             }
-  //           )
-  //         )
-  //         .subscribe()
-  //     )
-  //   } else {
-  //     keys.forEach(val => {
-  //       const ctrl = this.signUpForm.controls[val];
-  //       if (!ctrl.valid) {
-  //         this._pushErrorFor(val, null);
-  //         ctrl.markAsTouched();
-  //       }
-  //     });
-  //   }
-  // }
+    if (this.signUpForm.valid) {
+      this._subs.add(
+        this.authService
+          .register(values)
+          .pipe(
+            tap(
+              _ => _,
+              user => {
+                console.log(user);
+
+                const errors = user.error.errors || {};
+                keys.forEach(val => {
+                  if (errors[val]) {
+                    this._pushErrorFor(val, errors[val][0]);
+                  }
+                });
+              }
+            )
+          )
+          .subscribe()
+      )
+    } else {
+      keys.forEach(val => {
+        const ctrl = this.signUpForm.controls[val];
+        if (!ctrl.valid) {
+          this._pushErrorFor(val, null);
+          ctrl.markAsTouched();
+        }
+      });
+    }
+  }
 
   private _pushErrorFor(ctrl_name: string, msg: string) {
     this.signUpForm.controls[ctrl_name].setErrors({ msg: msg });
@@ -68,14 +74,12 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
   private _initForm() {
     this.signUpForm = this.fb.group({
-      first_name: ['', [Validators.required]],
-      last_name: ['', [Validators.required]],
-      patronymic: ['', [Validators.required]],
+      name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
-      password_confirmation: ['', [Validators.required, Validators.minLength(8)]]
+      passwordConfirmation: ['', [Validators.required, Validators.minLength(8)]]
     },
-      { validator: this._matchingPasswords('password', 'password_confirmation') });
+      { validator: this._matchingPasswords('password', 'passwordConfirmation') });
   }
 
   private _redirectIfUserLoggedIn(): void {

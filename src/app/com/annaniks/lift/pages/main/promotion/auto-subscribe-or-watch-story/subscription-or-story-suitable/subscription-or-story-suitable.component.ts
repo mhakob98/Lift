@@ -1,15 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
-import { switchMap } from 'rxjs/operators';
+import { switchMap, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { SubSink } from 'subsink';
-
 import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
-
 import { Hashtag } from '../../../../../core/models/hashtag';
 import { Account } from '../../../../../core/models/account';
-import { ServerResponse } from 'src/app/com/annaniks/lift/core/models/server-response';
 
 @Component({
   selector: 'app-subscription-suitable',
@@ -20,10 +17,10 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
 
   public suitableSubsOrStoryForm: FormGroup;
   public hashtagsStream$: Observable<Hashtag>;
-  public accountsSubscribersStream$: Observable<ServerResponse<Account[]>>;
-  public locationAccountStream$: Observable<ServerResponse<Account[]>>;
-  public commentsToStream$: Observable<ServerResponse<Account[]>>;
-  public likesToStream$: Observable<ServerResponse<Account[]>>;
+  public accountsSubscribersStream$: Observable<Account[]>;
+  public locationAccountStream$: Observable<Account[]>;
+  public commentsToStream$: Observable<Account[]>;
+  public likesToStream$: Observable<Account[]>;
   private _subs = new SubSink();
   constructor(
     private _formBuilder: FormBuilder,
@@ -58,28 +55,24 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
     )
   }
 
-  private _searchForSpecialAccountsSubscribers(): Observable<ServerResponse<Account[]>> {
+  private _searchForSpecialAccountsSubscribers(): Observable<Account[]> {
     return this.suitableSubsOrStoryForm.get('specialAccountsSubscriber').valueChanges.pipe(
-      switchMap(term => this._autoSubscribeOrWatchStoryService.searchForSpecialAccountsSubscribers(term))
-    )
+      switchMap(term => this._autoSubscribeOrWatchStoryService.searchForSpecialAccountsSubscribers(term).pipe(map(term => term.data))))
   }
 
-  private _searchForSpecialLocationAccounts(): Observable<ServerResponse<Account[]>> {
+  private _searchForSpecialLocationAccounts(): Observable<Account[]> {
     return this.suitableSubsOrStoryForm.get('specialLocationAccounts').valueChanges.pipe(
-      switchMap(term => this._autoSubscribeOrWatchStoryService.searchForSpecialLocationAccounts(term))
-    )
+      switchMap(term => this._autoSubscribeOrWatchStoryService.searchForSpecialLocationAccounts(term).pipe(map(term => term.data))))
   }
 
-  private _searchForCommentsToSpecialUserAccounts(): Observable<ServerResponse<Account[]>> {
+  private _searchForCommentsToSpecialUserAccounts(): Observable<Account[]> {
     return this.suitableSubsOrStoryForm.get('commentsToSpecialAccount').valueChanges.pipe(
-      switchMap(term => this._autoSubscribeOrWatchStoryService.searchForSpecialLocationAccounts(term))
-    )
+      switchMap(term => this._autoSubscribeOrWatchStoryService.searchForSpecialLocationAccounts(term).pipe(map(term => term.data))))
   }
 
-  private _searchForLikesToSpecialUserAccounts(): Observable<ServerResponse<Account[]>> {
+  private _searchForLikesToSpecialUserAccounts(): Observable<Account[]> {
     return this.suitableSubsOrStoryForm.get('likesToSpecialAccount').valueChanges.pipe(
-      switchMap(term => this._autoSubscribeOrWatchStoryService.searchForCommentsToSpecialUserAccounts(term))
-    )
+      switchMap(term => this._autoSubscribeOrWatchStoryService.searchForCommentsToSpecialUserAccounts(term).pipe(map(term => term.data))))
   }
 
   public onSettingsSave(): void {

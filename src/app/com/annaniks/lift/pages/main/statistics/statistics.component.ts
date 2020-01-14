@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SubmenuItem } from '../../../core/models/submenu-Item';
+import { NavbarItem } from '../../../core/models/navbar';
+import { NavbarService } from '../../../core/services/navbar.service';
 
 @Component({
   selector: 'app-statistics',
@@ -7,11 +8,9 @@ import { SubmenuItem } from '../../../core/models/submenu-Item';
   styleUrls: ['./statistics.component.scss']
 })
 export class StatisticsComponent implements OnInit {
-  public items: SubmenuItem[] = []
-  constructor() { }
 
-  ngOnInit() {
-    this.items = [
+  constructor(private _navbarService: NavbarService) {
+    const items = [
       {
         label: 'Обзор',
         routerLink: '/statistics/preview'
@@ -41,6 +40,9 @@ export class StatisticsComponent implements OnInit {
         routerLink: '/statistics/bookmarks'
       }
     ]
+    this._navbarService.setNavbarItems(items);
   }
 
-}
+
+  ngOnInit() {}
+} 

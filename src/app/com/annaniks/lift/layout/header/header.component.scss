@@ -1,16 +1,41 @@
 .header-container {
   background-color: #305976;
   height: 100px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  width: 100%;
   header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    // padding: 0 200px;
     height: 100%;
     max-width: 1200px;
     margin: 0 auto;
     .logo {
       cursor: pointer;
+    }
+    .switch-account {
+      position: relative;
+      height: 36px;
+      background-color: #3e6683;
+      padding: 9px 10px;
+      width: 200px;
+      .switch-account-action {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+      }
+      p {
+        color: #8ee7e4;
+        font-size: 16px;
+        margin-left: 10px;
+      }
+      img {
+        &:last-child {
+          margin-left: auto;
+        }
+      }
     }
     .nav-links {
       list-style: none;
@@ -59,21 +84,9 @@
             color: white;
           }
         }
-        .nots-content {
-          position: absolute;
-          display: none;
-          background: silver;
-          border-radius: 5px;
-          width: 250px;
-          height: 250px;
-          transition: all 0.3s;
-          left: -250px;
-          &.show {
-            display: block;
-          }
-        }
       }
       &-questions {
+        position: relative;
         img {
           cursor: pointer;
         }
@@ -82,19 +95,7 @@
         display: flex;
         align-items: center;
         position: relative;
-        .accounts-content {
-          display: none;
-          position: absolute;
-          background: silver;
-          border-radius: 5px;
-          width: 200px;
-          height: 300px;
-          left: -125px;
-          bottom: -300px;
-          &.show {
-            display: block;
-          }
-        }
+
         img.user {
           border-radius: 50%;
         }

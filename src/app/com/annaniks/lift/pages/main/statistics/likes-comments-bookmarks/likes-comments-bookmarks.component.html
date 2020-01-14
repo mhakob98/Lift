@@ -1,4 +1,38 @@
-<div *ngIf="data$ | async as data">
+<div class="pg-container">
+    <div *ngIf="data$ | async as data">
+        <div class="lcb-statistic-heading">
+            <h4>Статистика закладок с <span>25.12.19</span> по <span>25.01.20</span> </h4>
+            <div class="lcb-manage">
+                <span>Настройки бонусов от Lift</span>
+                <img src="assets/icons/settings.png" alt="Manage posts">
+            </div>
+        </div>
+        <app-line-chart></app-line-chart>
+        <table class="table table-image lcb-table">
+            <thead>
+                <tr>
+                    <th scope="col">Дата</th>
+                    <th scope="col">Закладки</th>
+                    <th scope="col">От внутренней активности</th>
+                    <th scope="col">Прогресс</th>
+                    <th scope="col">Разбивка по постам</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of [1,2,3,4,5,6,7]">
+                    <td>25.12.19</td>
+                    <td>50</td>
+                    <td>+35</td>
+                    <td>14%</td>
+                    <td class="custom-items">
+                        <div class="stat-post" *ngFor="let item of [1,2,3,4,5,6]">
 
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <button class="load-more">Загрузить еще</button>
+    </div>
 </div>
-<p>likes-comments-bookmarks works!</p>
