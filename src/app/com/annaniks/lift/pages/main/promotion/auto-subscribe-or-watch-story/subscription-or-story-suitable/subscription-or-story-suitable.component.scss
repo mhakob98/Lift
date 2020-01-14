@@ -1,0 +1,21 @@
+.subscription-heder {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 45px;
+  .subscription-title {
+    p {
+      font-size: 24px;
+      color: #3d3d3d;
+    }
+  }
+  .subscribers-statistic {
+    display: flex;
+    align-items: center;
+    p {
+      color: #7d7d7d;
+      font-size: 18px;
+      margin-right: 12px;
+    }
+  }
+}
