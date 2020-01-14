@@ -1,0 +1,24 @@
+.div-style {
+  border-radius: 20px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.container {
+  margin: auto;
+}
+.text-box {
+  border-radius: 1rem;
+  margin-top: 1rem;
+}
+.button-submit {
+  width: 50%;
+  border-radius: 1rem;
+  margin-top: 1rem;
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+}
+.body-background {
+  display: flex;
+  height: 100vh;
+}
+.main-label {
+  margin: 1rem;
+}

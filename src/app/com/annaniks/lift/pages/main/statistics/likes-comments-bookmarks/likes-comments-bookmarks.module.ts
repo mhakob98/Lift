@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 // Our Modules
 import { LikesCommentsBookmarksRoutingModule } from './likes-comments-bookmarks.routing.module';
 import { LikesCommentsBookmarksService } from './likes-comments-bookmarks.service';
+import { SharedModule } from '../../../../shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -15,6 +16,7 @@ import { LikesCommentsBookmarksService } from './likes-comments-bookmarks.servic
     imports: [
         LikesCommentsBookmarksRoutingModule,
         CommonModule,
+        SharedModule
     ],
 
     providers: [LikesCommentsBookmarksService]
