@@ -15,6 +15,6 @@ export class AuthService {
     public register(user: BasicUser): Observable<ServerResponse<EmptyResponse>> {
         let params: HttpParams = new HttpParams()
         params = params.set('authorization', 'false')
-        return this.httpClient.post<ServerResponse<EmptyResponse>>('registration', user, { params })
+        return this.httpClient.post<ServerResponse<EmptyResponse>>('registration', user)
     }
 }
