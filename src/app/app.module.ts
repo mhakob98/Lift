@@ -25,7 +25,8 @@ import { ApiInterceptor } from './com/annaniks/lift/core/interceptors/api.interc
   providers: [
     {
       provide: 'BASE_URL',
-      useValue: environment.apiUrl
+      useValue: environment.apiUrl,
+      multi: true
     },
     {
       provide: HTTP_INTERCEPTORS,
