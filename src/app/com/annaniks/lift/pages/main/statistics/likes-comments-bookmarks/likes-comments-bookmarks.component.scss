@@ -4,8 +4,10 @@
   align-items: center;
   margin: 59px 0 38px 0;
   .lcb-manage {
+    display: flex;
     cursor: pointer;
     span {
+      font-family: "SF UI Display Regular";
       color: #7d7d7d;
       font-size: 18px;
     }
@@ -62,8 +64,12 @@
 h4 {
   font-size: 24px;
   color: #3d3d3d;
+  font-family: "SF UI Display SemiBold";
+
   span {
     color: #3399cc;
+    font-family: "SF UI Display Regular";
+
     text-decoration: underline;
     text-decoration-style: dashed;
   }
