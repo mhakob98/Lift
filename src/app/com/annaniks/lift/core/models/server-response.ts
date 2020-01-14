@@ -1,7 +1,8 @@
 
 export interface ServerResponse<T> {
+    code:number;
     data?: T,
-    error?: Error
+    message?: string;
 }
 interface Error {
     code: number,
