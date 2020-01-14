@@ -10,7 +10,11 @@
 .limits {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  min-height: 127px;
+  .limit-item:not(:last-child) {
+    margin-right: 125px;
+  }
+  border-bottom: 1px solid #d7d7d7;
 }
 .limit-small-title {
   font-size: 18px;

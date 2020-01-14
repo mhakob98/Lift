@@ -5,6 +5,7 @@ import { SubSink } from 'subsink';
 import { AuthService } from '../../auth.service';
 import { tap } from 'rxjs/operators';
 import { BasicUser } from '../../../../core/models/basic-user';
+import { MatchPassword } from '../../../../core/utilities/match-password';
 
 @Component({
   selector: 'app-sign-up',
@@ -14,11 +15,11 @@ import { BasicUser } from '../../../../core/models/basic-user';
 export class SignUpComponent implements OnInit, OnDestroy {
   public signUpForm: FormGroup;
   private _subs = new SubSink();
-
+  private _matchPassword: MatchPassword = new MatchPassword()
   constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private authService: AuthService
+    private _fb: FormBuilder,
+    private _router: Router,
+    private _authService: AuthService
   ) {
     this._redirectIfUserLoggedIn();
   }
@@ -27,7 +28,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
     this._initForm();
   }
 
-  onSubmit() {
+  public onSubmit(): void {
     const form = this.signUpForm.value
     const values: BasicUser = {
       name: form.name,
@@ -38,14 +39,12 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
     if (this.signUpForm.valid) {
       this._subs.add(
-        this.authService
+        this._authService
           .register(values)
           .pipe(
             tap(
               _ => _,
               user => {
-                console.log(user);
-
                 const errors = user.error.errors || {};
                 keys.forEach(val => {
                   if (errors[val]) {
@@ -68,38 +67,23 @@ export class SignUpComponent implements OnInit, OnDestroy {
     }
   }
 
-  private _pushErrorFor(ctrl_name: string, msg: string) {
+  private _pushErrorFor(ctrl_name: string, msg: string): void {
     this.signUpForm.controls[ctrl_name].setErrors({ msg: msg });
   }
 
-  private _initForm() {
-    this.signUpForm = this.fb.group({
+  private _initForm(): void {
+    this.signUpForm = this._fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       passwordConfirmation: ['', [Validators.required, Validators.minLength(8)]]
     },
-      { validator: this._matchingPasswords('password', 'passwordConfirmation') });
+      { validator: this._matchPassword.check('password', 'passwordConfirmation') });
   }
 
   private _redirectIfUserLoggedIn(): void {
 
   }
-
-
-  private _matchingPasswords(passwordKey: string, confirmPasswordKey: string) {
-    return (group: FormGroup): { [key: string]: boolean } | null => {
-      const password = group.controls[passwordKey];
-      const confirmPassword = group.controls[confirmPasswordKey];
-
-      if (password.value !== confirmPassword.value) {
-        return {
-          mismatchedPasswords: true
-        };
-      }
-    };
-  }
-
 
   ngOnDestroy() {
     this._subs.unsubscribe()
