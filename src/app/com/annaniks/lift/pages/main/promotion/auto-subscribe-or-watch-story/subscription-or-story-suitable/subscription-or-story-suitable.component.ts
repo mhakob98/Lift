@@ -1,15 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
-import { switchMap, tap, map } from 'rxjs/operators';
+import { switchMap, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { SubSink } from 'subsink';
-
 import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
-
 import { Hashtag } from '../../../../../core/models/hashtag';
 import { Account } from '../../../../../core/models/account';
-import { ServerResponse } from 'src/app/com/annaniks/lift/core/models/server-response';
 
 @Component({
   selector: 'app-subscription-suitable',
