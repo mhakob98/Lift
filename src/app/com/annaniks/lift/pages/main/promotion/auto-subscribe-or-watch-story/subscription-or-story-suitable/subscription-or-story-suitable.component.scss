@@ -3,6 +3,7 @@
   align-items: center;
   justify-content: space-between;
   margin-top: 45px;
+  margin-bottom: 23px;
   .subscription-title {
     p {
       font-size: 24px;
@@ -16,6 +17,34 @@
       color: #7d7d7d;
       font-size: 18px;
       margin-right: 12px;
+    }
+  }
+}
+.subscription-accordion {
+  .accordion-body {
+    background-color: #f6f6f6;
+    padding: 25px 36px;
+    border-radius: 6px;
+
+    .collapse-heading {
+      display: flex;
+      align-items: center;
+      button {
+        color: #3d3d3d;
+        font-size: 18px;
+        text-decoration: none;
+      }
+      .arrow-up {
+        margin-left: auto;
+      }
+    }
+    .same-conditions {
+      font-size: 18px;
+      color: #3d3d3d;
+      margin-top: 45px;
+    }
+    .conditions-list {
+      margin-top: 15px;
     }
   }
 }

@@ -27,6 +27,7 @@
         cursor: pointer;
       }
       p {
+        font-family: "SF UI Display Regular";
         color: #8ee7e4;
         font-size: 16px;
         margin-left: 10px;
@@ -79,8 +80,9 @@
           background-color: #fd7f04;
           border-radius: 3px;
           span {
+            font-family: "SF UI Display Medium";
             margin: auto;
-            font-size: 16px;
+            font-size: 14px;
             color: white;
           }
         }

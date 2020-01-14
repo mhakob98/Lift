@@ -8,10 +8,14 @@ import { AutoSubscribeOrWatchStoryRoutingModule } from './auto-subscribe-watch-s
 import { AutoSubscribeOrWatchStoryService } from './auto-subscribe-watch-story.service';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { SubscribeWatchConditionComponent } from './subscribe-watch-reason/subscribe-watch-condition.component';
+import { AddHashtagComponent } from './add-hashtag/add-hashtag.component';
 
 @NgModule({
     declarations: [
         AutoSubscribeOrWatchStoryRoutingModule.components,
+        SubscribeWatchConditionComponent,
+        AddHashtagComponent,
     ],
     imports: [
         AutoSubscribeOrWatchStoryRoutingModule,
