@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header-notification.component.scss']
 })
 export class HeaderNotificationComponent implements OnInit {
-
+  public showNots: boolean = false;
+  
   constructor() { }
 
   ngOnInit() {
