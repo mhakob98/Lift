@@ -44,6 +44,8 @@ export class SignUpComponent implements OnInit, OnDestroy {
             tap(
               _ => _,
               user => {
+                console.log(user);
+
                 const errors = user.error.errors || {};
                 keys.forEach(val => {
                   if (errors[val]) {
