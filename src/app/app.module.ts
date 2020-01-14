@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from 'src/environments/environment';
 
 import { CookieModule } from 'ngx-cookie';
+import { ApiInterceptor } from './com/annaniks/lift/core/interceptors/api.interceptor';
 
 @NgModule({
   declarations: [
@@ -21,10 +22,17 @@ import { CookieModule } from 'ngx-cookie';
     BrowserAnimationsModule,
     CookieModule.forRoot()
   ],
-  providers: [{
-    provide:'BASE_URL',
-    useValue:environment.apiUrl
-  }],
+  providers: [
+    {
+      provide: 'BASE_URL',
+      useValue: environment.apiUrl
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
