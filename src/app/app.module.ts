@@ -6,7 +6,9 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { environment } from 'src/environments/environment';
 
+import { CookieModule } from 'ngx-cookie';
 
 @NgModule({
   declarations: [
@@ -16,9 +18,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    CookieModule.forRoot()
   ],
-  providers: [],
+  providers: [{
+    provide:'BASE_URL',
+    useValue:environment.apiUrl
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
