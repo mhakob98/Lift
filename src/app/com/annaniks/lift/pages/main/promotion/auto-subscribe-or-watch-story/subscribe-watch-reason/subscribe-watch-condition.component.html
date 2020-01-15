@@ -1,11 +1,18 @@
 <div class="condition">
     <div class="condition-index">1</div>
-    <select class="condition-select custom-select custom-select-sm">
-        <option selected>По хештегам</option>
-        <option value="1">На подписчиков аккаунтов</option>
-        <option value="2">На аккаунты в рамках локации</option>
-        <option value="3">На комментаторов аккаунтов</option>
-        <option value="4">На лайкеров аккаунтов</option>
+    <select class="condition-select custom-select custom-select-sm" [formControl]="typeControl">
+        <option value="hashtag">По хештегам</option>
+        <option value="subscriber">На подписчиков аккаунтов</option>
+        <option value="location">На аккаунты в рамках локации</option>
+        <option value="comment">На комментаторов аккаунтов</option>
+        <option value="likes">На лайкеров аккаунтов</option>
     </select>
 </div>
-<app-add-hashtag></app-add-hashtag>
+<p class="condition-subtitle">Подписываться на аккаунты, использующие эти хэштеги</p>
+<div class="condition d-flex" [ngSwitch]="selectedType">
+    <app-add-hashtag class="w-100" *ngSwitchCase="'hashtag'"></app-add-hashtag>
+    <app-account-search class="w-100" [type]="selectedType" *ngSwitchCase="'likes' || 'comment' || 'subscriber'">
+    </app-account-search>
+    <app-account-by-location class="w-100" *ngSwitchCase="'location'"></app-account-by-location>
+</div>
+<button class="add-condition">+ Добавить условие</button>

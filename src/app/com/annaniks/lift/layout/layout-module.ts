@@ -13,6 +13,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { FooterComponent } from './footer/footer.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { RouterModule } from '@angular/router';
         HeaderNotificationComponent,
         HeaderHelpComponent,
         HeaderSwitchAccountComponent,
-        SubmenuComponent
+        SubmenuComponent,
+        FooterComponent
     ],
     exports: [
         HeaderComponent,

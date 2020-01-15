@@ -11,6 +11,10 @@ import { LineChartComponent } from './line-chart/line-chart.component';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { ClickOutsideModule } from 'ng-click-outside';
 
+// PrimeNG
+import { AutoCompleteModule } from 'primeng/autocomplete';
+
+
 @NgModule({
     declarations: [
         LimitsComponent,
@@ -22,13 +26,15 @@ import { ClickOutsideModule } from 'ng-click-outside';
         NgxEchartsModule,
         ClickOutsideModule,
         FooterNavigationComponent,
-        LineChartComponent
+        LineChartComponent,
+        AutoCompleteModule
     ],
     imports: [
         CommonModule,
         RouterModule,
         NgxEchartsModule,
         ClickOutsideModule,
+        AutoCompleteModule
     ]
 })
 export class SharedModule { }
