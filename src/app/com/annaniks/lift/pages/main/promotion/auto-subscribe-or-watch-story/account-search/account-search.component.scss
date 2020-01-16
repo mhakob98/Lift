@@ -1,0 +1,64 @@
+.subscribed-to-container {
+  display: flex;
+  align-items: center;
+  .subscribed-to {
+    padding: 18px 0 17px 22px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-radius: 6px;
+    p {
+      font-family: "SF UI Display Regular";
+      font-size: 16px;
+      color: #7d7d7d;
+    }
+  }
+  .clear-all-fields {
+    display: flex;
+    align-items: center;
+    margin-left: 22px;
+    img {
+      margin-right: 10px;
+    }
+    p {
+      font-family: "SF UI Display Regular";
+      font-size: 16px;
+      color: #7d7d7d;
+      text-transform: uppercase;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+  }
+}
+p-autoComplete {
+  ::ng-deep {
+    ul {
+      border: none;
+      li.ui-autocomplete-token {
+        font-family: "SF UI Display Regular" !important;
+        background-color: #d7d7d7 !important;
+        border-radius: 4px;
+        padding: 10px 12px 10px 13px !important;
+        color: #7d7d7d !important;
+      }
+      li {
+        // .ui-autocomplete-token-icon {
+        //   display: none !important;
+        // }
+        // .ui-autocomplete-token-label {
+        //   margin: 0 !important;
+        // }
+        input {
+          width: 315px;
+        }
+      }
+      &.ui-autocomplete-items {
+        li {
+          background-color: #305976 !important;
+          color: white !important;
+        }
+      }
+    }
+  }
+}

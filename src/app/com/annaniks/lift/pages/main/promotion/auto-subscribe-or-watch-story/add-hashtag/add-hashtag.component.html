@@ -1,1 +1,18 @@
-<p>add-hashtag works!</p>
+<div [formGroup]="hashtagsForm" class="hashtags-content">
+    <div class="hashtags-container">
+        <div class="hashtag-item" formArrayName="items"
+            *ngFor="let item of hashtagsForm.get('items').controls; let i = index;">
+            <div [formGroupName]="i">
+                <input formControlName="label" type="text" #hashtagInput [size]="hashtagInput.value.length || 5"
+                    maxlength="50">
+                <p>{{hashtag}}</p>
+                <img (click)="deleteHashtag(item.value)" src="assets/icons/delete-1.png">
+            </div>
+        </div>
+        <p (click)="addItem()" class="add-hashtag">Добавить хэштег</p>
+    </div>
+    <div (click)="clearAll()" class="clear-all-hashtags">
+        <img src="assets/icons/trash.png">
+        <p>очистить все</p>
+    </div>
+</div>

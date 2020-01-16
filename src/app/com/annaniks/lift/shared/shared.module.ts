@@ -11,6 +11,14 @@ import { LineChartComponent } from './line-chart/line-chart.component';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { ClickOutsideModule } from 'ng-click-outside';
 
+// PrimeNG
+import { AutoCompleteModule } from 'primeng/autocomplete';
+
+// Angular Material
+import { MatSliderModule } from '@angular/material/slider';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
+
 @NgModule({
     declarations: [
         LimitsComponent,
@@ -22,13 +30,19 @@ import { ClickOutsideModule } from 'ng-click-outside';
         NgxEchartsModule,
         ClickOutsideModule,
         FooterNavigationComponent,
-        LineChartComponent
+        LineChartComponent,
+        AutoCompleteModule,
+        MatSliderModule,
+        MatCheckboxModule
     ],
     imports: [
         CommonModule,
         RouterModule,
         NgxEchartsModule,
         ClickOutsideModule,
+        AutoCompleteModule,
+        MatSliderModule,
+        MatCheckboxModule
     ]
 })
 export class SharedModule { }
