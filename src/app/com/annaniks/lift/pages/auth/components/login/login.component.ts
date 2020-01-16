@@ -4,6 +4,8 @@ import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { SubSink } from 'subsink';
+import { AuthService } from '../../auth.service';
+import { LoginData } from '../../../../core/models/login';
 
 @Component({
   selector: 'app-login',
@@ -16,46 +18,13 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private _fb: FormBuilder,
-    // private authService: AuthService,
-  ) {
-    this._redirectIfUserLoggedIn();
-  }
+    private _authService: AuthService,
+  ) { }
 
   ngOnInit() {
     this._initForm();
   }
 
-  // onSubmit() {
-  //   const values = this.signInForm.value;
-  //   const keys = Object.keys(values);
-
-  //   if (this.signInForm.valid) {
-  //     this._subs.add(
-  //       this.authService
-  //         .login(values)
-  //         .pipe(
-  //           tap(
-  //             _ => _,
-  //             error => {
-  //               const errors = error.error.error || 'invalid email or password';
-  //               keys.forEach(val => {
-  //                 this._pushErrorFor(val, errors);
-  //               });
-  //             }
-  //           )
-  //         )
-  //         .subscribe();)
-
-  //   } else {
-  //     keys.forEach(val => {
-  //       const ctrl = this.signInForm.controls[val];
-  //       if (!ctrl.valid) {
-  //         this._pushErrorFor(val, null);
-  //         ctrl.markAsTouched();
-  //       }
-  //     });
-  //   }
-  // }
 
   private _pushErrorFor(ctrl_name: string, msg: string): void {
     this.signInForm.controls[ctrl_name].setErrors({ msg: msg });
@@ -68,12 +37,42 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
-  private _redirectIfUserLoggedIn(): void {
+  public onSubmit(): void {
+    const loginData = this.signInForm.value as LoginData;
+    const keys = Object.keys(loginData);
+    if (this.signInForm.valid) {
+      this._subs.add(
+        this._authService
+          .login(loginData)
+          .pipe(
+            tap(
+              data => {
+                console.log(data);
+              },
+              error => {
+                const errors = error.error.error || 'invalid email or password';
+                keys.forEach(val => {
+                  this._pushErrorFor(val, errors);
+                });
+              }
+            )
+          )
+          .subscribe()
+      )
 
+    } else {
+      keys.forEach(val => {
+        const ctrl = this.signInForm.controls[val];
+        if (!ctrl.valid) {
+          this._pushErrorFor(val, null);
+          ctrl.markAsTouched();
+        }
+      });
+    }
   }
 
   ngOnDestroy() {
-    this._subs.unsubscribe()
+    this._subs.unsubscribe();
   }
 
 }
