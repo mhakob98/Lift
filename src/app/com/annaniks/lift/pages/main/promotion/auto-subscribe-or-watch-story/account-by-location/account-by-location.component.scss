@@ -63,9 +63,9 @@ p-autoComplete {
       border: transparent !important;
       border-radius: 4px !important;
       padding-left: 8px !important;
-      &:focus {
-        border: inset !important;
-      }
+      // &:focus {
+      //   border: inset !important;
+      // }
     }
   }
 }

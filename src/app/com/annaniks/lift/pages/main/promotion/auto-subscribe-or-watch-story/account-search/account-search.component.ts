@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AccountSearchParam } from '../../../../../core/models/subscription-parameter';
+import { SubSink } from 'subsink';
+import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
 
 @Component({
   selector: 'app-account-search',
@@ -15,10 +17,14 @@ export class AccountSearchComponent implements OnInit {
   public searchArray: string[] = [
     "barev", "hajox", "Hovo", "Rado", "hakov"
   ]
+  private _subs = new SubSink();
 
-  constructor() { }
+  constructor(
+    private _subscribeStoryService: AutoSubscribeOrWatchStoryService
+  ) { }
 
   ngOnInit() {
+    this._waitForValueEmit()
   }
 
   public search(event): void {
@@ -26,5 +32,13 @@ export class AccountSearchComponent implements OnInit {
   }
   public clearAll(): void {
     this.texts = []
+  }
+
+  private _waitForValueEmit(): void {
+    this._subs.add(this._subscribeStoryService.saveSettingsObservable$.subscribe(async (data) => {
+      console.log(this.results);
+      await data
+      this._subscribeStoryService.subscribeToSubject$.next(this.results)
+    }))
   }
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
+import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
+import { SubSink } from 'subsink';
 declare var google;
 @Component({
   selector: 'app-account-by-location',
@@ -14,11 +16,17 @@ export class AccountByLocationComponent implements OnInit {
   public text: string;
 
   public results: string[];
+  private _subs = new SubSink();
 
-  constructor(private _fb: FormBuilder) { }
+  constructor(
+    private _fb: FormBuilder,
+    private _subscribeStoryService: AutoSubscribeOrWatchStoryService
+
+  ) { }
 
   ngOnInit() {
     this._formBuilder()
+    this._waitForValueEmit()
   }
 
   private _initMap(corrdinates = { lat: 40.7865229, lng: 43.8476395 }, zoom = 15): void {
@@ -264,14 +272,14 @@ export class AccountByLocationComponent implements OnInit {
 
   private _formBuilder(): void {
     this.locationForm = this._fb.group({
-      items: this._fb.array([this.createItem()])
+      items: this._fb.array([])
     });
     this._initMap()
 
   }
 
   public createItem(): FormGroup {
-    return this._fb.group({ label: 'asdasds' });
+    return this._fb.group({ label: '' });
   }
 
   public addItem(): void {
@@ -287,6 +295,17 @@ export class AccountByLocationComponent implements OnInit {
     while (this.locationsItems.length !== 0) {
       this.locationsItems.removeAt(0)
     }
+    // this.locationsItems = this._fb.array([]);
+  }
+
+  private _waitForValueEmit(): void {
+    this._subs.add(this._subscribeStoryService.saveSettingsObservable$.subscribe(async (data) => {
+      let locations: Coordinates[] = []
+      this.locationForm.value.items.map((coordinate: Coordinates) => {
+        locations.push(coordinate)
+      })
+      // this._subscribeStoryService.locationSubject$.next(locations)
+    }))
   }
 
 }

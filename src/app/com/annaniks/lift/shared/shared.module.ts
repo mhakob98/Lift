@@ -14,6 +14,10 @@ import { ClickOutsideModule } from 'ng-click-outside';
 // PrimeNG
 import { AutoCompleteModule } from 'primeng/autocomplete';
 
+// Angular Material
+import { MatSliderModule } from '@angular/material/slider';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 @NgModule({
     declarations: [
@@ -27,14 +31,18 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
         ClickOutsideModule,
         FooterNavigationComponent,
         LineChartComponent,
-        AutoCompleteModule
+        AutoCompleteModule,
+        MatSliderModule,
+        MatCheckboxModule
     ],
     imports: [
         CommonModule,
         RouterModule,
         NgxEchartsModule,
         ClickOutsideModule,
-        AutoCompleteModule
+        AutoCompleteModule,
+        MatSliderModule,
+        MatCheckboxModule
     ]
 })
 export class SharedModule { }
