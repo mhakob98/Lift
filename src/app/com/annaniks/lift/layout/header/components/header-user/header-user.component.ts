@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header-user.component.scss']
 })
 export class HeaderUserComponent implements OnInit {
-
+  public showUserDetails: boolean = false;
   constructor() { }
 
   ngOnInit() {
