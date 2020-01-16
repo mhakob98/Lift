@@ -308,4 +308,8 @@ export class AccountByLocationComponent implements OnInit {
     }))
   }
 
+  get itemsControl():FormArray{
+    return this.locationForm.get('items') as FormArray;
+  }
+
 }

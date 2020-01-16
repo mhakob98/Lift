@@ -9,6 +9,7 @@ import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.
   styleUrls: ['./add-hashtag.component.scss']
 })
 export class AddHashtagComponent implements OnInit {
+  public hashtag:string;
   public hashtagsForm: FormGroup;
   public hashtagsItems: FormArray;
   private _subs = new SubSink();
@@ -57,5 +58,9 @@ export class AddHashtagComponent implements OnInit {
       })
       this._subscribeStoryService.hashtagSubject$.next(hashtags)
     }))
+  }
+
+  get itemsControl():FormArray{
+    return this. hashtagsForm.get('items') as FormArray;
   }
 }

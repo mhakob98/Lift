@@ -1,7 +1,7 @@
 <div [formGroup]="hashtagsForm" class="hashtags-content">
     <div class="hashtags-container">
         <div class="hashtag-item" formArrayName="items"
-            *ngFor="let item of hashtagsForm.get('items').controls; let i = index;">
+            *ngFor="let item of itemsControl?.controls; let i = index;">
             <div [formGroupName]="i">
                 <input formControlName="label" type="text" #hashtagInput [size]="hashtagInput.value.length || 5"
                     maxlength="50">

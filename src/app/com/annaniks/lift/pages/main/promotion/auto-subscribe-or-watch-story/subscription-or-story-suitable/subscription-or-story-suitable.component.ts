@@ -15,7 +15,7 @@ import { coerceNumberProperty } from '@angular/cdk/coercion';
   styleUrls: ['./subscription-or-story-suitable.component.scss'],
 })
 export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
-
+  public step:number;
   public suitableSubsOrStoryForm: FormGroup;
   public conditionsForm: FormGroup;
   public conditionsItems: FormArray;
