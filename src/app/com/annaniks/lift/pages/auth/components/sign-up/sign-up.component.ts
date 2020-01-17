@@ -1,10 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SubSink } from 'subsink';
 import { AuthService } from '../../auth.service';
-import { tap, map, catchError, finalize } from 'rxjs/operators';
-import { BasicUser } from '../../../../core/models/basic-user';
+import { map, catchError, finalize } from 'rxjs/operators';
 import { MatchPassword } from '../../../../core/utilities/match-password';
 import { Subject, throwError } from 'rxjs';
 import { RegisterData } from '../../../../core/models/register';

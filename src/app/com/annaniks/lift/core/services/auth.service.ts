@@ -1,23 +1,24 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError, of } from 'rxjs';
 import { ServerResponse } from '../models/server-response';
 import { AuthState } from '../models/auth';
 import { map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { User } from '../models/user';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-    private _userInfo;
-    private _userInfoState$: BehaviorSubject<any> = new BehaviorSubject<any>({});
+    private _userInfo:User;
+    private _userInfoState$: BehaviorSubject<User> = new BehaviorSubject<User>({} as User);
     private _isAuthorized: boolean = false;
     private _isAuthorizedState$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     constructor(
         private _httpClient: HttpClient,
-        private _router:Router
+        private _router: Router
     ) { }
 
     public setUserState(userInfo): void {
@@ -46,7 +47,11 @@ export class AuthService {
     }
 
     public checkAuthState(): Observable<boolean> {
-        return this._httpClient.get<ServerResponse<AuthState>>('check-token')
+        let headers = new HttpHeaders();
+        headers = headers.append('Cache-Control', 'no-cache, no-store, must-revalidate, post-check=0, pre-check=0');
+        headers = headers.append('Pragma', 'no-cache');
+        headers = headers.append('Expires', '0');
+        return this._httpClient.get<ServerResponse<AuthState>>('check-token', { headers })
             .pipe(
                 map((response) => {
                     this.setAuthState(true);

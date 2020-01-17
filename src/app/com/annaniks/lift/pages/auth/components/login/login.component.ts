@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   private _initForm(): void {
     this.signInForm = this._fb.group({
-      email: ['', Validators.required],
+      email: ['', [Validators.required,Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
@@ -78,6 +78,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     } else {
       this._setValidationErrors(keys);
     }
+  }
+
+  public getValidationError(field: string, errorName: string): boolean {
+    return this.signInForm.get(field).hasError(errorName) && this.signInForm.get(field).touched;
   }
 
   ngOnDestroy() {

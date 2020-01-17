@@ -1,18 +1,37 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { MainService } from '../../pages/main/main.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { ServerResponse } from '../../core/models/server-response';
+import { User } from '../../core/models/user';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
+  private _unsubscribe$: Subject<void> = new Subject<void>();
   public showNots: boolean = false;
   public showQuestion: boolean = false;
   public showUserDetails: boolean = false;
   public showSwitchAccount: boolean = false;
-  constructor() { }
+  public user: User;
+
+  constructor(private _authService: AuthService) {
+  }
 
   ngOnInit() {
+    this._getUser();
+  }
+
+  private _getUser(): void {
+    this._authService.getUserState()
+      .pipe(takeUntil(this._unsubscribe$))
+      .subscribe((data) => {
+        this.user = data;
+      })
   }
 
   public toggleNotsPanel(): void {
@@ -45,5 +64,10 @@ export class HeaderComponent implements OnInit {
 
   public onClickedOutsideSwitch(): void {
     this.showSwitchAccount = false;
+  }
+
+  ngOnDestroy(){
+    this._unsubscribe$.next();
+    this._unsubscribe$.complete();
   }
 }

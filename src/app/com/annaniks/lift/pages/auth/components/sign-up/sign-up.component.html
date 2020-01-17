@@ -1,27 +1,25 @@
 <div id="logreg-forms">
     <form class="form-signin" [formGroup]="signUpForm">
-        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Sign up</h1>
+        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Регистрация</h1>
         <div class="social-login row">
-            <button class="btn facebook-btn social-btn col" type="button"><span><i class="fab fa-facebook-f"></i> Sign
-                    up with Facebook</span> </button>
-            <button class="btn google-btn social-btn col" type="button"><span><i class="fab fa-google-plus-g"></i> Sign
-                    up with Google+</span> </button>
+            <button class="btn facebook-btn social-btn col" type="button"><span><i class="fab fa-facebook-f"></i>Регистрация через Facebook</span> </button>
+            <button class="btn google-btn social-btn col" type="button"><span><i class="fab fa-google-plus-g"></i> Регистрация через Google+</span> </button>
         </div>
         <p class="text-danger">{{errorMessage}}</p>
         <input type="text" id="inputName" class="form-control"
-            [ngClass]="{'inp-error':getValidationError('name','required')}" placeholder="Name" formControlName="name">
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address"
+            [ngClass]="{'inp-error':getValidationError('name','required')}" placeholder="Имя" formControlName="name">
+        <input type="email" id="inputEmail" class="form-control" placeholder="Эл.Почта"
             [ngClass]="{'inp-error':getValidationError('email','required') || getValidationError('email','email')}"
             formControlName="email">
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" formControlName="password"
+        <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" formControlName="password"
             [ngClass]="{'inp-error':getValidationError('password','required')}">
-        <input type="password" id="inputPassword" class="form-control" placeholder="Confirm password"
+        <input type="password" id="inputPassword" class="form-control" placeholder="Повторить пароль"
             formControlName="passwordConfirmation"
             [ngClass]="{'inp-error':getValidationError('passwordConfirmation','required') || signUpForm.hasError('mismatchedPasswords')}">
 
         <button class="btn  btn-block registr-btn" type="submit" (click)="onSubmit()"
-            [disabled]="signUpForm.invalid || loading"><i class="fas fa-sign-in-alt"></i> Sign up</button>
+            [disabled]="signUpForm.invalid || loading"><i class="fas fa-sign-in-alt"></i>Регистрация</button>
         <button class="btn btn-block new-accont-btn" type="button" id="btn-signup" [routerLink]="'/auth/login'"><i
-                class="fas fa-user-plus"></i> Sign in</button>
+                class="fas fa-user-plus"></i> Войти </button>
     </form>
 </div>
