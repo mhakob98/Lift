@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
-import { SubSink } from 'subsink';
+import { throwError, Subject } from 'rxjs';
+import { map, catchError, takeUntil, finalize } from 'rxjs/operators';
 import { AuthService } from '../../auth.service';
 import { LoginData } from '../../../../core/models/login';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie';
 
 @Component({
   selector: 'app-login',
@@ -13,18 +13,21 @@ import { LoginData } from '../../../../core/models/login';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
+  private _unsubscribe: Subject<void> = new Subject<void>();
   public signInForm: FormGroup;
-  private _subs = new SubSink();
+  public errorMessage: string;
+  public loading: boolean = false;
 
   constructor(
     private _fb: FormBuilder,
     private _authService: AuthService,
+    private _router:Router,
+    private _cookieService:CookieService
   ) { }
 
   ngOnInit() {
     this._initForm();
   }
-
 
   private _pushErrorFor(ctrl_name: string, msg: string): void {
     this.signInForm.controls[ctrl_name].setErrors({ msg: msg });
@@ -32,47 +35,58 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   private _initForm(): void {
     this.signInForm = this._fb.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required]
+      email: ['', [Validators.required,Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]]
     });
+  }
+
+  private _setValidationErrors(keys: string[]): void {
+    keys.forEach(val => {
+      const ctrl = this.signInForm.controls[val];
+      if (!ctrl.valid) {
+        this._pushErrorFor(val, null);
+        ctrl.markAsTouched();
+      }
+    });
+  }
+
+  private _userLogin(loginData: LoginData): void {
+    this.loading = true;
+    this._authService.login(loginData)
+      .pipe(
+        finalize(() => this.loading = false),
+        takeUntil(this._unsubscribe),
+        map((data) => {
+          const tokens = data.data;
+          this._cookieService.put('accessToken',tokens.accessToken);
+          this._cookieService.put('refreshToken',tokens.refreshToken);
+          this._router.navigate(['/statistics/preview']);
+        }),
+        catchError((err) => {
+          this.errorMessage = err.error.message;
+          return throwError(err);
+        })
+      )
+      .subscribe()
   }
 
   public onSubmit(): void {
     const loginData = this.signInForm.value as LoginData;
     const keys = Object.keys(loginData);
     if (this.signInForm.valid) {
-      this._subs.add(
-        this._authService
-          .login(loginData)
-          .pipe(
-            tap(
-              data => {
-                console.log(data);
-              },
-              error => {
-                const errors = error.error.error || 'invalid email or password';
-                keys.forEach(val => {
-                  this._pushErrorFor(val, errors);
-                });
-              }
-            )
-          )
-          .subscribe()
-      )
-
+      this._userLogin(loginData);
     } else {
-      keys.forEach(val => {
-        const ctrl = this.signInForm.controls[val];
-        if (!ctrl.valid) {
-          this._pushErrorFor(val, null);
-          ctrl.markAsTouched();
-        }
-      });
+      this._setValidationErrors(keys);
     }
   }
 
+  public getValidationError(field: string, errorName: string): boolean {
+    return this.signInForm.get(field).hasError(errorName) && this.signInForm.get(field).touched;
+  }
+
   ngOnDestroy() {
-    this._subs.unsubscribe();
+    this._unsubscribe.next();
+    this._unsubscribe.complete();
   }
 
 }

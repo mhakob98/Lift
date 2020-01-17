@@ -20,7 +20,6 @@ export class SubmenuComponent implements OnInit {
     private _navbarService: NavbarService
   ) {
     this.currentRoute = _router.url;
-    console.log(_router,this.currentRoute);
     this._takeOutCurrentRoute();
     this._takeNavbarItems();
   }
@@ -33,7 +32,6 @@ export class SubmenuComponent implements OnInit {
     .subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.currentRoute = event.url;
-        console.log(this.currentRoute);
       }
     });
   }

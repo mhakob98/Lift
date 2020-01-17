@@ -15,14 +15,14 @@ export class ApiInterceptor implements HttpInterceptor {
         let params: HttpParams = (req.params) ? req.params : new HttpParams();
         let headers: HttpHeaders = (req.headers) ? req.headers : new HttpHeaders();
         const url: string = `${this._baseUrl}${req.url}`;
-        if (!params.has('authorization') || (params.has('authorization') && params.get('authorization') !== 'true')) {
-            if (params.has('authorization')) {
-                params = params.delete('authorization');
-            }
+        if (!params.has('authorization') || (params.has('authorization') && params.get('authorization') === 'true')) {
             const accessToken: string = this._cookieService.get('accessToken') || '';
             if (accessToken) {
                 headers = headers.append('Authorization', 'Bearer ' + accessToken);
             }
+        }
+        if (params.has('authorization')) {
+            params = params.delete('authorization');
         }
         const clonedReq = req.clone({
             url: url,

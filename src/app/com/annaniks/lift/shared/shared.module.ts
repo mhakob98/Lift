@@ -19,8 +19,10 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatRadioModule} from '@angular/material/radio';
 
-//Accont Connection Modal
+//Forms
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -38,7 +40,9 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
         MatSliderModule,
         MatCheckboxModule,
         MatDialogModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        ReactiveFormsModule,
+        MatRadioModule
     
     ],
     exports: [
@@ -51,7 +55,9 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
         MatSliderModule,
         MatCheckboxModule,
         MatDialogModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        ReactiveFormsModule,
+        MatRadioModule
     ],
 })
 export class SharedModule { }

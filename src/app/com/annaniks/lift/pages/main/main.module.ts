@@ -8,6 +8,7 @@ import { MainRoutingModule } from './main.routing.module';
 import { LayoutModule } from '../../layout/layout-module';
 import { AcocountConnectionModal } from '../../core/modals';
 import { SharedModule } from '../../shared/shared.module';
+import { MainService } from './main.service';
 
 @NgModule({
     declarations: [
@@ -23,7 +24,7 @@ import { SharedModule } from '../../shared/shared.module';
     entryComponents:[
         AcocountConnectionModal,
     ],
-    providers: [],
+    providers: [MainService],
 })
 export class MainModule {
 }
