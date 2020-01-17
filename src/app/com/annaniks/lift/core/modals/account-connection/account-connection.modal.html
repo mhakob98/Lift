@@ -1,0 +1,115 @@
+<div class="accounts-content-modal">
+    <p class="text  text-center">Добавление аккаунта</p>
+    <div class="accounts-content-modal-container" [ngSwitch]="tab">
+        <div class="tabs row d-flex mt-3 ml-0 mr-0">
+            <div class="tab-item col">
+                <div class="tab-item-content" [ngClass]="{'activeTab':tab==1}" (click)="changedTab(1)"></div>
+            </div>
+            <div class="tab-item col">
+                <div class="tab-item-content ml-3" [ngClass]="{'activeTab':tab==2}" (click)="changedTab(2)"></div>
+            </div>
+            <div class="tab-item col">
+                <div class="tab-item-content ml-3" [ngClass]="{'activeTab':tab==3}" (click)="changedTab(3)"></div>
+            </div>
+            <div class="tab-item col">
+                <div class="tab-item-content ml-3" [ngClass]="{'activeTab':tab==4}" (click)="changedTab(4)"></div>
+            </div>
+        </div>
+        <div class="main mt-5">
+            <div class="login-container" *ngSwitchCase="1">
+                <form [formGroup]="loginForm">
+                    <div class="form-group">
+                        <label class="lable mb-1" [ngClass]="{'color':checkIsValid('email')}">Ваш адрес</label>
+                        <input type="text" class="form-control" formControlName="email" placeholder="Ваш адрес *"
+                            value="" />
+                    </div>
+                    <div class="form-group">
+                        <label class="lable mb-1" [ngClass]="{'color':checkIsValid('password')}">Пароль</label>
+                        <input type="password" class="form-control" formControlName="password" placeholder="Пароль *"
+                            value="" />
+                    </div>
+                    <button type="submit" class="btn button mt-4 mb-4" [disabled]="loginForm.invalid">подключить Аккаунт
+                        Instagram</button>
+                </form>
+                <p class="tttle">вы должны быть авторизованный в Instagram через тот аккаунт,который желайте подключить
+                </p>
+            </div>
+            <div class="tarif-container text-center" *ngSwitchCase="2">
+                <p class="title text-center">Выбор тарифа</p>
+                <form [formGroup]="tariffForm">
+                    <div class="form-group radio-button-group mt-3" [ngClass]="{'activRadioButton':tariffForm.get('tariff').value=='free'}">
+                        <label for="free" class="w-100">
+                            <p>Бесплатный - что входит</p>
+                        </label>
+                        <input formControlName="tariff" class="d-none" id="free" type="radio" value="free">
+                    </div>
+                    <div class="form-group radio-button-group mt-3" [ngClass]="{'activRadioButton':tariffForm.get('tariff').value=='one-acc'}">
+                        <label for="one-acc" class="w-100">
+                            <p >1 аккаунт- что входит</p>
+                        </label>
+                        <input formControlName="tariff" class="d-none" id="one-acc" type="radio" value="one-acc">
+                    </div>
+                    <div class="form-group radio-button-group mt-3" [ngClass]="{'activRadioButton':tariffForm.get('tariff').value=='more-two'}">
+                        <label for="more-two" class="w-100">
+                            <p>2 + аккаунта - что входит</p>
+                        </label>
+                        <input formControlName="tariff" class="d-none" id="more-two" type="radio" value="more-two">
+                    </div>
+                </form>
+                <button type="submit" class="btn main-button mt-4 mb-4" [disabled]="tariffForm.invalid">Дальше</button>
+            </div>
+
+
+
+            <div class="promotion-container text-center" *ngSwitchCase="3">
+                <p class="title text-center">Включение Автопродвижени</p>
+                <form [formGroup]="promotionForm">
+                    <div class="slide-toggle-item d-flex">
+                    <mat-slide-toggle class="slide-toggle" formControlName="autosubscription" value="autosubscription">
+                        <p class="promotion-text">Автоподписка</p>
+                    </mat-slide-toggle>
+                </div>
+                <div class="slide-toggle-item d-flex">
+                    <mat-slide-toggle class="slide-toggle"  formControlName="autoreviewstories" value="autoreviewstories">
+                        <p class="promotion-text">Автопрасмотр Stories</p>
+                    </mat-slide-toggle>
+                </div>
+                <div class="slide-toggle-item d-flex">
+                    <mat-slide-toggle class="slide-toggle"  formControlName="bonus" value="bonus">
+                        <p class="promotion-text"> Бонус от Lift </p>
+                    </mat-slide-toggle>
+                </div>
+                </form>
+                <button type="submit" class="btn main-button mt-4 mb-4">Дальше</button>
+
+            </div>
+
+
+
+
+            <div class="action-content text-center" *ngSwitchCase="4">
+                <p class="title text-center">Дальнейшие дествия</p>
+
+                <form [formGroup]="actionForm">
+                    <div class="form-group radio-button-group mt-3" [ngClass]="{'activRadioButton':actionForm.get('action').value=='auto-subscription'}">
+                        <label for="auto-subscription" class="w-100">
+                            <p>Настроить автоподписку</p>
+                        </label>
+                        <input formControlName="action" class="d-none" id="auto-subscription" type="radio"
+                            value="auto-subscription">
+                    </div>
+
+                    <div class="form-group radio-button-group mt-3" [ngClass]="{'activRadioButton':actionForm.get('action').value=='view-stories'}">
+                        <label for="view-stories" class="w-100">
+                            <p>Настроить просмотр Stories</p>
+                        </label>
+                        <input formControlName="action" class="d-none" id="view-stories" type="radio"
+                            value="view-stories">
+                    </div>
+                </form>
+
+                <button type="submit" class="btn main-button mt-4 mb-4" disabled="actionForm.invalid">потом</button>
+            </div>
+        </div>
+    </div>
+</div>
