@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError, of } from 'rxjs';
 import { ServerResponse } from '../models/server-response';
 import { AuthState } from '../models/auth';
 import { map, catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +15,10 @@ export class AuthService {
     private _isAuthorized: boolean = false;
     private _isAuthorizedState$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-    constructor(private _httpClient: HttpClient) { }
+    constructor(
+        private _httpClient: HttpClient,
+        private _router:Router
+    ) { }
 
     public setUserState(userInfo): void {
         this._userInfo = userInfo;
@@ -50,6 +54,7 @@ export class AuthService {
                 }),
                 catchError((err) => {
                     this.setAuthState(false);
+                    this._router.navigate(['/auth/login']);
                     return throwError(false);
                 })
             )

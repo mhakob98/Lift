@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 
 import { CookieModule } from 'ngx-cookie';
 import { ApiInterceptor } from './com/annaniks/lift/core/interceptors/api.interceptor';
+import { AuthGuard } from './com/annaniks/lift/core/guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ApiInterceptor } from './com/annaniks/lift/core/interceptors/api.interc
     CookieModule.forRoot()
   ],
   providers: [
+    AuthGuard,
     {
       provide: 'BASE_URL',
       useValue: environment.apiUrl,
