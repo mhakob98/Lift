@@ -21,14 +21,12 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 //Accont Connection Modal
-import { AcocountConnectionModal } from '../core/modals';
 
 @NgModule({
     declarations: [
         LimitsComponent,
         FooterNavigationComponent,
         LineChartComponent,
-        AcocountConnectionModal
     ],
 
     imports: [
@@ -43,7 +41,6 @@ import { AcocountConnectionModal } from '../core/modals';
         MatSlideToggleModule
     
     ],
-    entryComponents:[AcocountConnectionModal],
     exports: [
         LimitsComponent,
         NgxEchartsModule,
@@ -54,7 +51,6 @@ import { AcocountConnectionModal } from '../core/modals';
         MatSliderModule,
         MatCheckboxModule,
         MatDialogModule,
-        AcocountConnectionModal,
         MatSlideToggleModule
     ],
 })

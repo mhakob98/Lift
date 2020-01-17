@@ -6,15 +6,22 @@ import { CommonModule } from '@angular/common';
 // Our Modules
 import { MainRoutingModule } from './main.routing.module';
 import { LayoutModule } from '../../layout/layout-module';
+import { AcocountConnectionModal } from '../../core/modals';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
     declarations: [
         MainRoutingModule.components,
+        AcocountConnectionModal
     ],
     imports: [
         MainRoutingModule,
+        SharedModule,
         CommonModule,
         LayoutModule
+    ],
+    entryComponents:[
+        AcocountConnectionModal,
     ],
     providers: [],
 })
