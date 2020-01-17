@@ -29,6 +29,8 @@
     "ngx-cookie": "^4.1.2",
     "ngx-echarts": "^4.2.2",
     "ngx-slick-carousel": "^0.4.7",
+    "primeicons": "^2.0.0",
+    "primeng": "^9.0.0-rc.2",
     "rxjs": "~6.4.0",
     "slick-carousel": "^1.8.1",
     "subsink": "^1.0.0",
