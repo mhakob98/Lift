@@ -12,21 +12,21 @@ import { AcocountConnectionModal } from '../../core/modals';
 
 @Injectable()
 export class MainService {
-    private _isShowDisabledView: boolean = true;
+    private _isShowDisabledView: boolean = false;
 
     constructor(
         private _httpClient: HttpClient,
         private _cookieService: CookieService,
         private _authService: AuthService,
-        private _matDialog:MatDialog
+        private _matDialog: MatDialog
     ) { }
 
-    private _openAccountConnectModal():void{
-        this._matDialog.open(AcocountConnectionModal,{
-            maxWidth:'80vw',
-            maxHeight:'80vh',
-            width:'700px',
-            disableClose:true
+    private _openAccountConnectModal(): void {
+        this._matDialog.open(AcocountConnectionModal, {
+            maxWidth: '80vw',
+            maxHeight: '80vh',
+            width: '700px',
+            disableClose: true
         })
     }
 
@@ -43,13 +43,13 @@ export class MainService {
             .pipe(
                 map((data: ServerResponse<User>) => {
                     const user = data.data;
-                    if (user.istagramAccounts.length == 0) {
-                        this.setShowDisabledView(true);
-                        this._openAccountConnectModal();
-                    }
-                    else{
-                        this.setShowDisabledView(false);
-                    }
+                    // if (user.istagramAccounts.length == 0) {
+                    //     this.setShowDisabledView(true);
+                    //     this._openAccountConnectModal();
+                    // }
+                    // else {
+                    //     this.setShowDisabledView(false);
+                    // }
                     this._authService.setUserState(data.data);
                     return data;
                 }),
@@ -73,5 +73,5 @@ export class MainService {
     public getShowDisabledView(): boolean {
         return this._isShowDisabledView;
     }
-    
+
 }

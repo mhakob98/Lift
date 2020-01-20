@@ -1,7 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AccountSearchParam } from '../../../../../core/models/subscription-parameter';
 import { SubSink } from 'subsink';
 import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
+import { Search, SearchTerm } from 'src/app/com/annaniks/lift/core/models/search';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-account-search',
@@ -9,14 +11,17 @@ import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.
   styleUrls: ['./account-search.component.scss']
 })
 export class AccountSearchComponent implements OnInit {
+
   @Input('type') public type: AccountSearchParam;
-  public texts: string[];
 
-  public results: string[];
+  @Output('searched')
+  private _searched = new EventEmitter<SearchTerm>();
 
-  public searchArray: string[] = [
-    "barev", "hajox", "Hovo", "Rado", "hakov"
-  ]
+  @Input('searchValue')
+  public searchValue: Observable<Search>
+
+  public accounts: string[];
+
   private _subs = new SubSink();
 
   constructor(
@@ -24,21 +29,28 @@ export class AccountSearchComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._waitForValueEmit()
   }
 
   public search(event): void {
-    this.results = this.searchArray.filter((d) => d.includes(event.query))
-  }
-  public clearAll(): void {
-    this.texts = []
+    this._searched.emit({ type: "user", query: event.query })
   }
 
-  private _waitForValueEmit(): void {
-    this._subs.add(this._subscribeStoryService.saveSettingsObservable$.subscribe(async (data) => {
-      console.log(this.results);
-      await data
-      this._subscribeStoryService.subscribeToSubject$.next(this.results)
-    }))
+  public clearAll(): void {
+    this.accounts = []
   }
+
+  public writeValueToService(): void {
+    switch (this.type) {
+      case "comment":
+        this._subscribeStoryService.commentTo = this.accounts
+        break;
+      case "likes":
+        this._subscribeStoryService.likesTo = this.accounts
+        break;
+      case "subscriber":
+        this._subscribeStoryService.subscribesTo = this.accounts
+        break;
+    }
+  }
+
 }

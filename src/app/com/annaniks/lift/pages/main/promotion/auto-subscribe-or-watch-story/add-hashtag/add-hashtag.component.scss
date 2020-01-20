@@ -60,3 +60,33 @@
     }
   }
 }
+p-autoComplete {
+  ::ng-deep {
+    .ui-autocomplete-input {
+      background: transparent !important;
+      border: none !important;
+    }
+    ul {
+      border: none;
+      li.ui-autocomplete-token {
+        font-family: "SF UI Display Regular" !important;
+        background-color: #d7d7d7 !important;
+        border-radius: 4px;
+        padding: 10px 12px 10px 13px !important;
+        color: #7d7d7d !important;
+      }
+      li {
+        input {
+          // width: 315px;
+          max-width: 500px;
+        }
+      }
+      // &.ui-autocomplete-items {
+      //   li {
+      //     background-color: #305976 !important;
+      //     color: white !important;
+      //   }
+      // }
+    }
+  }
+}

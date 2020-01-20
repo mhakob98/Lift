@@ -1,12 +1,18 @@
 <div class="subscribed-to-container">
     <div class="subscribed-to">
-        <p-autoComplete placeholder="Введите имена аккаунтов" [(ngModel)]="texts" [suggestions]="results"
+        <p-autoComplete (onSelect)="writeValueToService()" maxlength="50" field="username"
+            placeholder="Введите имена аккаунтов" [(ngModel)]="accounts" [suggestions]="searchValue | async"
             (completeMethod)="search($event)" [multiple]="true">
-
+            <ng-template let-user pTemplate="item">
+                <div class="d-flex align-items-center">
+                    <img [src]="user.profile_pic_url" class="rounded-circle" height="32" />
+                    <div class="ml-1">{{user.username}}</div>
+                </div>
+            </ng-template>
         </p-autoComplete>
 
     </div>
-    <div (click)="clearAll()" class="clear-all-fields">
+    <div *ngIf="accounts?.length > 0" (click)="clearAll()" class="clear-all-fields">
         <img src="assets/icons/trash.png">
         <p>очистить все</p>
     </div>

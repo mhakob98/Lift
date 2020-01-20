@@ -23,7 +23,8 @@
                     Должны одновременно соблюдаться условия ниже
                 </h4>
                 <div class="conditions-list">
-                    <app-subscribe-watch-condition [index]="i" *ngFor="let condition of conditions;let i = index">
+                    <app-subscribe-watch-condition (value)="handleConditionValue($event)" [index]="i"
+                        *ngFor="let condition of conditions;let i = index">
 
                     </app-subscribe-watch-condition>
                     <button [disabled]="conditions.length > 4" class="add-condition" (click)="conditions.push(1)">+
@@ -35,12 +36,14 @@
                         <input formControlName="maximumPerDay" type="number"> <span>Максимум в
                             день</span>
                         <mat-slider max="200" min="0" [value]="suitableSubsOrStoryForm.get('maximumPerDay').value"
-                            (change)="onChange($event)">
+                            (change)="onChange($event,suitableSubsOrStoryForm.get('maximumPerDay'))">
                         </mat-slider>
                     </div>
                     <div class="subscribes-limits-item">
                         <input type="text" formControlName="maximumPerHour"> <span>Максимум в час</span>
-                        <mat-slider class="example-margin" max="40" min="0" [step]="step"
+                        <mat-slider (change)="onChange($event,suitableSubsOrStoryForm.get('maximumPerHour'))"
+                            class="example-margin" max="40" min="0"
+                            [value]="suitableSubsOrStoryForm.get('maximumPerHour').value"
                             formControlName="maximumPerHour">
                         </mat-slider>
                     </div>

@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormBuilder } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { SubscriptionParam } from 'src/app/com/annaniks/lift/core/models/subscription-parameter';
 import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
-import { startWith, pairwise } from 'rxjs/operators';
+import { startWith, pairwise, map } from 'rxjs/operators';
+import { SearchTerm, Search } from 'src/app/com/annaniks/lift/core/models/search';
 
 @Component({
   selector: 'app-subscribe-watch-condition',
@@ -16,6 +17,7 @@ export class SubscribeWatchConditionComponent implements OnInit {
   private _subscribe$: Subscription = new Subscription();
   public typeControl: FormControl = new FormControl();
   public selectedType: SubscriptionParam = '';
+  public searchStream$: Observable<Search>;
 
 
   constructor(
@@ -39,11 +41,11 @@ export class SubscribeWatchConditionComponent implements OnInit {
   }
 
   public checkConditionDisable(type: string): boolean {
-    let isExist: boolean = false
+    let isExist: boolean = false;
     this._autoSubscribeOrWatchStoryService.addedConditions.map((condition: string) => {
-      if (condition === type) isExist = true
+      if (condition === type) isExist = true;
     })
-    return isExist ? true : false
+    return isExist ? true : false;
   }
 
   private _subscribeToTypeChanges(): void {
@@ -58,6 +60,14 @@ export class SubscribeWatchConditionComponent implements OnInit {
       };
     })
   }
+
+
+  public searchFor(searchTerm: SearchTerm): void {
+    console.log(searchTerm);
+
+    this.searchStream$ = this._autoSubscribeOrWatchStoryService.searchFor(searchTerm).pipe(map(search => search.data))
+  }
+
 
   ngOnDestroy() {
     this._subscribe$.unsubscribe();
