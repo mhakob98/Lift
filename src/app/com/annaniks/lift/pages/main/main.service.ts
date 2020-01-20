@@ -4,12 +4,11 @@ import { Observable, throwError } from 'rxjs';
 import { CookieService } from 'ngx-cookie';
 import { ServerResponse } from '../../core/models/server-response';
 import { EmptyResponse } from '../../core/models/empty-response';
-import { User, Account } from '../../core/models/user';
+import { User } from '../../core/models/user';
 import { map, catchError } from 'rxjs/operators';
 import { AuthService } from '../../core/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
-import { AccountConnectionModal } from '../../core/modals';
-
+import { AccountConnectData, TwoFactorLoginData } from '../../core/models/account';
 
 @Injectable()
 export class MainService {
@@ -19,24 +18,15 @@ export class MainService {
         private _httpClient: HttpClient,
         private _cookieService: CookieService,
         private _authService: AuthService,
-        private _matDialog:MatDialog
+        private _matDialog: MatDialog
     ) { }
-
-    private _openAccountConnectModal():void{
-        this._matDialog.open(AccountConnectionModal,{
-            maxWidth:'80vw',
-            maxHeight:'80vh',
-            width:'700px',
-            disableClose:true
-        })
-    }
 
     public logOut(): Observable<ServerResponse<EmptyResponse>> {
         let headers = new HttpHeaders();
         headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('refreshToken'));
         let params = new HttpParams();
         params = params.set('authorization', 'false');
-        return this._httpClient.post<ServerResponse<EmptyResponse>>('logout', {}, { headers, params })
+        return this._httpClient.post<ServerResponse<EmptyResponse>>('logout', {}, { headers, params });
     }
 
     public getMe(): Observable<ServerResponse<User>> {
@@ -44,11 +34,15 @@ export class MainService {
             .pipe(
                 map((data: ServerResponse<User>) => {
                     const user = data.data;
-                    if (user.istagramAccounts.length == 0) {
-                        this.setShowDisabledView(true);
-                        this._openAccountConnectModal();
+                    if (user) {
+                        if (user.istagramAccounts && user.istagramAccounts.length === 0) {
+                            this.setShowDisabledView(true);
+                        }
+                        else {
+                            this.setShowDisabledView(false);
+                        }
                     }
-                    else{
+                    else {
                         this.setShowDisabledView(false);
                     }
                     this._authService.setUserState(data.data);
@@ -61,9 +55,6 @@ export class MainService {
             );
     }
 
-    public addAccount(body: object): Observable<ServerResponse<Account>> {
-        return this._httpClient.get<ServerResponse<Account>>('', body);
-    }
     public setShowDisabledView(isShow: boolean): void {
         this._isShowDisabledView = isShow;
         if (isShow) {
@@ -71,11 +62,20 @@ export class MainService {
             document.body.style.overflow = 'hidden';
             return;
         }
-        document.body.style.overflow = 'scroll';
+        document.body.style.overflow = 'auto';
     }
+
+    public accountConnect(data: AccountConnectData): Observable<any> {
+        return this._httpClient.post('instagram-connect', data);
+    }
+
+    public twoFactorLogin(data: TwoFactorLoginData): Observable<any> {
+        return this._httpClient.post('two-factor-login', data);
+    }
+
 
     public getShowDisabledView(): boolean {
         return this._isShowDisabledView;
     }
-    
+
 }

@@ -16,8 +16,10 @@
             </div>
         </div>
         <div class="main mt-5">
+
             <div class="login-container" *ngSwitchCase="1">
                 <form [formGroup]="loginForm">
+                    <p class="error text-danger">{{errorMessage}}</p>
                     <div class="form-group">
                         <label class="lable mb-1">Ваш адрес</label>
                         <input type="text" class="form-control" formControlName="email" placeholder="Ваш адрес *"
@@ -34,7 +36,7 @@
                             placeholder="Введите код из sms" [ngClass]="{'border':checkIsValid('code')}">
                     </div>
 
-                    <button type="submit" class="btn button mt-4 mb-4" [disabled]="loginForm.invalid"
+                    <button type="submit" class="btn button mt-4 mb-4" [disabled]="loginForm.invalid || loading"
                         (click)="addAccount()">подключить Аккаунт
                         Instagram</button>
                 </form>
