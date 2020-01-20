@@ -6,14 +6,14 @@ import { CommonModule } from '@angular/common';
 // Our Modules
 import { MainRoutingModule } from './main.routing.module';
 import { LayoutModule } from '../../layout/layout-module';
-import { AcocountConnectionModal } from '../../core/modals';
+import { AccountConnectionModal } from '../../core/modals';
 import { SharedModule } from '../../shared/shared.module';
 import { MainService } from './main.service';
 
 @NgModule({
     declarations: [
         MainRoutingModule.components,
-        AcocountConnectionModal
+        AccountConnectionModal
     ],
     imports: [
         MainRoutingModule,
@@ -22,7 +22,7 @@ import { MainService } from './main.service';
         LayoutModule
     ],
     entryComponents:[
-        AcocountConnectionModal,
+        AccountConnectionModal,
     ],
     providers: [MainService],
 })
