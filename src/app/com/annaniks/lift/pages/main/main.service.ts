@@ -4,11 +4,12 @@ import { Observable, throwError } from 'rxjs';
 import { CookieService } from 'ngx-cookie';
 import { ServerResponse } from '../../core/models/server-response';
 import { EmptyResponse } from '../../core/models/empty-response';
-import { User } from '../../core/models/user';
+import { User, Account } from '../../core/models/user';
 import { map, catchError } from 'rxjs/operators';
 import { AuthService } from '../../core/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
-import { AcocountConnectionModal } from '../../core/modals';
+import { AccountConnectionModal } from '../../core/modals';
+
 
 @Injectable()
 export class MainService {
@@ -22,7 +23,7 @@ export class MainService {
     ) { }
 
     private _openAccountConnectModal():void{
-        this._matDialog.open(AcocountConnectionModal,{
+        this._matDialog.open(AccountConnectionModal,{
             maxWidth:'80vw',
             maxHeight:'80vh',
             width:'700px',
@@ -60,6 +61,9 @@ export class MainService {
             );
     }
 
+    public addAccount(body: object): Observable<ServerResponse<Account>> {
+        return this._httpClient.get<ServerResponse<Account>>('', body);
+    }
     public setShowDisabledView(isShow: boolean): void {
         this._isShowDisabledView = isShow;
         if (isShow) {
