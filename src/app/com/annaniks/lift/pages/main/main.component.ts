@@ -23,6 +23,10 @@ export class MainComponent implements OnInit,OnDestroy {
       .subscribe();
   }
 
+  get isShowDisabledView():boolean{
+    return this._mainService.getShowDisabledView();
+  }
+
   ngOnDestroy(){
     this._unsubscribe.next();
     this._unsubscribe.complete();
