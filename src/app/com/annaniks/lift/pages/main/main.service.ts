@@ -9,6 +9,7 @@ import { map, catchError } from 'rxjs/operators';
 import { AuthService } from '../../core/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AcocountConnectionModal } from '../../core/modals';
+import { AccountConnectData } from '../../core/models/account';
 
 @Injectable()
 export class MainService {
@@ -18,15 +19,15 @@ export class MainService {
         private _httpClient: HttpClient,
         private _cookieService: CookieService,
         private _authService: AuthService,
-        private _matDialog:MatDialog
+        private _matDialog: MatDialog
     ) { }
 
-    private _openAccountConnectModal():void{
-        this._matDialog.open(AcocountConnectionModal,{
-            maxWidth:'80vw',
-            maxHeight:'80vh',
-            width:'700px',
-            disableClose:true
+    private _openAccountConnectModal(): void {
+        this._matDialog.open(AcocountConnectionModal, {
+            maxWidth: '80vw',
+            maxHeight: '80vh',
+            width: '700px',
+            disableClose: true
         })
     }
 
@@ -35,7 +36,7 @@ export class MainService {
         headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('refreshToken'));
         let params = new HttpParams();
         params = params.set('authorization', 'false');
-        return this._httpClient.post<ServerResponse<EmptyResponse>>('logout', {}, { headers, params })
+        return this._httpClient.post<ServerResponse<EmptyResponse>>('logout', {}, { headers, params });
     }
 
     public getMe(): Observable<ServerResponse<User>> {
@@ -47,7 +48,7 @@ export class MainService {
                         this.setShowDisabledView(true);
                         this._openAccountConnectModal();
                     }
-                    else{
+                    else {
                         this.setShowDisabledView(false);
                     }
                     this._authService.setUserState(data.data);
@@ -70,8 +71,12 @@ export class MainService {
         document.body.style.overflow = 'scroll';
     }
 
+    public accountConnect(data: AccountConnectData): Observable<any> {
+        return this._httpClient.post('instagram-connect', data);
+    }
+
     public getShowDisabledView(): boolean {
         return this._isShowDisabledView;
     }
-    
+
 }
