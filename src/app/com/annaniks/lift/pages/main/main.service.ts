@@ -4,9 +4,10 @@ import { Observable, throwError } from 'rxjs';
 import { CookieService } from 'ngx-cookie';
 import { ServerResponse } from '../../core/models/server-response';
 import { EmptyResponse } from '../../core/models/empty-response';
-import { User } from '../../core/models/user';
+import { User, Account } from '../../core/models/user';
 import { map, catchError } from 'rxjs/operators';
 import { AuthService } from '../../core/services/auth.service';
+
 
 @Injectable()
 export class MainService {
@@ -37,5 +38,9 @@ export class MainService {
                     return throwError(err);
                 })
             );
+    }
+
+    public addAccount(body: object): Observable<ServerResponse<Account>> {
+        return this._httpClient.get<ServerResponse<Account>>('', body);
     }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AcocountConnectionModal } from '../../../../core/modals';
+import { AccountConnectionModal } from '../../../../core/modals';
 
 @Component({
   selector: 'app-header-switch-account',
@@ -15,7 +15,7 @@ export class HeaderSwitchAccountComponent implements OnInit {
   }
 
   public openAccontConnectionModal(): void {
-    const dialogRef = this.dialog.open(AcocountConnectionModal, {
+    const dialogRef = this.dialog.open(AccountConnectionModal, {
       width: "700px",
     })
   }
