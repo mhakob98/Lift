@@ -14,3 +14,8 @@ interface Role {
     createdAt: string;
     updatedAt: string;
 }
+
+export interface Account {
+    email: string;
+    password: string;
+}

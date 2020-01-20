@@ -1,19 +1,7 @@
 <div class="switch-account-content">
     <div class="switch-account-content-container">
-        <div class="switch-account-item">
-            <p>@mshecyan98</p>
-        </div>
-        <div class="switch-account-item">
-            <p class="active">@mshecyan98</p>
-        </div>
-        <div class="switch-account-item">
-            <p>@mshecyan98</p>
-        </div>
-        <div class="switch-account-item">
-            <p>@mshecyan98</p>
-        </div>
-        <div class="switch-account-item">
-            <p>@mshecyan98</p>
+        <div class="switch-account-item" *ngFor="let item of getUserInfo">
+            <p>{{item.login }}</p>
         </div>
     </div>
 

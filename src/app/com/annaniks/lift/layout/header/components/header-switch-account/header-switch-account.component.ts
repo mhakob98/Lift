@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AcocountConnectionModal } from '../../../../core/modals';
+import { AccountConnectionModal } from '../../../../core/modals';
+import { AuthService } from '../../../../core/services/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header-switch-account',
@@ -9,15 +11,21 @@ import { AcocountConnectionModal } from '../../../../core/modals';
 })
 export class HeaderSwitchAccountComponent implements OnInit {
 
-  constructor(private dialog: MatDialog) { }
+  constructor(
+    private dialog: MatDialog,
+    private _authService:AuthService
+  ) { }
 
   ngOnInit() {
   }
 
   public openAccontConnectionModal(): void {
-    const dialogRef = this.dialog.open(AcocountConnectionModal, {
+    const dialogRef = this.dialog.open(AccountConnectionModal, {
       width: "700px",
     })
   }
 
+  get getUserInfo():any{
+    return this._authService.getUserStateSync().istagramAccounts
+  }
 }

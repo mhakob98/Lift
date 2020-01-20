@@ -1,17 +1,22 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MainService } from './main.service';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject, pipe } from 'rxjs';
+import { takeUntil, map } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
+import { AccountConnectionModal } from '../../core/modals';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit,OnDestroy {
+export class MainComponent implements OnInit, OnDestroy {
   private _unsubscribe: Subject<void> = new Subject<void>();
 
-  constructor(private _mainService: MainService) { }
+  constructor(
+    private _mainService: MainService,
+    private _matDialog: MatDialog
+  ) { }
 
   ngOnInit() {
     this._getUser();
@@ -19,15 +24,34 @@ export class MainComponent implements OnInit,OnDestroy {
 
   private _getUser(): void {
     this._mainService.getMe()
-      .pipe(takeUntil(this._unsubscribe))
+      .pipe(
+        takeUntil(this._unsubscribe),
+        pipe(
+          map((data) => {
+            const user = data.data;
+            if (user.istagramAccounts && user.istagramAccounts.length === 0) {
+              this._openAccountConnectModal();
+            }
+          })
+        )
+      )
       .subscribe();
   }
 
-  get isShowDisabledView():boolean{
+  private _openAccountConnectModal(): void {
+    this._matDialog.open(AccountConnectionModal, {
+      maxWidth: '80vw',
+      maxHeight: '80vh',
+      width: '700px',
+      disableClose: true
+    })
+  }
+
+  get isShowDisabledView(): boolean {
     return this._mainService.getShowDisabledView();
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this._unsubscribe.next();
     this._unsubscribe.complete();
   }
