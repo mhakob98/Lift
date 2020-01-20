@@ -35,19 +35,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   public toggleNotsPanel(): void {
-    this.showNots = !this.showNots
+    this.showNots = !this.showNots;
   }
 
   public toggleQuestions(): void {
-    this.showQuestion = !this.showQuestion
+    this.showQuestion = !this.showQuestion;
   }
 
   public toggleUserDetails(): void {
-    this.showUserDetails = !this.showUserDetails
+    this.showUserDetails = !this.showUserDetails;
   }
 
   public toggleSwitchAccount(): void {
-    this.showSwitchAccount = !this.showSwitchAccount
+    this.showSwitchAccount = !this.showSwitchAccount;
   }
 
   public onClickedOutsideNots(): void {
@@ -55,7 +55,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   public onClickedOutsideQuestions(): void {
-    this.showQuestion = false
+    this.showQuestion = false;
   }
 
   public onClickedOutsideUserDetails(): void {
@@ -66,7 +66,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.showSwitchAccount = false;
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this._unsubscribe$.next();
     this._unsubscribe$.complete();
   }

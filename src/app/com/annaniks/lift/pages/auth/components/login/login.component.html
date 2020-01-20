@@ -1,7 +1,7 @@
 <div id="logreg-forms">
         <form class="form-signin" [formGroup]="signInForm">
                 <h1 class="h3 mb-3 font-weight-normal text-center">Войти</h1>
-                <div class="social-login row">
+                <!-- <div class="social-login row">
                         <button class="btn facebook-btn social-btn col" type="button"><span><i
                                                 class="fab fa-facebook-f"></i> Войти через
                                         Facebook</span> </button>
@@ -9,7 +9,7 @@
                                                 class="fab fa-google-plus-g"></i> Войти через
                                         Google+</span> </button>
                 </div>
-                <p class="text-center"> ИЛИ </p>
+                <p class="text-center"> ИЛИ </p> -->
                 <p class="tex-center error text-danger">{{errorMessage}}</p>
                 <input type="email" id="inputEmail" formControlName="email"
                         [ngClass]="{'inp-error':getValidationError('email','required') || getValidationError('email','email')}"
@@ -20,7 +20,7 @@
 
                 <button class="btn  btn-block registr-btn" type="submit" (click)="onSubmit()"
                         [disabled]="signInForm.invalid || loading"><i class="fas fa-sign-in-alt"></i>Войти</button>
-                <a href="#" id="forgot_pswd">Забыли пароль ?</a>
+                <!-- <a href="#" id="forgot_pswd">Забыли пароль ?</a> -->
                 <hr>
                 <!-- <p>Don't have an account!</p>  -->
                 <button class="btn btn-block new-accont-btn" type="button" id="btn-signup"
