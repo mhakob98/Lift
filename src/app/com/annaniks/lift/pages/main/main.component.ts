@@ -29,7 +29,7 @@ export class MainComponent implements OnInit, OnDestroy {
         pipe(
           map((data) => {
             const user = data.data;
-            if (user.istagramAccounts && user.istagramAccounts.length === 0) {
+            if (user.instagramAccounts && user.instagramAccounts.length === 0) {
               this._openAccountConnectModal();
             }
           })

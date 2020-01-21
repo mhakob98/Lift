@@ -5,17 +5,18 @@ import { ServerResponse } from '../models/server-response';
 import { AuthState } from '../models/auth';
 import { map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { User } from '../models/user';
+import { User, InstagramAccount } from '../models/user';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
     private _userInfo: User;
-    private _userInfoState$: BehaviorSubject<User> = new BehaviorSubject<User>({} as User);
+    private _userInfoState$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
     private _isAuthorized: boolean = false;
     private _isAuthorizedState$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    private _activeAccount: any
+    private _activeAccount: InstagramAccount = {} as InstagramAccount;
+
     constructor(
         private _httpClient: HttpClient,
         private _router: Router
@@ -26,10 +27,8 @@ export class AuthService {
         this._userInfoState$.next(this._userInfo);
     }
 
-    public setAccount(index: number): void {
-        console.log(this._userInfo.istagramAccounts);
-
-        this._activeAccount = this._userInfo.istagramAccounts[index]
+    public setAccount(account: InstagramAccount): void {
+        this._activeAccount = account;
     }
 
     public getAccount() {

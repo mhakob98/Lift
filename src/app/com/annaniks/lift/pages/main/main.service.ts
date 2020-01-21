@@ -33,7 +33,7 @@ export class MainService {
                 map((data: ServerResponse<User>) => {
                     const user = data.data;
                     if (user) {
-                        if (user.istagramAccounts && user.istagramAccounts.length === 0) {
+                        if (user.instagramAccounts && user.instagramAccounts.length === 0) {
                             this.setShowDisabledView(true);
                         }
                         else {
