@@ -37,7 +37,10 @@ export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
           }
           return of();
         })
-      ).subscribe(data => this.massfollowingData = data.data);
+      ).subscribe(data => {
+        console.log(data);
+        this.massfollowingData = data.data
+      });
   }
 
   public onSettingsSave(): void {

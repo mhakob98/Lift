@@ -12,8 +12,11 @@ export class AudienceFilterComponent implements OnInit, OnDestroy {
 
   @Input('massData')
   set _massData(event) {
-    console.log(event);
-    this._bindMassfollowing(event)
+    if (event.loginId) {
+      this._bindMassfollowing(event)
+    } else if (!this.filterAudienceForm) {
+      this._initForm()
+    }
   }
 
   public filterAudienceForm: FormGroup
@@ -24,7 +27,6 @@ export class AudienceFilterComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this._initForm()
 
   }
 
@@ -52,8 +54,8 @@ export class AudienceFilterComponent implements OnInit, OnDestroy {
         likeInPhoto: formValue.likeInPhoto.status ? { min: formValue.likeInPhoto.min, max: formValue.likeInPhoto.max } : null,
         postCount: formValue.postCount.status ? { min: formValue.postCount.min, max: formValue.postCount.max } : null,
         haveAvatar: formValue.haveAvatar,
-        lastPostAge: formValue.lastPostAge.status ? formValue.lastPostAge.age : null,
-        lasStoryAge: formValue.lastStoryAge.status ? formValue.lastStoryAge.age : null,
+        lastPostAge: formValue.lastPostAge.status ? formValue.lastPostAge.age : 0,
+        lasStoryAge: formValue.lastStoryAge.status ? formValue.lastStoryAge.age : 0,
         profileDescription: formValue.profileDescription,
         description: {
           include: formValue.descriptionInclude.status ? formValue.descriptionInclude.text.trim().split(',') : null,
@@ -70,7 +72,7 @@ export class AudienceFilterComponent implements OnInit, OnDestroy {
   private _bindMassfollowing(event): void {
     console.log(event);
     this.filterAudienceForm.patchValue({
-      // followers: { event.followers.aemail: 'myvalue@asd.com'}
+      followers: { status: event.filter.followers ? true : false, min: event.filter.followers.min || 0, max: event.filter.followers.max || 0 }
     });
 
   }

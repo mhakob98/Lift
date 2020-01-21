@@ -44,8 +44,9 @@ export class MainService {
                         this.setShowDisabledView(false);
                     }
                     this._authService.setUserState(data.data);
-                    if (!this._authService.getAccount()) {
-                        this._authService.setAccount(data.data[0])
+
+                    if (!this._authService.getAccount().id) {
+                        this._authService.setAccount(data.data.instagramAccounts[0])
                     }
                     return data;
                 }),
