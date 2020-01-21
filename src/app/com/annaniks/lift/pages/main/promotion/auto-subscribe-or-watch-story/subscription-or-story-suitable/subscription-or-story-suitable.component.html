@@ -23,8 +23,7 @@
                     Должны одновременно соблюдаться условия ниже
                 </h4>
                 <div class="conditions-list">
-                    <app-subscribe-watch-condition [index]="i"
-                        *ngFor="let condition of conditions;let i = index">
+                    <app-subscribe-watch-condition [index]="i" *ngFor="let condition of conditions;let i = index">
 
                     </app-subscribe-watch-condition>
                     <button [disabled]="conditions.length > 4" class="add-condition" (click)="conditions.push(1)">+
@@ -51,10 +50,10 @@
                         <mat-checkbox>Ограничения по времени публикации</mat-checkbox>
                     </div>
                 </div>
-                <div class="save-discard-settings">
+                <!-- <div class="save-discard-settings">
                     <button class="discard">Отменить</button>
                     <button class="save" (click)='onSave()'>Сохранить</button>
-                </div>
+                </div> -->
             </div>
         </div>
 

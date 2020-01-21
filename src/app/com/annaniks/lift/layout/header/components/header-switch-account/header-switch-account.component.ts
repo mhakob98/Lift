@@ -13,7 +13,7 @@ export class HeaderSwitchAccountComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private _authService:AuthService
+    private _authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -25,7 +25,11 @@ export class HeaderSwitchAccountComponent implements OnInit {
     })
   }
 
-  get getUserInfo():any{
+  public setAccount(index: number): void {
+    this._authService.setAccount(index)
+  }
+
+  get getUserInfo(): any {
     return this._authService.getUserStateSync().istagramAccounts
   }
 }

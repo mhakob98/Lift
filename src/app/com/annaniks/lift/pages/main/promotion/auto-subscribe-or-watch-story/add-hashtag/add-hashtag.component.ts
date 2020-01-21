@@ -65,7 +65,7 @@ export class AddHashtagComponent implements OnInit {
     this.hashtagsForm.value.items.map((hashtag) => {
       hashtags.push(hashtag.label)
     });
-    this._subscribeStoryService.selectedHashtags = hashtags
+    this._subscribeStoryService.settings.tags = hashtags
   }
 
   get itemsControl(): FormArray {

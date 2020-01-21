@@ -42,13 +42,13 @@ export class AccountSearchComponent implements OnInit {
   public writeValueToService(): void {
     switch (this.type) {
       case "comment":
-        this._subscribeStoryService.commentTo = this.accounts
+        this._subscribeStoryService.settings.commentersByAccounts = this.accounts
         break;
       case "likes":
-        this._subscribeStoryService.likesTo = this.accounts
+        this._subscribeStoryService.settings.likers = this.accounts
         break;
       case "subscriber":
-        this._subscribeStoryService.subscribesTo = this.accounts
+        this._subscribeStoryService.settings.followersByAccounts = this.accounts
         break;
     }
   }

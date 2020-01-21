@@ -1,0 +1,28 @@
+.save-discard-settings {
+  margin-top: 60px;
+  display: flex;
+  justify-content: flex-end;
+  .discard {
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(221, 221, 221);
+    border-radius: 6px;
+    background-color: rgb(234, 240, 243);
+    width: 184px;
+    height: 54px;
+    font-family: "SF UI Display Regular";
+    font-size: 18px;
+    color: #8f8f8f;
+    margin-right: 13px;
+  }
+  .save {
+    border-radius: 6px;
+    background-color: rgb(51, 153, 204);
+    width: 427px;
+    height: 50px;
+    border: none;
+    font-family: "SF UI Display SemiBold";
+    font-size: 18px;
+    color: white;
+  }
+}

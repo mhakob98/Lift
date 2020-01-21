@@ -6,20 +6,28 @@ import { of, Observable, BehaviorSubject, Subject } from 'rxjs';
 // Interfaces
 import { AudienceFilter } from '../../../../core/models/audience-filter';
 import { ActionAfterSubscription } from '../../../../core/models/action-after-subscription';
-import { SuitableSettingsRequest } from '../../../../core/models/suitable-settings-request';
 import { EmptyResponse } from '../../../../core/models/empty-response';
 import { ServerResponse } from '../../../../core/models/server-response';
-import { Coordinates } from '../../../../core/models/coordinates';
 import { Search, SearchTerm } from '../../../../core/models/search';
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Injectable()
 export class AutoSubscribeOrWatchStoryService {
-    public selectedHashtags = []
-    public selectedLocations = []
     public selectedSubscribes = []
-    public commentTo = []
-    public likesTo = []
-    public subscribesTo = []
+    public settings: any = {
+        "likeCountForFollower": 2,
+        "seeStories": true,
+        "dontFollowHiddenAccounts": false,
+        "hidePostsAndStories": true,
+        "comments": [],
+        "hidePosts": true,
+        "hideStories": false,
+        "unfollowDays": 5,
+        "followTime": {
+            "start": "02-05-2020",
+            "end": "10-10-2020"
+        },
+    }
     public addedConditionsSubject$ = new Subject<{ prev: string, next: string }>();
     public addedConditionsObservable$ = new Observable<{ prev: string, next: string }>();
 
@@ -33,7 +41,7 @@ export class AutoSubscribeOrWatchStoryService {
 
 
 
-    constructor(private httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient, private _authService: AuthService) {
         this.addedConditionsObservable$ = this.addedConditionsSubject$.asObservable();
     }
 
@@ -41,8 +49,9 @@ export class AutoSubscribeOrWatchStoryService {
         return this.httpClient.get<ServerResponse<Search>>(`instagram-search/${searchTerm.query}/${searchTerm.type}`)
     }
 
-    public saveSettings(settings): Observable<ServerResponse<EmptyResponse>> {
-        return this.httpClient.post<ServerResponse<EmptyResponse>>('massfollowing', settings)
+    public saveSettings(): Observable<ServerResponse<EmptyResponse>> {
+        this.settings.loginId = this._authService.getAccount().id.toString()
+        return this.httpClient.post<ServerResponse<EmptyResponse>>('massfollowing', this.settings)
     }
 
 }

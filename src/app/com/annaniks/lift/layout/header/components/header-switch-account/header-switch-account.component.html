@@ -1,10 +1,8 @@
 <div class="switch-account-content">
     <div class="switch-account-content-container">
-        <div class="switch-account-item" *ngFor="let item of getUserInfo">
-            <p>{{item.login }}</p>
+        <div class="switch-account-item" *ngFor="let item of getUserInfo;let i = index">
+            <p (click)="setAccount(i)">{{item.login }}</p>
         </div>
     </div>
-
     <p class="add-account" (click)="openAccontConnectionModal()">+Добавить аккаунт</p>
-
 </div>

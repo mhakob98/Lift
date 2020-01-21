@@ -11,11 +11,11 @@ import { User } from '../models/user';
     providedIn: 'root'
 })
 export class AuthService {
-    private _userInfo:User;
+    private _userInfo: User;
     private _userInfoState$: BehaviorSubject<User> = new BehaviorSubject<User>({} as User);
     private _isAuthorized: boolean = false;
     private _isAuthorizedState$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
+    private _activeAccount: any
     constructor(
         private _httpClient: HttpClient,
         private _router: Router
@@ -24,6 +24,16 @@ export class AuthService {
     public setUserState(userInfo): void {
         this._userInfo = userInfo;
         this._userInfoState$.next(this._userInfo);
+    }
+
+    public setAccount(index: number): void {
+        console.log(this._userInfo.istagramAccounts);
+
+        this._activeAccount = this._userInfo.istagramAccounts[index]
+    }
+
+    public getAccount() {
+        return this._activeAccount
     }
 
     public getUserStateSync() {
