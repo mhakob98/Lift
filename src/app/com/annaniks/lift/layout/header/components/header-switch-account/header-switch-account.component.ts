@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AccountConnectionModal } from '../../../../core/modals';
-import { AuthService } from '../../../../core/services/auth.service';
-import { Observable } from 'rxjs';
+import { InstagramAccount } from '../../../../core/models/user';
 
 @Component({
   selector: 'app-header-switch-account',
@@ -10,26 +9,28 @@ import { Observable } from 'rxjs';
   styleUrls: ['./header-switch-account.component.scss']
 })
 export class HeaderSwitchAccountComponent implements OnInit {
+  @Input('userAccounts') public userAccounts: InstagramAccount[] = [];
+  @Output('selectAccount') public selectAccount: EventEmitter<InstagramAccount> = new EventEmitter<InstagramAccount>();
+  public selectedAccount: InstagramAccount;
 
   constructor(
-    private dialog: MatDialog,
-    private _authService: AuthService
+    private _dialog: MatDialog,
   ) { }
 
   ngOnInit() {
   }
 
-  public openAccontConnectionModal(): void {
-    const dialogRef = this.dialog.open(AccountConnectionModal, {
+  public openAccountConnectionModal(): void {
+    const dialogRef = this._dialog.open(AccountConnectionModal, {
       width: "700px",
     })
   }
 
-  public setAccount(index: number): void {
-    this._authService.setAccount(index)
+  public onClickAccount(item: InstagramAccount): void {
+    if (this.selectedAccount && item.id === this.selectedAccount.id) return;
+
+    this.selectedAccount = item;
+    this.selectAccount.emit(this.selectedAccount);
   }
 
-  get getUserInfo(): any {
-    return this._authService.getUserStateSync().istagramAccounts
-  }
 }

@@ -3,7 +3,7 @@ import { MainService } from '../../pages/main/main.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ServerResponse } from '../../core/models/server-response';
-import { User } from '../../core/models/user';
+import { User, InstagramAccount } from '../../core/models/user';
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
@@ -18,8 +18,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public showUserDetails: boolean = false;
   public showSwitchAccount: boolean = false;
   public user: User;
+  public userAccounts: InstagramAccount[] = [];
+  public selectedAccount: InstagramAccount;
 
   constructor(private _authService: AuthService) {
+
   }
 
   ngOnInit() {
@@ -30,8 +33,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this._authService.getUserState()
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe((data) => {
-        this.user = data;
+        if (!!data) {
+          this.user = data;
+          this.userAccounts = this.user.instagramAccounts;
+          this.selectedAccount = (this.userAccounts.length > 0) ? this.userAccounts[0] : null;
+        }
       })
+  }
+
+  public handleSelectAccount($event: InstagramAccount) {
+    this._authService.setAccount($event);
   }
 
   public toggleNotsPanel(): void {

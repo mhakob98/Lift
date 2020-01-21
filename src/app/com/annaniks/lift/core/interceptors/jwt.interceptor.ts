@@ -70,8 +70,7 @@ export class JwtInterceptor implements HttpInterceptor {
                         return throwError(false);
                     })
                 )
-                .subscribe()
-
+                .subscribe();
         }
         else {
             this._loading = false;

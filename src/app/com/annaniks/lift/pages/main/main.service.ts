@@ -33,7 +33,7 @@ export class MainService {
                 map((data: ServerResponse<User>) => {
                     const user = data.data;
                     if (user) {
-                        if (user.istagramAccounts && user.istagramAccounts.length === 0) {
+                        if (user.instagramAccounts && user.instagramAccounts.length === 0) {
                             this.setShowDisabledView(true);
                         }
                         else {
@@ -45,7 +45,7 @@ export class MainService {
                     }
                     this._authService.setUserState(data.data);
                     if (!this._authService.getAccount()) {
-                        this._authService.setAccount(0)
+                        this._authService.setAccount(data.data[0])
                     }
                     return data;
                 }),
