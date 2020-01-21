@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, AbstractControl } from '@angular/forms';
 import { SubSink } from 'subsink';
 import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
@@ -9,6 +9,7 @@ import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.
   styleUrls: ['./subscription-or-story-suitable.component.scss'],
 })
 export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
+
   public step: number;
   public suitableSubsOrStoryForm: FormGroup;
   public conditionsForm: FormGroup;
@@ -17,6 +18,8 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
 
   constructor(
     private _fb: FormBuilder,
+    private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService
+
   ) { }
 
   ngOnInit() {
@@ -34,6 +37,7 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
   public onChange($event, control: AbstractControl): void {
     control.patchValue($event.value, { emitEvent: false });
   }
+
 
 
   ngOnDestroy() {

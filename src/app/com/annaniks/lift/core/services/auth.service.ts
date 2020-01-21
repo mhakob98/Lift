@@ -15,7 +15,9 @@ export class AuthService {
     private _userInfoState$: BehaviorSubject<User> = new BehaviorSubject<User>({} as User);
     private _isAuthorized: boolean = false;
     private _isAuthorizedState$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    private _activeAccount: any
+    private _activeAccount: any;
+    private _activeAccountState$ = new BehaviorSubject<any>(null)
+
     constructor(
         private _httpClient: HttpClient,
         private _router: Router
@@ -27,9 +29,12 @@ export class AuthService {
     }
 
     public setAccount(index: number): void {
-        console.log(this._userInfo.istagramAccounts);
-
         this._activeAccount = this._userInfo.istagramAccounts[index]
+        this._activeAccountState$.next(this._activeAccount);
+    }
+
+    public getActiveAccountSync(): any {
+        return this._activeAccount
     }
 
     public getAccount() {
@@ -54,6 +59,10 @@ export class AuthService {
 
     public getAuthState(): Observable<boolean> {
         return this._isAuthorizedState$.asObservable();
+    }
+
+    public getActiveAccount(): Observable<any> {
+        return this._activeAccountState$.asObservable();
     }
 
     public checkAuthState(): Observable<boolean> {

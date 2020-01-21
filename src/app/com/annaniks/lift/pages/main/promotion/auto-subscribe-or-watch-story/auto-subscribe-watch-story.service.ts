@@ -54,4 +54,8 @@ export class AutoSubscribeOrWatchStoryService {
         return this.httpClient.post<ServerResponse<EmptyResponse>>('massfollowing', this.settings)
     }
 
+    // TODO NEEDS TYPING
+    public getSettings(activeAccountId: number): Observable<ServerResponse<any>> {
+        return this.httpClient.get<ServerResponse<any>>(`massfollowing/${activeAccountId}`)
+    }
 }

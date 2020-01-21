@@ -44,6 +44,9 @@ export class MainService {
                         this.setShowDisabledView(false);
                     }
                     this._authService.setUserState(data.data);
+                    if (!this._authService.getAccount()) {
+                        this._authService.setAccount(0)
+                    }
                     return data;
                 }),
                 catchError((err) => {
