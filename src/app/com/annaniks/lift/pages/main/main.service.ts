@@ -78,4 +78,9 @@ export class MainService {
         return this._isShowDisabledView;
     }
 
+
+    public postAccountConnectionValues(body): Observable<any> {
+        return this._httpClient.post('', body);
+    }
+
 }

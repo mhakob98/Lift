@@ -5,6 +5,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { finalize, takeUntil, take } from 'rxjs/operators';
 import { TwoFactorLoginData } from '../../models/account';
 import { Subject } from 'rxjs';
+import { timingSafeEqual } from 'crypto';
 
 @Component({
     selector: "account-connection-modal",
@@ -43,13 +44,15 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
         this.tariffForm = this._fb.group({
             tariff: [null, Validators.required]
         })
+        this.promotionForm = this._fb.group({
+            autosubscription: [false],
+            autoreviewstories: [false],
+            bonus: [false]
+        })
+
+
         this.actionForm = this._fb.group({
             action: [null, Validators.required]
-        })
-        this.promotionForm = this._fb.group({
-            autosubscription: [""],
-            autoreviewstories: [""],
-            bonus: [""]
         })
     }
 
@@ -114,6 +117,26 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
             this._connectAccount();
         }
     }
+
+    public changeTab(tab): void {
+        this.tab = tab;
+    }
+
+    public postAccountConnectionValues(): void {
+        this._mainService.postAccountConnectionValues({
+            tarriff: this.tariffForm.value.tariff,
+            action: this.actionForm.value.action,
+            promotion: this.promotionForm.value,
+        })
+            .subscribe((data) => {
+                console.log(data);
+                this._dialogRef.close();
+            })
+
+    }
+
+
+
 
     ngOnDestroy() {
         this._unsubscribe$.next();
