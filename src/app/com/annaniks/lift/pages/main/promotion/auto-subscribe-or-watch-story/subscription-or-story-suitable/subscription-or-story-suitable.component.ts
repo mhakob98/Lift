@@ -1,10 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray, FormControl, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, AbstractControl } from '@angular/forms';
 import { SubSink } from 'subsink';
 import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
-import { combineLatest, of } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
-
 
 @Component({
   selector: 'app-subscription-suitable',
@@ -19,8 +16,6 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
   private _subs = new SubSink();
   public conditions: number[] = []
 
-
-
   constructor(
     private _fb: FormBuilder,
     private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService
@@ -28,10 +23,7 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._initForm();
-
   }
-
-
 
   private _initForm(): void {
     this.suitableSubsOrStoryForm = this._fb.group({
@@ -39,7 +31,6 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
       maximumPerHour: [20],
       publicationTimeLimit: [false]
     })
-
   }
 
   public onChange($event, control: AbstractControl): void {
@@ -79,8 +70,8 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
 
       })
     )
-
   }
+
   ngOnDestroy() {
     this._subs.unsubscribe();
   }
