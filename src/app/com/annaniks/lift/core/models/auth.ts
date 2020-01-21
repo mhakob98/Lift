@@ -3,6 +3,6 @@ export interface AuthState {
 }
 
 export interface TokenResponse {
-    refreshToken: string;
+    refreshToken?: string;
     accessToken: string;
 }

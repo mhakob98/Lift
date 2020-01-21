@@ -7,7 +7,6 @@ import { EmptyResponse } from '../../core/models/empty-response';
 import { User } from '../../core/models/user';
 import { map, catchError } from 'rxjs/operators';
 import { AuthService } from '../../core/services/auth.service';
-import { MatDialog } from '@angular/material/dialog';
 import { AccountConnectData, TwoFactorLoginData } from '../../core/models/account';
 
 @Injectable()
@@ -18,7 +17,6 @@ export class MainService {
         private _httpClient: HttpClient,
         private _cookieService: CookieService,
         private _authService: AuthService,
-        private _matDialog: MatDialog
     ) { }
 
     public logOut(): Observable<ServerResponse<EmptyResponse>> {
