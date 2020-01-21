@@ -12,7 +12,7 @@ import { Observable, of } from 'rxjs';
   styleUrls: ['./auto-subscribe-watch-story.component.scss']
 })
 export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
-  private _loading: boolean = false;
+  public loading: boolean = false;
   private _subs = new SubSink();
   public currentRoute = '';
   public massfollowingData: any = {}
@@ -44,10 +44,10 @@ export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
   }
 
   public onSettingsSave(): void {
-    this._loading = true;
+    this.loading = true;
     this._subs.add(
       this._autoSubscribeOrWatchStoryService.saveSettings()
-        .pipe(finalize(() => this._loading = false))
+        .pipe(finalize(() => this.loading = false))
         .subscribe((data) => {
         })
     )
