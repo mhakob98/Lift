@@ -65,3 +65,9 @@ body {
   font-weight: normal;
   src: url("assets/fonts/SF-UI-Display-Regular.otf");
 }
+
+span.ui-autocomplete {
+  input.ui-autocomplete-input {
+    max-width: 500px !important;
+  }
+}

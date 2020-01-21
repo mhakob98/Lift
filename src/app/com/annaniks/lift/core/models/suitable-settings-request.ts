@@ -1,11 +1,11 @@
 import { Account } from './account';
 
 export interface SuitableSettingsRequest {
-    hashtags: string[],
-    specialAccountsSubscriber: Account[],
-    specialLocationAccounts: Account[],
-    commentsToSpecialAccount: Account[],
-    likesToSpecialAccount: Account[],
+    hashtags: [],
+    specialAccountsSubscriber: [],
+    specialLocationAccounts: [],
+    commentsToSpecialAccount: [],
+    likesToSpecialAccount: [],
     maximumPerDay: number,
     maximumPerHour: number,
     publicationTimeLimit: boolean

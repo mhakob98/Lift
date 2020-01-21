@@ -1,24 +1,20 @@
 <div [formGroup]="locationForm" class="account-by-location-container">
     <div class="account-by-location">
-        <div class="location-item" formArrayName="items"
-            *ngFor="let item of itemsControl.controls; let i = index;">
-
+        <div class="location-item" formArrayName="items" *ngFor="let item of itemsControl.controls; let i = index;">
             <div [formGroupName]="i">
+                <p-autoComplete (onSelect)="writeValueToService()" maxlength="50" field="title" formControlName="label"
+                    [suggestions]="searchValue | async" (completeMethod)="search($event)"
+                    [size]="item.get('label').value.length || item.get('label').value.title?.length || 5">
 
-                <p-autoComplete formControlName="label" [suggestions]="results" (completeMethod)="search($event)"
-                    [size]="item.get('label').value.length || 5">
                 </p-autoComplete>
-                <img (click)="deleteLocation(item.value)" src="assets/icons/delete-1.png">
+                <img (click)="deleteLocation(i)" src="assets/icons/delete-1.png">
             </div>
         </div>
         <p (click)="addItem()" class="add-location">Добавить локацию</p>
-
     </div>
-    <div (click)="clearAll()" class="clear-all-fields">
+    <div *ngIf="itemsControl.controls.length > 0" (click)="clearAll()" class="clear-all-fields">
         <img src="assets/icons/trash.png">
         <p>очистить все</p>
     </div>
 </div>
-<div id="map">
-
-</div>
+<div id="map"></div>

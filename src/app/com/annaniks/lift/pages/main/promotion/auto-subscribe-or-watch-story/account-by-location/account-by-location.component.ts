@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
 import { SubSink } from 'subsink';
+import { SearchTerm, Search } from 'src/app/com/annaniks/lift/core/models/search';
+import { Observable } from 'rxjs';
+import { Coordinates } from 'src/app/com/annaniks/lift/core/models/coordinates';
 declare var google;
 @Component({
   selector: 'app-account-by-location',
@@ -9,6 +12,12 @@ declare var google;
   styleUrls: ['./account-by-location.component.scss']
 })
 export class AccountByLocationComponent implements OnInit {
+  @Output('searched')
+  private _searched = new EventEmitter<SearchTerm>();
+
+
+  @Input('searchValue')
+  public searchValue: Observable<Search>
 
   public locationForm: FormGroup;
   public locationsItems: FormArray;
@@ -26,7 +35,6 @@ export class AccountByLocationComponent implements OnInit {
 
   ngOnInit() {
     this._formBuilder()
-    this._waitForValueEmit()
   }
 
   private _initMap(corrdinates = { lat: 40.7865229, lng: 43.8476395 }, zoom = 15): void {
@@ -254,7 +262,7 @@ export class AccountByLocationComponent implements OnInit {
 
 
   public search(event): void {
-    this.results = ["1", "2", "3", "4", "5", "6", "7",].filter(place => place.includes(event.query));
+    this._searched.emit({ type: "place", query: event.query })
   }
 
   public createMarker(): void {
@@ -274,6 +282,10 @@ export class AccountByLocationComponent implements OnInit {
     this.locationForm = this._fb.group({
       items: this._fb.array([])
     });
+    this.locationForm.valueChanges.subscribe(() => {
+      console.log(this.locationForm.value);
+
+    })
     this._initMap()
 
   }
@@ -287,8 +299,8 @@ export class AccountByLocationComponent implements OnInit {
     this.locationsItems.push(this.createItem());
   }
 
-  public deleteLocation(hashtagLabel: string): void {
-    this.locationsItems.removeAt(this.locationsItems.value.filter(hashtag => hashtag === hashtagLabel))
+  public deleteLocation(locationIndex: number): void {
+    this.locationsItems.removeAt(locationIndex)
   }
 
   public clearAll(): void {
@@ -298,17 +310,17 @@ export class AccountByLocationComponent implements OnInit {
     // this.locationsItems = this._fb.array([]);
   }
 
-  private _waitForValueEmit(): void {
-    this._subs.add(this._subscribeStoryService.saveSettingsObservable$.subscribe(async (data) => {
-      let locations: Coordinates[] = []
-      this.locationForm.value.items.map((coordinate: Coordinates) => {
-        locations.push(coordinate)
-      })
-      // this._subscribeStoryService.locationSubject$.next(locations)
-    }))
+  public writeValueToService(): void {
+    let locations: Coordinates[] = []
+    this.locationForm.value.items.map((coordinate) => {
+      locations.push(coordinate.label)
+    })
+    console.log("locations AREEEEEE", locations);
+
+    this._subscribeStoryService.selectedLocations = locations
   }
 
-  get itemsControl():FormArray{
+  get itemsControl(): FormArray {
     return this.locationForm.get('items') as FormArray;
   }
 

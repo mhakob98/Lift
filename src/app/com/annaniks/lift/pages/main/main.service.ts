@@ -12,7 +12,7 @@ import { AccountConnectData, TwoFactorLoginData } from '../../core/models/accoun
 
 @Injectable()
 export class MainService {
-    private _isShowDisabledView: boolean = true;
+    private _isShowDisabledView: boolean = false;
 
     constructor(
         private _httpClient: HttpClient,

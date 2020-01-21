@@ -16,12 +16,18 @@
     <p class="condition-subtitle" *ngSwitchCase="'likes'">Подписываться на аккаунты, которые лайкают</p>
 </div>
 <div class="condition d-flex" [ngSwitch]="selectedType">
-    <app-add-hashtag class="w-100" *ngSwitchCase="'hashtag'"></app-add-hashtag>
-    <app-account-search class="w-100" [type]="selectedType" *ngSwitchCase="'comment'">
+    <app-add-hashtag (searched)="searchFor($event)" [searchValue]="searchStream$" class="w-100"
+        *ngSwitchCase="'hashtag'">
+    </app-add-hashtag>
+    <app-account-search (searched)="searchFor($event)" [searchValue]="searchStream$" class="w-100" [type]="selectedType"
+        *ngSwitchCase="'comment'">
     </app-account-search>
-    <app-account-search class="w-100" [type]="selectedType" *ngSwitchCase="'likes'">
+    <app-account-search (searched)="searchFor($event)" [searchValue]="searchStream$" class="w-100" [type]="selectedType"
+        *ngSwitchCase="'likes'">
     </app-account-search>
-    <app-account-search class="w-100" [type]="selectedType" *ngSwitchCase="'subscriber'">
+    <app-account-search (searched)="searchFor($event)" [searchValue]="searchStream$" class="w-100" [type]="selectedType"
+        *ngSwitchCase="'subscriber'">
     </app-account-search>
-    <app-account-by-location class="w-100" *ngSwitchCase="'location'"></app-account-by-location>
+    <app-account-by-location (searched)="searchFor($event)" [searchValue]="searchStream$" class="w-100"
+        *ngSwitchCase="'location'"></app-account-by-location>
 </div>

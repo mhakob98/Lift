@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { SubSink } from 'subsink';
 import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
+import { SearchTerm, Search } from 'src/app/com/annaniks/lift/core/models/search';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-hashtag',
@@ -9,7 +11,14 @@ import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.
   styleUrls: ['./add-hashtag.component.scss']
 })
 export class AddHashtagComponent implements OnInit {
-  public hashtag:string;
+
+  @Output('searched')
+  private _searched = new EventEmitter<SearchTerm>();
+
+  @Input('searchValue')
+  public searchValue: Observable<Search>
+
+  public hashtag: string;
   public hashtagsForm: FormGroup;
   public hashtagsItems: FormArray;
   private _subs = new SubSink();
@@ -21,13 +30,16 @@ export class AddHashtagComponent implements OnInit {
 
   ngOnInit() {
     this._formBuilder()
-    this._waitForValueEmit()
   }
 
   private _formBuilder(): void {
     this.hashtagsForm = this._fb.group({
       items: this._fb.array([])
     });
+  }
+
+  public search(event): void {
+    this._searched.emit({ type: "hashtag", query: event.query })
   }
 
   public createItem(): FormGroup {
@@ -39,8 +51,8 @@ export class AddHashtagComponent implements OnInit {
     this.hashtagsItems.push(this.createItem());
   }
 
-  public deleteHashtag(hashtagLabel: string): void {
-    this.hashtagsItems.removeAt(this.hashtagsItems.value.filter(hashtag => hashtag === hashtagLabel))
+  public deleteHashtag(hashtagIndex: number): void {
+    this.hashtagsItems.removeAt(hashtagIndex)
   }
 
   public clearAll(): void {
@@ -48,19 +60,15 @@ export class AddHashtagComponent implements OnInit {
       this.hashtagsItems.removeAt(0)
     }
   }
-  private _waitForValueEmit(): void {
-    this._subs.add(this._subscribeStoryService.saveSettingsObservable$.subscribe(async (data) => {
-      console.log(this.hashtagsForm.value);
-      await data
-      let hashtags: string[] = []
-      this.hashtagsForm.value.items.map((hashtag: { label: string }) => {
-        hashtags.push(hashtag.label)
-      })
-      this._subscribeStoryService.hashtagSubject$.next(hashtags)
-    }))
+  public writeValueToService(): void {
+    let hashtags = [];
+    this.hashtagsForm.value.items.map((hashtag) => {
+      hashtags.push(hashtag.label)
+    });
+    this._subscribeStoryService.selectedHashtags = hashtags
   }
 
-  get itemsControl():FormArray{
-    return this. hashtagsForm.get('items') as FormArray;
+  get itemsControl(): FormArray {
+    return this.hashtagsForm.get('items') as FormArray;
   }
 }
