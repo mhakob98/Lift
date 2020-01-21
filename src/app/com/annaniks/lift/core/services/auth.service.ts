@@ -15,6 +15,7 @@ export class AuthService {
     private _userInfoState$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
     private _isAuthorized: boolean = false;
     private _isAuthorizedState$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private _activeAccountState$ = new BehaviorSubject<any>(null)
     private _activeAccount: InstagramAccount = {} as InstagramAccount;
 
     constructor(
@@ -28,7 +29,10 @@ export class AuthService {
     }
 
     public setAccount(account: InstagramAccount): void {
+        console.log(account);
+
         this._activeAccount = account;
+        this._activeAccountState$.next(this._activeAccount)
     }
 
     public getAccount() {
@@ -53,6 +57,10 @@ export class AuthService {
 
     public getAuthState(): Observable<boolean> {
         return this._isAuthorizedState$.asObservable();
+    }
+
+    public getActiveAccount(): Observable<any> {
+        return this._activeAccountState$.asObservable();
     }
 
     public checkAuthState(): Observable<boolean> {
