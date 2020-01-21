@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, FormControl, AbstractControl } from '@angular/forms';
 import { SubSink } from 'subsink';
 import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
 import { combineLatest, of } from 'rxjs';
@@ -42,7 +42,7 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
 
   }
 
-  public onChange($event, control: FormControl): void {
+  public onChange($event, control: AbstractControl): void {
     control.patchValue($event.value, { emitEvent: false });
   }
 
