@@ -30,6 +30,7 @@ export class MainComponent implements OnInit, OnDestroy {
           map((data) => {
             const user = data.data;
             if (user.instagramAccounts && user.instagramAccounts.length === 0) {
+              console.log(user);
               this._openAccountConnectModal();
             }
           })
@@ -39,12 +40,17 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   private _openAccountConnectModal(): void {
-    this._matDialog.open(AccountConnectionModal, {
+    const dialofRef = this._matDialog.open(AccountConnectionModal, {
       maxWidth: '80vw',
       maxHeight: '80vh',
       width: '700px',
       disableClose: true
     })
+    dialofRef.afterClosed()
+      .pipe(takeUntil(this._unsubscribe))
+      .subscribe(() => {
+        this._getUser();
+      })
   }
 
   get isShowDisabledView(): boolean {

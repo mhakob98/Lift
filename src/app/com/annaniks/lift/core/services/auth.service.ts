@@ -29,14 +29,12 @@ export class AuthService {
     }
 
     public setAccount(account: InstagramAccount): void {
-        console.log(account);
-
         this._activeAccount = account;
         this._activeAccountState$.next(this._activeAccount)
     }
 
     public getAccount() {
-        return this._activeAccount
+        return this._activeAccount;
     }
 
     public getUserStateSync() {

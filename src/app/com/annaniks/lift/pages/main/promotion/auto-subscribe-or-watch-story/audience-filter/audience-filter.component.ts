@@ -12,6 +12,7 @@ export class AudienceFilterComponent implements OnInit, OnDestroy {
 
   @Input('massData')
   set _massData(event) {
+    console.log(event);
     if (event.loginId) {
       this._bindMassfollowing(event)
     } else if (!this.filterAudienceForm) {
@@ -27,7 +28,7 @@ export class AudienceFilterComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-
+    this._initForm();
   }
 
   private _initForm(): void {
@@ -70,10 +71,11 @@ export class AudienceFilterComponent implements OnInit, OnDestroy {
   }
 
   private _bindMassfollowing(event): void {
-    console.log(event);
-    this.filterAudienceForm.patchValue({
-      followers: { status: event.filter.followers ? true : false, min: event.filter.followers.min || 0, max: event.filter.followers.max || 0 }
-    });
+    if (event && event.filter) {
+      this.filterAudienceForm.patchValue({
+        followers: { status: event.filter.followers ? true : false, min: event.filter.followers.min || 0, max: event.filter.followers.max || 0 }
+      });
+    }
 
   }
 

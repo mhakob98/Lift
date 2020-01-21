@@ -3,7 +3,7 @@
 <div class="pg-container">
     <div class="save-discard-settings">
         <button class="discard">Отменить</button>
-        <button class="save" (click)='onSettingsSave()'>Сохранить</button>
+        <button class="save" (click)='onSettingsSave()' [disabled]="loading">Сохранить</button>
     </div>
 </div>
 
