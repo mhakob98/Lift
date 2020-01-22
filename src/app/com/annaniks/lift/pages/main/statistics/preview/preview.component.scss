@@ -38,7 +38,9 @@
       height: 260px;
 
       .card-content {
+        padding: 25px;
         .card-descrption {
+          padding: 15px;
           .card-image {
             width: 80px;
             height: 80px;
@@ -68,9 +70,9 @@
   }
 
   .action {
+    padding: 30px 0;
     .action-item {
       padding: 0;
-
       .action-item-content {
         background-color: white;
         height: 120px;
@@ -191,7 +193,6 @@
       }
 
       .calendar-item {
-
         .calendar-image {
           height: 23px;
           width: 23px;
