@@ -1,7 +1,7 @@
 <div class="condition">
     <div class="condition-index">{{index + 1 }}</div>
     <select class="condition-select custom-select custom-select-sm" [formControl]="typeControl">
-        <option [selected]="true" [disabled]="true">Введите параметры фильтра </option>
+        <option [disabled]="true" value="">Введите параметры фильтра </option>
         <option [disabled]="checkConditionDisable('hashtag')" value="hashtag">По хештегам</option>
         <option [disabled]="checkConditionDisable('subscriber')" value="subscriber">На подписчиков аккаунтов</option>
         <option [disabled]="checkConditionDisable('location')" value="location">На аккаунты в рамках локации</option>
