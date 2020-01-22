@@ -42,7 +42,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   public handleSelectAccount($event: InstagramAccount) {
+    this.selectedAccount = $event;
     this._authService.setAccount($event);
+    this.toggleSwitchAccount();
   }
 
   public toggleNotsPanel(): void {
