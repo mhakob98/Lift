@@ -25,8 +25,8 @@ export class AccountSettings {
     status?: string;
     location: any;
     followersByAccounts: FollowersByAccount[];
-    commentersByAccounts: any;
-    likers: any;
+    commentersByAccounts: CommentersByAccounts[];
+    likers: LikersByAccounts[];
     tags: Hashtag[];
     comments: any;
     likeCountForFollower: number;
@@ -36,7 +36,7 @@ export class AccountSettings {
     hidePostsAndStories: boolean;
     hidePosts: boolean;
     hideStories: boolean;
-    followTime: FollowTime
+    followTime: FollowTime;
     filter: Filter;
     createdAt?: string;
     updatedAt?: string;
@@ -116,6 +116,28 @@ export interface FollowersByAccount {
     mutual_followers_count: number;
     latest_reel_media: number;
 }
+
+export declare type CommentersByAccounts = FollowersByAccount;
+export declare type LikersByAccounts = FollowersByAccount;
+
+export interface Location {
+    location: {
+        pk: string;
+        name: string;
+        address: string;
+        city: string;
+        short_name: string;
+        lng: number;
+        lat: number;
+        external_source: string;
+        facebook_places_id: number;
+    }
+    title: string;
+    subtitle: string;
+    media_bundles: []
+    slug: string;
+}
+
 
 export interface Condition {
     type: SubscriptionParam;

@@ -39,6 +39,15 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
           if (settings.followersByAccounts && settings.followersByAccounts.length > 0) {
             this.conditions.push({ type: 'subscriber' });
           }
+          if (settings.commentersByAccounts && settings.commentersByAccounts.length > 0) {
+            this.conditions.push({ type: 'comment' });
+          }
+          if (settings.commentersByAccounts && settings.likers.length > 0) {
+            this.conditions.push({ type: 'likes' });
+          }
+          if (settings.location && settings.location.length > 0) {
+            this.conditions.push({ type: 'location' });
+          }
         }
       })
   }

@@ -38,7 +38,7 @@ export class AccountSearchComponent implements OnInit {
       accountType = 'followersByAccounts';
     }
     if (this.type === 'comment') {
-      accountType = 'comments';
+      accountType = 'commentersByAccounts';
     }
     if (this.type === 'likes') {
       accountType = 'likers';

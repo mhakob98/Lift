@@ -9,7 +9,6 @@ import { ServerResponse } from '../../../../core/models/server-response';
 import { Search, SearchTerm } from '../../../../core/models/search';
 import { AuthService } from '../../../../core/services/auth.service';
 import { AccountSettings } from '../../../../core/models/account';
-import { SubscriptionParam } from '../../../../core/models/subscription-parameter';
 
 @Injectable()
 export class AutoSubscribeOrWatchStoryService {
