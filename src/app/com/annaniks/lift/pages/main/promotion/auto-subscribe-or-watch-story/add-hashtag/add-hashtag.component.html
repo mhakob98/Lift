@@ -2,6 +2,7 @@
     <div class="hashtags-container">
         <div class="hashtag-item" formArrayName="items" *ngFor="let item of itemsControl?.controls; let i = index;">
             <div [formGroupName]="i">
+                <p>#</p>
                 <p-autoComplete (onSelect)="writeValueToService()" maxlength="50" field="name" formControlName="label"
                     [suggestions]="searchValue | async" (completeMethod)="search($event)"
                     [size]="item.get('label').value.length || item.get('label').value.name?.length || 5">

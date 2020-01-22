@@ -10,13 +10,23 @@
     .collapse-heading {
       display: flex;
       align-items: center;
+      position: relative;
+      .after-count {
+        padding: 6px 9px 5px 7px;
+        background: #0dce99;
+        border-radius: 2px;
+        span {
+          font-family: "SF UI Display Regular";
+          font-size: 14px;
+          color: white;
+        }
+      }
       button {
         color: #3d3d3d;
         font-size: 18px;
         text-decoration: none;
-        width: 100%;
-        position: relative;
         text-align: left;
+
         img {
           position: absolute;
           right: 0;

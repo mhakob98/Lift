@@ -13,6 +13,7 @@ import { AddHashtagComponent } from './add-hashtag/add-hashtag.component';
 import { AccountSearchComponent } from './account-search/account-search.component';
 import { SharedModule } from '../../../../shared/shared.module';
 import { AccountByLocationComponent } from './account-by-location/account-by-location.component';
+import { SubscribeParametresComponent } from './subscribe-parametres/subscribe-parametres.component';
 
 @NgModule({
     declarations: [
@@ -21,6 +22,7 @@ import { AccountByLocationComponent } from './account-by-location/account-by-loc
         AddHashtagComponent,
         AccountSearchComponent,
         AccountByLocationComponent,
+        SubscribeParametresComponent,
     ],
     imports: [
         AutoSubscribeOrWatchStoryRoutingModule,

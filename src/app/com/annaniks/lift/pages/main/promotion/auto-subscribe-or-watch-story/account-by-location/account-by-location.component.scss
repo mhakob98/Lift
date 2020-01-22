@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   .account-by-location {
-    padding: 7px 8px;
+    padding: 17px 8px;
     background-color: white;
     display: flex;
     flex-wrap: wrap;
@@ -54,6 +54,9 @@
 }
 p-autoComplete {
   ::ng-deep {
+    input.ui-inputtext {
+      padding-left: 0 !important;
+    }
     input.ui-autocomplete-input {
       font-family: "SF UI Display Regular" !important;
       font-size: 16px !important;
@@ -63,6 +66,7 @@ p-autoComplete {
       border: transparent !important;
       border-radius: 4px !important;
       padding-left: 8px !important;
+
       // &:focus {
       //   border: inset !important;
       // }
