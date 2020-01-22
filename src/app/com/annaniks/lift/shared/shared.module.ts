@@ -17,18 +17,24 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 // Angular Material
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatRadioModule } from '@angular/material/radio';
 
 //Forms
 import { ReactiveFormsModule } from '@angular/forms';
+
+
+//modal
+
+import { AddPostModal } from '../core/modals';
 
 @NgModule({
     declarations: [
         LimitsComponent,
         FooterNavigationComponent,
         LineChartComponent,
+        AddPostModal
     ],
 
     imports: [
@@ -43,8 +49,10 @@ import { ReactiveFormsModule } from '@angular/forms';
         MatSlideToggleModule,
         ReactiveFormsModule,
         MatRadioModule
-    
+
     ],
+    entryComponents: [AddPostModal],
+
     exports: [
         LimitsComponent,
         NgxEchartsModule,
@@ -57,7 +65,8 @@ import { ReactiveFormsModule } from '@angular/forms';
         MatDialogModule,
         MatSlideToggleModule,
         ReactiveFormsModule,
-        MatRadioModule
+        MatRadioModule,
+        AddPostModal
     ],
 })
 export class SharedModule { }

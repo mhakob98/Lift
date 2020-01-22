@@ -5,7 +5,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { finalize, takeUntil, take } from 'rxjs/operators';
 import { TwoFactorLoginData } from '../../models/account';
 import { Subject } from 'rxjs';
-import { timingSafeEqual } from 'crypto';
+
 
 @Component({
     selector: "account-connection-modal",
@@ -134,8 +134,6 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
             })
 
     }
-
-
 
 
     ngOnDestroy() {

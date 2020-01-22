@@ -34,7 +34,7 @@ export class MainService {
                     const user = data.data;
                     if (user) {
                         if (user.instagramAccounts && user.instagramAccounts.length === 0) {
-                            this.setShowDisabledView(true);
+                            // this.setShowDisabledView(true);
                         }
                         else {
                             this.setShowDisabledView(false);
