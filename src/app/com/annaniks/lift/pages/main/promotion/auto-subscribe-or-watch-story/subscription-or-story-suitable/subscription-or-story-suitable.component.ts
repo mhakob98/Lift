@@ -16,7 +16,7 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
   private _unsubscribe$: Subject<void> = new Subject<void>();
   public step: number;
   public suitableSubsOrStoryForm: FormGroup;
-  public conditions: Condition[] = []
+  public conditions: Condition[] = [];
 
   constructor(
     private _fb: FormBuilder,
@@ -32,7 +32,23 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
     this._autoSubscribeOrWatchStoryService.settingsState
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe((settings: AccountSettings) => {
-        console.log(settings);
+        if (settings) {
+          if (settings.tags && settings.tags.length > 0) {
+            this.conditions.push({ type: 'hashtag' });
+          }
+          if (settings.followersByAccounts && settings.followersByAccounts.length > 0) {
+            this.conditions.push({ type: 'subscriber' });
+          }
+          if (settings.commentersByAccounts && settings.commentersByAccounts.length > 0) {
+            this.conditions.push({ type: 'comment' });
+          }
+          if (settings.commentersByAccounts && settings.likers.length > 0) {
+            this.conditions.push({ type: 'likes' });
+          }
+          if (settings.location && settings.location.length > 0) {
+            this.conditions.push({ type: 'location' });
+          }
+        }
       })
   }
 

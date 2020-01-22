@@ -1,4 +1,4 @@
-import { Hashtag } from './hashtag';
+import { Hashtag } from './account';
 
 export declare type Search = Hashtag[] | Account[];
 

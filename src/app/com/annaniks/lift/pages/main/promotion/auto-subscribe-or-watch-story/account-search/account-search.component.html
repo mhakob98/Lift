@@ -1,7 +1,7 @@
 <div class="subscribed-to-container">
     <div class="subscribed-to">
         <p-autoComplete (onSelect)="writeValueToService()" maxlength="50" field="username"
-            placeholder="Введите имена аккаунтов" [(ngModel)]="accounts" [suggestions]="searchValue | async"
+            placeholder="Введите имена аккаунтов" [formControl]="accounts" [suggestions]="searchValue | async"
             (completeMethod)="search($event)" [multiple]="true">
             <ng-template let-user pTemplate="item">
                 <div class="d-flex align-items-center">

@@ -1,12 +1,10 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
 import { ActionAfterSubscription } from '../../../../../core/models/action-after-subscription';
 
-import { Subject, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
 import { SubSink } from 'subsink';
 
 @Component({

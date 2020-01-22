@@ -4,6 +4,8 @@ export interface Account {
 
 }
 
+export interface AccountSettingsResponse { }
+
 export interface AccountConnectData {
     username: string;
     password: string;
@@ -22,10 +24,10 @@ export class AccountSettings {
     userId?: number;
     status?: string;
     location: any;
-    followersByAccounts: any;
-    commentersByAccounts: any;
-    likers: any;
-    tags: any;
+    followersByAccounts: FollowersByAccount[];
+    commentersByAccounts: CommentersByAccounts[];
+    likers: LikersByAccounts[];
+    tags: Hashtag[];
     comments: any;
     likeCountForFollower: number;
     unfollowDays: number;
@@ -34,7 +36,7 @@ export class AccountSettings {
     hidePostsAndStories: boolean;
     hidePosts: boolean;
     hideStories: boolean;
-    followTime: FollowTime
+    followTime: FollowTime;
     filter: Filter;
     createdAt?: string;
     updatedAt?: string;
@@ -91,6 +93,51 @@ interface FilterDescription {
     include: string[];
     exclude: string[]
 }
+
+
+export interface Hashtag {
+    name: string;
+    id: number;
+    media_count: number;
+    use_default_avatar: string;
+    profile_pic_url: string;
+    search_result_subtitle: string;
+}
+
+export interface FollowersByAccount {
+    pk: string;
+    username: string;
+    full_name: string;
+    is_private: boolean
+    profile_pic_url: string;
+    profile_pic_id: string;
+    is_verified: boolean;
+    has_anonymous_profile_picture: boolean;
+    mutual_followers_count: number;
+    latest_reel_media: number;
+}
+
+export declare type CommentersByAccounts = FollowersByAccount;
+export declare type LikersByAccounts = FollowersByAccount;
+
+export interface Location {
+    location: {
+        pk: string;
+        name: string;
+        address: string;
+        city: string;
+        short_name: string;
+        lng: number;
+        lat: number;
+        external_source: string;
+        facebook_places_id: number;
+    }
+    title: string;
+    subtitle: string;
+    media_bundles: []
+    slug: string;
+}
+
 
 export interface Condition {
     type: SubscriptionParam;

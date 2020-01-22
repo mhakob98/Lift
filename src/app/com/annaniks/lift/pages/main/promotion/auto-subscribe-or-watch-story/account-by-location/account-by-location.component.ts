@@ -2,9 +2,11 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
 import { SubSink } from 'subsink';
-import { SearchTerm, Search } from 'src/app/com/annaniks/lift/core/models/search';
-import { Observable } from 'rxjs';
-import { Coordinates } from 'src/app/com/annaniks/lift/core/models/coordinates';
+import { SearchTerm, Search } from '../../../../../core/models/search';
+import { Observable, Subject } from 'rxjs';
+import { Coordinates } from '../../../../../core/models/coordinates';
+import { Location } from '../../../../../core/models/account';
+
 declare var google;
 @Component({
   selector: 'app-account-by-location',
@@ -12,6 +14,7 @@ declare var google;
   styleUrls: ['./account-by-location.component.scss']
 })
 export class AccountByLocationComponent implements OnInit {
+  private _unsubscribe$: Subject<void> = new Subject<void>();
   @Output('searched')
   private _searched = new EventEmitter<SearchTerm>();
 
@@ -34,7 +37,21 @@ export class AccountByLocationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._formBuilder()
+    this._formBuilder();
+    this._initMap();
+    this._checkSelectedLocations();
+  }
+
+  private _checkSelectedLocations(): void {
+    this._subscribeStoryService.getSettingsByType('location').subscribe((locations: Location[]) => {
+      const items = this.locationForm.get('items') as FormArray;
+      if (locations && locations.length > 0) {
+        locations.map((location: Location, index: number) => {
+          items.push(this._fb.group({ label: location }));
+          this.createMarker({ lat: location.location.lat, lng: location.location.lng });
+        })
+      }
+    })
   }
 
   private _initMap(corrdinates = { lat: 40.7865229, lng: 43.8476395 }, zoom = 15): void {
@@ -265,16 +282,13 @@ export class AccountByLocationComponent implements OnInit {
     this._searched.emit({ type: "place", query: event.query })
   }
 
-  public createMarker(): void {
-    var myLatLngList = {
-      lat: 37.76487, lng: -122.41948
-    };
+  public createMarker(location: { lat: number, lng: number }): void {
     var marker = new google.maps.Marker({
-      position: myLatLngList,
+      position: location,
       map: this._map,
       title: 'markers'
     });
-    this._map.setCenter(marker.getPosition());
+    marker.setMap(this._map)
   };
 
 
@@ -282,12 +296,6 @@ export class AccountByLocationComponent implements OnInit {
     this.locationForm = this._fb.group({
       items: this._fb.array([])
     });
-    this.locationForm.valueChanges.subscribe(() => {
-      console.log(this.locationForm.value);
-
-    })
-    this._initMap()
-
   }
 
   public createItem(): FormGroup {
@@ -307,7 +315,6 @@ export class AccountByLocationComponent implements OnInit {
     while (this.locationsItems.length !== 0) {
       this.locationsItems.removeAt(0)
     }
-    // this.locationsItems = this._fb.array([]);
   }
 
   public writeValueToService(): void {
@@ -315,8 +322,6 @@ export class AccountByLocationComponent implements OnInit {
     this.locationForm.value.items.map((coordinate) => {
       locations.push(coordinate.label)
     })
-    console.log("locations AREEEEEE", locations);
-
     this._subscribeStoryService.settings.location = locations
   }
 

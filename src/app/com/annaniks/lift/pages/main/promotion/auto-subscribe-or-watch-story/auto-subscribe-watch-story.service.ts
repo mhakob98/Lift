@@ -9,7 +9,6 @@ import { ServerResponse } from '../../../../core/models/server-response';
 import { Search, SearchTerm } from '../../../../core/models/search';
 import { AuthService } from '../../../../core/services/auth.service';
 import { AccountSettings } from '../../../../core/models/account';
-import { SubscriptionParam } from '../../../../core/models/subscription-parameter';
 
 @Injectable()
 export class AutoSubscribeOrWatchStoryService {
@@ -41,7 +40,7 @@ export class AutoSubscribeOrWatchStoryService {
             seeStories: this.settings.seeStories,
             dontFollowHiddenAccounts: this.settings.dontFollowHiddenAccounts,
             hidePostsAndStories: this.settings.hidePostsAndStories,
-            comments: [],
+            comments: this.settings.comments || [],
             unfollowDays: this.settings.unfollowDays,
             filter: this.settings.filter
         }
@@ -59,7 +58,7 @@ export class AutoSubscribeOrWatchStoryService {
             )
     }
 
-    public getSettingsByType(type: SubscriptionParam): Observable<any> {
+    public getSettingsByType(type: string): Observable<any> {
         return this.settingsState
             .pipe(
                 map((settings) => settings[type] || [])
