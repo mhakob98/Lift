@@ -20,13 +20,7 @@ export class AutoSubscribeOrWatchStoryService {
     public addedConditionsSubject$ = new Subject<{ prev: string, next: string }>();
     public addedConditionsObservable$ = new Observable<{ prev: string, next: string }>();
 
-    public addedConditions: string[] = []
-
-    public fetchAllFilters$ = this.httpClient.get<ServerResponse<AudienceFilter[]>>('http://dummy.restapiexample.com/api/v1/employees')
-        .pipe(catchError(of))
-
-    public fetchAllActions$ = this.httpClient.get<ServerResponse<ActionAfterSubscription[]>>('http://dummy.restapiexample.com/api/v1/employees')
-        .pipe(catchError(of))
+    public addedConditions: string[] = [];
 
     constructor(private httpClient: HttpClient, private _authService: AuthService) {
         this.addedConditionsObservable$ = this.addedConditionsSubject$.asObservable();
