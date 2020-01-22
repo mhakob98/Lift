@@ -4,6 +4,8 @@ export interface Account {
 
 }
 
+export interface AccountSettingsResponse { }
+
 export interface AccountConnectData {
     username: string;
     password: string;
@@ -22,10 +24,10 @@ export class AccountSettings {
     userId?: number;
     status?: string;
     location: any;
-    followersByAccounts: any;
+    followersByAccounts: FollowersByAccount[];
     commentersByAccounts: any;
     likers: any;
-    tags: any;
+    tags: Hashtag[];
     comments: any;
     likeCountForFollower: number;
     unfollowDays: number;
@@ -90,6 +92,29 @@ interface FilterRange {
 interface FilterDescription {
     include: string[];
     exclude: string[]
+}
+
+
+export interface Hashtag {
+    name: string;
+    id: number;
+    media_count: number;
+    use_default_avatar: string;
+    profile_pic_url: string;
+    search_result_subtitle: string;
+}
+
+export interface FollowersByAccount {
+    pk: string;
+    username: string;
+    full_name: string;
+    is_private: boolean
+    profile_pic_url: string;
+    profile_pic_id: string;
+    is_verified: boolean;
+    has_anonymous_profile_picture: boolean;
+    mutual_followers_count: number;
+    latest_reel_media: number;
 }
 
 export interface Condition {

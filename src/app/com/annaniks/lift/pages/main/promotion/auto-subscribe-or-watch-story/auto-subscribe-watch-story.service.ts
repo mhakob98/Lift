@@ -40,7 +40,7 @@ export class AutoSubscribeOrWatchStoryService {
             seeStories: this.settings.seeStories,
             dontFollowHiddenAccounts: this.settings.dontFollowHiddenAccounts,
             hidePostsAndStories: this.settings.hidePostsAndStories,
-            comments: [],
+            comments: this.settings.comments || [],
             unfollowDays: this.settings.unfollowDays,
             filter: this.settings.filter
         }
@@ -58,7 +58,7 @@ export class AutoSubscribeOrWatchStoryService {
             )
     }
 
-    public getSettingsByType(type: SubscriptionParam): Observable<any> {
+    public getSettingsByType(type: string): Observable<any> {
         return this.settingsState
             .pipe(
                 map((settings) => settings[type] || [])
