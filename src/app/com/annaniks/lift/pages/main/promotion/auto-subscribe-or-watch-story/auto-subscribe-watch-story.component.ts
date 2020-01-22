@@ -3,8 +3,9 @@ import { Router } from '@angular/router';
 import { AutoSubscribeOrWatchStoryService } from './auto-subscribe-watch-story.service';
 import { SubSink } from 'subsink';
 import { AuthService } from '../../../../core/services/auth.service';
-import { switchMap, takeUntil, finalize } from 'rxjs/operators';
+import { switchMap, finalize } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { AccountSettings } from '../../../../core/models/account';
 
 @Component({
   selector: 'app-auto-subscribe-watch-story',
@@ -15,14 +16,14 @@ export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
   public loading: boolean = false;
   private _subs = new SubSink();
   public currentRoute = '';
-  public massfollowingData: any = {}
+  public massfollowingData: AccountSettings = new AccountSettings();
   constructor(
     private _router: Router,
     private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService,
     private _authService: AuthService
 
   ) {
-    this.currentRoute = _router.url;
+    this.currentRoute = this._router.url;
   }
 
   ngOnInit() {
@@ -34,12 +35,12 @@ export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap((account) => {
           if (account) {
-            return this.getSettings(account.id)
+            return this.getSettings(account.id);
           }
           return of();
         })
       ).subscribe(data => {
-        this.massfollowingData = data.data
+        this.massfollowingData = data.data;
       });
   }
 

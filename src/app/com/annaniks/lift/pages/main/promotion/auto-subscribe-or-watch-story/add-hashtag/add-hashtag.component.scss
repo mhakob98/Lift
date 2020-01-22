@@ -3,7 +3,7 @@
   align-items: flex-start;
   justify-content: space-between;
   .hashtags-container {
-    padding: 7px 1px;
+    padding: 17px 8px;
     background-color: white;
     display: flex;
     flex-wrap: wrap;
@@ -65,6 +65,9 @@ p-autoComplete {
     .ui-autocomplete-input {
       background: transparent !important;
       border: none !important;
+    }
+    input.ui-inputtext {
+      padding-left: 0 !important;
     }
     ul {
       border: none;

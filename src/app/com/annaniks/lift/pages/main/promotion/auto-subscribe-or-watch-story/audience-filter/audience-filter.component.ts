@@ -12,11 +12,9 @@ export class AudienceFilterComponent implements OnInit, OnDestroy {
 
   @Input('massData')
   set _massData(event) {
-    console.log(event);
-    if (event.loginId) {
+    this._initForm()
+    if (event && event.filter && event.filter.hasOwnProperty('haveSite')) {
       this._bindMassfollowing(event)
-    } else if (!this.filterAudienceForm) {
-      this._initForm()
     }
   }
 
@@ -26,9 +24,7 @@ export class AudienceFilterComponent implements OnInit, OnDestroy {
     private _formBuilder: FormBuilder,
     private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService
   ) { }
-
   ngOnInit() {
-    this._initForm();
   }
 
   private _initForm(): void {
@@ -71,11 +67,20 @@ export class AudienceFilterComponent implements OnInit, OnDestroy {
   }
 
   private _bindMassfollowing(event): void {
-    if (event && event.filter) {
-      this.filterAudienceForm.patchValue({
-        followers: { status: event.filter.followers ? true : false, min: event.filter.followers.min || 0, max: event.filter.followers.max || 0 }
-      });
-    }
+    this.filterAudienceForm.patchValue({
+      followers: { status: event.filter.followers ? true : false, min: event.filter.followers ? event.filter.followers.min : 0, max: event.filter.followers ? event.filter.followers.max : 0 },
+      folowings: { status: event.filter.folowings ? true : false, min: event.filter.folowings ? event.filter.folowings.min : 0, max: event.filter.folowings ? event.filter.folowings.max : 0 },
+      likeInPhoto: { status: event.filter.likeInPhoto ? true : false, min: event.filter.likeInPhoto ? event.filter.likeInPhoto.min : 0, max: event.filter.likeInPhoto ? event.filter.likeInPhoto.max : 0 },
+      postCount: { status: event.filter.postCount ? true : false, min: event.filter.postCount ? event.filter.postCount.min : 0, max: event.filter.postCount ? event.filter.postCount.max : 0 },
+      haveAvatar: event.filter.haveAvatar ? true : false,
+      lastPostAge: { status: event.filter.lastPostAge ? true : false, age: event.filter.lastPostAge },
+      lastStoryAge: { status: event.filter.lasStoryAge ? true : false, age: event.filter.lasStoryAge },
+      profileDescription: event.filter.profileDescription ? true : false,
+      haveSite: event.filter.haveSite ? true : false,
+      descriptionInclude: { status: event.filter.description.include ? true : false, text: event.filter.description.include ? event.filter.description.include.toString() : '' },
+      descriptionExclude: { status: event.filter.description.exclude ? true : false, text: event.filter.description.exclude ? event.filter.description.exclude.toString() : '' }
+
+    });
 
   }
 

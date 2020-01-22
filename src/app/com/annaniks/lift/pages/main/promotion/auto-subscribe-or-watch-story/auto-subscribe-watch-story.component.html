@@ -1,10 +1,11 @@
 <app-subscription-suitable></app-subscription-suitable>
+<app-subscribe-parametres></app-subscribe-parametres>
 <app-audience-filter [massData]="massfollowingData"></app-audience-filter>
+<app-after-subscription [massData]="massfollowingData" *ngIf="currentRoute != '/promotion/auto-watch-story'">
+</app-after-subscription>
 <div class="pg-container">
     <div class="save-discard-settings">
         <button class="discard">Отменить</button>
         <button class="save" (click)='onSettingsSave()' [disabled]="loading">Сохранить</button>
     </div>
 </div>
-
-<!-- <app-after-subscription *ngIf="currentRoute != '/promotion/auto-watch-story'"></app-after-subscription> -->
