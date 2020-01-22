@@ -17,15 +17,15 @@ export interface TwoFactorLoginData {
 }
 
 export class AccountSettings {
-    loginId: number;
-    id: number;
-    userId: number;
-    status: string;
+    loginId: number | string;
+    id?: number;
+    userId?: number;
+    status?: string;
     location: any;
     followersByAccounts: any;
     commentersByAccounts: any;
-    likers: any
-    tags: any
+    likers: any;
+    tags: any;
     comments: any;
     likeCountForFollower: number;
     unfollowDays: number;
@@ -36,8 +36,8 @@ export class AccountSettings {
     hideStories: boolean;
     followTime: FollowTime
     filter: Filter;
-    createdAt: string;
-    updatedAt: string;
+    createdAt?: string;
+    updatedAt?: string;
 
     constructor() {
         this.loginId = null;

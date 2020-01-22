@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 // RxJs 
-import { catchError, map } from 'rxjs/operators';
-import { of, Observable, Subject, BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 // Interfaces
-import { AudienceFilter } from '../../../../core/models/audience-filter';
-import { ActionAfterSubscription } from '../../../../core/models/action-after-subscription';
 import { EmptyResponse } from '../../../../core/models/empty-response';
 import { ServerResponse } from '../../../../core/models/server-response';
 import { Search, SearchTerm } from '../../../../core/models/search';
 import { AuthService } from '../../../../core/services/auth.service';
 import { AccountSettings } from '../../../../core/models/account';
+import { SubscriptionParam } from '../../../../core/models/subscription-parameter';
 
 @Injectable()
 export class AutoSubscribeOrWatchStoryService {
@@ -32,8 +31,21 @@ export class AutoSubscribeOrWatchStoryService {
     }
 
     public saveSettings(): Observable<ServerResponse<EmptyResponse>> {
-        this.settings.loginId = this._authService.getAccount().id;
-        return this.httpClient.post<ServerResponse<EmptyResponse>>('massfollowing', this.settings)
+        const sendingData = {
+            loginId: this._authService.getAccount().id.toString(),
+            tags: this.settings.tags || [],
+            followersByAccounts: this.settings.followersByAccounts || [],
+            commentersByAccounts: this.settings.commentersByAccounts || [],
+            location: this.settings.location || [],
+            likers: this.settings.likers || [],
+            seeStories: this.settings.seeStories,
+            dontFollowHiddenAccounts: this.settings.dontFollowHiddenAccounts,
+            hidePostsAndStories: this.settings.hidePostsAndStories,
+            comments: [],
+            unfollowDays: this.settings.unfollowDays,
+            filter: this.settings.filter
+        }
+        return this.httpClient.post<ServerResponse<EmptyResponse>>('massfollowing', sendingData)
     }
 
     public getSettings(activeAccountId: number): Observable<ServerResponse<AccountSettings>> {
@@ -44,6 +56,13 @@ export class AutoSubscribeOrWatchStoryService {
                     this._settingsEvent$.next(this.settings);
                     return data;
                 })
+            )
+    }
+
+    public getSettingsByType(type: SubscriptionParam): Observable<any> {
+        return this.settingsState
+            .pipe(
+                map((settings) => settings[type] || [])
             )
     }
 

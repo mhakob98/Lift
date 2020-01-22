@@ -16,7 +16,7 @@ export class AddHashtagComponent implements OnInit, OnDestroy {
   @Output('searched')
   private _searched = new EventEmitter<SearchTerm>();
   @Input('searchValue')
-  public searchValue: Observable<Search>
+  public searchValue: Observable<Search>;
   public hashtag: string;
   public hashtagsForm: FormGroup;
   public hashtagsItems: FormArray;
@@ -38,10 +38,9 @@ export class AddHashtagComponent implements OnInit, OnDestroy {
   }
 
   private _checkSelectedTags(): void {
-    this._subscribeStoryService.settingsState
+    this._subscribeStoryService.getSettingsByType('hashtag')
       .pipe(
         takeUntil(this._unsubscribe$),
-        map((settings) => settings.tags || [])
       )
       .subscribe((tags) => {
         console.log(tags);
