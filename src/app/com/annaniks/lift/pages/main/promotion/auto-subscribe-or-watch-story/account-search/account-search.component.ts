@@ -30,6 +30,7 @@ export class AccountSearchComponent implements OnInit {
 
   ngOnInit() {
     this._checkAccountSearchType();
+    this._subscribeToModelChange();
   }
 
   private _checkAccountSearchType(): void {
@@ -72,7 +73,11 @@ export class AccountSearchComponent implements OnInit {
         break;
     }
   }
-
+  private _subscribeToModelChange(): void {
+    this.accounts.valueChanges.subscribe(data => {
+      this.writeValueToService()
+    })
+  }
   ngOnDestroy() {
     this._unsubscribe.next();
     this._unsubscribe.complete();

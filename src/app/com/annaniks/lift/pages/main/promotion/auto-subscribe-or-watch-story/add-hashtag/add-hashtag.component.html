@@ -3,8 +3,8 @@
         <div class="hashtag-item" formArrayName="items" *ngFor="let item of itemsControl?.controls; let i = index;">
             <div [formGroupName]="i">
                 <p>#</p>
-                <p-autoComplete (onSelect)="writeValueToService()" maxlength="50" field="name" formControlName="label"
-                    [suggestions]="searchValue | async" (completeMethod)="search($event)"
+                <p-autoComplete maxlength="50" field="name" formControlName="label" [suggestions]="searchValue | async"
+                    (completeMethod)="search($event)"
                     [size]="item.get('label').value.length || item.get('label').value.name?.length || 5">
                     <ng-template let-label pTemplate="item">
                         <div class="d-flex align-items-center justify-content-start">

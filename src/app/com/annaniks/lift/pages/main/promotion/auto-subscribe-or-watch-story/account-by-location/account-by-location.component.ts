@@ -47,6 +47,7 @@ export class AccountByLocationComponent implements OnInit {
       const items = this.locationForm.get('items') as FormArray;
       if (locations && locations.length > 0) {
         locations.map((location: Location, index: number) => {
+          this.locationsItems = this.locationForm.get('items') as FormArray;
           items.push(this._fb.group({ label: location }));
           this.createMarker({ lat: location.location.lat, lng: location.location.lng });
         })
@@ -296,6 +297,9 @@ export class AccountByLocationComponent implements OnInit {
     this.locationForm = this._fb.group({
       items: this._fb.array([])
     });
+    this.locationForm.valueChanges.subscribe(() => {
+      this.writeValueToService()
+    })
   }
 
   public createItem(): FormGroup {
