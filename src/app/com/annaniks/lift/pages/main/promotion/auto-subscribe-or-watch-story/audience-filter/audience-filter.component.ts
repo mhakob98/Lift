@@ -25,8 +25,6 @@ export class AudienceFilterComponent implements OnInit, OnDestroy {
     private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService
   ) { }
   ngOnInit() {
-
-
   }
 
   private _initForm(): void {
@@ -79,8 +77,8 @@ export class AudienceFilterComponent implements OnInit, OnDestroy {
       lastStoryAge: { status: event.filter.lasStoryAge ? true : false, age: event.filter.lasStoryAge },
       profileDescription: event.filter.profileDescription ? true : false,
       haveSite: event.filter.haveSite ? true : false,
-      descriptionInclude: { status: event.filter.description.include ? true : false, text: event.filter.description.include || '' },
-      descriptionExclude: { status: event.filter.description.exclude ? true : false, text: event.filter.description.exclude || '' }
+      descriptionInclude: { status: event.filter.description.include ? true : false, text: event.filter.description.include ? event.filter.description.include.toString() : '' },
+      descriptionExclude: { status: event.filter.description.exclude ? true : false, text: event.filter.description.exclude ? event.filter.description.exclude.toString() : '' }
 
     });
 

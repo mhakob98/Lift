@@ -15,18 +15,7 @@ import { AuthService } from '../../../../core/services/auth.service';
 export class AutoSubscribeOrWatchStoryService {
     public selectedSubscribes = []
     public settings: any = {
-        "likeCountForFollower": 2,
-        "seeStories": true,
-        "dontFollowHiddenAccounts": false,
-        "hidePostsAndStories": true,
         "comments": [],
-        "hidePosts": true,
-        "hideStories": false,
-        "unfollowDays": 5,
-        "followTime": {
-            "start": "02-05-2020",
-            "end": "10-10-2020"
-        },
     }
     public addedConditionsSubject$ = new Subject<{ prev: string, next: string }>();
     public addedConditionsObservable$ = new Observable<{ prev: string, next: string }>();
