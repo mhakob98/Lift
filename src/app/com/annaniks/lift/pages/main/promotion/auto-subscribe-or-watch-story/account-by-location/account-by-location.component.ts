@@ -317,7 +317,7 @@ export class AccountByLocationComponent implements OnInit {
     })
     console.log("locations AREEEEEE", locations);
 
-    this._subscribeStoryService.selectedLocations = locations
+    this._subscribeStoryService.settings.location = locations
   }
 
   get itemsControl(): FormArray {

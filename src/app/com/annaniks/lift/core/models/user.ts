@@ -2,7 +2,7 @@ export interface User {
     name: string;
     email: string;
     roleId: Role;
-    istagramAccounts: []
+    instagramAccounts: InstagramAccount[]
     updatedAt: string;
     createdAt: string;
 }
@@ -11,6 +11,17 @@ interface Role {
     id: number;
     name: string;
     description: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export interface InstagramAccount {
+    id: number;
+    login: string;
+    password?: string;
+    apiKey?: string;
+    userId: number;
+    verification: boolean;
     createdAt: string;
     updatedAt: string;
 }

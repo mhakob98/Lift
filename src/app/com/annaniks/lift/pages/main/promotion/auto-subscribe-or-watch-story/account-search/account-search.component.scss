@@ -45,15 +45,14 @@ p-autoComplete {
       li {
         input {
           width: 315px;
-          max-width: 500px;
+          // &.ui-autocomplete-items {
+          //   li {
+          //     background-color: #305976 !important;
+          //     color: white !important;
+          //   }
+          // } max-width: 500px;
         }
       }
-      // &.ui-autocomplete-items {
-      //   li {
-      //     background-color: #305976 !important;
-      //     color: white !important;
-      //   }
-      // }
     }
   }
 }

@@ -7,7 +7,6 @@ import { EmptyResponse } from '../../core/models/empty-response';
 import { User } from '../../core/models/user';
 import { map, catchError } from 'rxjs/operators';
 import { AuthService } from '../../core/services/auth.service';
-import { MatDialog } from '@angular/material/dialog';
 import { AccountConnectData, TwoFactorLoginData } from '../../core/models/account';
 
 @Injectable()
@@ -18,7 +17,6 @@ export class MainService {
         private _httpClient: HttpClient,
         private _cookieService: CookieService,
         private _authService: AuthService,
-        private _matDialog: MatDialog
     ) { }
 
     public logOut(): Observable<ServerResponse<EmptyResponse>> {
@@ -35,7 +33,7 @@ export class MainService {
                 map((data: ServerResponse<User>) => {
                     const user = data.data;
                     if (user) {
-                        if (user.istagramAccounts && user.istagramAccounts.length === 0) {
+                        if (user.instagramAccounts && user.instagramAccounts.length === 0) {
                             this.setShowDisabledView(true);
                         }
                         else {
@@ -46,6 +44,10 @@ export class MainService {
                         this.setShowDisabledView(false);
                     }
                     this._authService.setUserState(data.data);
+
+                    if (!this._authService.getAccount().id) {
+                        this._authService.setAccount(data.data.instagramAccounts[0])
+                    }
                     return data;
                 }),
                 catchError((err) => {

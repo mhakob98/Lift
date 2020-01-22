@@ -4,10 +4,11 @@
         <div class="switch-account" (clickOutside)="onClickedOutsideSwitch()">
             <div class="switch-account-action" (click)="toggleSwitchAccount()">
                 <img src="assets/icons/insta_icon.png" alt="Instagram">
-                <p>@jess.wandering</p>
+                <p>{{selectedAccount?.login}}</p>
                 <img src="assets/icons/arr_down_blue.png" alt="">
             </div>
-            <app-header-switch-account *ngIf="showSwitchAccount">
+            <app-header-switch-account *ngIf="showSwitchAccount" [userAccounts]="userAccounts"
+                (selectAccount)="handleSelectAccount($event)">
             </app-header-switch-account>
         </div>
         <nav>

@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 import { CookieModule } from 'ngx-cookie';
 import { ApiInterceptor } from './com/annaniks/lift/core/interceptors/api.interceptor';
 import { AuthGuard } from './com/annaniks/lift/core/guards/auth.guard';
+import { JwtInterceptor } from './com/annaniks/lift/core/interceptors/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,11 @@ import { AuthGuard } from './com/annaniks/lift/core/guards/auth.guard';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
       multi: true
     }
   ],
