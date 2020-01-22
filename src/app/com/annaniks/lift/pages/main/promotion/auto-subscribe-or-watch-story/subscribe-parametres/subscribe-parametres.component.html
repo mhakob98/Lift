@@ -6,6 +6,8 @@
                 <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFour"
                     aria-expanded="true" aria-controls="collapseFour">
                     Параметры подписки
+                    <img class="arrow-up" src="assets/icons/arrow_up.png" alt="">
+
                 </button>
 
             </div>
@@ -27,34 +29,41 @@
                     </div>
                     <div class="parameter-item">
                         <p>На подписчиков аккаунтов:</p>
-                        <div>
-                            <span *ngFor="let item of settings.followersByAccounts">
+                        <div *ngFor="let item of settings.followersByAccounts;let lastItem = last">
+                            <span>
                                 @{{item.username}}
                             </span>
+                            <span *ngIf="!lastItem">,</span>
                         </div>
                     </div>
                     <div class="parameter-item">
                         <p>По геолокации:</p>
-                        <div>
-                            <span *ngFor="let item of settings.location">
+                        <div *ngFor="let item of settings.location;let lastItem = last">
+                            <span>
                                 {{item.title}}
                             </span>
+                            <span *ngIf="!lastItem">,</span>
+
                         </div>
                     </div>
                     <div class="parameter-item">
                         <p>На комментаторов аккаунтов:</p>
-                        <div>
-                            <span *ngFor="let item of settings.commentersByAccounts">
+                        <div *ngFor="let item of settings.commentersByAccounts;let lastItem = last">
+                            <span>
                                 @{{item.username}}
                             </span>
+                            <span *ngIf="!lastItem">,</span>
+
                         </div>
                     </div>
                     <div class="parameter-item">
                         <p>На лайкеров аккаунтов:</p>
-                        <div>
-                            <span *ngFor="let item of settings.likers">
+                        <div *ngFor="let item of settings.likers;let lastItem = last">
+                            <span>
                                 @{{item.username}}
                             </span>
+                            <span *ngIf="!lastItem">,</span>
+
                         </div>
                     </div>
                     <div class="parameter-item d-flex">
