@@ -12,31 +12,52 @@
 
             <div id="collapseFour" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample4">
                 <div class="parametres-container">
-                    <div class="parameter-item">
+                    <div class="parameter-item d-flex align-items-start">
                         <p>По хэштегам:</p>
+                        <div class="d-flex hashtags-container">
+                            <div class="hashtag-item" *ngFor="let tag of settings.tags">
+                                <div>
+                                    <input disabled [value]="tag.name" type="text" #hashtagInput
+                                        [size]="tag.name.length" maxlength="50">
+                                    <img src="assets/icons/delete-1.png">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="parameter-item">
+                        <p>На подписчиков аккаунтов:</p>
                         <div>
-                            <span *ngFor="let tag of settings.tags">
-                                {{tag | json}}
+                            <span *ngFor="let item of settings.followersByAccounts">
+                                @{{item.username}}
                             </span>
                         </div>
                     </div>
                     <div class="parameter-item">
-                        <p>На подписчиков аккаунтов:</p>
-                        <div></div>
-                    </div>
-                    <div class="parameter-item">
                         <p>По геолокации:</p>
-                        <div></div>
+                        <div>
+                            <span *ngFor="let item of settings.location">
+                                {{item.title}}
+                            </span>
+                        </div>
                     </div>
                     <div class="parameter-item">
                         <p>На комментаторов аккаунтов:</p>
-                        <div></div>
+                        <div>
+                            <span *ngFor="let item of settings.commentersByAccounts">
+                                @{{item.username}}
+                            </span>
+                        </div>
                     </div>
                     <div class="parameter-item">
                         <p>На лайкеров аккаунтов:</p>
-                        <div></div>
+                        <div>
+                            <span *ngFor="let item of settings.likers">
+                                @{{item.username}}
+                            </span>
+                        </div>
                     </div>
-                    <div class="parameter-item">
+                    <div class="parameter-item d-flex">
                         <p>Максимум в день: <span></span></p>
                         <p>Максимум в час: <span></span></p>
                         <p>Ограничения по времени публикации: <span></span></p>
