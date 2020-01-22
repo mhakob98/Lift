@@ -14,6 +14,7 @@ import { AccountSettings } from '../../../../core/models/account';
 
 @Injectable()
 export class AutoSubscribeOrWatchStoryService {
+
     private _settingsEvent$ = new BehaviorSubject<AccountSettings>(new AccountSettings());
     public settings: AccountSettings = new AccountSettings();
 

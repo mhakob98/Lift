@@ -1,0 +1,48 @@
+<div class="pg-container">
+    <div class="subscription-accordion accordion" id="accordionExample4">
+        <div class="accordion-body">
+            <div class="collapse-heading mb-0">
+                <img src="assets/icons/setting-1.png" alt="">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFour"
+                    aria-expanded="true" aria-controls="collapseFour">
+                    Параметры подписки
+                </button>
+
+            </div>
+
+            <div id="collapseFour" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample4">
+                <div class="parametres-container">
+                    <div class="parameter-item">
+                        <p>По хэштегам:</p>
+                        <div>
+                            <span *ngFor="let tag of settings.tags">
+                                {{tag | json}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="parameter-item">
+                        <p>На подписчиков аккаунтов:</p>
+                        <div></div>
+                    </div>
+                    <div class="parameter-item">
+                        <p>По геолокации:</p>
+                        <div></div>
+                    </div>
+                    <div class="parameter-item">
+                        <p>На комментаторов аккаунтов:</p>
+                        <div></div>
+                    </div>
+                    <div class="parameter-item">
+                        <p>На лайкеров аккаунтов:</p>
+                        <div></div>
+                    </div>
+                    <div class="parameter-item">
+                        <p>Максимум в день: <span></span></p>
+                        <p>Максимум в час: <span></span></p>
+                        <p>Ограничения по времени публикации: <span></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
