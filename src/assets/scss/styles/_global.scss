@@ -1,21 +1,33 @@
 .pg-container {
-    max-width: 1200px;
-    margin: 0 auto;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .slider-container {
-    margin-left: -12px;
-    margin-right: -12px;
+  margin-left: -12px;
+  margin-right: -12px;
 }
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-.inp-error{
-    border:1px solid red;
+.inp-error {
+  border: 1px solid red;
 }
 
-.cursor-pointer{
-    cursor: pointer;
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.toast-success {
+  background-color: #3399cc !important;
+}
+
+.toast-container .ngx-toastr {
+  box-shadow: none !important;
+}
+
+button:disabled {
+  opacity: 0.5;
 }

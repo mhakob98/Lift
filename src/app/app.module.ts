@@ -12,6 +12,7 @@ import { CookieModule } from 'ngx-cookie';
 import { ApiInterceptor } from './com/annaniks/lift/core/interceptors/api.interceptor';
 import { AuthGuard } from './com/annaniks/lift/core/guards/auth.guard';
 import { JwtInterceptor } from './com/annaniks/lift/core/interceptors/jwt.interceptor';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { JwtInterceptor } from './com/annaniks/lift/core/interceptors/jwt.interc
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    CookieModule.forRoot()
+    CookieModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   providers: [
     AuthGuard,

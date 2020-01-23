@@ -21,8 +21,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private _fb: FormBuilder,
     private _authService: AuthService,
-    private _router:Router,
-    private _cookieService:CookieService
+    private _router: Router,
+    private _cookieService: CookieService
   ) { }
 
   ngOnInit() {
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   private _initForm(): void {
     this.signInForm = this._fb.group({
-      email: ['', [Validators.required,Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
@@ -58,12 +58,17 @@ export class LoginComponent implements OnInit, OnDestroy {
         takeUntil(this._unsubscribe),
         map((data) => {
           const tokens = data.data;
-          this._cookieService.put('accessToken',tokens.accessToken);
-          this._cookieService.put('refreshToken',tokens.refreshToken);
+          this._cookieService.put('accessToken', tokens.accessToken);
+          this._cookieService.put('refreshToken', tokens.refreshToken);
           this._router.navigate(['/statistics/preview']);
         }),
         catchError((err) => {
-          this.errorMessage = err.error.message;
+          try {
+            this.errorMessage = err.error.message;
+
+          } catch (error) {
+            this.errorMessage = 'Something is wrong';
+          }
           return throwError(err);
         })
       )

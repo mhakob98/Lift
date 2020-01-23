@@ -35,14 +35,14 @@ export class JwtInterceptor implements HttpInterceptor {
                             .pipe(
                                 switchMap((isUpdated) => {
                                     if (!!isUpdated) {
-                                        console.log(1);
                                         return next.handle(this._setNewHeaders(req));
                                     }
                                     else if (isUpdated === false) {
-                                        console.log(2);
                                         this._router.navigate(['/auth/login']);
                                         return throwError(false);
                                     }
+                                    return throwError(err);
+
                                 })
                             )
                     }
