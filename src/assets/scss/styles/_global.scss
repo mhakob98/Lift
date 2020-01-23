@@ -31,3 +31,7 @@
 button:disabled {
   opacity: 0.5;
 }
+
+a:focus{
+  outline: none !important;
+}
