@@ -56,9 +56,8 @@ export class AccountByLocationComponent implements OnInit {
   }
 
   private _resetProperties(): void {
-    this.locationForm = this._fb.group({
-      items: this._fb.array([])
-    });
+    this._formBuilder()
+
     this._markers.map((element) => {
       element.setMap(null);
     })
@@ -68,11 +67,9 @@ export class AccountByLocationComponent implements OnInit {
     this.locationForm = this._fb.group({
       items: this._fb.array([])
     });
-    this.locationForm.valueChanges
-      .pipe(takeUntil(this._unsubscribe$))
-      .subscribe((values) => {
-        this.writeValueToService();
-      });
+    this.locationForm.valueChanges.subscribe((values) => {
+      this.writeValueToService();
+    });
   }
 
   private _initMap(corrdinates = { lat: 40.7865229, lng: 43.8476395 }, zoom = 15): void {
@@ -133,12 +130,9 @@ export class AccountByLocationComponent implements OnInit {
     this._map.setZoom(3);
   }
 
-  public onBlur(index: number): void {
-
-  }
-
   public writeValueToService(): void {
     let locations: Location[] = [];
+
     this.locationForm.value.items.map((coordinate: { label: Location }) => {
       locations.push(coordinate.label);
     });

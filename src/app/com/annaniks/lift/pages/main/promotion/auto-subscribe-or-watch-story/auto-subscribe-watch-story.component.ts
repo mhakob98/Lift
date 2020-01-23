@@ -59,8 +59,12 @@ export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
         .pipe(finalize(() => this._loadingService.hideLoading()))
         .subscribe((data) => {
           this._toastrService.success('Изменение успешно сохранены');
+          this._loadingService.hideLoading()
+
         }, (err) => {
           this._toastrService.error('Ошибка');
+          this._loadingService.hideLoading()
+
         })
     )
   }
