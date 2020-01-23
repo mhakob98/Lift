@@ -1,5 +1,0 @@
-export * from './account-settings-header/account-settings-header.component'
-export * from './main-settings/main-settings.component'
-export * from './profile-settings/profile-settings.component'
-export * from './goals-settings/goals-settings.component'
-export * from './contacts-settings/contacts-settings.component'
