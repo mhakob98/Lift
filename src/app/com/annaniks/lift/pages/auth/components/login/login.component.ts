@@ -66,9 +66,12 @@ export class LoginComponent implements OnInit, OnDestroy {
           this._router.navigate(['/statistics/preview']);
         }),
         catchError((err) => {
-          this._loadingService.hideLoading()
-          this.errorMessage = err.error.message;
-          this.loading = false
+          try {
+            this.errorMessage = err.error.message;
+
+          } catch (error) {
+            this.errorMessage = 'Something is wrong';
+          }
           return throwError(err);
         })
       )

@@ -7,6 +7,7 @@ import { switchMap, finalize } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { AccountSettings } from '../../../../core/models/account';
 import { LoadingService } from '../../../../core/services/loading-service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-auto-subscribe-watch-story',
@@ -18,11 +19,13 @@ export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
   private _subs = new SubSink();
   public currentRoute = '';
   public massfollowingData: AccountSettings = new AccountSettings();
+
   constructor(
     private _router: Router,
     private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService,
     private _authService: AuthService,
-    private _loadingService: LoadingService
+    private _loadingService: LoadingService,
+    private _toastrService: ToastrService
 
   ) {
     this.currentRoute = this._router.url;
@@ -54,9 +57,9 @@ export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
     this._subs.add(
       this._autoSubscribeOrWatchStoryService.saveSettings()
         .subscribe((data) => {
-          this._loadingService.hideLoading()
-        }, error => {
-          this._loadingService.hideLoading()
+          this._toastrService.success('Изменение успешно сохранены');
+        }, (err) => {
+          this._toastrService.error('Ошибка');
         })
     )
   }

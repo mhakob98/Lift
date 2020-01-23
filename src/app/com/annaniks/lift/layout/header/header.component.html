@@ -1,6 +1,8 @@
 <div class="header-container">
     <header>
-        <img class="logo" src="assets/logo.png" alt="logo">
+        <a routerLink="/">
+            <img class="logo" src="assets/logo.png" alt="logo">
+        </a>
         <div class="switch-account" (clickOutside)="onClickedOutsideSwitch()">
             <div class="switch-account-action" (click)="toggleSwitchAccount()">
                 <img src="assets/icons/insta_icon.png" alt="Instagram">
@@ -13,10 +15,10 @@
         </div>
         <nav>
             <ul class="nav-links">
-                <li><a routerLink="/statistics/preview">
+                <li><a routerLink="/statistics">
                         <img routerLinkActive='active' src="assets/icons/pie-chart.png" alt="">
                         Статистика</a></li>
-                <li><a routerLink="/promotion/autosubscribe">
+                <li><a routerLink="/promotion">
                         <img routerLinkActive='active' src="assets/icons/rocket.png" alt="">
                         Продвижение</a></li>
                 <li><a routerLink="#">

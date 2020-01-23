@@ -14,8 +14,8 @@
       height: 100%;
       margin: 0;
       li {
-        cursor: pointer;
         padding: 21px 0;
+        cursor: pointer;
         &.active {
           &::after {
             content: "";

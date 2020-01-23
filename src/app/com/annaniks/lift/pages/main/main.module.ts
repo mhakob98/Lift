@@ -19,9 +19,9 @@ import { MainService } from './main.service';
         MainRoutingModule,
         SharedModule,
         CommonModule,
-        LayoutModule
+        LayoutModule,
     ],
-    entryComponents:[
+    entryComponents: [
         AccountConnectionModal,
     ],
     providers: [MainService],

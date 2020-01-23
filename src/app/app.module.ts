@@ -14,6 +14,7 @@ import { AuthGuard } from './com/annaniks/lift/core/guards/auth.guard';
 import { JwtInterceptor } from './com/annaniks/lift/core/interceptors/jwt.interceptor';
 import { LoadingService } from './com/annaniks/lift/core/services/loading-service';
 import { LoadingComponent } from './com/annaniks/lift/layout/loading/loading.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { LoadingComponent } from './com/annaniks/lift/layout/loading/loading.com
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    CookieModule.forRoot()
+    CookieModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   providers: [
     AuthGuard,
