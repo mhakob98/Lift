@@ -7,9 +7,7 @@
                 <img src="assets/icons/location.png" alt="">
                 <p-autoComplete maxlength="50" field="title" formControlName="label" [suggestions]="searchValue | async"
                     (completeMethod)="search($event)"
-                    [size]="item.get('label')?.value?.length || item.get('label')?.value?.title?.length || 5"
-                    (onBlur)="onBlur()">
-
+                    [size]="item.get('label')?.value?.length || item.get('label')?.value?.title?.length || 5">
                 </p-autoComplete>
                 <img (click)="deleteLocation(i)" src="assets/icons/delete-1.png">
             </div>
