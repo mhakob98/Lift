@@ -23,7 +23,7 @@ export class AccountSettings {
     id?: number;
     userId?: number;
     status?: string;
-    location: any;
+    location: Location[];
     followersByAccounts: FollowersByAccount[];
     commentersByAccounts: CommentersByAccounts[];
     likers: LikersByAccounts[];

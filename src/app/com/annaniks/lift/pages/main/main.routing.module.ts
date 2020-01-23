@@ -35,7 +35,12 @@ const mainRoutes: Routes = [
                 path: 'support-service',
                 loadChildren: () => import('../../../../../com/annaniks/lift/pages/main/support-service/support-service.module')
                     .then(m => m.SupportServiceModule)
-            }
+            },
+            {
+                path: 'profile',
+                loadChildren: () => import('../../../../../com/annaniks/lift/pages/main/profile/profile.module')
+                    .then(m => m.ProfileModule)
+            },
         ]
     }
 ]

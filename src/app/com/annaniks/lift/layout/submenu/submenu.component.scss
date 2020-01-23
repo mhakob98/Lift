@@ -1,6 +1,5 @@
 .sub-navigation-container {
   background-color: #f6f8f9;
-  height: 60px;
   border-bottom: 1px solid #d7d7d7;
   margin-top: 100px;
   .sub-navigation {
@@ -16,6 +15,7 @@
       margin: 0;
       li {
         cursor: pointer;
+        padding: 21px 0;
         &.active {
           &::after {
             content: "";
