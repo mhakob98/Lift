@@ -39,16 +39,28 @@ export class AccountByLocationComponent implements OnInit {
   }
 
   private _checkSelectedLocations(): void {
-    this._subscribeStoryService.getSettingsByType('location').subscribe((locations: Location[]) => {
-      const items = this.locationForm.get('items') as FormArray;
-      if (locations && locations.length > 0) {
-        locations.map((location: Location, index: number) => {
-          this.locationsItems = this.locationForm.get('items') as FormArray;
-          items.push(this._fb.group({ label: new FormControl(location, RequireMatchOfType) }));
-          this.createMarker({ lat: location.location.lat, lng: location.location.lng });
-        })
-        this._zoomMarkers();
-      }
+    this._subscribeStoryService.getSettingsByType('location')
+      .pipe(takeUntil(this._unsubscribe$))
+      .subscribe((locations: Location[]) => {
+        this._resetProperties();
+        const items = this.locationForm.get('items') as FormArray;
+        if (locations && locations.length > 0) {
+          locations.map((location: Location, index: number) => {
+            this.locationsItems = this.locationForm.get('items') as FormArray;
+            items.push(this._fb.group({ label: new FormControl(location, RequireMatchOfType) }));
+            this.createMarker({ lat: location.location.lat, lng: location.location.lng });
+          })
+          this._zoomMarkers();
+        }
+      })
+  }
+
+  private _resetProperties(): void {
+    this.locationForm = this._fb.group({
+      items: this._fb.array([])
+    });
+    this._markers.map((element) => {
+      element.setMap(null);
     })
   }
 
@@ -59,7 +71,6 @@ export class AccountByLocationComponent implements OnInit {
     this.locationForm.valueChanges
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe((values) => {
-        console.log(this.locationForm);
         this.writeValueToService();
       });
   }

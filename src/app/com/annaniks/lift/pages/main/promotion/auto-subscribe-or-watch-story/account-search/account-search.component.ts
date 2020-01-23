@@ -48,7 +48,6 @@ export class AccountSearchComponent implements OnInit {
     this._subscribeStoryService.getSettingsByType(accountType)
       .pipe(takeUntil(this._unsubscribe))
       .subscribe((data) => {
-        console.log(data);
         this.accounts.patchValue(data);
       })
   }

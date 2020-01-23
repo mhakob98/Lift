@@ -47,6 +47,7 @@ export class AddHashtagComponent implements OnInit, OnDestroy {
         takeUntil(this._unsubscribe$),
       )
       .subscribe((tags: Hashtag[]) => {
+        this._resetProperties();
         if (tags && tags.length > 0) {
           tags.map((element: Hashtag, index: number) => {
             this.hashtagsItems = this.hashtagsForm.get('items') as FormArray;
@@ -54,6 +55,12 @@ export class AddHashtagComponent implements OnInit, OnDestroy {
           })
         }
       })
+  }
+
+  private _resetProperties(): void {
+    this.hashtagsForm = this._fb.group({
+      items: this._fb.array([])
+    });
   }
 
   public search(event): void {

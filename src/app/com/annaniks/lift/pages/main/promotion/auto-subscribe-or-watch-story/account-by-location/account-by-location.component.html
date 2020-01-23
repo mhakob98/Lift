@@ -1,13 +1,13 @@
 <div [formGroup]="locationForm" class="account-by-location-container">
     <div class="account-by-location">
         <div class="location-item"
-            [ngClass]="{'invalid':itemsControl?.controls[i].invalid && itemsControl?.controls[i].touched}"
+            [ngClass]="{'invalid':itemsControl?.controls[i]?.invalid && itemsControl?.controls[i]?.touched}"
             formArrayName="items" *ngFor="let item of itemsControl?.controls; let i = index;">
             <div [formGroupName]="i">
                 <img src="assets/icons/location.png" alt="">
                 <p-autoComplete maxlength="50" field="title" formControlName="label" [suggestions]="searchValue | async"
                     (completeMethod)="search($event)"
-                    [size]="item.get('label').value.length || item.get('label').value.title?.length || 5"
+                    [size]="item.get('label')?.value?.length || item.get('label')?.value?.title?.length || 5"
                     (onBlur)="onBlur()">
 
                 </p-autoComplete>
