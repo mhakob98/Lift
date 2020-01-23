@@ -26,7 +26,7 @@ export class AutoSubscribeOrWatchStoryService {
     }
 
     public searchFor(searchTerm: SearchTerm): Observable<ServerResponse<Search>> {
-        return this.httpClient.get<ServerResponse<Search>>(`instagram-search/${searchTerm.query}/${searchTerm.type}`)
+        return this.httpClient.get<ServerResponse<Search>>(`instagram-search/${searchTerm.query.replace(/\#/g, " ") || ''}/${searchTerm.type}`)
     }
 
     public saveSettings(): Observable<ServerResponse<EmptyResponse>> {
