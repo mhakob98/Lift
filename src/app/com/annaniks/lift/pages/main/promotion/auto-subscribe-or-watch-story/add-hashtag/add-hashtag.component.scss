@@ -14,6 +14,9 @@
       border-radius: 4px;
       padding: 10px 12px 10px 13px;
       margin: 0 9px 7px 0;
+      &.invalid {
+        border: 1px solid #dc3545;
+      }
       div {
         display: flex;
         align-items: center;

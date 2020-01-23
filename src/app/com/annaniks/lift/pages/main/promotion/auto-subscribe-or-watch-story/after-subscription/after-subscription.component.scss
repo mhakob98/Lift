@@ -68,3 +68,15 @@
     padding-left: 4px;
   }
 }
+mat-checkbox {
+  ::ng-deep {
+    display: block;
+
+    .mat-checkbox-label {
+      font-family: "SF UI Display Regular";
+      font-size: 18px;
+      line-height: 48px;
+      color: #3d3d3d;
+    }
+  }
+}

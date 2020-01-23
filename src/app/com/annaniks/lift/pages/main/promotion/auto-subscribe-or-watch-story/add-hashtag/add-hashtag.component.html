@@ -1,6 +1,7 @@
 <div [formGroup]="hashtagsForm" class="hashtags-content">
     <div class="hashtags-container">
-        <div class="hashtag-item" formArrayName="items" *ngFor="let item of itemsControl?.controls; let i = index;">
+        <div [ngClass]="{'invalid':itemsControl?.controls[i].invalid && itemsControl?.controls[i].touched}"
+            class="hashtag-item" formArrayName="items" *ngFor="let item of itemsControl?.controls; let i = index;">
             <div [formGroupName]="i">
                 <p>#</p>
                 <p-autoComplete maxlength="50" field="name" formControlName="label" [suggestions]="searchValue | async"

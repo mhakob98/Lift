@@ -1,5 +1,5 @@
 <div class="subscribed-to-container">
-    <div class="subscribed-to">
+    <div class="subscribed-to" [ngClass]="{'invalid':accounts.invalid && accounts.touched}">
         <p-autoComplete maxlength="50" field="username" placeholder="Введите имена аккаунтов" [formControl]="accounts"
             [suggestions]="searchValue | async" (completeMethod)="search($event)" [multiple]="true">
             <ng-template let-user pTemplate="item">

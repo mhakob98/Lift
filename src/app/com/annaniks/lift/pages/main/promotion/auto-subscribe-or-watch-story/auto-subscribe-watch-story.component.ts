@@ -6,6 +6,7 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { switchMap, finalize } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { AccountSettings } from '../../../../core/models/account';
+import { LoadingService } from '../../../../core/services/loading-service';
 
 @Component({
   selector: 'app-auto-subscribe-watch-story',
@@ -20,7 +21,8 @@ export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
   constructor(
     private _router: Router,
     private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _loadingService: LoadingService
 
   ) {
     this.currentRoute = this._router.url;
@@ -31,6 +33,7 @@ export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
   }
 
   private _fetchSettingsData(): void {
+    this._loadingService.showLoading();
     this._authService.getActiveAccount()
       .pipe(
         switchMap((account) => {
@@ -40,16 +43,20 @@ export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
           return of();
         })
       ).subscribe(data => {
+        this._loadingService.hideLoading();
+        window.scrollTo(0, 0)
         this.massfollowingData = data.data;
       });
   }
 
   public onSettingsSave(): void {
-    this.loading = true;
+    this._loadingService.showLoading()
     this._subs.add(
       this._autoSubscribeOrWatchStoryService.saveSettings()
-        .pipe(finalize(() => this.loading = false))
         .subscribe((data) => {
+          this._loadingService.hideLoading()
+        }, error => {
+          this._loadingService.hideLoading()
         })
     )
   }

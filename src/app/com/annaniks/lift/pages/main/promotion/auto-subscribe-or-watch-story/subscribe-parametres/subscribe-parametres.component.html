@@ -18,7 +18,7 @@
                         <p>По хэштегам:</p>
                         <div class="d-flex hashtags-container">
                             <div class="hashtag-item" *ngFor="let tag of settings.tags">
-                                <div>
+                                <div *ngIf="tag.name">
                                     <input disabled [value]="tag.name" type="text" #hashtagInput
                                         [size]="tag.name.length" maxlength="50">
                                     <img src="assets/icons/delete-1.png">

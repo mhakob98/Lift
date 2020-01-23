@@ -17,65 +17,84 @@
                 <form [formGroup]="filterAudienceForm" class="filters-container">
                     <div class="checkoboxes-filter">
 
-                        <div formGroupName="followers">
+                        <div formGroupName="followers" class="inline-checkoxes">
                             <mat-checkbox formControlName="status">
-                                Диапазон подписчиков от <input formControlName="min" class="range-input" type="text"> до
+                                Диапазон подписчиков от
+                            </mat-checkbox>
+                            <span class="checkbox-label"><input formControlName="min" class="range-input" type="text">
+                                до
                                 <input formControlName="max" class="range-input" type="text">
-                            </mat-checkbox>
+                            </span>
                         </div>
-                        <div formGroupName="folowings">
+                        <div formGroupName="folowings" class="inline-checkoxes">
                             <mat-checkbox formControlName="status">
-                                Диапазон подписок от <input formControlName="min" class="range-input" type="text"> до
-                                <input class="range-input" formControlName="max" type="text">
+                                Диапазон подписок от
                             </mat-checkbox>
+                            <span class="checkbox-label">
+                                <input formControlName="min" class="range-input" type="text"> до
+                                <input class="range-input" formControlName="max" type="text">
+                            </span>
                         </div>
-                        <div formGroupName="likeInPhoto">
-                            <mat-checkbox formControlName="status">Количество лайков последнего поста от <input
-                                    formControlName="min" class="range-input" type="text"> до
-                                <input formControlName="max" class="range-input" type="text"> </mat-checkbox>
+                        <div formGroupName="likeInPhoto" class="inline-checkoxes">
+                            <mat-checkbox formControlName="status">Количество лайков последнего поста от</mat-checkbox>
+                            <span class="checkbox-label">
+                                <input formControlName="min" class="range-input" type="text"> до
+                                <input formControlName="max" class="range-input" type="text">
+                            </span>
                         </div>
 
-                        <div formGroupName="postCount">
-                            <mat-checkbox formControlName="status">Количество публикаций от <input formControlName="min"
-                                    class="range-input" type="text"> до
-                                <input formControlName="max" class="range-input" type="text"> </mat-checkbox>
+                        <div formGroupName="postCount" class="inline-checkoxes">
+                            <mat-checkbox formControlName="status"> Количество публикаций от </mat-checkbox>
+                            <span class="checkbox-label">
+                                <input formControlName="min" class="range-input" type="text">
+                                до
+                                <input formControlName="max" class="range-input" type="text">
+                            </span>
                         </div>
 
 
                         <mat-checkbox formControlName="haveAvatar">Присутствует аватар</mat-checkbox>
 
-                        <div formGroupName="lastPostAge">
-                            <mat-checkbox formControlName="status">Последний пост не позже <input formControlName="age"
-                                    class="range-input" type="text">
+                        <div formGroupName="lastPostAge" class="inline-checkoxes">
+                            <mat-checkbox formControlName="status">
+                                Последний пост не позже
                             </mat-checkbox>
+                            <span class="checkbox-label">
+                                <input formControlName="age" class="range-input" type="text">
+                            </span>
                         </div>
 
 
-                        <div formGroupName="lastStoryAge">
-                            <mat-checkbox formControlName="status">Последний Story не позже <input formControlName="age"
-                                    class="range-input" type="text">
-                            </mat-checkbox>
+                        <div formGroupName="lastStoryAge" class="inline-checkoxes">
+                            <mat-checkbox formControlName="status"> Последний Story не позже </mat-checkbox>
+                            <span class="checkbox-label">
+                                <input formControlName="age" class="range-input" type="text">
+                            </span>
                         </div>
 
                         <mat-checkbox formControlName="profileDescription">Наличие описания профиля</mat-checkbox>
                         <mat-checkbox formControlName="haveSite">Указан сайт в профиле</mat-checkbox>
 
                     </div>
-                    <div class="texts-filter">
-                        <div formGroupName="descriptionInclude">
-                            <mat-checkbox formControlName="status" class="with-text">Наличие в описании данных слов
-                                <textarea formControlName="text"
-                                    placeholder="Импортируйте или напишите слова разделив запятой" class="d-block"
-                                    cols="30" rows="5"></textarea>
+                    <div class="texts-filter d-flex flex-column">
+                        <div formGroupName="descriptionInclude" class="inline-checkoxes wrap">
+                            <mat-checkbox formControlName="status" class="with-text">
+                                Наличие в описании данных слов
                             </mat-checkbox>
+
+                            <textarea formControlName="text"
+                                placeholder="Импортируйте или напишите слова разделив запятой" class="d-block" cols="30"
+                                rows="5"></textarea>
                         </div>
 
-                        <div formGroupName="descriptionExclude">
-                            <mat-checkbox formControlName="status" class="with-text">Отсутствие в описании данных
-                                <textarea formControlName="text"
-                                    placeholder="Импортируйте или напишите слова разделив запятой" class="d-block"
-                                    cols="30" rows="5"></textarea>
+                        <div formGroupName="descriptionExclude" class="inline-checkoxes wrap">
+                            <mat-checkbox formControlName="status" class="with-text">
+                                Отсутствие в описании данных
                             </mat-checkbox>
+
+                            <textarea formControlName="text"
+                                placeholder="Импортируйте или напишите слова разделив запятой" class="d-block" cols="30"
+                                rows="5"></textarea>
                         </div>
 
 

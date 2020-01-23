@@ -1,11 +1,12 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
+import { FormGroup, FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
 import { SearchTerm, Search } from '../../../../../core/models/search';
 import { Observable, Subject } from 'rxjs';
 import { Location } from '../../../../../core/models/account';
 import { takeUntil } from 'rxjs/operators';
 import gmapTheme from '../../../../../core/themes/gmap';
+import { RequireMatchOfType } from 'src/app/com/annaniks/lift/core/utilities/type-validator';
 
 declare var google;
 @Component({
@@ -43,7 +44,7 @@ export class AccountByLocationComponent implements OnInit {
       if (locations && locations.length > 0) {
         locations.map((location: Location, index: number) => {
           this.locationsItems = this.locationForm.get('items') as FormArray;
-          items.push(this._fb.group({ label: location }));
+          items.push(this._fb.group({ label: new FormControl(location, RequireMatchOfType) }));
           this.createMarker({ lat: location.location.lat, lng: location.location.lng });
         })
         this._zoomMarkers();
@@ -58,7 +59,7 @@ export class AccountByLocationComponent implements OnInit {
     this.locationForm.valueChanges
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe((values) => {
-        console.log(values);
+        console.log(this.locationForm);
         this.writeValueToService();
       });
   }
@@ -95,7 +96,7 @@ export class AccountByLocationComponent implements OnInit {
   };
 
   public createItem(): FormGroup {
-    return this._fb.group({ label: '' });
+    return this._fb.group({ label: new FormControl('', RequireMatchOfType) });
   }
 
   public addItem(): void {
@@ -122,7 +123,7 @@ export class AccountByLocationComponent implements OnInit {
   }
 
   public onBlur(index: number): void {
-    console.log(index);
+
   }
 
   public writeValueToService(): void {

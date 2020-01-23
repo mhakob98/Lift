@@ -45,25 +45,51 @@
     }
   }
 }
+.inline-checkoxes {
+  display: flex;
+  align-items: center;
+  &.wrap {
+    display: inline-block;
+    mat-checkbox {
+      display: inline-block;
+    }
+  }
+  .checkbox-label {
+    font-family: "SF UI Display Regular";
+    font-size: 18px;
+    line-height: 48px;
+    color: #3d3d3d;
+    margin-left: 4px;
+  }
+  .range-input {
+    border-radius: 4px;
+    border: 2px solid #c2d0db;
+    height: 30px;
+    font-size: 14px;
+    width: 70px;
+    padding-left: 4px;
+  }
+}
+
 .filters-container {
   display: flex;
   justify-content: space-between;
   padding: 52px 45px 49px 0;
 }
-
+textarea {
+  width: 460px;
+  height: 140px;
+  font-family: "SF UI Display Regular";
+  font-size: 14px;
+  line-height: initial;
+  color: #3d3d3d;
+  resize: none;
+  padding: 14px 15px;
+}
 mat-checkbox {
   ::ng-deep {
     display: block;
-    textarea {
-      width: 460px;
-      height: 140px;
-      font-family: "SF UI Display Regular";
-      font-size: 14px;
-      line-height: initial;
-      color: #3d3d3d;
-      resize: none;
-      padding: 14px 15px;
-    }
+
     .mat-checkbox-label {
       font-family: "SF UI Display Regular";
       font-size: 18px;

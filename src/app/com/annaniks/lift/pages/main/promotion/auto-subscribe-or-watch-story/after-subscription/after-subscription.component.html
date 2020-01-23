@@ -17,31 +17,29 @@
                 <form [formGroup]="afterSubscriptionForm">
 
                     <div formGroupName="lastPostLikes" class="inline-checkoxes">
-                        <mat-checkbox formControlName="status"></mat-checkbox>
-                        <span class="checkbox-label">Ставить <input formControlName="count" class="range-input"
-                                type="number"> лайков последним
+                        <mat-checkbox formControlName="status">Ставить</mat-checkbox>
+                        <span class="checkbox-label"> <input formControlName="count" class="range-input" type="number">
+                            лайков последним
                             постам</span>
                     </div>
                     <div class="inline-checkoxes">
-                        <mat-checkbox formControlName="dontFollowHiddenAccounts"></mat-checkbox>
-                        <span class="checkbox-label">Подписатся на закрытые профили</span>
+                        <mat-checkbox formControlName="dontFollowHiddenAccounts">Подписатся на закрытые профили
+                        </mat-checkbox>
                     </div>
                     <div class="inline-checkoxes">
-                        <mat-checkbox formControlName="seeStories"></mat-checkbox>
-                        <span class="checkbox-label">Просматривать Stories</span>
+                        <mat-checkbox formControlName="seeStories">Просматривать Stories</mat-checkbox>
                     </div>
                     <div class="inline-checkoxes">
-                        <mat-checkbox></mat-checkbox>
-                        <span class="checkbox-label">Комментировать по <a href="">шаблону</a></span>
+                        <mat-checkbox>Комментировать по </mat-checkbox>
+                        <span class="checkbox-label"><a href="">шаблону</a></span>
                     </div>
                     <div class="inline-checkoxes">
-                        <mat-checkbox formControlName="hidePostsAndStories"></mat-checkbox>
-                        <span class="checkbox-label">Скрывать в ленте публикации и Stories</span>
+                        <mat-checkbox formControlName="hidePostsAndStories">Скрывать в ленте публикации и Stories
+                        </mat-checkbox>
                     </div>
                     <div formGroupName="unfollowDays" class="inline-checkoxes">
-                        <mat-checkbox class="status"></mat-checkbox>
-                        <span class="checkbox-label">Отписываться через <input formControlName="count"
-                                class="range-input" type="number">
+                        <mat-checkbox class="status">Отписываться через</mat-checkbox>
+                        <span class="checkbox-label"> <input formControlName="count" class="range-input" type="number">
                             дней</span>
                     </div>
                 </form>

@@ -19,7 +19,7 @@ export class AutoSubscribeOrWatchStoryService {
     public addedConditionsSubject$ = new Subject<{ prev: string, next: string }>();
     public addedConditionsObservable$ = new Observable<{ prev: string, next: string }>();
 
-    public addedConditions: string[] = [];
+    public addedConditions: { type: string }[] = [];
 
     constructor(private httpClient: HttpClient, private _authService: AuthService) {
         this.addedConditionsObservable$ = this.addedConditionsSubject$.asObservable();
