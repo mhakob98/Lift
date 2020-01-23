@@ -6,6 +6,7 @@ import { Search, SearchTerm } from 'src/app/com/annaniks/lift/core/models/search
 import { Observable, Subject } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
+import { RequireMatchOfType } from 'src/app/com/annaniks/lift/core/utilities/type-validator';
 
 @Component({
   selector: 'app-account-search',
@@ -20,7 +21,7 @@ export class AccountSearchComponent implements OnInit {
   @Input('searchValue')
   public searchValue: Observable<Search>
 
-  public accounts: FormControl = new FormControl([]);
+  public accounts: FormControl = new FormControl([], RequireMatchOfType);
 
   private _subs = new SubSink();
 

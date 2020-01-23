@@ -6,6 +6,7 @@ import { AuthService } from '../../auth.service';
 import { LoginData } from '../../../../core/models/login';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
+import { LoadingService } from '../../../../core/services/loading-service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private _fb: FormBuilder,
     private _authService: AuthService,
     private _router: Router,
-    private _cookieService: CookieService
+    private _cookieService: CookieService,
+    private _loadingService: LoadingService
   ) { }
 
   ngOnInit() {
@@ -51,12 +53,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   private _userLogin(loginData: LoginData): void {
-    this.loading = true;
+    this._loadingService.showLoading();
     this._authService.login(loginData)
       .pipe(
-        finalize(() => this.loading = false),
+        finalize(() => this._loadingService.hideLoading()),
         takeUntil(this._unsubscribe),
         map((data) => {
+          this._loadingService.hideLoading()
           const tokens = data.data;
           this._cookieService.put('accessToken', tokens.accessToken);
           this._cookieService.put('refreshToken', tokens.refreshToken);
