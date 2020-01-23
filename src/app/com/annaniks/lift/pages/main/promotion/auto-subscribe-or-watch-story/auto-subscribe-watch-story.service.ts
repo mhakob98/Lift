@@ -51,7 +51,12 @@ export class AutoSubscribeOrWatchStoryService {
         return this.httpClient.get<ServerResponse<AccountSettings>>(`massfollowing/${activeAccountId}`)
             .pipe(
                 map((data) => {
-                    this.settings = data.data;
+                    if (data && data.data) {
+                        this.settings = data.data;
+                    }
+                    else {
+                        this.settings = new AccountSettings();
+                    }
                     this._settingsEvent$.next(this.settings);
                     return data;
                 })

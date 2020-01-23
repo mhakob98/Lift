@@ -6,7 +6,7 @@
                 <p>#</p>
                 <p-autoComplete maxlength="50" field="name" formControlName="label" [suggestions]="searchValue | async"
                     (completeMethod)="search($event)"
-                    [size]="item.get('label').value.length || item.get('label').value.name?.length || 5">
+                    [size]="item.get('label')?.value?.length || item.get('label')?.value?.name?.length || 5">
                     <ng-template let-label pTemplate="item">
                         <div class="d-flex align-items-center justify-content-start">
                             <img [src]="label.profile_pic_url" class="rounded-circle" height="32" />

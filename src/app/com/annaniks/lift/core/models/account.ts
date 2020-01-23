@@ -18,6 +18,11 @@ export interface TwoFactorLoginData {
     two_factor_identifier: string;
 }
 
+export interface ChallengeLoginData {
+    username: string;
+    code: string;
+}
+
 export class AccountSettings {
     loginId: number | string;
     id?: number;

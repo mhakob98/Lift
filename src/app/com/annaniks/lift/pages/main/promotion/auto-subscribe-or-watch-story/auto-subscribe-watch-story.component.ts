@@ -56,6 +56,7 @@ export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
     this._loadingService.showLoading()
     this._subs.add(
       this._autoSubscribeOrWatchStoryService.saveSettings()
+        .pipe(finalize(() => this._loadingService.hideLoading()))
         .subscribe((data) => {
           this._toastrService.success('Изменение успешно сохранены');
         }, (err) => {
@@ -65,7 +66,9 @@ export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
   }
 
   public getSettings(accountId: number): Observable<any> {
-    return this._autoSubscribeOrWatchStoryService.getSettings(accountId);
+    this._loadingService.showLoading()
+    return this._autoSubscribeOrWatchStoryService.getSettings(accountId)
+      .pipe(finalize(() => this._loadingService.hideLoading()))
   }
 
   ngOnDestroy() {
