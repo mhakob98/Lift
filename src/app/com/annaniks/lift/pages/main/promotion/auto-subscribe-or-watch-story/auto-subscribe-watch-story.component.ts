@@ -32,6 +32,7 @@ export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this._autoSubscribeOrWatchStoryService.resetSettings();
     this._fetchSettingsData();
   }
 
@@ -40,6 +41,7 @@ export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
     this._authService.getActiveAccount()
       .pipe(
         switchMap((account) => {
+          this._autoSubscribeOrWatchStoryService.resetSettings();
           if (account) {
             return this.getSettings(account.id);
           }
@@ -53,17 +55,17 @@ export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
   }
 
   public onSettingsSave(): void {
-    this._loadingService.showLoading()
+    this._loadingService.showLoading();
     this._subs.add(
       this._autoSubscribeOrWatchStoryService.saveSettings()
         .pipe(finalize(() => this._loadingService.hideLoading()))
         .subscribe((data) => {
           this._toastrService.success('Изменение успешно сохранены');
-          this._loadingService.hideLoading()
+          this._loadingService.hideLoading();
 
         }, (err) => {
           this._toastrService.error('Ошибка');
-          this._loadingService.hideLoading()
+          this._loadingService.hideLoading();
 
         })
     )
@@ -72,7 +74,7 @@ export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
   public getSettings(accountId: number): Observable<any> {
     this._loadingService.showLoading()
     return this._autoSubscribeOrWatchStoryService.getSettings(accountId)
-      .pipe(finalize(() => this._loadingService.hideLoading()))
+      .pipe(finalize(() => this._loadingService.hideLoading()));
   }
 
   ngOnDestroy() {
