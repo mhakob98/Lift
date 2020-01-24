@@ -23,20 +23,12 @@ import { MatRadioModule } from '@angular/material/radio';
 
 //Forms
 import { ReactiveFormsModule } from '@angular/forms';
-
-
-//modal
-
-import { AddPostModal } from '../core/modals';
-
 @NgModule({
     declarations: [
         LimitsComponent,
         FooterNavigationComponent,
         LineChartComponent,
-        AddPostModal
     ],
-
     imports: [
         CommonModule,
         RouterModule,
@@ -51,7 +43,7 @@ import { AddPostModal } from '../core/modals';
         MatRadioModule
 
     ],
-    entryComponents: [AddPostModal],
+    entryComponents: [],
 
     exports: [
         LimitsComponent,
@@ -66,7 +58,6 @@ import { AddPostModal } from '../core/modals';
         MatSlideToggleModule,
         ReactiveFormsModule,
         MatRadioModule,
-        AddPostModal
     ],
 })
 export class SharedModule { }

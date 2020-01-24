@@ -1,37 +1,41 @@
 .profile-container {
-    margin-top: 42px;
-
-    .profile-content {
-        background: #f6f6f6;
-        margin-top: 33px;
-
-        .profile-tab {
-            .profile-tab-content {
-
-
-                .tab-item {
-                    background-color: #dddddd;
-                    cursor: pointer;
-                    padding: 0;
-                    height: 50px;
-                    margin-left: 3px;
-                    transition: .2s ease-out all;
-                    .tab-text{
-                        margin: auto 51px;
-                    }
-
-                    &:first-child {
-                        margin-left: 0px !important;
-                    }
-
-                }
-            }
-        }
+  margin-top: 42px;
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .profile-content {
+    margin-top: 33px;
+    .tab-inner {
+      background: #f6f6f6;
+      padding: 52px 42px;
     }
+    .profile-tab {
+      .profile-tab-content {
+        .tab-item {
+          cursor: pointer;
+          height: 50px;
+          width: 100%;
+          max-width: 280px;
+          margin-left: 3px;
+          padding: 0;
+          transition: 0.2s ease-out all;
+          background-color: #dddddd;
+          .tab-text {
+            margin: auto;
+            font-weight: 600;
+          }
+          &:first-child {
+            margin-left: 0px !important;
+          }
+        }
+       
+      }
+    }
+  }
 }
 
-
 .activeTab {
-    background: #f6f6f6 !important;
-    border-top: 4px solid #3399cc !important
+  background: #f6f6f6 !important;
+  border-top: 4px solid #3399cc !important;
 }

@@ -1,8 +1,6 @@
 .presonal-settings-container {
 
     .personal-settings-form {
-        margin: 41px 51px;
-
         &:after {
             content: "";
             display: block;
@@ -11,11 +9,11 @@
             margin: 55px 0 28px 0;
         }
 
-        .lable {
+        .label {
             padding: 0;
         }
 
-        .input-conent {
+        .input-content {
             padding: 0;
         }
     }

@@ -4,7 +4,6 @@ import { catchError, map, filter, tap } from 'rxjs/operators';
 import { of, combineLatest } from 'rxjs';
 import { Preview } from '../../../../core/models/statistics-preview';
 import { MatDialog } from '@angular/material/dialog';
-import { AddPostModal } from '../../../../core/modals';
 
 @Component({
   selector: 'app-preview',
