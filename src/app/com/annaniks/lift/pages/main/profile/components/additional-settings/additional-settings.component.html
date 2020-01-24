@@ -10,35 +10,35 @@
         </p>
         <div class="additional-form">
             <form [formGroup]="additionalForm">
-                <div class="form-group row ml-0 mr-0">
-                    <label for="select" class="col-4 col-form-label label ">Цель использования
+                <div class="form-group d-flex">
+                    <label for="select" class="col-form-label label">Цель использования
                         сервиса</label>
-                    <div class="col-4 input-content">
+                    <div class="input-content">
                         <select id="select" name="select" class="custom-select" formControlName="service">
                             <option value="">Выберите </option>
                         </select>
                     </div>
                 </div>
 
-                <div class="form-group row ml-0 mr-0">
-                    <label for="select" class="col-4 col-form-label label ">Род деятельности</label>
-                    <div class="col-4 input-content">
+                <div class="form-group d-flex">
+                    <label for="select" class="col-form-label label ">Род деятельности</label>
+                    <div class="input-content">
                         <select id="select" name="select" class="custom-select" formControlName="occupation">
                             <option value="">Выберите </option>
                         </select>
                     </div>
                 </div>
-                <div class="form-group row ml-0 mr-0">
-                    <label for="select" class="col-4 col-form-label label ">Род деятельности</label>
-                    <div class="col-4 input-content">
+                <div class="form-group d-flex">
+                    <label for="select" class="col-form-label label">Род деятельности</label>
+                    <div class="input-content">
                         <select id="select" name="select" class="custom-select" formControlName="activity">
                             <option value="">Выберите</option>
                         </select>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label for="publicinfo" class="col-4 col-form-label">Расскажите о себе</label>
-                    <div class="col-6 tex-area-content">
+                <div class="form-group d-flex">
+                    <label for="publicinfo" class=" col-form-label label">Расскажите о себе</label>
+                    <div class="tex-area-content">
                         <textarea id="publicinfo" name="publicinfo" cols="40" rows="4" class="form-control text-area"
                             placeholder="Пример, что рассказывать" formControlName="description"
                             [ngClass]="{'border':checkIsValid(additionalForm,'description')}"></textarea>
@@ -50,17 +50,17 @@
         </div>
         <div class="pages-form">
             <form [formGroup]="pagesForm">
-                <div class="form-group row ml-0 mr-0">
-                    <label for="instagram" class="col-4 col-form-label label ">Страница в Instagram</label>
-                    <div class="col-4 input-content">
+                <div class="form-group d-flex">
+                    <label for="instagram" class="col-form-label label ">Страница в Instagram</label>
+                    <div class="input-content">
                         <input id="instagram" name="instagram" placeholder="https://instagram.com/логин"
                             class="form-control here" required="required" type="text" formControlName="instagram"
                             [ngClass]="{'border':checkIsValid(pagesForm,'instagram')}">
                     </div>
                 </div>
-                <div class="form-group row ml-0 mr-0">
-                    <label for="facebook" class="col-4 col-form-label label ">Страница в Facebook</label>
-                    <div class="col-4 input-content">
+                <div class="form-group d-flex">
+                    <label for="facebook" class="col-form-label label ">Страница в Facebook</label>
+                    <div class="input-content">
                         <input id="facebook" name="facebook" placeholder="https://facebook.com/логин"
                             class="form-control here" required="required" type="text" formControlName="facebook"
                             [ngClass]="{'border':checkIsValid(pagesForm,'facebook')}">

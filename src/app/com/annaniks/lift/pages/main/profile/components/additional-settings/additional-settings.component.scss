@@ -1,19 +1,28 @@
-.additional-settings-container{
-    .label{
+.additional-settings-container {
+    .label {
         padding: 0;
+        width: 100%;
+        max-width: 210px;
+
     }
-    .input-conent {
+
+    .input-content {
         padding: 0;
+        max-width: 300px;
+        width: 100%;
     }
-    .additional-settings-form{
-        .text{
+
+    .additional-settings-form {
+        .text {
             word-break: break-all;
-            width: 60%;
+            width: 670px;
             color: #e2e2e2;
             font-size: 16px;
         }
-        .additional-form{
+
+        .additional-form {
             margin-top: 45px;
+
             &:after {
                 content: "";
                 display: block;
@@ -21,30 +30,37 @@
                 border: 1px solid #d7d7d7;
                 margin: 55px 0 28px 0;
             }
-            .tex-area-content{
+
+            .tex-area-content {
                 padding: 0;
-            
-            .text-area{
-                min-height: 250px;
-               max-height: 250px;
-               resize: none;
-               outline: none;
+                max-width: 570px;
+                width: 100%;
+
+
             }
+
+            .text-area {
+                min-height: 250px;
+                max-height: 250px;
+                resize: none;
+                outline: none;
             }
         }
-    
+
     }
-    .save-button-content{
-        padding: 54px 0;
-        .save-button{
+
+    .save-button-content {
+        margin-top: 54px;
+
+        .save-button {
             color: white;
             background: #71ceb5;
-            padding: 17px 59px;
+            padding: 17px 56px;
         }
     }
-  
+
 }
 
-.border{
+.border {
     border: 1px solid red !important;
 }

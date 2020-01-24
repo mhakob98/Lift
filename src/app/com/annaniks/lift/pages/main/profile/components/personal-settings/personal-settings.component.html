@@ -1,9 +1,12 @@
 <section class="presonal-settings-container">
     <div class="personal-settings-form data-form">
         <form [formGroup]="dataForm">
-            <div class="form-group row ml-0 mr-0 ">
-                <label for="account" class="col-4 col-form-label label ">Тип аккаунта</label>
-                <div class="col-4 input-content d-flex align-items-center">
+
+
+
+            <div class="form-group d-flex">
+                <label for="account" class="col-form-label label">Тип аккаунта</label>
+                <div class="input-content d-flex align-items-center">
 
                     <img src="assets/images/user.png" class="rounded-circle img-responsive user-image">
                     <div class=" ml-2">
@@ -18,35 +21,41 @@
             </div>
 
 
-            <div class="form-group row ml-0 mr-0">
-                <label for="firstname" class="col-4 col-form-label label ">Ваше Фамилия и Имя</label>
-                <div class="input-item col-8 d-flex">
-                    <div class="col-5 input-content">
+
+
+
+            <div class="form-group d-flex">
+                <label for="firstname" class="col-form-label label ">Ваше Фамилия и Имя</label>
+                <div class="input-item  d-flex">
+                    <div class="input-content">
                         <input id="firstname" name="firstname" placeholder="Фамилия" class="form-control here"
                             required="required" type="text" formControlName="lastname"  [ngClass]="{'border':checkIsValid(dataForm,'lastname')}">
                     </div>
 
-                    <div class="col-5 input-content ml-3">
+                    <div class="input-content ml-3">
                         <input id="firstname" name="firstname" placeholder="Имя" class="form-control here"
                             required="required" type="text" formControlName="name"  [ngClass]="{'border':checkIsValid(dataForm,'name')}">
                     </div>
                 </div>
 
             </div>
-            <div class="form-group row ml-0 mr-0">
-                <label for="select" class="col-4 col-form-label label ">Дата рождения</label>
-                <div class="input-item col-6 d-flex">
-                    <div class="col-3 input-content">
+
+
+
+            <div class="form-group d-flex">
+                <label for="select" class="col-form-label label ">Дата рождения</label>
+                <div class="input-item d-flex">
+                    <div class=" input-content">
                         <select id="select" name="select" class="custom-select" formCotrolName="day">
                             <option value="День">День</option>
                         </select>
                     </div>
-                    <div class="col-3 input-content">
+                    <div class="input-content">
                         <select id="select" name="select" class="custom-select" formCotrolName="month">
                             <option value="Месяц">Месяц</option>
                         </select>
                     </div>
-                    <div class="col-3 input-content">
+                    <div class=" input-content">
                         <select id="select" name="select" class="custom-select" formCotrolName="year">
                             <option value="Год">Год</option>
                         </select>
@@ -56,6 +65,9 @@
                 </div>
 
             </div>
+
+
+
             <div class="form-group row ml-0 mr-0">
                 <label for="checkbox" class="col-4 col-form-label label ">Пол</label>
                 <div class="input-item col-6 d-flex">
@@ -79,10 +91,10 @@
 
     <div class="personal-settings-form connected-accounts-content">
 
-        <div class="form-group row ml-0 mr-0 ">
-            <label for="account" class="col-4 col-form-label label">Подключенные
+        <div class="form-group d-flex">
+            <label for="account" class="col-form-label label">Подключенные
                 аккаунты</label>
-            <div class="col-7 input-content">
+            <div class="connected-content">
                 <div class=" d-flex align-items-center">
                     <div class="connected-accounts d-flex">
                         <div class="connected-accounts-item d-flex align-items-center">
@@ -110,21 +122,24 @@
 
 
     <div class="personal-settings-form contacts-form">
+
         <form [formGroup]="contactForm">
-            <div class="form-group row ml-0 mr-0 ">
-                <label for="phoneNumber" class="col-4 col-form-label label ">Контактный номер</label>
-                <div class="col-4 input-content">
+            <div class="form-group d-flex">
+                <label for="phoneNumber" class="col-form-label label ">Контактный номер</label>
+                <div class=" input-content">
                     <input id="phoneNumber" name="phoneNumber" placeholder="Контактный номер" class="form-control here"
                         type="text" formControlName="phoneNumber"  [ngClass]="{'border':checkIsValid(contactForm,'phoneNumber')}">
                 </div>
             </div>
-            <div class="form-group row ml-0 mr-0 ">
-                <label for="current-city" class="col-4 col-form-label label ">Город проживания</label>
-                <div class="col-4 input-content">
+
+            <div class="form-group d-flex ">
+                <label for="current-city" class="col-form-label label ">Город проживания</label>
+                <div class="input-content">
                     <input id="current-city" name="current-city" placeholder="Город проживания"
                         class="form-control here" type="text" formControlName="currentCity"  [ngClass]="{'border':checkIsValid(contactForm,'currentCity')}">
                 </div>
             </div>
+
         </form>
     </div>
     <div class="d-flex save-button-content">
