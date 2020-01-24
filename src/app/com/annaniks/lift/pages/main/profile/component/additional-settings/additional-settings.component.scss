@@ -1,0 +1,48 @@
+.additional-settings-container{
+    margin-top: 35px;
+    .lable{
+        padding: 0;
+    }
+    .input-conent {
+        padding: 0;
+    }
+    .additional-settings-form{
+        margin-left: 41px;
+        .text{
+            word-break: break-all;
+            width: 60%;
+            color: #e2e2e2;
+            font-size: 16px;
+        }
+        .additional-form{
+            margin-top: 45px;
+            &:after {
+                content: "";
+                display: block;
+                width: 100%;
+                border: 1px solid #d7d7d7;
+                margin: 55px 0 28px 0;
+            }
+            .tex-area-content{
+                padding: 0;
+            
+            .text-area{
+                min-height: 250px;
+               max-height: 250px;
+               resize: none;
+               outline: none;
+            }
+            }
+        }
+    
+    }
+    .save-button-content{
+        padding: 54px 0;
+        .save-button{
+            color: white;
+            background: #71ceb5;
+            padding: 17px 59px;
+        }
+    }
+  
+}

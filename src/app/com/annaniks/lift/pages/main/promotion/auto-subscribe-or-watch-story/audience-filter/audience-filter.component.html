@@ -2,19 +2,21 @@
     <div class="subscription-accordion accordion" id="accordionExample1">
         <div class="accordion-body">
             <div class="collapse-heading mb-0">
-                <img src="assets/icons/setting-1.png" alt="">
+                <img src="assets/icons/filter.png" alt="">
                 <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     Настроить фильтр
                     <img class="arrow-up" src="assets/icons/arrow_up.png" alt="">
                 </button>
+                <div class="filters-count">
+                    <span>12 фильтров включено</span>
+                </div>
             </div>
 
             <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample1">
                 <form [formGroup]="filterAudienceForm" class="filters-container">
                     <div class="checkoboxes-filter">
 
-                        <mat-checkbox>Только с открытым аккаунтом </mat-checkbox>
                         <div formGroupName="followers">
                             <mat-checkbox formControlName="status">
                                 Диапазон подписчиков от <input formControlName="min" class="range-input" type="text"> до

@@ -1,0 +1,33 @@
+<div class="condition">
+    <div class="condition-index">{{index + 1 }}</div>
+    <select class="condition-select custom-select custom-select-sm" [formControl]="typeControl">
+        <option [disabled]="true" value="">Введите параметры фильтра </option>
+        <option [disabled]="checkConditionDisable('hashtag')" value="hashtag">По хештегам</option>
+        <option [disabled]="checkConditionDisable('subscriber')" value="subscriber">На подписчиков аккаунтов</option>
+        <option [disabled]="checkConditionDisable('location')" value="location">На аккаунты в рамках локации</option>
+        <option [disabled]="checkConditionDisable('comment')" value="comment">На комментаторов аккаунтов</option>
+        <option [disabled]="checkConditionDisable('likes')" value="likes">На лайкеров аккаунтов</option>
+    </select>
+</div>
+<div [ngSwitch]="selectedType">
+    <p class="condition-subtitle" *ngSwitchCase="'hashtag'">Подписываться на аккаунты, использующие эти хэштеги</p>
+    <p class="condition-subtitle" *ngSwitchCase="'subscriber'">Подписываться на аккаунты, которые подписаны на</p>
+    <p class="condition-subtitle" *ngSwitchCase="'comment'">Подписываться на аккаунты, которые комментируют</p>
+    <p class="condition-subtitle" *ngSwitchCase="'likes'">Подписываться на аккаунты, которые лайкают</p>
+</div>
+<div class="condition d-flex" [ngSwitch]="selectedType">
+    <app-add-hashtag (searched)="searchFor($event)" [searchValue]="searchStream$" class="w-100"
+        *ngSwitchCase="'hashtag'">
+    </app-add-hashtag>
+    <app-account-search (searched)="searchFor($event)" [searchValue]="searchStream$" class="w-100" [type]="selectedType"
+        *ngSwitchCase="'comment'">
+    </app-account-search>
+    <app-account-search (searched)="searchFor($event)" [searchValue]="searchStream$" class="w-100" [type]="selectedType"
+        *ngSwitchCase="'likes'">
+    </app-account-search>
+    <app-account-search (searched)="searchFor($event)" [searchValue]="searchStream$" class="w-100" [type]="selectedType"
+        *ngSwitchCase="'subscriber'">
+    </app-account-search>
+    <app-account-by-location (searched)="searchFor($event)" [searchValue]="searchStream$" class="w-100"
+        *ngSwitchCase="'location'"></app-account-by-location>
+</div>

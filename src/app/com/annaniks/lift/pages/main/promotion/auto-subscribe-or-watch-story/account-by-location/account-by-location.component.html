@@ -1,10 +1,12 @@
 <div [formGroup]="locationForm" class="account-by-location-container">
     <div class="account-by-location">
-        <div class="location-item" formArrayName="items" *ngFor="let item of itemsControl.controls; let i = index;">
+        <div class="location-item" formArrayName="items" *ngFor="let item of itemsControl?.controls; let i = index;">
             <div [formGroupName]="i">
-                <p-autoComplete (onSelect)="writeValueToService()" maxlength="50" field="title" formControlName="label"
-                    [suggestions]="searchValue | async" (completeMethod)="search($event)"
-                    [size]="item.get('label').value.length || item.get('label').value.title?.length || 5">
+                <img src="assets/icons/location.png" alt="">
+                <p-autoComplete maxlength="50" field="title" formControlName="label" [suggestions]="searchValue | async"
+                    (completeMethod)="search($event)"
+                    [size]="item.get('label').value.length || item.get('label').value.title?.length || 5"
+                    (onBlur)="onBlur(i)">
 
                 </p-autoComplete>
                 <img (click)="deleteLocation(i)" src="assets/icons/delete-1.png">

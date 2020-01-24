@@ -1,0 +1,99 @@
+.presonal-settings-container {
+
+    .personal-settings-form {
+        margin: 41px 51px;
+
+        &:after {
+            content: "";
+            display: block;
+            width: 100%;
+            border: 1px solid #d7d7d7;
+            margin: 55px 0 28px 0;
+        }
+
+        .lable {
+            padding: 0;
+        }
+
+        .input-conent {
+            padding: 0;
+        }
+    }
+
+    .data-form {
+        .user-image {
+            border: 2px solid #63b0d6;
+            width: 65px;
+            height: 65px;
+        }
+
+        .help-image {
+            width: 20px;
+            height: 20px;
+        }
+
+        .data-text {
+            color: #a5cae1;
+        }
+
+        .input-item {
+            padding: 0;
+        }
+    }
+
+    .connected-accounts-content {
+        .connected-accounts {
+            .connected-accounts-item {
+                margin-right: 43px;
+
+                .accoutn-image {
+                    border: 2px solid #f6f6f6;
+                    width: 65px;
+                    height: 65px;
+                }
+
+                .att-text {
+                    color: #c1c0c0;
+                }
+
+                .add-image {
+                    width: 49px;
+                    height: 49px;
+                }
+
+               
+            }
+        
+        }
+        .description-text {
+            margin-top: 19px;
+            color: #8a9398;
+        }
+    }
+    .save-button-content{
+        .save-button{
+            color: white;
+            background: #71ceb5;
+            padding: 17px 98px;
+            margin: 90px auto;
+        }
+    }
+   
+}
+
+
+
+
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
+.mat-accent .mat-pseudo-checkbox-checked,
+.mat-accent .mat-pseudo-checkbox-indeterminate,
+.mat-pseudo-checkbox-checked,
+.mat-pseudo-checkbox-indeterminate {
+    background-color: #3399cc !important;
+}
+
+::ng-deep .mat-checkbox .mat-checkbox-frame {
+    border: 1px solid #c2d0db !important;
+}

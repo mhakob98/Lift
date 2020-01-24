@@ -8,11 +8,12 @@ import { AutoSubscribeOrWatchStoryRoutingModule } from './auto-subscribe-watch-s
 import { AutoSubscribeOrWatchStoryService } from './auto-subscribe-watch-story.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-import { SubscribeWatchConditionComponent } from './subscribe-watch-reason/subscribe-watch-condition.component';
+import { SubscribeWatchConditionComponent } from './subscribe-watch-condition/subscribe-watch-condition.component';
 import { AddHashtagComponent } from './add-hashtag/add-hashtag.component';
 import { AccountSearchComponent } from './account-search/account-search.component';
 import { SharedModule } from '../../../../shared/shared.module';
 import { AccountByLocationComponent } from './account-by-location/account-by-location.component';
+import { SubscribeParametresComponent } from './subscribe-parametres/subscribe-parametres.component';
 
 @NgModule({
     declarations: [
@@ -21,6 +22,7 @@ import { AccountByLocationComponent } from './account-by-location/account-by-loc
         AddHashtagComponent,
         AccountSearchComponent,
         AccountByLocationComponent,
+        SubscribeParametresComponent,
     ],
     imports: [
         AutoSubscribeOrWatchStoryRoutingModule,

@@ -27,15 +27,15 @@ const mainRoutes: Routes = [
                     .then(m => m.DirectModule)
             },
             {
-                path: 'account-settings',
-                loadChildren: () => import('../../../../../com/annaniks/lift/pages/main/account-settings/account-settings.module')
-                    .then(m => m.AccountSettingsModule)
-            },
-            {
                 path: 'support-service',
                 loadChildren: () => import('../../../../../com/annaniks/lift/pages/main/support-service/support-service.module')
                     .then(m => m.SupportServiceModule)
-            }
+            },
+            {
+                path: 'profile',
+                loadChildren: () => import('../../../../../com/annaniks/lift/pages/main/profile/profile.module')
+                    .then(m => m.ProfileModule)
+            },
         ]
     }
 ]

@@ -1,0 +1,118 @@
+<div class="basic-settings-container">
+    <div class="basic-settings-form login-form">
+        <form [formGroup]="loginForm">
+            <div class="form-group row ml-0 mr-0 ">
+                <label for="login" class="col-4 col-form-label lable ">Логин</label>
+                <div class="col-4 input-conent">
+                    <input id="login" name="login" placeholder="Логин" class="form-control here" type="text"
+                        formControlName="login">
+                </div>
+            </div>
+
+            <div class="form-group row ml-0 mr-0">
+                <label for="email" class="col-4 col-form-label lable ">Email</label>
+                <div class="col-4 input-conent">
+                    <input id="email" name="email" placeholder="Email" class="form-control here" required="required"
+                        type="text" formControlName="email">
+                </div>
+            </div>
+
+            <div class="form-group row ml-0 mr-0">
+                <label for="select" class="col-4 col-form-label lable ">Часовой пояс</label>
+                <div class="col-4 input-conent">
+                    <select id="select" name="select" class="custom-select" formCotrolName="time">
+                        <option value="(GMT +3) Москва">(GMT +3) Москва </option>
+                    </select>
+                    <p class="select-title mt-3">Локальное время 10:25</p>
+                </div>
+            </div>
+            <div class="form-group row ml-0 mr-0">
+                <div class="offset-4 col-8  button-content">
+                    <button name="submit" type="submit" class="btn button"   [disabled]="loginForm.invalid">Сохранить изменения</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="basic-settings-form password-form">
+        <div class="password-form-description d-flex align-items-center">
+            <p class="text">Сменить пароль</p>
+            <img src="assets/icons/arrow_up.png" class="rounded img-responsive up-image ml-3">
+        </div>
+        <form [formGroup]="passwordForm">
+            <div class="form-group row ml-0 mr-0 ">
+                <label for="password" class="col-4 col-form-label lable ">Текущий пароль</label>
+                <div class="col-4 input-conent">
+                    <input id="password" name="password" placeholder="Текущий пароль" class="form-control here"
+                        type="password" formControlName="password">
+                </div>
+            </div>
+
+            <div class="form-group row ml-0 mr-0 ">
+                <label for="new-password" class="col-4 col-form-label lable ">Новый пароль</label>
+                <div class="col-4 input-conent">
+                    <input id="new-password" name="new-password" placeholder="Новый пароль" class="form-control here"
+                        type="password" formControlName="newPassword">
+                </div>
+            </div>
+            <div class="form-group row ml-0 mr-0 ">
+                <label for="repeat-password" class="col-4 col-form-label lable ">Новый пароль еще
+                    раз</label>
+                <div class="col-4 input-conent">
+                    <input id="repeat-password" name="repeat-password" placeholder="Новый пароль еще раз"
+                        class="form-control here" type="password" formControlName="repeatPassword">
+                    <p class="password-title mt-3">Забыли пароль?</p>
+                </div>
+            </div>
+
+            <div class="form-group row ml-0 mr-0">
+                <div class="offset-4 col-8 button-content">
+                    <button name="submit" type="submit" class="btn button" [disabled]="passwordForm.invalid">Изменить пароль</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="basic-settings-form notification-form">
+        <p class="text">Настройки уведомлений</p>
+
+        <form [formGroup]="notificationForm">
+
+            <div class="form-group row ml-0 mr-0">
+                <label for="email" class="col-4 col-form-label lable ">Email</label>
+                <div class="col-4 input-conent">
+                    <div class="enable-notification d-flex">
+                        <mat-checkbox>
+                                Включить уведомления по Email
+                        </mat-checkbox>
+                    </div>
+                    <input id="email" name="email" placeholder="Email" class="form-control here" required="required"
+                        type="text" formControlName="email">
+                </div>
+            </div>
+
+            <div class="form-group row ml-0 mr-0">
+                <label class="col-4 col-form-label lable ">Включить уведомления
+                    через Telegram</label>
+                <div class="col-4  button-content">
+
+                    <button name="submit" type="submit" class="btn button" [disabled]="notificationForm.invalid"> <img src="assets/icons/telegram.png"
+                            class="rounded img-responsive telegram-image mr-3" >Подключить Telegram</button>
+                    <div class="d-flex  mt-3">
+                        <img src="assets/icons/settings-icon.png" class="rounded img-responsive settings-image">
+                        <p class="settings-title  ml-3">Расширенные настройки уведомлений</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="d-flex next-button-content">
+        <button name="submit" type="submit" class="btn next-button m-auto">Дальше<img src="assets/icons/next.png"
+                class="rounded img-responsive next-image ml-3"></button>
+    </div>
+
+</div>

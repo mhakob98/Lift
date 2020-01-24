@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError, Subject } from 'rxjs';
+import { Observable, throwError, Subject, BehaviorSubject } from 'rxjs';
 import { catchError, map, finalize, switchMap } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie';
 import { TokenResponse } from '../models/auth';
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-    private _updateTokenEvent$: Subject<boolean> = new Subject<boolean>();
+    private _updateTokenEvent$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
     private _updateTokenState: Observable<boolean>
     private _loading: boolean = false;
 
@@ -35,9 +35,11 @@ export class JwtInterceptor implements HttpInterceptor {
                             .pipe(
                                 switchMap((isUpdated) => {
                                     if (!!isUpdated) {
+                                        console.log(1);
                                         return next.handle(this._setNewHeaders(req));
                                     }
                                     else if (isUpdated === false) {
+                                        console.log(2);
                                         this._router.navigate(['/auth/login']);
                                         return throwError(false);
                                     }
@@ -60,12 +62,16 @@ export class JwtInterceptor implements HttpInterceptor {
             this._httpClient.post<ServerResponse<TokenResponse>>('refresh', {}, { params, headers })
                 .pipe(
                     finalize(() => this._loading = false),
+                    map((data) => {
+                        return data;
+                    }),
                     map((data) => data.data),
                     map((data: TokenResponse) => {
                         this._updateCookies(data);
                         this._updateTokenEvent$.next(true);
                     }),
                     catchError((err) => {
+                        this._router.navigate(['/auth/login']);
                         this._updateTokenEvent$.next(false);
                         return throwError(false);
                     })

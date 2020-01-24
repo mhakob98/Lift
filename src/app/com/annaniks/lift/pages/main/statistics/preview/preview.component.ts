@@ -84,11 +84,4 @@ export class PreviewComponent implements OnInit {
       }
     ]
   }
-
-  public openAddPostModal(): void {
-    const dialogRef = this._matDialog.open(AddPostModal, {
-      width: "1200px",
-    
-    })
-  }
 }

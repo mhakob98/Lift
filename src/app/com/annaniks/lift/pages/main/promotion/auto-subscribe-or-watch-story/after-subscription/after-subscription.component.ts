@@ -1,12 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 
-import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
 import { ActionAfterSubscription } from '../../../../../core/models/action-after-subscription';
 
-import { Subject, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
 import { SubSink } from 'subsink';
 
 @Component({
@@ -15,6 +13,16 @@ import { SubSink } from 'subsink';
   styleUrls: ['./after-subscription.component.scss']
 })
 export class AfterSubscriptionComponent implements OnInit, OnDestroy {
+
+  @Input('massData')
+  set _massData(event) {
+    this._initForm();
+
+    if (event) {
+      this._bindMassfollowing(event)
+    }
+  }
+
 
   private _subs = new SubSink();
   public afterSubscriptionForm: FormGroup;
@@ -29,38 +37,34 @@ export class AfterSubscriptionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this._initForm();
-    this._fetchAllActions()
   }
 
   private _initForm(): void {
     this.afterSubscriptionForm = this._formBuilder.group({
-      actions: this._formBuilder.array([])
+      lastPostLikes: this._formBuilder.group({ status: false, count: 0 }),
+      unfollowDays: this._formBuilder.group({ status: false, count: 0 }),
+      hidePostsAndStories: false,
+      dontFollowHiddenAccounts: false,
+      seeStories: false
+    })
+    this.afterSubscriptionForm.valueChanges.subscribe((data) => {
+      let formValue = this.afterSubscriptionForm.value
+      this._autoSubscribeOrWatchStoryService.settings.dontFollowHiddenAccounts = formValue.dontFollowHiddenAccounts
+      this._autoSubscribeOrWatchStoryService.settings.seeStories = formValue.seeStories
+      this._autoSubscribeOrWatchStoryService.settings.hidePostsAndStories = formValue.hidePostsAndStories
+      this._autoSubscribeOrWatchStoryService.settings.unfollowDays = formValue.unfollowDays.count
+      this._autoSubscribeOrWatchStoryService.settings.dontFollowHiddenAccounts = formValue.dontFollowHiddenAccounts
     })
   }
 
-  private _fetchAllActions(): void {
-    this._subs.add(
-      this._autoSubscribeOrWatchStoryService.fetchAllActions$.
-        pipe(
-          tap((actions: ActionAfterSubscription[]) => {
-            actions.map((action: ActionAfterSubscription) => {
-              this._addAction(action);
-            })
-          }),
-          catchError(of)
-        ).subscribe()
-    )
-
-  }
-
-  private _addAction(action: ActionAfterSubscription): void {
-    this._actions.push(action);
-    this.actionsGetter.push(this._formBuilder.control(action));
-  }
-
-  get actionsGetter() {
-    return this.afterSubscriptionForm.get('actions') as FormArray;
+  private _bindMassfollowing(event): void {
+    this.afterSubscriptionForm.patchValue({
+      lastPostLikes: false,
+      unfollowDays: { status: event.unfollowDays ? true : false, count: event.unfollowDays },
+      hidePostsAndStories: event.hidePostsAndStories ? true : false,
+      dontFollowHiddenAccounts: event.dontFollowHiddenAccounts ? true : false,
+      seeStories: event.seeStories ? true : false
+    });
   }
 
   ngOnDestroy() {

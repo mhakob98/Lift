@@ -1,0 +1,72 @@
+<div class="additional-settings-container">
+    <div class="additional-settings-form">
+    <p class="text">
+            Здесь текст для чего собственно собираются такие детальные данные у пользователей.
+            В последнее время появляется все больше материалов о технике проведения собеседований.
+            Но, почему-то, не слишком часто встречается информация о дополнительных приемах,
+            позволяющих провести собеседования (а, соответственно, и оценить профессиональные
+            и личные качества соискателя) с наибольшей эффективностью.
+
+    </p>
+    <div class="additional-form">
+    <form [formGroup]="additionalForm">
+            <div class="form-group row ml-0 mr-0">
+                    <label for="select" class="col-4 col-form-label lable ">Цель использования
+                            сервиса</label>
+                    <div class="col-4 input-conent">
+                        <select id="select" name="select" class="custom-select" formControlName="service">
+                            <option value="">Выберите </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row ml-0 mr-0">
+                        <label for="select" class="col-4 col-form-label lable ">Род деятельности</label>
+                        <div class="col-4 input-conent">
+                            <select id="select" name="select" class="custom-select" formControlName="occupation">
+                                <option value="">Выберите </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row ml-0 mr-0">
+                            <label for="select" class="col-4 col-form-label lable ">Род деятельности</label>
+                            <div class="col-4 input-conent">
+                                <select id="select" name="select" class="custom-select" formControlName="activity">
+                                    <option value="">Выберите</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                                <label for="publicinfo" class="col-4 col-form-label">Расскажите о себе</label> 
+                                <div class="col-6 tex-area-content">
+                                  <textarea id="publicinfo" name="publicinfo" cols="40" rows="4" class="form-control text-area" placeholder="Пример, что рассказывать"></textarea>
+                                </div>
+                              </div>
+
+
+    </form>
+    </div>
+    <div class="pages-form">
+            <form [formGroup]="pagesForm">
+                <div class="form-group row ml-0 mr-0">
+                    <label for="instagram" class="col-4 col-form-label lable ">Страница в Instagram</label>
+                    <div class="col-4 input-conent">
+                        <input id="instagram" name="instagram" placeholder="https://instagram.com/логин"
+                            class="form-control here" required="required" type="text" formControlName="instagram">
+                    </div>
+                </div>
+                <div class="form-group row ml-0 mr-0">
+                        <label for="facebook" class="col-4 col-form-label lable ">Страница в Facebook</label>
+                        <div class="col-4 input-conent">
+                            <input id="facebook" name="facebook" placeholder="https://facebook.com/логин"
+                                class="form-control here" required="required" type="text" formControlName="facebook">
+                        </div>
+                    </div>
+
+                </form>
+        </div>
+        <div class="d-flex save-button-content">
+                <button name="submit" type="submit" class="btn save-button m-auto"    [disabled]="pagesForm.invalid">Сохранить</button>
+            </div>
+    </div>
+</div>

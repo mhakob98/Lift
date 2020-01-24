@@ -1,0 +1,37 @@
+.profile-container {
+    margin-top: 42px;
+
+    .profile-content {
+        background: #f6f6f6;
+        margin-top: 33px;
+
+        .profile-tab {
+            .profile-tab-content {
+
+
+                .tab-item {
+                    background-color: #dddddd;
+                    cursor: pointer;
+                    padding: 0;
+                    height: 50px;
+                    margin-left: 3px;
+                    transition: .2s ease-out all;
+                    .tab-text{
+                        margin: auto 51px;
+                    }
+
+                    &:first-child {
+                        margin-left: 0px !important;
+                    }
+
+                }
+            }
+        }
+    }
+}
+
+
+.activeTab {
+    background: #f6f6f6 !important;
+    border-top: 4px solid #3399cc !important
+}

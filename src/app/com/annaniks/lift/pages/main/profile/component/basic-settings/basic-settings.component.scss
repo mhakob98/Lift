@@ -1,0 +1,88 @@
+.basic-settings-container {
+    .basic-settings-form {
+        margin: 41px 51px;
+
+        &:after {
+            content: "";
+            display: block;
+            width: 100%;
+            border: 1px solid #d7d7d7;
+            margin: 55px 0 28px 0;
+        }
+        .lable{
+            padding: 0;
+        }
+        .input-conent {
+            padding: 0;
+        }
+        .button-content {
+            padding: 0;
+
+            .button {
+                background: #3399cc;
+                color: white;
+            }
+        }
+    }
+
+    .login-form {
+        .select-title {
+            color: #7d7d7d;
+        }
+    }
+
+    .password-form {
+        .password-form-description {
+            margin-bottom: 50px;
+        }
+
+        .up-image {
+            height: 10px;
+            width: 15px;
+        }
+        .password-title{
+            color: #3399cc;
+        }
+    }
+    .notification-form{
+        .text{
+            margin-bottom: 50px;
+        }
+        .telegram-image{
+            height: 17px;
+            width: 20px;
+        }
+        .settings-image{
+            height: 20px;
+            width: 20px;
+        }
+        .settings-title{
+            color: #3399cc;
+        }
+        .enable-notification{
+            margin-bottom: 16px;
+        }
+    }
+
+    .next-button-content{
+        padding-bottom: 30px;
+    }
+    .next-button{
+        color: white;
+        background: #71ceb5;
+        padding: 17px 98px;
+    }
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
+.mat-accent .mat-pseudo-checkbox-checked,
+.mat-accent .mat-pseudo-checkbox-indeterminate,
+.mat-pseudo-checkbox-checked,
+.mat-pseudo-checkbox-indeterminate {
+    background-color: #3399cc !important;
+}
+
+::ng-deep .mat-checkbox .mat-checkbox-frame {
+    border: 1px solid #c2d0db !important;
+}
