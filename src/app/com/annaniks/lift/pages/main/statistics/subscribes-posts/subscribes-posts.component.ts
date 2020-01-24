@@ -83,8 +83,7 @@ export class SubscribersPostsComponent implements OnInit {
 
   ngOnInit() {
     this.vm$.subscribe((data) => {
-      console.log(data);
-      if (data) this._initMap()
+      if (data) this._initMap();
     })
   }
 
