@@ -54,15 +54,20 @@ export class SubscribeWatchConditionComponent implements OnInit {
 
   public checkConditionDisable(type: string): boolean {
     let isExist: boolean = false;
-    this._autoSubscribeOrWatchStoryService.addedConditions.map((condition: string) => {
-      if (condition === type) isExist = true;
+
+    this._autoSubscribeOrWatchStoryService.addedConditions.map((condition: { type: string }) => {
+      if (condition.type === type) isExist = true;
     })
     return isExist ? true : false;
   }
 
   private _subscribeToTypeChanges(): void {
     this._autoSubscribeOrWatchStoryService.addedConditionsObservable$.subscribe((data: any) => {
+      console.log("DATA", data);
+
       if (!this._autoSubscribeOrWatchStoryService.addedConditions.includes(data.next)) {
+        console.log("SKDadasd+a9sd+asdasdas98d798sd798as7d89s78");
+
         this._autoSubscribeOrWatchStoryService.addedConditions.push(data.next)
       };
       if (this._autoSubscribeOrWatchStoryService.addedConditions.includes(data.prev)) {

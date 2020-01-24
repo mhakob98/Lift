@@ -7,7 +7,7 @@ import { EmptyResponse } from '../../core/models/empty-response';
 import { User } from '../../core/models/user';
 import { map, catchError } from 'rxjs/operators';
 import { AuthService } from '../../core/services/auth.service';
-import { AccountConnectData, TwoFactorLoginData } from '../../core/models/account';
+import { AccountConnectData, TwoFactorLoginData, ChallengeLoginData } from '../../core/models/account';
 
 @Injectable()
 export class MainService {
@@ -44,9 +44,10 @@ export class MainService {
                         this.setShowDisabledView(false);
                     }
                     this._authService.setUserState(data.data);
-
-                    if (!this._authService.getAccount().id) {
-                        this._authService.setAccount(data.data.instagramAccounts[0])
+                    if (!this._authService.getAccount() || (this._authService.getAccount() && !this._authService.getAccount().id)) {
+                        if (user && user.instagramAccounts && user.instagramAccounts.length > 0) {
+                            this._authService.setAccount(data.data.instagramAccounts[0])
+                        }
                     }
                     return data;
                 }),
@@ -73,6 +74,11 @@ export class MainService {
 
     public twoFactorLogin(data: TwoFactorLoginData): Observable<any> {
         return this._httpClient.post('two-factor-login', data);
+    }
+
+    public challengeLogin(data: ChallengeLoginData): Observable<any> {
+        return this._httpClient.post('checkpoint-challenge', data);
+
     }
 
 

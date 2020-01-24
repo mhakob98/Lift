@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MainService } from '../../../pages/main/main.service';
 import { MatDialogRef } from '@angular/material/dialog';
-import { finalize, takeUntil, take } from 'rxjs/operators';
-import { TwoFactorLoginData } from '../../models/account';
+import { finalize, takeUntil } from 'rxjs/operators';
+import { TwoFactorLoginData, ChallengeLoginData } from '../../models/account';
 import { Subject } from 'rxjs';
 
 
@@ -16,6 +16,7 @@ import { Subject } from 'rxjs';
 export class AccountConnectionModal implements OnInit, OnDestroy {
     private _unsubscribe$: Subject<void> = new Subject<void>();
     private _isTwoFactorAuth: boolean = false;
+    private _isChallangeAuth: boolean = false;
     private _twoFactorIdentifier: string;
     public tab: number = 1;
     public loginForm: FormGroup;
@@ -78,16 +79,24 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
                     if (response.invalid_credentials) {
                         this.errorMessage = response.message;
                     }
-                    if (response.two_factor_required) {
+                    if (response.two_factor_required || (response.error_type && response.error_type === 'checkpoint_challenge_required')) {
                         this.showCode = true;
                         this.loginForm.addControl('code', new FormControl(null, Validators.required));
-                        this._twoFactorIdentifier = response.two_factor_info.two_factor_identifier;
-                        this._isTwoFactorAuth = true;
+                        if (response.two_factor_required) {
+                            this._twoFactorIdentifier = response.two_factor_info.two_factor_identifier;
+                            this._isTwoFactorAuth = true;
+                            this._isChallangeAuth = false;
+                        }
+                        else if (response.error_type === 'checkpoint_challenge_required') {
+                            this._isChallangeAuth = true;
+                            this._isTwoFactorAuth = false;
+                        }
                     }
                 })
     }
 
     private _twoFactorLogin(): void {
+        this.loading = true;
         const sendingData: TwoFactorLoginData = {
             code: this.loginForm.get('code').value,
             password: this.loginForm.get('password').value,
@@ -95,7 +104,26 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
             two_factor_identifier: this._twoFactorIdentifier
         }
         this._mainService.twoFactorLogin(sendingData)
-            .pipe(takeUntil(this._unsubscribe$))
+            .pipe(
+                takeUntil(this._unsubscribe$),
+                finalize(() => this.loading = false)
+            )
+            .subscribe((data) => {
+                this._dialogRef.close();
+            })
+    }
+
+    private _challengeLogin(): void {
+        this.loading = true;
+        const sendingData: ChallengeLoginData = {
+            code: this.loginForm.get('code').value,
+            username: this.loginForm.get('email').value,
+        }
+        this._mainService.challengeLogin(sendingData)
+            .pipe(
+                takeUntil(this._unsubscribe$),
+                finalize(() => this.loading = false)
+            )
             .subscribe((data) => {
                 this._dialogRef.close();
             })
@@ -112,9 +140,14 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
     public addAccount(): void {
         if (this._isTwoFactorAuth) {
             this._twoFactorLogin();
+            return;
+        }
+        else if (this._isChallangeAuth) {
+            this._challengeLogin();
         }
         else {
             this._connectAccount();
+            return;
         }
     }
 

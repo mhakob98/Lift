@@ -19,14 +19,14 @@ export class AutoSubscribeOrWatchStoryService {
     public addedConditionsSubject$ = new Subject<{ prev: string, next: string }>();
     public addedConditionsObservable$ = new Observable<{ prev: string, next: string }>();
 
-    public addedConditions: string[] = [];
+    public addedConditions: { type: string }[] = [];
 
     constructor(private httpClient: HttpClient, private _authService: AuthService) {
         this.addedConditionsObservable$ = this.addedConditionsSubject$.asObservable();
     }
 
     public searchFor(searchTerm: SearchTerm): Observable<ServerResponse<Search>> {
-        return this.httpClient.get<ServerResponse<Search>>(`instagram-search/${searchTerm.query}/${searchTerm.type}`)
+        return this.httpClient.get<ServerResponse<Search>>(`instagram-search/${searchTerm.query.replace(/\#/g, " ") || ''}/${searchTerm.type}`)
     }
 
     public saveSettings(): Observable<ServerResponse<EmptyResponse>> {
@@ -51,7 +51,12 @@ export class AutoSubscribeOrWatchStoryService {
         return this.httpClient.get<ServerResponse<AccountSettings>>(`massfollowing/${activeAccountId}`)
             .pipe(
                 map((data) => {
-                    this.settings = data.data;
+                    if (data && data.data) {
+                        this.settings = data.data;
+                    }
+                    else {
+                        this.settings = new AccountSettings();
+                    }
                     this._settingsEvent$.next(this.settings);
                     return data;
                 })

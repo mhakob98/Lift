@@ -1,10 +1,11 @@
 import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
 import { SearchTerm, Search } from 'src/app/com/annaniks/lift/core/models/search';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Hashtag } from '../../../../../core/models/account';
+import { RequireMatchOfType } from 'src/app/com/annaniks/lift/core/utilities/type-validator';
 
 @Component({
   selector: 'app-add-hashtag',
@@ -46,13 +47,20 @@ export class AddHashtagComponent implements OnInit, OnDestroy {
         takeUntil(this._unsubscribe$),
       )
       .subscribe((tags: Hashtag[]) => {
+        this._resetProperties();
         if (tags && tags.length > 0) {
           tags.map((element: Hashtag, index: number) => {
             this.hashtagsItems = this.hashtagsForm.get('items') as FormArray;
-            this.hashtagsItems.push(this._fb.group({ label: element }));
+            this.hashtagsItems.push(this._fb.group({ label: new FormControl(element, RequireMatchOfType) }));
           })
         }
       })
+  }
+
+  private _resetProperties(): void {
+    this.hashtagsForm = this._fb.group({
+      items: this._fb.array([])
+    });
   }
 
   public search(event): void {
@@ -60,7 +68,7 @@ export class AddHashtagComponent implements OnInit, OnDestroy {
   }
 
   public createItem(label: string = ''): FormGroup {
-    return this._fb.group({ label });
+    return this._fb.group({ label: new FormControl('', RequireMatchOfType) });
   }
 
   public addItem(label?: string): void {

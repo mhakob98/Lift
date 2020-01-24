@@ -1,11 +1,12 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
+import { FormGroup, FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
 import { SearchTerm, Search } from '../../../../../core/models/search';
 import { Observable, Subject } from 'rxjs';
 import { Location } from '../../../../../core/models/account';
 import { takeUntil } from 'rxjs/operators';
 import gmapTheme from '../../../../../core/themes/gmap';
+import { RequireMatchOfType } from 'src/app/com/annaniks/lift/core/utilities/type-validator';
 
 declare var google;
 @Component({
@@ -38,16 +39,27 @@ export class AccountByLocationComponent implements OnInit {
   }
 
   private _checkSelectedLocations(): void {
-    this._subscribeStoryService.getSettingsByType('location').subscribe((locations: Location[]) => {
-      const items = this.locationForm.get('items') as FormArray;
-      if (locations && locations.length > 0) {
-        locations.map((location: Location, index: number) => {
-          this.locationsItems = this.locationForm.get('items') as FormArray;
-          items.push(this._fb.group({ label: location }));
-          this.createMarker({ lat: location.location.lat, lng: location.location.lng });
-        })
-        this._zoomMarkers();
-      }
+    this._subscribeStoryService.getSettingsByType('location')
+      .pipe(takeUntil(this._unsubscribe$))
+      .subscribe((locations: Location[]) => {
+        this._resetProperties();
+        const items = this.locationForm.get('items') as FormArray;
+        if (locations && locations.length > 0) {
+          locations.map((location: Location, index: number) => {
+            this.locationsItems = this.locationForm.get('items') as FormArray;
+            items.push(this._fb.group({ label: new FormControl(location, RequireMatchOfType) }));
+            this.createMarker({ lat: location.location.lat, lng: location.location.lng });
+          })
+          this._zoomMarkers();
+        }
+      })
+  }
+
+  private _resetProperties(): void {
+    this._formBuilder()
+
+    this._markers.map((element) => {
+      element.setMap(null);
     })
   }
 
@@ -55,12 +67,9 @@ export class AccountByLocationComponent implements OnInit {
     this.locationForm = this._fb.group({
       items: this._fb.array([])
     });
-    this.locationForm.valueChanges
-      .pipe(takeUntil(this._unsubscribe$))
-      .subscribe((values) => {
-        console.log(values);
-        this.writeValueToService();
-      });
+    this.locationForm.valueChanges.subscribe((values) => {
+      this.writeValueToService();
+    });
   }
 
   private _initMap(corrdinates = { lat: 40.7865229, lng: 43.8476395 }, zoom = 15): void {
@@ -95,7 +104,7 @@ export class AccountByLocationComponent implements OnInit {
   };
 
   public createItem(): FormGroup {
-    return this._fb.group({ label: '' });
+    return this._fb.group({ label: new FormControl('', RequireMatchOfType) });
   }
 
   public addItem(): void {
@@ -121,12 +130,9 @@ export class AccountByLocationComponent implements OnInit {
     this._map.setZoom(3);
   }
 
-  public onBlur(index: number): void {
-    console.log(index);
-  }
-
   public writeValueToService(): void {
     let locations: Location[] = [];
+
     this.locationForm.value.items.map((coordinate: { label: Location }) => {
       locations.push(coordinate.label);
     });
