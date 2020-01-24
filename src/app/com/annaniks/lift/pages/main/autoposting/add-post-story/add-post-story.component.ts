@@ -22,12 +22,16 @@ export class AddPostStoryComponent implements OnInit {
 
   private _initForm(): void {
     if (this.data.type == 'post') {
+      console.log(21);
+
       this.addPostStoryForm = this._formBuilder.group({
         postLife: this._formBuilder.group({ status: false, count: 10 }),
         showFirstComment: true,
       })
     }
     else {
+      console.log(22);
+
       this.addPostStoryForm = this._formBuilder.group({
         storyLife: this._formBuilder.group({ status: false, count: 10 }),
       })

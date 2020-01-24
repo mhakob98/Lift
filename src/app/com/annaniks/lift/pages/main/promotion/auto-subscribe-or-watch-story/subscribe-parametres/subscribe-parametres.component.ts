@@ -25,7 +25,6 @@ export class SubscribeParametresComponent implements OnInit, OnDestroy {
     this._subs.add(
       this._autoSubscribeOrWatchStoryService.settingsState.subscribe((data: AccountSettings) => {
         this.settings = data
-        console.log(this.settings);
       })
     )
   }

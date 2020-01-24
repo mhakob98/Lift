@@ -87,7 +87,7 @@
             <mat-form-field class="w-100">
                 <input matInput #message maxlength="256" placeholder="Введите подпись...">
                 <mat-hint align="start"><strong>
-                        <img *ngIf="!showEmojies" (click)="toggleShowEmojies()" src="assets/icons/smile.png" alt="">
+                        <img (click)="toggleShowEmojies()" src="assets/icons/smile.png" alt="">
                         <emoji-mart *ngIf="showEmojies" title="Pick your emoji…" emoji="point_up"></emoji-mart>
                     </strong> </mat-hint>
                 <mat-hint align="end">еще можно ввести {{ 345 - message.value.length }} символов и 12 хэштегов

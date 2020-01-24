@@ -23,19 +23,18 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatInputModule } from '@angular/material/input';
 
-//Forms
-import { ReactiveFormsModule } from '@angular/forms';
-
 // 3rd part libraries
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
+
+//Forms
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
     declarations: [
         LimitsComponent,
         FooterNavigationComponent,
         LineChartComponent,
     ],
-
     imports: [
         CommonModule,
         RouterModule,
@@ -53,6 +52,8 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
         PickerModule
 
     ],
+    entryComponents: [],
+
     exports: [
         LimitsComponent,
         NgxEchartsModule,

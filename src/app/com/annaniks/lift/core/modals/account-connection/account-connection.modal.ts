@@ -6,6 +6,7 @@ import { finalize, takeUntil } from 'rxjs/operators';
 import { TwoFactorLoginData, ChallengeLoginData } from '../../models/account';
 import { Subject } from 'rxjs';
 
+
 @Component({
     selector: "account-connection-modal",
     templateUrl: "account-connection.modal.html",
@@ -44,13 +45,15 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
         this.tariffForm = this._fb.group({
             tariff: [null, Validators.required]
         })
+        this.promotionForm = this._fb.group({
+            autosubscription: [false],
+            autoreviewstories: [false],
+            bonus: [false]
+        })
+
+
         this.actionForm = this._fb.group({
             action: [null, Validators.required]
-        })
-        this.promotionForm = this._fb.group({
-            autosubscription: [""],
-            autoreviewstories: [""],
-            bonus: [""]
         })
     }
 
@@ -147,6 +150,24 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
             return;
         }
     }
+
+    public changeTab(tab): void {
+        this.tab = tab;
+    }
+
+    public postAccountConnectionValues(): void {
+        this._mainService.postAccountConnectionValues({
+            tarriff: this.tariffForm.value.tariff,
+            action: this.actionForm.value.action,
+            promotion: this.promotionForm.value,
+        })
+            .subscribe((data) => {
+                console.log(data);
+                this._dialogRef.close();
+            })
+
+    }
+
 
     ngOnDestroy() {
         this._unsubscribe$.next();

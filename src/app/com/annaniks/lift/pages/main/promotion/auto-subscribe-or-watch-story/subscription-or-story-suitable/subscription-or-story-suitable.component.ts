@@ -33,6 +33,7 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe((settings: AccountSettings) => {
         if (settings) {
+          this.conditions = [];
           if (settings.tags && settings.tags.length > 0) {
             this.conditions.push({ type: 'hashtag' });
           }
@@ -48,11 +49,11 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
           if (settings.location && settings.location.length > 0) {
             this.conditions.push({ type: 'location' });
           }
-
-          this._autoSubscribeOrWatchStoryService.addedConditions = this.conditions
-
+          this._autoSubscribeOrWatchStoryService.addedConditions = this.conditions;
         }
-
+        else {
+          this.conditions = [];
+        }
       })
   }
 
