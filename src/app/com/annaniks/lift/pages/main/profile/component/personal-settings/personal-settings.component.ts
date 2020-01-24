@@ -10,7 +10,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class PersonalSettings implements OnInit {
 
     public dataForm: FormGroup;
-    public contactForm:FormGroup;
+    public contactForm: FormGroup;
 
     constructor(private _fb: FormBuilder) { }
 
@@ -23,12 +23,17 @@ export class PersonalSettings implements OnInit {
             lastname: ["", Validators.required],
             name: ["", Validators.required],
             day: ["", Validators.required],
-            month:["", Validators.required],
-            year:["", Validators.required]
+            month: ["", Validators.required],
+            year: ["", Validators.required]
         })
         this.contactForm = this._fb.group({
-            phoneNumber:["", Validators.required],
-            currentCity:["",Validators.required]
+            phoneNumber: ["", Validators.required],
+            currentCity: ["", Validators.required]
         })
+    }
+
+
+    public checkIsValid(formGroup, cotrolName): boolean {
+        return formGroup.get(cotrolName).hasError('required') && formGroup.get(cotrolName).touched;
     }
 }

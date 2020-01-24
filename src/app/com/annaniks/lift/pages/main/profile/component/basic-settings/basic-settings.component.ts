@@ -23,7 +23,7 @@ export class BasicSettingsComponent implements OnInit {
         this.loginForm = this._fb.group({
             login: ["", Validators.required],
             email: ["", Validators.required],
-            time:[""]
+            time: [""]
         })
         this.passwordForm = this._fb.group({
             password: ["", Validators.required],
@@ -33,5 +33,9 @@ export class BasicSettingsComponent implements OnInit {
         this.notificationForm = this._fb.group({
             email: ["", Validators.required]
         })
+    }
+
+    public checkIsValid(formGroup,controlName): boolean {
+        return formGroup.get(controlName).hasError('required') && formGroup.get(controlName).touched;
     }
 }

@@ -22,7 +22,8 @@ export class AdditionalSettings implements OnInit {
         this.additionalForm = this._fb.group({
             service: [""],
             occupation: [""],
-            activity: [""]
+            activity: [""],
+            description:["",Validators.required]
         })
         this.pagesForm = this._fb.group({
             instagram: ["", Validators.required],
@@ -30,7 +31,7 @@ export class AdditionalSettings implements OnInit {
         })
     }
 
-    public checkIsValid(controlName): boolean {
-        return this.additionalForm.get(controlName).hasError('required') && this.additionalForm.get(controlName).touched;
+    public checkIsValid(formGroup,controlName): boolean {
+        return formGroup.get(controlName).hasError('required') && formGroup.get(controlName).touched;
     }
 }

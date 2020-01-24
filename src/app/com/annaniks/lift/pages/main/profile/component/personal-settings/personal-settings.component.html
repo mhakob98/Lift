@@ -23,12 +23,12 @@
                 <div class="input-item col-8 d-flex">
                     <div class="col-5 input-conent">
                         <input id="firstname" name="firstname" placeholder="Фамилия" class="form-control here"
-                            required="required" type="text" formControlName="lastname">
+                            required="required" type="text" formControlName="lastname"  [ngClass]="{'border':checkIsValid(dataForm,'lastname')}">
                     </div>
 
                     <div class="col-5 input-conent ml-3">
                         <input id="firstname" name="firstname" placeholder="Имя" class="form-control here"
-                            required="required" type="text" formControlName="name">
+                            required="required" type="text" formControlName="name"  [ngClass]="{'border':checkIsValid(dataForm,'name')}">
                     </div>
                 </div>
 
@@ -115,14 +115,14 @@
                 <label for="phoneNumber" class="col-4 col-form-label lable ">Контактный номер</label>
                 <div class="col-4 input-conent">
                     <input id="phoneNumber" name="phoneNumber" placeholder="Контактный номер" class="form-control here"
-                        type="text" formControlName="phoneNumber">
+                        type="text" formControlName="phoneNumber"  [ngClass]="{'border':checkIsValid(contactForm,'phoneNumber')}">
                 </div>
             </div>
             <div class="form-group row ml-0 mr-0 ">
                 <label for="current-city" class="col-4 col-form-label lable ">Город проживания</label>
                 <div class="col-4 input-conent">
                     <input id="current-city" name="current-city" placeholder="Город проживания"
-                        class="form-control here" type="text" formControlName="currentCity">
+                        class="form-control here" type="text" formControlName="currentCity"  [ngClass]="{'border':checkIsValid(contactForm,'currentCity')}">
                 </div>
             </div>
         </form>

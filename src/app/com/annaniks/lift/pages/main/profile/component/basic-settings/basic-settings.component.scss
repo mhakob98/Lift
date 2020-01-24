@@ -9,12 +9,15 @@
             border: 1px solid #d7d7d7;
             margin: 55px 0 28px 0;
         }
-        .lable{
+
+        .lable {
             padding: 0;
         }
+
         .input-conent {
             padding: 0;
         }
+
         .button-content {
             padding: 0;
 
@@ -40,38 +43,49 @@
             height: 10px;
             width: 15px;
         }
-        .password-title{
+
+        .password-title {
             color: #3399cc;
         }
     }
-    .notification-form{
-        .text{
+
+    .notification-form {
+        .text {
             margin-bottom: 50px;
         }
-        .telegram-image{
+
+        .telegram-image {
             height: 17px;
             width: 20px;
         }
-        .settings-image{
+
+        .settings-image {
             height: 20px;
             width: 20px;
         }
-        .settings-title{
+
+        .settings-title {
             color: #3399cc;
         }
-        .enable-notification{
+
+        .enable-notification {
             margin-bottom: 16px;
         }
     }
 
-    .next-button-content{
+    .next-button-content {
         padding-bottom: 30px;
     }
-    .next-button{
+
+    .next-button {
         color: white;
         background: #71ceb5;
         padding: 17px 98px;
     }
+}
+
+.border {
+    border: 1px solid red !important;
 }
 
 ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
