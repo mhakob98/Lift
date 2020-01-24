@@ -34,7 +34,7 @@ export class MainService {
                     const user = data.data;
                     if (user) {
                         if (user.instagramAccounts && user.instagramAccounts.length === 0) {
-                            this.setShowDisabledView(true);
+                            // this.setShowDisabledView(true);
                         }
                         else {
                             this.setShowDisabledView(false);
@@ -84,6 +84,11 @@ export class MainService {
 
     public getShowDisabledView(): boolean {
         return this._isShowDisabledView;
+    }
+
+
+    public postAccountConnectionValues(body): Observable<any> {
+        return this._httpClient.post('', body);
     }
 
 }

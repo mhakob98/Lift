@@ -68,7 +68,7 @@
                         <input formControlName="tariff" class="d-none" id="more-two" type="radio" value="more-two">
                     </div>
                 </form>
-                <button type="submit" class="btn main-button mt-4 mb-4" [disabled]="tariffForm.invalid">Дальше</button>
+                <button type="submit" class="btn main-button mt-4 mb-4" [disabled]="tariffForm.invalid || loading" (click)="changeTab(3)">Дальше</button>
             </div>
 
 
@@ -94,7 +94,7 @@
                         </mat-slide-toggle>
                     </div>
                 </form>
-                <button type="submit" class="btn main-button mt-4 mb-4">Дальше</button>
+                <button type="submit" class="btn main-button mt-4 mb-4" (click)="changeTab(4)">Дальше</button>
 
             </div>
 
@@ -124,7 +124,7 @@
                     </div>
                 </form>
 
-                <button type="submit" class="btn main-button mt-4 mb-4" disabled="actionForm.invalid">потом</button>
+                <button type="submit" class="btn main-button mt-4 mb-4" [disabled]="actionForm.invalid || loading" (click)="postAccountConnectionValues()">сохранить</button>
             </div>
         </div>
     </div>

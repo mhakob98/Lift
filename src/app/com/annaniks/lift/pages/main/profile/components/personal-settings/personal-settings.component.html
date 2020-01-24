@@ -1,0 +1,151 @@
+<section class="presonal-settings-container">
+    <div class="personal-settings-form data-form">
+        <form [formGroup]="dataForm">
+
+
+
+            <div class="form-group d-flex">
+                <label for="account" class="col-form-label label">Тип аккаунта</label>
+                <div class="input-content d-flex align-items-center">
+
+                    <img src="assets/images/user.png" class="rounded-circle img-responsive user-image">
+                    <div class=" ml-2">
+                        <div class="d-flex">
+                            <p class="text">Стандартный</p>
+                            <img src="assets/images/help-web-button.png"
+                                class="ml-3 rounded-circle img-responsive help-image">
+                        </div>
+                        <p class="data-text">Изменить</p>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="form-group d-flex">
+                <label for="firstname" class="col-form-label label ">Ваше Фамилия и Имя</label>
+                <div class="input-item  d-flex">
+                    <div class="input-content">
+                        <input id="firstname" name="firstname" placeholder="Фамилия" class="form-control here"
+                            required="required" type="text" formControlName="lastname"  [ngClass]="{'border':checkIsValid(dataForm,'lastname')}">
+                    </div>
+
+                    <div class="input-content ml-3">
+                        <input id="firstname" name="firstname" placeholder="Имя" class="form-control here"
+                            required="required" type="text" formControlName="name"  [ngClass]="{'border':checkIsValid(dataForm,'name')}">
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div class="form-group d-flex">
+                <label for="select" class="col-form-label label ">Дата рождения</label>
+                <div class="input-item d-flex">
+                    <div class=" input-content">
+                        <select id="select" name="select" class="custom-select" formCotrolName="day">
+                            <option value="День">День</option>
+                        </select>
+                    </div>
+                    <div class="input-content">
+                        <select id="select" name="select" class="custom-select" formCotrolName="month">
+                            <option value="Месяц">Месяц</option>
+                        </select>
+                    </div>
+                    <div class=" input-content">
+                        <select id="select" name="select" class="custom-select" formCotrolName="year">
+                            <option value="Год">Год</option>
+                        </select>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <div class="form-group d-flex">
+                <label for="checkbox" class=" col-form-label label ">Пол</label>
+                <div class="input-item d-flex">
+
+                    <div class="input-content">
+                        <mat-checkbox>
+                            Мужской
+                        </mat-checkbox>
+                    </div>
+                    <div class="input-content ml-3">
+                        <mat-checkbox>
+                            Женский
+                        </mat-checkbox>
+                    </div>
+
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <div class="personal-settings-form connected-accounts-content">
+
+        <div class="form-group d-flex">
+            <label for="account" class="col-form-label label">Подключенные
+                аккаунты</label>
+            <div class="connected-content">
+                <div class=" d-flex align-items-center">
+                    <div class="connected-accounts d-flex">
+                        <div class="connected-accounts-item d-flex align-items-center">
+                            <img src="assets/images/ava1.png" class="rounded-circle img-responsive accoutn-image">
+                            <p class="text ml-2">jess.wandering</p>
+                        </div>
+                        <div class="connected-accounts-item d-flex align-items-center">
+                            <img src="assets/images/ava2.png" class="rounded-circle img-responsive accoutn-image">
+                            <p class="text ml-2">nicolletta</p>
+                        </div>
+                        <div class="connected-accounts-item add-account d-flex align-items-center">
+                            <img src="assets/images/add.png" class="rounded-circle img-responsive add-image">
+                            <p class="text add-text ml-2">Добавить аккаунт</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="description-text">В рамках вашего тарифа вы можете подключить еще 8 аккаунтов для продвижения
+                </p>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+    <div class="personal-settings-form contacts-form">
+
+        <form [formGroup]="contactForm">
+            <div class="form-group d-flex">
+                <label for="phoneNumber" class="col-form-label label ">Контактный номер</label>
+                <div class=" input-content">
+                    <input id="phoneNumber" name="phoneNumber" placeholder="Контактный номер" class="form-control here"
+                        type="text" formControlName="phoneNumber"  [ngClass]="{'border':checkIsValid(contactForm,'phoneNumber')}">
+                </div>
+            </div>
+
+            <div class="form-group d-flex ">
+                <label for="current-city" class="col-form-label label ">Город проживания</label>
+                <div class="input-content">
+                    <input id="current-city" name="current-city" placeholder="Город проживания"
+                        class="form-control here" type="text" formControlName="currentCity"  [ngClass]="{'border':checkIsValid(contactForm,'currentCity')}">
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <div class="d-flex save-button-content">
+        <button name="submit" type="submit" class="btn save-button">Сохранить и перейти дальше<img
+                src="assets/icons/next.png" class="rounded img-responsive save-image ml-3"></button>
+    </div>
+
+
+</section>
