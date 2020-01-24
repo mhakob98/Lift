@@ -2,24 +2,24 @@
     <div class="basic-settings-form login-form">
         <form [formGroup]="loginForm">
             <div class="form-group row ml-0 mr-0 ">
-                <label for="login" class="col-4 col-form-label lable ">Логин</label>
-                <div class="col-4 input-conent">
+                <label for="login" class="col-4 col-form-label p-0">Логин</label>
+                <div class="col-4 input-content">
                     <input id="login" name="login" placeholder="Логин" class="form-control here" type="text"
                         formControlName="login" [ngClass]="{'border':checkIsValid(loginForm,'login')}">
                 </div>
             </div>
 
             <div class="form-group row ml-0 mr-0">
-                <label for="email" class="col-4 col-form-label lable ">Email</label>
-                <div class="col-4 input-conent">
+                <label for="email" class="col-4 col-form-label p-0">Email</label>
+                <div class="col-4 input-content">
                     <input id="email" name="email" placeholder="Email" class="form-control here" required="required"
-                        type="text" formControlName="email"  [ngClass]="{'border':checkIsValid(loginForm,'email')}">
+                        type="text" formControlName="email" [ngClass]="{'border':checkIsValid(loginForm,'email')}">
                 </div>
             </div>
 
             <div class="form-group row ml-0 mr-0">
-                <label for="select" class="col-4 col-form-label lable ">Часовой пояс</label>
-                <div class="col-4 input-conent">
+                <label for="select" class="col-4 col-form-label p-0">Часовой пояс</label>
+                <div class="col-4 input-content">
                     <select id="select" name="select" class="custom-select" formCotrolName="time">
                         <option value="(GMT +3) Москва">(GMT +3) Москва </option>
                     </select>
@@ -28,7 +28,8 @@
             </div>
             <div class="form-group row ml-0 mr-0">
                 <div class="offset-4 col-8  button-content">
-                    <button name="submit" type="submit" class="btn button"   [disabled]="loginForm.invalid">Сохранить изменения</button>
+                    <button name="submit" type="submit" class="btn button" [disabled]="loginForm.invalid">Сохранить
+                        изменения</button>
                 </div>
             </div>
         </form>
@@ -41,33 +42,37 @@
         </div>
         <form [formGroup]="passwordForm">
             <div class="form-group row ml-0 mr-0 ">
-                <label for="password" class="col-4 col-form-label lable ">Текущий пароль</label>
-                <div class="col-4 input-conent">
+                <label for="password" class="col-4 col-form-label label ">Текущий пароль</label>
+                <div class="col-4 input-content">
                     <input id="password" name="password" placeholder="Текущий пароль" class="form-control here"
-                        type="password" formControlName="password" [ngClass]="{'border':checkIsValid(passwordForm,'password')}">
+                        type="password" formControlName="password"
+                        [ngClass]="{'border':checkIsValid(passwordForm,'password')}">
                 </div>
             </div>
 
             <div class="form-group row ml-0 mr-0 ">
-                <label for="new-password" class="col-4 col-form-label lable ">Новый пароль</label>
-                <div class="col-4 input-conent">
+                <label for="new-password" class="col-4 col-form-label label ">Новый пароль</label>
+                <div class="col-4 input-content">
                     <input id="new-password" name="new-password" placeholder="Новый пароль" class="form-control here"
-                        type="password" formControlName="newPassword" [ngClass]="{'border':checkIsValid(passwordForm,'newPassword')}">
+                        type="password" formControlName="newPassword"
+                        [ngClass]="{'border':checkIsValid(passwordForm,'newPassword')}">
                 </div>
             </div>
             <div class="form-group row ml-0 mr-0 ">
-                <label for="repeat-password" class="col-4 col-form-label lable ">Новый пароль еще
+                <label for="repeat-password" class="col-4 col-form-label label ">Новый пароль еще
                     раз</label>
-                <div class="col-4 input-conent">
+                <div class="col-4 input-content">
                     <input id="repeat-password" name="repeat-password" placeholder="Новый пароль еще раз"
-                        class="form-control here" type="password" formControlName="repeatPassword"  [ngClass]="{'border':checkIsValid(passwordForm,'repeatPassword')}">
+                        class="form-control here" type="password" formControlName="repeatPassword"
+                        [ngClass]="{'border':checkIsValid(passwordForm,'repeatPassword')}">
                     <p class="password-title mt-3">Забыли пароль?</p>
                 </div>
             </div>
 
             <div class="form-group row ml-0 mr-0">
                 <div class="offset-4 col-8 button-content">
-                    <button name="submit" type="submit" class="btn button" [disabled]="passwordForm.invalid">Изменить пароль</button>
+                    <button name="submit" type="submit" class="btn button" [disabled]="passwordForm.invalid">Изменить
+                        пароль</button>
                 </div>
             </div>
         </form>
@@ -80,25 +85,27 @@
         <form [formGroup]="notificationForm">
 
             <div class="form-group row ml-0 mr-0">
-                <label for="email" class="col-4 col-form-label lable ">Email</label>
-                <div class="col-4 input-conent">
+                <label for="email" class="col-4 col-form-label label ">Email</label>
+                <div class="col-4 input-content">
                     <div class="enable-notification d-flex">
                         <mat-checkbox>
-                                Включить уведомления по Email
+                            Включить уведомления по Email
                         </mat-checkbox>
                     </div>
                     <input id="email" name="email" placeholder="Email" class="form-control here" required="required"
-                        type="text" formControlName="email"  [ngClass]="{'border':checkIsValid(notificationForm,'email')}">
+                        type="text" formControlName="email"
+                        [ngClass]="{'border':checkIsValid(notificationForm,'email')}">
                 </div>
             </div>
 
             <div class="form-group row ml-0 mr-0">
-                <label class="col-4 col-form-label lable ">Включить уведомления
+                <label class="col-4 col-form-label label ">Включить уведомления
                     через Telegram</label>
                 <div class="col-4  button-content">
 
-                    <button name="submit" type="submit" class="btn button" [disabled]="notificationForm.invalid"> <img src="assets/icons/telegram.png"
-                            class="rounded img-responsive telegram-image mr-3" >Подключить Telegram</button>
+                    <button name="submit" type="submit" class="btn button" [disabled]="notificationForm.invalid"> <img
+                            src="assets/icons/telegram.png"
+                            class="rounded img-responsive telegram-image mr-3">Подключить Telegram</button>
                     <div class="d-flex  mt-3">
                         <img src="assets/icons/settings-icon.png" class="rounded img-responsive settings-image">
                         <p class="settings-title  ml-3">Расширенные настройки уведомлений</p>

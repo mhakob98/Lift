@@ -3,15 +3,27 @@ import { ProfileComponent } from './profile.component';
 import { ProfileRoutingModule } from './profile.routing.module';
 import { SharedModule } from '../../../shared/shared.module';
 import { CommonModule } from '@angular/common';
-import { BasicSettingsComponent } from './component/basic-settings/basic-settings.component';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import { AdditionalSettings } from './component/additional-settings/additional-settings.component';
-import { PersonalSettings } from './component/personal-settings/personal-settings.component';
+import { BasicSettingsComponent } from './components/basic-settings/basic-settings.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AdditionalSettings } from './components/additional-settings/additional-settings.component';
+import { PersonalSettings } from './components/personal-settings/personal-settings.component';
 
 @NgModule({
-    declarations: [ProfileComponent,BasicSettingsComponent,AdditionalSettings,PersonalSettings],
-    imports: [ProfileRoutingModule,SharedModule,CommonModule,FormsModule,ReactiveFormsModule,MatCheckboxModule],
+    declarations: [
+        ProfileComponent,
+        BasicSettingsComponent,
+        AdditionalSettings,
+        PersonalSettings
+    ],
+    imports: [
+        ProfileRoutingModule,
+        SharedModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatCheckboxModule
+    ],
     exports: []
 })
 export class ProfileModule { }
