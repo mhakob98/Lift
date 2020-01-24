@@ -20,6 +20,7 @@ export class SubmenuComponent implements OnInit {
     private _navbarService: NavbarService
   ) {
     this.currentRoute = _router.url;
+
     this._takeOutCurrentRoute();
     this._takeNavbarItems();
   }
@@ -28,12 +29,12 @@ export class SubmenuComponent implements OnInit {
 
   private _takeOutCurrentRoute(): void {
     this._router.events
-    .pipe(takeUntil(this._unsubscribe$))
-    .subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.currentRoute = event.url;
-      }
-    });
+      .pipe(takeUntil(this._unsubscribe$))
+      .subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          this.currentRoute = event.url;
+        }
+      });
   }
 
   private _takeNavbarItems(): void {

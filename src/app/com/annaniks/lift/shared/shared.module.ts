@@ -20,6 +20,12 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatInputModule } from '@angular/material/input';
+
+// 3rd part libraries
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
+
 
 //Forms
 import { ReactiveFormsModule } from '@angular/forms';
@@ -40,7 +46,10 @@ import { ReactiveFormsModule } from '@angular/forms';
         MatDialogModule,
         MatSlideToggleModule,
         ReactiveFormsModule,
-        MatRadioModule
+        MatRadioModule,
+        MatExpansionModule,
+        MatInputModule,
+        PickerModule
 
     ],
     entryComponents: [],
@@ -58,6 +67,9 @@ import { ReactiveFormsModule } from '@angular/forms';
         MatSlideToggleModule,
         ReactiveFormsModule,
         MatRadioModule,
+        MatExpansionModule,
+        MatInputModule,
+        PickerModule
     ],
 })
 export class SharedModule { }
