@@ -63,12 +63,8 @@ export class SubscribeWatchConditionComponent implements OnInit {
 
   private _subscribeToTypeChanges(): void {
     this._autoSubscribeOrWatchStoryService.addedConditionsObservable$.subscribe((data: any) => {
-      console.log("DATA", data);
-
       if (!this._autoSubscribeOrWatchStoryService.addedConditions.includes(data.next)) {
-        console.log("SKDadasd+a9sd+asdasdas98d798sd798as7d89s78");
-
-        this._autoSubscribeOrWatchStoryService.addedConditions.push(data.next)
+        this._autoSubscribeOrWatchStoryService.addedConditions.push(data.next);
       };
       if (this._autoSubscribeOrWatchStoryService.addedConditions.includes(data.prev)) {
         let index = this._autoSubscribeOrWatchStoryService.addedConditions.indexOf(data.prev)

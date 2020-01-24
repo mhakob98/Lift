@@ -12,21 +12,21 @@ import { AccountSettings } from '../../../../core/models/account';
 
 @Injectable()
 export class AutoSubscribeOrWatchStoryService {
-
     private _settingsEvent$ = new BehaviorSubject<AccountSettings>(new AccountSettings());
-    public settings: AccountSettings = new AccountSettings();
+    public settings: AccountSettings;
 
     public addedConditionsSubject$ = new Subject<{ prev: string, next: string }>();
     public addedConditionsObservable$ = new Observable<{ prev: string, next: string }>();
 
     public addedConditions: { type: string }[] = [];
 
-    constructor(private httpClient: HttpClient, private _authService: AuthService) {
+    constructor(private _httpClient: HttpClient, private _authService: AuthService) {
+        this.resetSettings();
         this.addedConditionsObservable$ = this.addedConditionsSubject$.asObservable();
     }
 
     public searchFor(searchTerm: SearchTerm): Observable<ServerResponse<Search>> {
-        return this.httpClient.get<ServerResponse<Search>>(`instagram-search/${searchTerm.query.replace(/\#/g, " ") || ''}/${searchTerm.type}`)
+        return this._httpClient.get<ServerResponse<Search>>(`instagram-search/${searchTerm.query.replace(/\#/g, " ") || ''}/${searchTerm.type}`)
     }
 
     public saveSettings(): Observable<ServerResponse<EmptyResponse>> {
@@ -44,11 +44,11 @@ export class AutoSubscribeOrWatchStoryService {
             unfollowDays: this.settings.unfollowDays,
             filter: this.settings.filter
         }
-        return this.httpClient.post<ServerResponse<EmptyResponse>>('massfollowing', sendingData)
+        return this._httpClient.post<ServerResponse<EmptyResponse>>('massfollowing', sendingData)
     }
 
     public getSettings(activeAccountId: number): Observable<ServerResponse<AccountSettings>> {
-        return this.httpClient.get<ServerResponse<AccountSettings>>(`massfollowing/${activeAccountId}`)
+        return this._httpClient.get<ServerResponse<AccountSettings>>(`massfollowing/${activeAccountId}`)
             .pipe(
                 map((data) => {
                     if (data && data.data) {
@@ -68,6 +68,11 @@ export class AutoSubscribeOrWatchStoryService {
             .pipe(
                 map((settings) => settings[type] || [])
             )
+    }
+
+    public resetSettings(): void {
+        this.settings = new AccountSettings();
+        this._settingsEvent$.next(this.settings);
     }
 
     get settingsState(): Observable<AccountSettings> {

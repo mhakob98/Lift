@@ -36,9 +36,11 @@ export class AddHashtagComponent implements OnInit, OnDestroy {
     this.hashtagsForm = this._fb.group({
       items: this._fb.array([])
     });
-    this.hashtagsForm.valueChanges.subscribe(() => {
-      this.writeValueToService();
-    })
+    this.hashtagsForm.valueChanges
+      .pipe(takeUntil(this._unsubscribe$))
+      .subscribe(() => {
+        this.writeValueToService();
+      })
   }
 
   private _checkSelectedTags(): void {
