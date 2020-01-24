@@ -17,12 +17,17 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 // Angular Material
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatInputModule } from '@angular/material/input';
 
 //Forms
 import { ReactiveFormsModule } from '@angular/forms';
+
+// 3rd part libraries
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 @NgModule({
     declarations: [
@@ -42,8 +47,11 @@ import { ReactiveFormsModule } from '@angular/forms';
         MatDialogModule,
         MatSlideToggleModule,
         ReactiveFormsModule,
-        MatRadioModule
-    
+        MatRadioModule,
+        MatExpansionModule,
+        MatInputModule,
+        PickerModule
+
     ],
     exports: [
         LimitsComponent,
@@ -57,7 +65,10 @@ import { ReactiveFormsModule } from '@angular/forms';
         MatDialogModule,
         MatSlideToggleModule,
         ReactiveFormsModule,
-        MatRadioModule
+        MatRadioModule,
+        MatExpansionModule,
+        MatInputModule,
+        PickerModule
     ],
 })
 export class SharedModule { }

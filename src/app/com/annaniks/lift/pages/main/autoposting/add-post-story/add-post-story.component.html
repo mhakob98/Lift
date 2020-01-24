@@ -1,0 +1,140 @@
+<h3 class="add-ps-title">Добавить новый {{data.type == 'post' ? 'пост' : 'story'}}</h3>
+
+<div [formGroup]="addPostStoryForm" class="ps-container d-flex justify-content-between">
+    <div class="ps-body ">
+        <div class="photo-video-place">
+
+        </div>
+        <button class="search-for-ideas">
+            <img src="assets/icons/idea.png" alt="">
+            Поиск идей
+        </button>
+    </div>
+    <div class="ps-tools">
+        <mat-accordion>
+            <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel-header expandedHeight="47px">
+                    <mat-panel-title>
+                        <p class="title">Редактирование</p>
+                        <p class="subtitle">все опции</p>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="tools-list d-flex justify-content-between">
+                    <div class="d-flex align-items-center flex-column">
+                        <p class="tool-label">Выровнять</p>
+                        <div class="tool-item-arround">
+                            <img src="assets/icons/tool-1.png" alt="">
+
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center flex-column">
+                        <p class="tool-label">Яркость</p>
+                        <div class="tool-item-arround">
+                            <img src="assets/icons/tool-2.png" alt="">
+
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center flex-column">
+                        <p class="tool-label">Контраст</p>
+                        <div class="tool-item-arround">
+                            <img src="assets/icons/tool-3.png" alt="">
+
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center flex-column">
+                        <p class="tool-label">Детали</p>
+                        <div class="tool-item-arround">
+                            <img src="assets/icons/tool-4.png" alt="">
+
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center flex-column">
+                        <p class="tool-label">Тепло</p>
+                        <div class="tool-item-arround">
+                            <img src="assets/icons/tool-5.png" alt="">
+
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center flex-column">
+                        <p class="tool-label">Насыщенность</p>
+                        <div class="tool-item-arround">
+                            <img src="assets/icons/tool-6.png" alt="">
+
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center flex-column">
+                        <p class="tool-label">Цвет</p>
+                        <div class="tool-item-arround">
+                            <img src="assets/icons/tool-7.png" alt="">
+
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center flex-column">
+                        <p class="tool-label">Выгорание</p>
+                        <div class="tool-item-arround">
+                            <img src="assets/icons/tool-8.png" alt="">
+
+                        </div>
+                    </div>
+                </div>
+
+            </mat-expansion-panel>
+
+        </mat-accordion>
+        <form *ngIf="data.type == 'post'" class="description-form d-flex justify-content-between align-items-center">
+
+            <img src="assets/icons/ava.png" alt="">
+            <mat-form-field class="w-100">
+                <input matInput #message maxlength="256" placeholder="Введите подпись...">
+                <mat-hint align="start"><strong>
+                        <img *ngIf="!showEmojies" (click)="toggleShowEmojies()" src="assets/icons/smile.png" alt="">
+                        <emoji-mart *ngIf="showEmojies" title="Pick your emoji…" emoji="point_up"></emoji-mart>
+                    </strong> </mat-hint>
+                <mat-hint align="end">еще можно ввести {{ 345 - message.value.length }} символов и 12 хэштегов
+                </mat-hint>
+            </mat-form-field>
+
+        </form>
+        <mat-accordion>
+            <mat-expansion-panel [expanded]="true" class="settings">
+                <mat-expansion-panel-header expandedHeight="47px">
+                    <mat-panel-title>
+                        <p class="title">Настройки</p>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="w-100">
+                    <div class="publish-now d-flex align-items-baseline  w-100">
+                        <p class="publish-now-text">Опубликовать <a href="">сейчас</a></p>
+                        <img src="assets/icons/arrow_down.png" alt="">
+                    </div>
+                    <form class="add-ps-form" *ngIf="data.type == 'post'">
+                        <mat-checkbox formControlName="showFirstComment">Указать первый комментарий</mat-checkbox>
+
+                        <div class="inline-checkoxes" formGroupName="postLife">
+                            <mat-checkbox formControlName="status">Удаление поста через</mat-checkbox>
+
+                            <span class="checkbox-label"> <input formControlName="age" class="range-input"
+                                    type="number">
+                                дней</span>
+                        </div>
+                    </form>
+                    <form class="add-ps-form" *ngIf="data.type == 'story'">
+                        <div class="inline-checkoxes" formGroupName="storyLife">
+                            <mat-checkbox formControlName="status">Удаление story через</mat-checkbox>
+                            <span class="checkbox-label"> <input formControlName="age" class="range-input"
+                                    type="number">
+                                дней</span>
+                        </div>
+                    </form>
+                </div>
+
+            </mat-expansion-panel>
+
+        </mat-accordion>
+        <div class="add-ps-actions d-flex justify-content-between">
+            <button class="publish">Опубликовать</button>
+            <button class="save">Сохранить</button>
+            <button class="discard">Отмена</button>
+        </div>
+    </div>
+</div>
