@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 import { AccountSettings, Condition } from 'src/app/com/annaniks/lift/core/models/account';
 import { takeUntil } from 'rxjs/operators';
 import { SubscriptionParam } from 'src/app/com/annaniks/lift/core/models/subscription-parameter';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-subscription-suitable',
@@ -23,9 +23,9 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
   constructor(
     private _fb: FormBuilder,
     private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService,
-    private _router: Router,
+    private _activatedRoute: ActivatedRoute,
   ) {
-    this.isAutosubscribe = this._router.url != '/promotion/auto-watch-story'
+    this.isAutosubscribe = this._activatedRoute.snapshot.data.type == 'subscribe';
   }
 
   ngOnInit() {

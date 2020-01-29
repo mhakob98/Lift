@@ -25,52 +25,6 @@ export class SubscribersPostsComponent implements OnInit {
   public vm$: Observable<any>;
   private _map: any;
 
-
-
-  pieChartOption: EChartOption = {
-    legend: {
-      type: 'scroll',
-      orient: 'vertical',
-      right: 40,
-      top: 'center',
-      borderRadius: 5,
-      textStyle: { color: '#3d3d3d', fontSize: 16 },
-      // bottom: 20,
-
-    },
-    series: [
-      {
-        name: '姓名',
-        type: 'pie',
-        radius: ['39px', '166px'],
-        center: ['185px', '50%'],
-        data: [
-          { value: 335, name: 'Параметр - 21.44%', itemStyle: { color: '#edb593' } },
-          { value: 310, name: 'Параметр - 19.84%', itemStyle: { color: '#e5d2aa' } },
-          { value: 234, name: 'Параметр - 14.98%', itemStyle: { color: '#737a7f' } },
-          { value: 135, name: 'Параметр - 8.64%', itemStyle: { color: '#9dceaa' } },
-          { value: 548, name: 'Параметр - 35.08%', itemStyle: { color: '#95b8c8' } }
-        ],
-        label: {
-          normal: {
-            show: false,
-          },
-          emphasis: {
-            show: false,
-
-          }
-        },
-        emphasis: {
-          itemStyle: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: 'rgba(0, 0, 0, 0.5)'
-          }
-        },
-
-      }
-    ]
-  };
   constructor(
     private _subscribersService: SubscribesPostsService,
     _activatedRoute: ActivatedRoute

@@ -5,7 +5,7 @@ import { SubscriptionParam } from '../../../../../core/models/subscription-param
 import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
 import { startWith, pairwise, map } from 'rxjs/operators';
 import { SearchTerm, Search } from '../../../../../core/models/search';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-subscribe-watch-condition',
@@ -31,10 +31,10 @@ export class SubscribeWatchConditionComponent implements OnInit {
 
   constructor(
     private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService,
-    private _router: Router,
+    private _activatedRoute: ActivatedRoute,
 
   ) {
-    this.isAutosubscribe = this._router.url != '/promotion/auto-watch-story'
+    this.isAutosubscribe = this._activatedRoute.snapshot.data.type == 'subscribe';
   }
 
 

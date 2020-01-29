@@ -12,11 +12,13 @@ const promotionRoutes: Routes = [
             { path: '', redirectTo: '/promotion/autosubscribe', pathMatch: 'full' },
             {
                 path: 'autosubscribe',
+                data: { type: 'subscribe' },
                 loadChildren: () => import('./auto-subscribe-or-watch-story/auto-subscribe-watch-story.module')
                     .then(m => m.AutoSubscribeOrWatchStoryModule)
             },
             {
                 path: 'auto-watch-story',
+                data: { type: 'story' },
                 loadChildren: () => import('./auto-subscribe-or-watch-story/auto-subscribe-watch-story.module')
                     .then(m => m.AutoSubscribeOrWatchStoryModule)
             },
