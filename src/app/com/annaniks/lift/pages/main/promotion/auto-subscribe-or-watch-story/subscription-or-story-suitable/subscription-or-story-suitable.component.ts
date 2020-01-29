@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { AccountSettings, Condition } from 'src/app/com/annaniks/lift/core/models/account';
 import { takeUntil } from 'rxjs/operators';
 import { SubscriptionParam } from 'src/app/com/annaniks/lift/core/models/subscription-parameter';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-subscription-suitable',
@@ -17,11 +18,15 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
   public step: number;
   public suitableSubsOrStoryForm: FormGroup;
   public conditions: Condition[] = [];
+  public isAutosubscribe: boolean = false;
 
   constructor(
     private _fb: FormBuilder,
-    private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService
-  ) { }
+    private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService,
+    private _router: Router,
+  ) {
+    this.isAutosubscribe = this._router.url != '/promotion/auto-watch-story'
+  }
 
   ngOnInit() {
     this._initForm();
