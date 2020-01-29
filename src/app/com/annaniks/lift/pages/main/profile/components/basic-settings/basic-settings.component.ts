@@ -39,7 +39,8 @@ export class BasicSettingsComponent implements OnInit {
 
     public openNotificationModal(): void {
         const dialogRef = this._dialog.open(NotificationModal, {
-         width: "100%",
+    
+          width:"1200px"
         })
     }
 

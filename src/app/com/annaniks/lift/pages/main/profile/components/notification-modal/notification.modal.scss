@@ -67,7 +67,7 @@
            .save-button {
             color: white;
             background: #3399cc;
-            padding: 17px 98px;
+            padding: 17px 63px;
             margin: 40px auto;
         }
     }
@@ -84,4 +84,7 @@
 
 ::ng-deep .mat-radio-container {
     display: none !important;
+}
+::ng-deep .mat-checkbox{
+    margin-right: 19px !important;
 }
