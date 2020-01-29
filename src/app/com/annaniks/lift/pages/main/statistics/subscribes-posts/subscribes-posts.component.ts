@@ -7,10 +7,8 @@ import { Subscriber } from '../../../../core/models/subscriber';
 import { ActivatedRoute } from '@angular/router';
 import { Subscribe } from '../../../../core/models/subscribe';
 import { StatisticPost } from '../../../../core/models/statistic-post';
-
-import { EChartOption } from 'echarts';
+import { Chart } from 'chart.js';
 declare var google: any;
-
 @Component({
   selector: 'app-subscribers',
   templateUrl: './subscribes-posts.component.html',
@@ -24,7 +22,7 @@ export class SubscribersPostsComponent implements OnInit {
   private _dataByDays$: Observable<any>;
   public vm$: Observable<any>;
   private _map: any;
-
+  public lineChartSize: { width: string, height: string } = { width: '100%', height: '381px' }
   constructor(
     private _subscribersService: SubscribesPostsService,
     _activatedRoute: ActivatedRoute
@@ -39,6 +37,7 @@ export class SubscribersPostsComponent implements OnInit {
     this.vm$.subscribe((data) => {
       if (data) this._initMap();
     })
+    this._iniptPieChart()
   }
 
   private _initMap(corrdinates = { lat: 40.7865229, lng: 43.8476395 }, zoom = 15): void {
@@ -49,6 +48,50 @@ export class SubscribersPostsComponent implements OnInit {
     });
   }
 
+  private _iniptPieChart(): void {
+    var ctx = document.getElementById('myChart');
+    var myChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: [
+          'Параметр -',
+          'Параметр -',
+          'Параметр -',
+          'Параметр -',
+          'Параметр -'
+        ],
+        datasets: [{
+          label: '# of Votes',
+          data: [335, 310, 234, 135, 548],
+          borderWidth: 0,
+          backgroundColor: [
+            '#edb593',
+            '#e5d2aa',
+            '#737a7f',
+            '#9dceaa',
+            '#95b8c8',
+          ],
+
+        }]
+      },
+      options: {
+        legend: {
+          position: 'right',
+          labels: {
+            fontFamily: 'SF UI Display Regular',
+            fontSize: 26,
+            padding: 50,
+            usePointStyle: true,
+
+          },
+        },
+        tooltips: {
+          enabled: false
+        }
+      }
+    });
+
+  }
 
   private _loadPreferedDataBasedOnPageType(pageType: string): Observable<Subscriber | Subscribe | StatisticPost> {
     switch (pageType) {

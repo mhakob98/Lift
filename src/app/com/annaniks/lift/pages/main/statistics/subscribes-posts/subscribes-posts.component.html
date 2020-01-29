@@ -14,7 +14,7 @@
             <button class="post-statistic-action">Комментарии</button>
             <button class="post-statistic-action">Закладки</button>
         </div>
-        <app-line-chart></app-line-chart>
+        <app-line-chart big="true" customId="post-subscribe" [size]="lineChartSize"></app-line-chart>
         <!-- END POST STATISTIC CHART -->
 
         <!-- PIE STATISTIC CHART -->
@@ -27,7 +27,8 @@
             <button class="pie-statistic-action">Сайт</button>
         </div>
         <div class="chart-map">
-            <div echarts [options]="pieChartOption" class="pie-chart"></div>
+            <canvas id="myChart" class="pie-chart"></canvas>
+
             <div class="map-container">
                 <div id="map"></div>
             </div>
