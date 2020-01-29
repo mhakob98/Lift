@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { NotificationModal } from '../notification-modal/notification.modal';
 
 @Component({
     selector: "basic-settings",
@@ -13,7 +15,7 @@ export class BasicSettingsComponent implements OnInit {
     public passwordForm: FormGroup;
     public notificationForm: FormGroup;
 
-    constructor(private _fb: FormBuilder) { }
+    constructor(private _fb: FormBuilder, private _dialog: MatDialog) { }
 
     ngOnInit() {
         this._formBuilder();
@@ -35,7 +37,13 @@ export class BasicSettingsComponent implements OnInit {
         })
     }
 
-    public checkIsValid(formGroup,controlName): boolean {
+    public openNotificationModal(): void {
+        const dialogRef = this._dialog.open(NotificationModal, {
+         width: "100%",
+        })
+    }
+
+    public checkIsValid(formGroup, controlName): boolean {
         return formGroup.get(controlName).hasError('required') && formGroup.get(controlName).touched;
     }
 }

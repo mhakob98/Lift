@@ -8,13 +8,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AdditionalSettings } from './components/additional-settings/additional-settings.component';
 import { PersonalSettings } from './components/personal-settings/personal-settings.component';
-
+import { NotificationModal } from './components/notification-modal/notification.modal';
+import {MatRadioModule} from '@angular/material/radio';
 @NgModule({
     declarations: [
         ProfileComponent,
         BasicSettingsComponent,
         AdditionalSettings,
-        PersonalSettings
+        PersonalSettings,
+        NotificationModal
     ],
     imports: [
         ProfileRoutingModule,
@@ -22,8 +24,10 @@ import { PersonalSettings } from './components/personal-settings/personal-settin
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatRadioModule
     ],
+    entryComponents:[NotificationModal],
     exports: []
 })
 export class ProfileModule { }
