@@ -62,9 +62,6 @@ export class JwtInterceptor implements HttpInterceptor {
             this._httpClient.post<ServerResponse<TokenResponse>>('refresh', {}, { params, headers })
                 .pipe(
                     finalize(() => this._loading = false),
-                    map((data) => {
-                        return data;
-                    }),
                     map((data) => data.data),
                     map((data: TokenResponse) => {
                         this._updateCookies(data);
