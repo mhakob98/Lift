@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-    private _updateTokenEvent$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
-    private _updateTokenState: Observable<boolean>
+    private _updateTokenEvent$: Subject<boolean> = new Subject<boolean>();
+    private _updateTokenState: Observable<boolean>;
     private _loading: boolean = false;
 
     constructor(
