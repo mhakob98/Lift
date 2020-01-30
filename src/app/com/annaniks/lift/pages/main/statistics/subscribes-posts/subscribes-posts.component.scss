@@ -64,10 +64,12 @@
     }
     .chart-map {
       display: flex;
+      align-items: center;
       height: 400px;
 
       .pie-chart {
-        width: 50%;
+        width: 660px !important;
+        height: 330px !important;
       }
       .map-container {
         display: flex;

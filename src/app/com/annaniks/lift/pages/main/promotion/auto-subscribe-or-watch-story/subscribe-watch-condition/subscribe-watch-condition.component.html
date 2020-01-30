@@ -10,10 +10,15 @@
     </select>
 </div>
 <div [ngSwitch]="selectedType">
-    <p class="condition-subtitle" *ngSwitchCase="'hashtag'">Подписываться на аккаунты, использующие эти хэштеги</p>
-    <p class="condition-subtitle" *ngSwitchCase="'subscriber'">Подписываться на аккаунты, которые подписаны на</p>
-    <p class="condition-subtitle" *ngSwitchCase="'comment'">Подписываться на аккаунты, которые комментируют</p>
-    <p class="condition-subtitle" *ngSwitchCase="'likes'">Подписываться на аккаунты, которые лайкают</p>
+    <p class="condition-subtitle" *ngSwitchCase="'hashtag'">
+        {{isAutosubscribe ? 'Подписываться на аккаунты' : 'Посмотреть stories аккаунтов'}} , использующие эти хэштеги
+    </p>
+    <p class="condition-subtitle" *ngSwitchCase="'subscriber'">
+        {{isAutosubscribe ? 'Подписываться на аккаунты' : 'Посмотреть stories аккаунтов'}}, которые подписаны на</p>
+    <p class="condition-subtitle" *ngSwitchCase="'comment'">
+        {{isAutosubscribe ? 'Подписываться на аккаунты' : 'Посмотреть stories аккаунтов'}}, которые комментируют</p>
+    <p class="condition-subtitle" *ngSwitchCase="'likes'">
+        {{isAutosubscribe ? 'Подписываться на аккаунты' : 'Посмотреть stories аккаунтов'}}, которые лайкают</p>
 </div>
 <div class="condition d-flex" [ngSwitch]="selectedType">
     <app-add-hashtag (searched)="searchFor($event)" [searchValue]="searchStream$" class="w-100"

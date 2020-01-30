@@ -8,7 +8,6 @@ import { FooterNavigationComponent } from './footer-navigation/footer-navigation
 import { LineChartComponent } from './line-chart/line-chart.component';
 
 // 3rd Part Libraries
-import { NgxEchartsModule } from 'ngx-echarts';
 import { ClickOutsideModule } from 'ng-click-outside';
 
 // PrimeNG
@@ -38,7 +37,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     imports: [
         CommonModule,
         RouterModule,
-        NgxEchartsModule,
         ClickOutsideModule,
         AutoCompleteModule,
         MatSliderModule,
@@ -56,7 +54,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 
     exports: [
         LimitsComponent,
-        NgxEchartsModule,
         ClickOutsideModule,
         FooterNavigationComponent,
         LineChartComponent,

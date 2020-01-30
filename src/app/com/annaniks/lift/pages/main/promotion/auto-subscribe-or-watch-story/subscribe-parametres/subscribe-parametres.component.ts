@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
 import { AccountSettings } from 'src/app/com/annaniks/lift/core/models/account';
 import { SubSink } from 'subsink';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-subscribe-parametres',
@@ -11,11 +12,15 @@ import { SubSink } from 'subsink';
 export class SubscribeParametresComponent implements OnInit, OnDestroy {
   public settings: AccountSettings = new AccountSettings()
   private _subs = new SubSink();
+  public isAutosubscribe: boolean = false;
 
   constructor(
+    private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService,
+    private _router: Router,
+  ) {
+    this.isAutosubscribe = this._router.url != '/promotion/auto-watch-story'
 
-    private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService
-  ) { }
+  }
 
   ngOnInit() {
     this._fetchSettings()
