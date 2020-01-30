@@ -39,8 +39,10 @@
 
       .card-content {
         padding: 25px;
+
         .card-descrption {
           padding: 15px;
+
           .card-image {
             width: 80px;
             height: 80px;
@@ -63,16 +65,17 @@
           }
         }
 
-        .card-chart {
-        }
+        .card-chart {}
       }
     }
   }
 
   .action {
     padding: 30px 0;
+
     .action-item {
       padding: 0;
+
       .action-item-content {
         background-color: white;
         height: 120px;
@@ -81,6 +84,7 @@
 
         .action-content {
           margin: auto;
+
           .action-image {
             height: 70px;
             width: 70px;
@@ -247,4 +251,11 @@
   color: #4696bd !important;
   font-size: 8px !important;
   line-height: 8px !important;
+}
+
+@media only screen and (max-width:1200px) {
+  .action-item {
+    padding-top: 30px !important;
+   
+  }
 }
