@@ -15,6 +15,7 @@ import { JwtInterceptor } from './com/annaniks/lift/core/interceptors/jwt.interc
 import { LoadingService } from './com/annaniks/lift/core/services/loading-service';
 import { LoadingComponent } from './com/annaniks/lift/layout/loading/loading.component';
 import { ToastrModule } from 'ngx-toastr';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     BrowserAnimationsModule,
     CookieModule.forRoot(),
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
   ],
   providers: [
     AuthGuard,

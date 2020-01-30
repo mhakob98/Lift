@@ -37,12 +37,12 @@
                         <input formControlName="maximumPerDay" type="number"> <span>Максимум в
                             день</span>
                         <mat-slider max="200" min="0" [value]="suitableSubsOrStoryForm.get('maximumPerDay').value"
-                            (change)="onChange($event,suitableSubsOrStoryForm.get('maximumPerDay'))">
+                            (change)="onChange($event,suitableSubsOrStoryForm.get('maximumPerDay'),'day')">
                         </mat-slider>
                     </div>
                     <div class="subscribes-limits-item">
                         <input type="text" formControlName="maximumPerHour"> <span>Максимум в час</span>
-                        <mat-slider (change)="onChange($event,suitableSubsOrStoryForm.get('maximumPerHour'))"
+                        <mat-slider (change)="onChange($event,suitableSubsOrStoryForm.get('maximumPerHour'),'hour')"
                             class="example-margin" max="40" min="0"
                             [value]="suitableSubsOrStoryForm.get('maximumPerHour').value"
                             formControlName="maximumPerHour">

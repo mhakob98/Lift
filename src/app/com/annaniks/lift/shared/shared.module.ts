@@ -24,15 +24,20 @@ import { MatInputModule } from '@angular/material/input';
 
 // 3rd part libraries
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
-
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 //Forms
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserDetailsComponent } from './user-details/user-details.component';
+
+
 @NgModule({
     declarations: [
         LimitsComponent,
         FooterNavigationComponent,
         LineChartComponent,
+        UserDetailsComponent,
     ],
     imports: [
         CommonModule,
@@ -47,7 +52,11 @@ import { ReactiveFormsModule } from '@angular/forms';
         MatRadioModule,
         MatExpansionModule,
         MatInputModule,
-        PickerModule
+        PickerModule,
+        CalendarModule.forRoot({
+            provide: DateAdapter,
+            useFactory: adapterFactory
+        })
 
     ],
     entryComponents: [],
@@ -66,7 +75,9 @@ import { ReactiveFormsModule } from '@angular/forms';
         MatRadioModule,
         MatExpansionModule,
         MatInputModule,
-        PickerModule
+        PickerModule,
+        UserDetailsComponent,
+        CalendarModule
     ],
 })
 export class SharedModule { }

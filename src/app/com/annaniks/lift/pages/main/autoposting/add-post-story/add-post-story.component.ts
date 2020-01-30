@@ -11,9 +11,12 @@ export class AddPostStoryComponent implements OnInit {
   public showEmojies: boolean = false
   constructor(
     public dialogRef: MatDialogRef<AddPostStoryComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { type: string },
+    @Inject(MAT_DIALOG_DATA) public data,
     private _formBuilder: FormBuilder
-  ) { }
+  ) {
+    console.log(this.data);
+
+  }
 
 
   ngOnInit() {
