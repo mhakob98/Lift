@@ -31,7 +31,7 @@ export class MainComponent implements OnInit, OnDestroy {
             const user = data.data;
             if (user.instagramAccounts) {
               if (user.instagramAccounts.length === 0) {
-                this._openAccountConnectModal();
+               this._openAccountConnectModal();
               }
             }
             else {

@@ -29,12 +29,14 @@
                 <div class="input-item  d-flex">
                     <div class="input-content">
                         <input id="firstname" name="firstname" placeholder="Фамилия" class="form-control here"
-                            required="required" type="text" formControlName="lastname"  [ngClass]="{'border':checkIsValid(dataForm,'lastname')}">
+                            required="required" type="text" formControlName="lastname"
+                            [ngClass]="{'border':checkIsValid(dataForm,'lastname')}">
                     </div>
 
                     <div class="input-content ml-3">
                         <input id="firstname" name="firstname" placeholder="Имя" class="form-control here"
-                            required="required" type="text" formControlName="name"  [ngClass]="{'border':checkIsValid(dataForm,'name')}">
+                            required="required" type="text" formControlName="name"
+                            [ngClass]="{'border':checkIsValid(dataForm,'name')}">
                     </div>
                 </div>
 
@@ -48,11 +50,54 @@
                     <div class=" input-content">
                         <select id="select" name="select" class="custom-select" formCotrolName="day">
                             <option value="День">День</option>
+                            <option value="01">1</option>
+                            <option value="02">2</option>
+                            <option value="03">3</option>
+                            <option value="04">4</option>
+                            <option value="05">5</option>
+                            <option value="06">6</option>
+                            <option value="07">7</option>
+                            <option value="08">8</option>
+                            <option value="09">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>
+                            <option value="31">31</option>
                         </select>
                     </div>
                     <div class="input-content">
                         <select id="select" name="select" class="custom-select" formCotrolName="month">
                             <option value="Месяц">Месяц</option>
+                            <option value="01">January</option>
+                            <option value="02">February</option>
+                            <option value="03">March</option>
+                            <option value="04">April</option>
+                            <option value="05">May</option>
+                            <option value="06">June</option>
+                            <option value="07">July</option>
+                            <option value="08">August</option>
+                            <option value="09">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
                         </select>
                     </div>
                     <div class=" input-content">
@@ -128,7 +173,8 @@
                 <label for="phoneNumber" class="col-form-label label ">Контактный номер</label>
                 <div class=" input-content">
                     <input id="phoneNumber" name="phoneNumber" placeholder="Контактный номер" class="form-control here"
-                        type="text" formControlName="phoneNumber"  [ngClass]="{'border':checkIsValid(contactForm,'phoneNumber')}">
+                        type="text" formControlName="phoneNumber"
+                        [ngClass]="{'border':checkIsValid(contactForm,'phoneNumber')}">
                 </div>
             </div>
 
@@ -136,7 +182,8 @@
                 <label for="current-city" class="col-form-label label ">Город проживания</label>
                 <div class="input-content">
                     <input id="current-city" name="current-city" placeholder="Город проживания"
-                        class="form-control here" type="text" formControlName="currentCity"  [ngClass]="{'border':checkIsValid(contactForm,'currentCity')}">
+                        class="form-control here" type="text" formControlName="currentCity"
+                        [ngClass]="{'border':checkIsValid(contactForm,'currentCity')}">
                 </div>
             </div>
 

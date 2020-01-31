@@ -11,6 +11,8 @@ import {
   isSameMonth,
   addHours
 } from 'date-fns';
+import { PopUpModal } from '../../../core/modals';
+
 const colors: any = {
   pink: {
     primary: '#3399cc',
@@ -93,5 +95,13 @@ export class AutopostingComponent implements OnInit {
     });
   }
 
+
+  public openPopUpModal(): void {
+    const dialogRf = this._dialog.open(PopUpModal, {
+      width:"1200px",
+      maxWidth: "80vw",
+      maxHeight:"80vh"
+    })
+  }
 }
 
