@@ -31,6 +31,7 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this._initForm();
     this._handleAccountSettingsEvent();
+    this._bindValues()
   }
 
   private _handleAccountSettingsEvent(): void {
@@ -64,14 +65,36 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
 
   private _initForm(): void {
     this.suitableSubsOrStoryForm = this._fb.group({
-      maximumPerDay: [200],
-      maximumPerHour: [20],
+      maximumPerDay: [10],
+      maximumPerHour: [10],
       publicationTimeLimit: [false]
     })
   }
 
-  public onChange($event, control: AbstractControl): void {
+  public onChange($event, control: AbstractControl, time: string): void {
+    if (time == 'day') {
+      this._autoSubscribeOrWatchStoryService.settings.subscribesPerDay = $event.value
+    } else {
+      this._autoSubscribeOrWatchStoryService.settings.subscribesPerHour = $event.value
+    }
     control.patchValue($event.value, { emitEvent: false });
+  }
+
+  private _bindValues(): void {
+    this._autoSubscribeOrWatchStoryService.getSettingsByType('subscribesPerDay')
+      .pipe(
+        takeUntil(this._unsubscribe$),
+      )
+      .subscribe((subscribePerDay: number) => {
+        if (subscribePerDay) {
+          console.log(this._autoSubscribeOrWatchStoryService.settings);
+
+          this.suitableSubsOrStoryForm.patchValue({
+            maximumPerDay: this._autoSubscribeOrWatchStoryService.settings.subscribesPerDay,
+            maximumPerHour: this._autoSubscribeOrWatchStoryService.settings.subscribesPerHour
+          })
+        }
+      })
   }
 
   public onTypeChanged($event: SubscriptionParam, index: number): void {

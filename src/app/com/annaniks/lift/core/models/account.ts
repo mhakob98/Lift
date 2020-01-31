@@ -45,7 +45,8 @@ export class AccountSettings {
     filter: Filter;
     createdAt?: string;
     updatedAt?: string;
-
+    subscribesPerDay: number;
+    subscribesPerHour: number;
     constructor() {
         this.loginId = null;
         this.id = null;
