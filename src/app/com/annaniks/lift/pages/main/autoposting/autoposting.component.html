@@ -1,6 +1,29 @@
-<div class="autoposting">
-    <div class="btn-group" role="group" aria-label="Basic example">
-        <button (click)="addPostOrStory('post')" type="button" class="btn btn-secondary">Добавить пост</button>
-        <button (click)="addPostOrStory('story')" type="button" class="btn btn-danger">Добавить story</button>
+<div class="autoposting pg-container">
+    <app-user-details></app-user-details>
+    <h3 class="calendar-title">Календарь публикации постов <span class="highlight">Январь 2020</span> </h3>
+    <div class="d-flex align-items-center w-100">
+        <button (click)="addPostOrStory('post')" type="button" class="btn btn-secondary add-post">
+            <img src="assets/icons/plus-blue.png" alt="">
+            Добавить пост</button>
+        <button (click)="addPostOrStory('story')" type="button" class="btn btn-danger add-story">
+            <img src="assets/icons/plus-pink.png" alt="">
+            Добавить story</button>
+        <button class="search-for-ideas">
+            <img src="assets/icons/idea-white.png" alt="">
+            Поиск идей
+        </button>
     </div>
+
+    <div class="calendar">
+        <mwl-calendar-month-view [viewDate]="viewDate" [events]="events" (dayClicked)="dayClicked($event.day)"
+            (eventClicked)="addPostOrStory('post', 'new', $event.event)">
+        </mwl-calendar-month-view>
+    </div>
+
+    <button class="watch-video">
+        <img src="assets/icons/play-button.png" alt="">
+        Смотреть видео как работает автопостинг
+    </button>
 </div>
+
+<footer-navigation></footer-navigation>

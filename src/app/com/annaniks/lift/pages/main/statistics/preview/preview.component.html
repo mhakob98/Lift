@@ -1,21 +1,6 @@
 <div *ngIf="vm$ | async as vm">
     <section class="preview-content">
-        <div class="user-details">
-            <div class="pg-container d-flex align-items-center">
-                <img src="assets/images/preview_user_image.png" class="rounded-circle img-responsive user-image">
-                <div class="ml-5">
-                    <div class="user-description d-flex align-items-center">
-                        <p class="user-name">jess.wandering</p>
-                        <button class="btn button ml-3"><span>Перейти в профиль</span></button>
-                    </div>
-                    <div class="user-subscription d-flex mt-2">
-                        <p class="subscription-text"><b>704</b> публикаций</p>
-                        <p class="subscription-text ml-5"><b>739тыс.</b> подписчиков</p>
-                        <p class="subscription-text ml-5">Подписки <b>367</b></p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <app-user-details></app-user-details>
         <div class="statistics ml-0 mr-0">
             <div class="pg-container">
                 <div class="row">
@@ -163,7 +148,7 @@
                                             <p class="text">14 Декабря </p>
                                             <p class="text">Utah Dream World </p>
                                         </div>
-                                        <div class="post-review d-flex">
+                                        <div class="post-review d-flex align-items-center">
                                             <img class="rounded img-responsive review-icon mr-1"
                                                 src="assets/images/like.png ">
                                             <p class="value">12588</p>
@@ -188,7 +173,7 @@
                                             <p class="text">14 Декабря </p>
                                             <p class="text">Utah Dream World </p>
                                         </div>
-                                        <div class="post-review d-flex">
+                                        <div class="post-review d-flex align-items-center">
                                             <img class="rounded img-responsive review-icon mr-1"
                                                 src="assets/images/like.png ">
                                             <p class="value">12588</p>
@@ -214,7 +199,7 @@
                                             <p class="text">Utah Dream World </p>
                                         </div>
 
-                                        <div class="post-review d-flex">
+                                        <div class="post-review d-flex align-items-center">
                                             <img class="rounded img-responsive review-icon mr-1"
                                                 src="assets/images/like.png ">
                                             <p class="value">12588</p>
@@ -239,7 +224,7 @@
                                             <p class="text">16 Декабря </p>
                                             <p class="text">Mammoth Lake </p>
                                         </div>
-                                        <div class="post-review d-flex">
+                                        <div class="post-review d-flex align-items-center">
                                             <img class="rounded img-responsive review-icon mr-1"
                                                 src="assets/images/like.png ">
                                             <p class="value">11366</p>
