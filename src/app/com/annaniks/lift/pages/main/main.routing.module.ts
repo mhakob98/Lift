@@ -33,6 +33,14 @@ const mainRoutes: Routes = [
             {
                 path: 'direct',
                 loadChildren: () => import('./direct/direct.module').then(m => m.DirectModule)
+            },
+            {
+                path: 'support',
+                loadChildren: () => import('./support-service/support-service.module').then(m => m.SupportServiceModule)
+            },
+            {
+                path: 'support/:id',
+                loadChildren: () => import('./support-service/ticket/ticket.module').then(m => m.TicketModule)
             }
         ]
     }

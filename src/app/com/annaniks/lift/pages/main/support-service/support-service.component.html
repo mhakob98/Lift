@@ -1,1 +1,37 @@
-<p>support-service works!</p>
+<div class="pg-container support-service">
+    <div class="pg-content">
+        <p class="pg-title">Служба поддержки</p>
+        <div class="actions-bar d-flex align-items-center">
+            <p class='label'>Новый запрос в службу поддержки</p>
+            <button class="btn add-button">
+                <img src="/assets/icons/support-ticket.png">
+                <span>Создать</span>
+            </button>
+        </div>
+        <div class="active-tickets">
+            <div class="tickets-list">
+                <app-ticket-list-item [active]="true"></app-ticket-list-item>
+                <app-ticket-list-item [active]="true"></app-ticket-list-item>
+                <app-ticket-list-item [active]="true"></app-ticket-list-item>
+                <app-ticket-list-item [active]="true"></app-ticket-list-item>
+            </div>
+        </div>
+        <div class="closed-tickets">
+            <div class="collapse-heading">
+                <div class="line"></div>
+                <div class="block" (click)="toggle()">
+                    <span>Скрыть закрытые тикеты</span>
+                    <img src="/assets/icons/arrow_down_gray.png" [class.open]="open">
+                </div>
+                <div class="line"></div>
+            </div>
+            <div class="tickets-list" *ngIf="open">
+                <app-ticket-list-item></app-ticket-list-item>
+                <app-ticket-list-item></app-ticket-list-item>
+                <app-ticket-list-item></app-ticket-list-item>
+                <app-ticket-list-item></app-ticket-list-item>
+                <app-ticket-list-item></app-ticket-list-item>
+            </div>
+        </div>
+    </div>
+</div>
