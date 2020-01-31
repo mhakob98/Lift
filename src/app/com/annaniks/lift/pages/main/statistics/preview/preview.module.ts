@@ -9,7 +9,8 @@ import { PreviewService } from './preview.service';
 ///SlicCarouselModule
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 //SlideToggle Module
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { SharedModule } from '../../../../shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -19,7 +20,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
         PreviewRoutingModule,
         CommonModule,
         SlickCarouselModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        SharedModule
     ],
 
     providers: [PreviewService]

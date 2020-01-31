@@ -11,7 +11,7 @@ import { AccountConnectData, TwoFactorLoginData, ChallengeLoginData } from '../.
 
 @Injectable()
 export class MainService {
-    private _isShowDisabledView: boolean = false;
+    private _isShowDisabledView: boolean = true;
 
     constructor(
         private _httpClient: HttpClient,
@@ -34,16 +34,17 @@ export class MainService {
                     const user = data.data;
                     if (user) {
                         if (user.instagramAccounts && user.instagramAccounts.length === 0) {
-                            // this.setShowDisabledView(true);
+                            this.setShowDisabledView(true);
                         }
                         else {
                             this.setShowDisabledView(false);
                         }
                     }
                     else {
-                        this.setShowDisabledView(false);
+                        this.setShowDisabledView(true);
+                        return;
                     }
-                    this._authService.setUserState(data.data);
+                    this._authService.setUserState(user);
                     if (!this._authService.getAccount() || (this._authService.getAccount() && !this._authService.getAccount().id)) {
                         if (user && user.instagramAccounts && user.instagramAccounts.length > 0) {
                             this._authService.setAccount(data.data.instagramAccounts[0])
@@ -52,6 +53,7 @@ export class MainService {
                     return data;
                 }),
                 catchError((err) => {
+                    this.setShowDisabledView(true);
                     this._authService.setAuthState(null);
                     return throwError(err);
                 })

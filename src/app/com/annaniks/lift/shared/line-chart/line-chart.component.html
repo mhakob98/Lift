@@ -1,1 +1,4 @@
-<div echarts [options]="lineChartOption" class="post-statistic-chart"></div>
+<div [ngClass]="{'bordered':big}">
+    <canvas id="{{customId}}" [ngStyle]="{'width':size?.width,'height':size?.height}" class="post-statistic-chart">
+    </canvas>
+</div>

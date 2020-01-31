@@ -5,6 +5,7 @@ import { SubscriptionParam } from '../../../../../core/models/subscription-param
 import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
 import { startWith, pairwise, map } from 'rxjs/operators';
 import { SearchTerm, Search } from '../../../../../core/models/search';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-subscribe-watch-condition',
@@ -26,10 +27,15 @@ export class SubscribeWatchConditionComponent implements OnInit {
   private _subscribe$: Subscription = new Subscription();
   public typeControl: FormControl = new FormControl('');
   public searchStream$: Observable<Search>;
+  public isAutosubscribe: boolean = false;
 
   constructor(
-    private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService
-  ) { }
+    private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService,
+    private _activatedRoute: ActivatedRoute,
+
+  ) {
+    this.isAutosubscribe = this._activatedRoute.snapshot.data.type == 'subscribe';
+  }
 
 
   ngOnInit() {
