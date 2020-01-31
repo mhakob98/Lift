@@ -3,10 +3,21 @@
   margin: 0 auto;
 }
 
+.pg-content{
+  margin-top: 40px;
+}
+
+.pg-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
 .slider-container {
   margin-left: -12px;
   margin-right: -12px;
 }
+
+
 
 * {
   box-sizing: border-box;
@@ -32,10 +43,10 @@ button:disabled {
   opacity: 0.5;
 }
 
-a:focus{
+a:focus {
   outline: none !important;
 }
 
-.panelClass{
+.panelClass {
   padding: 10px 10px !important;
 }

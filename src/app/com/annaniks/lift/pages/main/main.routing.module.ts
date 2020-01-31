@@ -8,34 +8,40 @@ const mainRoutes: Routes = [
             { path: '', redirectTo: '/statistics/preview', pathMatch: 'full' },
             {
                 path: 'statistics',
-                loadChildren: () => import('../../../../../com/annaniks/lift/pages/main/statistics/statistics.module')
-                    .then(m => m.StatisticsModule)
+                loadChildren: () => import('./statistics/statistics.module').then(m => m.StatisticsModule)
             },
             {
                 path: 'promotion',
-                loadChildren: () => import('../../../../../com/annaniks/lift/pages/main/promotion/promotion.module')
-                    .then(m => m.PromotionModule)
+                loadChildren: () => import('./promotion/promotion.module').then(m => m.PromotionModule)
             },
             {
                 path: 'autoposting',
-                loadChildren: () => import('../../../../../com/annaniks/lift/pages/main/autoposting/autoposting.module')
-                    .then(m => m.AutopostingModule)
+                loadChildren: () => import('./autoposting/autoposting.module').then(m => m.AutopostingModule)
             },
             {
                 path: 'direct',
-                loadChildren: () => import('../../../../../com/annaniks/lift/pages/main/direct/direct.module')
-                    .then(m => m.DirectModule)
+                loadChildren: () => import('./direct/direct.module').then(m => m.DirectModule)
             },
             {
                 path: 'support-service',
-                loadChildren: () => import('../../../../../com/annaniks/lift/pages/main/support-service/support-service.module')
-                    .then(m => m.SupportServiceModule)
+                loadChildren: () => import('./support-service/support-service.module').then(m => m.SupportServiceModule)
             },
             {
                 path: 'profile',
-                loadChildren: () => import('../../../../../com/annaniks/lift/pages/main/profile/profile.module')
-                    .then(m => m.ProfileModule)
+                loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
             },
+            {
+                path: 'direct',
+                loadChildren: () => import('./direct/direct.module').then(m => m.DirectModule)
+            },
+            {
+                path: 'support',
+                loadChildren: () => import('./support-service/support-service.module').then(m => m.SupportServiceModule)
+            },
+            {
+                path: 'support/:id',
+                loadChildren: () => import('./support-service/ticket/ticket.module').then(m => m.TicketModule)
+            }
         ]
     }
 ]

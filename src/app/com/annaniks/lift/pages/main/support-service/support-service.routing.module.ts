@@ -15,6 +15,6 @@ const supportServiceRoutes: Routes = [
     exports: [RouterModule]
 })
 export class SupportServiceRoutingModule {
-    static components = [SupportServiceComponent, AddQuestionComponent]
-    static entryComponents = [AddQuestionComponent]
+    static components = [SupportServiceComponent,AddQuestionComponent];
+    static entryComponents = [AddQuestionComponent];
 }
