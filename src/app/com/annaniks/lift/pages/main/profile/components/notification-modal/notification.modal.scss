@@ -1,6 +1,6 @@
 .notification-modal {
     .notification-container {
-        margin: 35px 56px;
+        margin: 10px 20px;
 
         .label {
             padding: 0;
@@ -78,9 +78,9 @@
     background: #3399cc !important;
 }
 
-::ng-deep .mat-dialog-container {
-    padding: 0 !important;
-}
+// ::ng-deep .mat-dialog-container {
+//     padding: 0 !important;
+// }
 
 ::ng-deep .mat-radio-container {
     display: none !important;
