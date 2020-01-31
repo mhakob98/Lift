@@ -23,6 +23,7 @@ export class SupportServiceComponent implements OnInit {
   public onClickAddQuestion(): void {
     const dialogRef = this._matDialog.open(AddQuestionComponent, {
       maxWidth: '80vw',
+      width:"900px",
       maxHeight: '80vh'
     });
   }
