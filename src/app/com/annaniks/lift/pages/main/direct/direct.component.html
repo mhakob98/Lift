@@ -7,6 +7,163 @@
                 <img class="icon" src="/assets/icons/settings-icon.png">
             </a>
         </div>
-        <div class=""></div>
+        <div class="messaging">
+            <div class="inbox_msg">
+                <div class="inbox_people">
+                    <div class="d-flex justify-content-between message-remark">
+                        <button class="new-message">
+                            Новое сообщение
+                            <img src="assets/icons/message.png" alt="">
+                        </button>
+                        <button class="new-bookmark">
+                            Новая рассылка
+                            <img src="assets/icons/email.png" alt="">
+                        </button>
+                    </div>
+                    <div class="headind_srch d-flex">
+                        <div class="search-tab-item">
+                            <p>ЛС</p>
+                        </div>
+                        <div class="search-tab-item">
+                            <p>Разослано</p>
+                        </div>
+                        <div class="search-tab-item active">
+                            <p>Запланировано</p>
+                        </div>
+                    </div>
+                    <div class="inbox_chat">
+                        <div class="chat_list active_chat">
+                            <div class="chat_people">
+                                <div class="chat_img"> <img src="assets/icons/avatar.png" alt="sunil">
+                                </div>
+                                <div class="chat_ib">
+                                    <p>@sandraherrits</p>
+                                </div>
+                                <div class="chat-count">
+                                    <p>2</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat_list" *ngFor="let item of [1,2,3,4,5,6,7]">
+                            <div class="chat_people">
+                                <div class="chat_img"> <img src="assets/icons/avatar.png" alt="sunil">
+                                </div>
+                                <div class="chat_ib">
+                                    <p>@sandraherrits</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="mesgs">
+                    <div class="msg_history">
+                        <div class="incoming-msg d-flex align-items-start">
+                            <img src="assets/icons/avatar.png" class="incoming-msg-img">
+                            <div class="incoming-msg-text first">
+                                <span class="message-body">Привет!</span>
+                                <span class="message-date">14:35</span>
+                            </div>
+                        </div>
+                        <div class="incoming-msg d-flex align-items-start">
+                            <div class="incoming-msg-text additional">
+                                <span class="message-body">Проголосуй пожалуйста за мое фото у меня странице
+                                    https://www.instagram.com/p/B7o2SXTJtVx/</span>
+                                <span class="message-date">14:36</span>
+                            </div>
+                        </div>
+                        <div class="outgoing-msg d-flex align-items-start justify-content-end">
+                            <div class="outgoing-msg-text first">
+                                <span class="message-body">Привет! Уже проголосовала</span>
+                                <span class="message-date">14:38</span>
+                            </div>
+                            <img src="assets/icons/avatar.png" class="outgoing-msg-img">
+                        </div>
+                        <div class="outgoing-msg d-flex align-items-start justify-content-end">
+                            <div class="outgoing-msg-text additional">
+                                <span class="message-body">Привет! Уже проголосовала</span>
+                                <span class="message-date">14:38</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center day-separator">
+                            <span>19 Января</span>
+                        </div>
+                        <div class="incoming-msg d-flex align-items-start">
+                            <img src="assets/icons/avatar.png" class="incoming-msg-img">
+                            <div class="incoming-msg-text first">
+                                <span class="message-body">Привет!</span>
+                                <span class="message-date">14:35</span>
+                            </div>
+                        </div>
+                        <div class="incoming-msg d-flex align-items-start">
+                            <div class="incoming-msg-text additional">
+                                <span class="message-body">Проголосуй пожалуйста за мое фото у меня странице
+                                    https://www.instagram.com/p/B7o2SXTJtVx/</span>
+                                <span class="message-date">14:36</span>
+                            </div>
+                        </div>
+                        <div class="outgoing-msg d-flex align-items-start justify-content-end">
+                            <div class="outgoing-msg-text first">
+                                <span class="message-body">Привет! Уже проголосовала</span>
+                                <span class="message-date">14:38</span>
+                            </div>
+                            <img src="assets/icons/avatar.png" class="outgoing-msg-img">
+                        </div>
+                        <div class="outgoing-msg d-flex align-items-start justify-content-end">
+                            <div class="outgoing-msg-text additional">
+                                <span class="message-body">Привет! Уже проголосовала</span>
+                                <span class="message-date">14:38</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center day-separator">
+                            <span>19 Января</span>
+                        </div>
+                        <div class="incoming-msg d-flex align-items-start">
+                            <img src="assets/icons/avatar.png" class="incoming-msg-img">
+                            <div class="incoming-msg-text first">
+                                <span class="message-body">Привет!</span>
+                                <span class="message-date">14:35</span>
+                            </div>
+                        </div>
+                        <div class="incoming-msg d-flex align-items-start">
+                            <div class="incoming-msg-text additional">
+                                <span class="message-body">Проголосуй пожалуйста за мое фото у меня странице
+                                    https://www.instagram.com/p/B7o2SXTJtVx/</span>
+                                <span class="message-date">14:36</span>
+                            </div>
+                        </div>
+                        <div class="outgoing-msg d-flex align-items-start justify-content-end">
+                            <div class="outgoing-msg-text first">
+                                <span class="message-body">Привет! Уже проголосовала</span>
+                                <span class="message-date">14:38</span>
+                            </div>
+                            <img src="assets/icons/avatar.png" class="outgoing-msg-img">
+                        </div>
+                        <div class="outgoing-msg d-flex align-items-start justify-content-end">
+                            <div class="outgoing-msg-text additional">
+                                <span class="message-body">Привет! Уже проголосовала</span>
+                                <span class="message-date">14:38</span>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center day-separator">
+                            <span>19 Января</span>
+                        </div>
+                    </div>
+                    <div class="type_msg d-flex w-100 justify-content-between align-items-baseline">
+                        <div class="input_msg_write d-flex  align-items-center">
+                            <input type="text" class="write_msg" placeholder="Type a message" />
+                            <button class="chat-actions" type="button"><img src="assets/icons/gallery.png"
+                                    alt=""></button>
+                            <button class="chat-actions" type="button"><img src="assets/icons/smole.png"
+                                    alt=""></button>
+                        </div>
+                        <button class="msg_send_btn" type="button"><img src="assets/icons/send-chat.png"
+                                alt=""></button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
     </div>
 </div>
