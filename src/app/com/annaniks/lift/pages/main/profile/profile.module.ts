@@ -9,7 +9,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AdditionalSettings } from './components/additional-settings/additional-settings.component';
 import { PersonalSettings } from './components/personal-settings/personal-settings.component';
 import { NotificationModal } from './components/notification-modal/notification.modal';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
+import { ProfileService } from './profile.service';
 @NgModule({
     declarations: [
         ProfileComponent,
@@ -27,7 +28,7 @@ import {MatRadioModule} from '@angular/material/radio';
         MatCheckboxModule,
         MatRadioModule
     ],
-    entryComponents:[NotificationModal],
-    exports: []
+    entryComponents: [NotificationModal],
+    providers: [ProfileService]
 })
 export class ProfileModule { }
