@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-    private _updateTokenEvent$: Subject<boolean> = new Subject<boolean>();
+    private _updateTokenEvent$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
     private _updateTokenState: Observable<boolean>;
     private _loading: boolean = false;
 
@@ -38,7 +38,7 @@ export class JwtInterceptor implements HttpInterceptor {
                                         return next.handle(this._setNewHeaders(req));
                                     }
                                     else if (isUpdated === false) {
-                                        this._router.navigate(['/auth/login']);
+                                        // this._router.navigate(['/auth/login']);
                                         return throwError(false);
                                     }
                                     return throwError(err);
@@ -77,7 +77,7 @@ export class JwtInterceptor implements HttpInterceptor {
         }
         else {
             this._loading = false;
-            this._router.navigate(['/auth/login']);
+            // this._router.navigate(['/auth/login']);
         }
     }
 
