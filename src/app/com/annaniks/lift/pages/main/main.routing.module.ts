@@ -31,10 +31,6 @@ const mainRoutes: Routes = [
                 loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
             },
             {
-                path: 'direct',
-                loadChildren: () => import('./direct/direct.module').then(m => m.DirectModule)
-            },
-            {
                 path: 'support',
                 loadChildren: () => import('./support-service/support-service.module').then(m => m.SupportServiceModule)
             },

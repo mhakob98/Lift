@@ -1,0 +1,134 @@
+.affiliate-program-container {
+  .text {
+    font-weight: 600;
+    font-size: 24px;
+  }
+  .affiliate-program-card {
+    margin-top: 37px;
+    .affiliate-program-card-item {
+      width: 50%;
+      .card-item {
+        background: #f6f6f6;
+        border-radius: 4px;
+        box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.23);
+        margin-left: 25px;
+        height: 190px;
+
+        .card-item-container {
+          margin: 33px 104px 52px 28px;
+          width: 100%;
+          max-width: calc(100% - 121px);
+
+          .text {
+            font-weight: 600;
+            font-size: 18px;
+          }
+
+          .price {
+            margin-top: 27px;
+            color: #97d8c6;
+            font-size: 24px;
+          }
+
+          .form-group {
+            margin-top: 15px;
+
+            .input-content {
+              width: 100%;
+              border: #c2d0db;
+              color: #868686;
+            }
+          }
+
+          .card-description {
+            margin-top: 18px;
+
+            .description-icon {
+              width: 14px;
+              height: 14px;
+            }
+
+            .cord-text {
+              color: #7d7d7d;
+              font-size: 14px;
+            }
+
+            .history-content {
+              margin-left: 65px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .lcb-table {
+    color: 000000;
+    margin-top: 48px;
+
+    thead {
+      th {
+        background: #f6f6f6;
+        border-radius: 4px;
+        height: 48px;
+      }
+    }
+
+    .income-text {
+      color: #94dac7;
+    }
+
+    td,
+    th {
+      vertical-align: middle;
+      border: none;
+      padding-left: 33px;
+    }
+
+    th {
+      font-weight: 600;
+    }
+
+    td {
+      &.custom-items {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem;
+      }
+
+      .stat-post {
+        height: 50px;
+        width: 50px;
+        background-color: #b7b7b7;
+
+        &:not(:last-child) {
+          margin-right: 11px;
+        }
+      }
+    }
+
+    thead {
+      background: #f6f6f6;
+      border-radius: 4px;
+      height: 48px;
+    }
+
+    tbody {
+      tr {
+        height: 70px;
+        border-bottom: 1px solid #e9e9e9;
+      }
+    }
+  }
+
+  .show-more {
+    border-radius: 2px;
+    border: none;
+    background-color: #f4f4f4;
+    width: 100%;
+    padding: 29px 0 25px 0;
+    font-size: 16px;
+    color: #7d7d7d;
+    margin: 54px 0;
+  }
+}
