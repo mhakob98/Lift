@@ -41,6 +41,10 @@ const mainRoutes: Routes = [
             {
                 path: 'support/:id',
                 loadChildren: () => import('./support-service/ticket/ticket.module').then(m => m.TicketModule)
+            },
+            {
+                path: 'affiliate-program',
+                loadChildren: () => import('./affiliate-program/affiliate-program.module').then(m => m.AffiliateProgramModule)
             }
         ]
     }
