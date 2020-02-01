@@ -11,7 +11,7 @@ import { AccountConnectData, TwoFactorLoginData, ChallengeLoginData } from '../.
 
 @Injectable()
 export class MainService {
-    private _isShowDisabledView: boolean = true;
+    private _isShowDisabledView: boolean = false // true;
 
     constructor(
         private _httpClient: HttpClient,
@@ -53,7 +53,7 @@ export class MainService {
                     return data;
                 }),
                 catchError((err) => {
-                    this.setShowDisabledView(true);
+                    // this.setShowDisabledView(true);
                     this._authService.setAuthState(null);
                     return throwError(err);
                 })
