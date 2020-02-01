@@ -1,7 +1,13 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NotificationModal } from '../notification-modal/notification.modal';
+import { ChangePasswordData } from '../../../../../core/models/account-basic-settings';
+import { ProfileService } from '../../profile.service';
+import { takeUntil, finalize } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { MatchPassword } from '../../../../../core/utilities/match-password';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: "basic-settings",
@@ -9,13 +15,20 @@ import { NotificationModal } from '../notification-modal/notification.modal';
     styleUrls: ["basic-settings.component.scss"]
 })
 
-export class BasicSettingsComponent implements OnInit {
-
+export class BasicSettingsComponent implements OnInit, OnDestroy {
+    private _unsubscribe: Subject<void> = new Subject<void>();
+    private _matchPassword: MatchPassword = new MatchPassword();
     public loginForm: FormGroup;
     public passwordForm: FormGroup;
     public notificationForm: FormGroup;
-
-    constructor(private _fb: FormBuilder, private _dialog: MatDialog) { }
+    public changePasswordLoading: boolean = false;
+    public passwordErrorMessage: string;
+    constructor(
+        private _fb: FormBuilder,
+        private _dialog: MatDialog,
+        private _profileService: ProfileService,
+        private _toastrService: ToastrService
+    ) { }
 
     ngOnInit() {
         this._formBuilder();
@@ -31,22 +44,55 @@ export class BasicSettingsComponent implements OnInit {
             password: ["", Validators.required],
             newPassword: ["", Validators.required],
             repeatPassword: ["", Validators.required]
-        })
+        }, { validator: this._matchPassword.check('newPassword', 'repeatPassword') })
         this.notificationForm = this._fb.group({
             email: ["", Validators.required]
         })
     }
 
+    private _changePassword(): void {
+        this.passwordErrorMessage = undefined;
+        this.changePasswordLoading = true;
+        const sendingData: ChangePasswordData = {
+            password: this.passwordForm.get('password').value,
+            newPassword: this.passwordForm.get('repeatPassword').value
+        }
+        this._profileService.changePassword(sendingData)
+            .pipe(
+                takeUntil(this._unsubscribe),
+                finalize(() => this.changePasswordLoading = false)
+            )
+            .subscribe(
+                (data) => {
+                    this._toastrService.success('Изменения сохранены')
+                },
+                (err) => {
+                    const error = err.error;
+                    this.passwordErrorMessage = error.message || "Ошибка";
+                    this._toastrService.error(this.passwordErrorMessage);
+                })
+    }
+
     public openNotificationModal(): void {
-        const dialogRef = this._dialog.open(NotificationModal, {
-    
-          width:"1200px",
-          maxWidth:"100%",
-          panelClass:['panelClass']
+        this._dialog.open(NotificationModal, {
+            width: "1200px",
+            maxWidth: "100%",
+            panelClass: ['panelClass']
         })
+    }
+
+    public onClickChangePassword(): void {
+        if (this.passwordForm.valid) {
+            this._changePassword();
+        }
     }
 
     public checkIsValid(formGroup, controlName): boolean {
         return formGroup.get(controlName).hasError('required') && formGroup.get(controlName).touched;
+    }
+
+    ngOnDestroy() {
+        this._unsubscribe.next();
+        this._unsubscribe.complete();
     }
 }
