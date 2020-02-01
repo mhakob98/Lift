@@ -45,6 +45,10 @@ const mainRoutes: Routes = [
             {
                 path: 'affiliate-program',
                 loadChildren: () => import('./affiliate-program/affiliate-program.module').then(m => m.AffiliateProgramModule)
+            },
+            {
+                path: "tariff",
+                loadChildren: () => import('./tariff/tariff.module').then(m => m.TariffModule)
             }
         ]
     }
