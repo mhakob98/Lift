@@ -10,11 +10,15 @@ import { AutopostingRoutingModule } from './autoposting.routing.module';
 import { SharedModule } from '../../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+//modal
+import { PopUpModal } from '../../../core/modals';
+
 
 @NgModule({
     declarations: [
         AutopostingRoutingModule.components,
         AddPostStoryComponent,
+        PopUpModal
     ],
     imports: [
         CommonModule,
@@ -23,7 +27,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         FormsModule,
         ReactiveFormsModule
     ],
-    entryComponents: [AddPostStoryComponent],
+    entryComponents: [AddPostStoryComponent, PopUpModal],
     exports: []
 })
 export class AutopostingModule {

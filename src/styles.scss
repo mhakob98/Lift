@@ -1,6 +1,7 @@
 body {
   font-family: "SF UI Display Regular" !important;
   min-width: 900px;
+  box-sizing: border-box;
 }
 
 span.ui-autocomplete {
@@ -11,3 +12,4 @@ span.ui-autocomplete {
 .add-ps-container .mat-dialog-container {
   background: #f6f8f9;
 }
+

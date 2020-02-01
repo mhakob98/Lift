@@ -1,1 +1,38 @@
-<p>add-question works!</p>
+<div class="add-question-container">
+    <div class="add-question-header d-flex justify-content-between">
+        <p class="text">Задать вопрос</p>
+        <img src="assets/icons/close.png" class="rounded img-responsive  cursor-pointer close-icon"
+            (click)="closeModal()">
+    </div>
+    <div class="add-question-form">
+        <form [formGroup]="questionForm">
+            <div class="form-group d-flex">
+                <div class="input-content">
+                    <input id="subject" name="subject" placeholder="Тема сообщения" class="form-control here"
+                        required="required" type="text" formControlName="subject"
+                        [ngClass]="{'border':checkIsValid('subject')}">
+                </div>
+                <div class="input-content ml-3">
+                    <select id="select" name="select" class="custom-select" formControlName="question">
+                        <option value="Категория вопроса">Категория вопроса </option>
+                    </select>
+               </div>
+            </div>
+            <div class="text-area">
+                <textarea id="subject" name="subject" placeholder="Текст сообщения"
+                    class="form-control here text-area-content" required="required" type="text"
+                    formControlName="messeges" [ngClass]="{'border':checkIsValid('messeges')}"></textarea>
+            </div>
+            <div class="d-flex submit-button-content justify-content-between">
+                <button name="submit" type="submit" class="btn submit-button"
+                    [disabled]="questionForm.invalid">Отправить</button>
+                <div class="d-flex align-items-center">
+                    <img src="assets/icons/file.png" class="rounded img-responsive  cursor-pointer file-icon">
+                    <p class="title ml-2">Прикрепить файл</p>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
