@@ -34,7 +34,7 @@
             <img src="assets/icons/arrow_up.png" class="rounded img-responsive up-image ml-3">
         </div>
         <form [formGroup]="passwordForm">
-            <p class="error text-danger">{{passwordErrorMessage}}</p>
+            <p class="error text-danger ">{{passwordErrorMessage}}</p>
             <div class="form-group d-flex">
                 <label for="password" class="col-form-label label">Текущий пароль</label>
                 <div class="input-content">
@@ -61,7 +61,8 @@
                     <p class="password-title mt-3">Забыли пароль?</p>
                 </div>
             </div>
-            <button name="submit" type="submit" class="btn save-button" [disabled]="passwordForm.invalid || changePasswordLoading" (click)="onClickChangePassword()">Изменить
+            <button name="submit" type="submit" class="btn save-button"
+                [disabled]="passwordForm.invalid || changePasswordLoading" (click)="onClickChangePassword()">Изменить
                 пароль</button>
         </form>
     </div>
