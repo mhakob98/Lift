@@ -43,6 +43,10 @@ const mainRoutes: Routes = [
                 loadChildren: () => import('./affiliate-program/affiliate-program.module').then(m => m.AffiliateProgramModule)
             },
             {
+                path: "tariff",
+                loadChildren: () => import('./tariff/tariff.module').then(m => m.TariffModule)
+            },
+            {
                 path: 'arcticle/:categoryId',
                 loadChildren: () => import('./arcticle-details/arcticle-details.module').then(m => m.ArcticleDetailsModule)
             }
