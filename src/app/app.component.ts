@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'lift-frontend';
+
+  constructor(private _router: Router) {
+    _router.events
+      .pipe(
+        map((route) => {
+          if (route instanceof NavigationEnd) {
+            window.scrollTo(0, 0);
+          }
+        })
+      )
+      .subscribe();
+  }
 }

@@ -156,15 +156,15 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
     }
 
     public postAccountConnectionValues(): void {
-        this._mainService.postAccountConnectionValues({
-            tarriff: this.tariffForm.value.tariff,
-            action: this.actionForm.value.action,
-            promotion: this.promotionForm.value,
-        })
-            .subscribe((data) => {
-                console.log(data);
-                this._dialogRef.close();
-            })
+        // this._mainService.postAccountConnectionValues({
+        //     tarriff: this.tariffForm.value.tariff,
+        //     action: this.actionForm.value.action,
+        //     promotion: this.promotionForm.value,
+        // })
+        //     .subscribe((data) => {
+        //         console.log(data);
+        //         this._dialogRef.close();
+        //     })
 
     }
 
