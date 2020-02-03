@@ -80,17 +80,10 @@ export class MainService {
 
     public challengeLogin(data: ChallengeLoginData): Observable<any> {
         return this._httpClient.post('checkpoint-challenge', data);
-
     }
-
 
     public getShowDisabledView(): boolean {
         return this._isShowDisabledView;
-    }
-
-
-    public postAccountConnectionValues(body): Observable<any> {
-        return this._httpClient.post('', body);
     }
 
 }
