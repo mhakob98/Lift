@@ -87,6 +87,12 @@
 
         .income-text {
             color: #94dac7;
+            text-transform: capitalize;
+        }
+
+        .canceled-text {
+            color: #f77c7c;
+            text-transform: capitalize;
         }
 
         td,
