@@ -38,7 +38,7 @@ export class JwtInterceptor implements HttpInterceptor {
                                         return next.handle(this._setNewHeaders(req));
                                     }
                                     else if (isUpdated === false) {
-                                        // this._router.navigate(['/auth/login']);
+                                        this._router.navigate(['/auth/login']);
                                         return throwError(false);
                                     }
                                     return throwError(err);
@@ -68,7 +68,7 @@ export class JwtInterceptor implements HttpInterceptor {
                         this._updateTokenEvent$.next(true);
                     }),
                     catchError((err) => {
-                        // this._router.navigate(['/auth/login']);
+                        this._router.navigate(['/auth/login']);
                         this._updateTokenEvent$.next(false);
                         return throwError(false);
                     })
@@ -77,7 +77,7 @@ export class JwtInterceptor implements HttpInterceptor {
         }
         else {
             this._loading = false;
-            // this._router.navigate(['/auth/login']);
+            this._router.navigate(['/auth/login']);
         }
     }
 

@@ -83,7 +83,7 @@ export class AutopostingComponent implements OnInit {
 
 
 
-  public addPostOrStory(type: string, action: string, event): void {
+  public addPostOrStory(type: string, action?: string, event?): void {
 
     const dialogRef = this._dialog.open(AddPostStoryComponent, {
       width: '1200px',

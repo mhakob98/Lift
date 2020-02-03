@@ -31,10 +31,6 @@ const mainRoutes: Routes = [
                 loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
             },
             {
-                path: 'direct',
-                loadChildren: () => import('./direct/direct.module').then(m => m.DirectModule)
-            },
-            {
                 path: 'support',
                 loadChildren: () => import('./support-service/support-service.module').then(m => m.SupportServiceModule)
             },
@@ -49,6 +45,10 @@ const mainRoutes: Routes = [
             {
                 path: "tariff",
                 loadChildren: () => import('./tariff/tariff.module').then(m => m.TariffModule)
+            },
+            {
+                path: 'arcticle/:categoryId',
+                loadChildren: () => import('./arcticle-details/arcticle-details.module').then(m => m.ArcticleDetailsModule)
             }
         ]
     }

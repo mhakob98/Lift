@@ -11,21 +11,20 @@
       padding: 0;
       width: 100%;
       max-width: 210px;
-     
     }
     .input-content {
       padding: 0;
       max-width: 300px;
       width: 100%;
     }
-    .save-button{
+    .save-button {
       margin-left: 210px;
       background: #3399cc;
       color: white;
       padding: 13px 34px;
       cursor: pointer;
     }
-    .title{
+    .title {
       font-weight: 600;
     }
   }
@@ -34,10 +33,11 @@
     .select-title {
       color: #7d7d7d;
     }
-   
   }
 
-
+  .error {
+    margin-left: 210px;
+  }
 
   .password-form {
     .password-form-description {

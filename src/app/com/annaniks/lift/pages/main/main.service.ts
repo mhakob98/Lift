@@ -11,7 +11,7 @@ import { AccountConnectData, TwoFactorLoginData, ChallengeLoginData } from '../.
 
 @Injectable()
 export class MainService {
-    private _isShowDisabledView: boolean = false // true;
+    private _isShowDisabledView: boolean = true;
 
     constructor(
         private _httpClient: HttpClient,
@@ -53,7 +53,7 @@ export class MainService {
                     return data;
                 }),
                 catchError((err) => {
-                    // this.setShowDisabledView(true);
+                    this.setShowDisabledView(true);
                     this._authService.setAuthState(null);
                     return throwError(err);
                 })
@@ -80,17 +80,10 @@ export class MainService {
 
     public challengeLogin(data: ChallengeLoginData): Observable<any> {
         return this._httpClient.post('checkpoint-challenge', data);
-
     }
-
 
     public getShowDisabledView(): boolean {
         return this._isShowDisabledView;
-    }
-
-
-    public postAccountConnectionValues(body): Observable<any> {
-        return this._httpClient.post('', body);
     }
 
 }
