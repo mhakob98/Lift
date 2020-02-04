@@ -5,6 +5,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { TwoFactorLoginData, ChallengeLoginData } from '../../models/account';
 import { Subject } from 'rxjs';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -15,6 +16,7 @@ import { Subject } from 'rxjs';
 
 export class AccountConnectionModal implements OnInit, OnDestroy {
     private _unsubscribe$: Subject<void> = new Subject<void>();
+    private _isAccountConnected: boolean = false;
     private _isTwoFactorAuth: boolean = false;
     private _isChallangeAuth: boolean = false;
     private _twoFactorIdentifier: string;
@@ -30,7 +32,8 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
     constructor(
         private _fb: FormBuilder,
         private _mainService: MainService,
-        private _dialogRef: MatDialogRef<AccountConnectionModal>
+        private _dialogRef: MatDialogRef<AccountConnectionModal>,
+        private _authService: AuthService
     ) { }
 
     ngOnInit() {
@@ -60,6 +63,7 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
     private _connectAccount(): void {
         this.loading = true;
         this.errorMessage = undefined;
+        this._isAccountConnected = false;
         this._mainService.accountConnect({
             username: this.loginForm.value.email,
             password: this.loginForm.value.password,
@@ -71,7 +75,7 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
             .subscribe((data) => {
                 this.loginForm.get('email').disable();
                 this.loginForm.get('password').disable();
-                this._dialogRef.close();
+                this._dialogRef.close({ isAccountConnected: true });
             },
                 (err) => {
                     const error = err.error;
@@ -166,6 +170,12 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
         //         this._dialogRef.close();
         //     })
 
+    }
+
+    public onClickClose(): void {
+        if (!this.loading) {
+            this._dialogRef.close({ isAccountConnected: false });
+        }
     }
 
 

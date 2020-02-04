@@ -33,7 +33,7 @@ export class AfterSubscriptionComponent implements OnInit, OnDestroy {
     private _formBuilder: FormBuilder,
     private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService
   ) {
-    this._actions = []
+    this._actions = [];
   }
 
   ngOnInit() {

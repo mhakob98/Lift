@@ -3,9 +3,15 @@ import { RouterModule } from '@angular/router';
 
 // Our Shared Components
 import { CommonModule } from '@angular/common';
-import { LimitsComponent } from './limits/limits.component';
-import { FooterNavigationComponent } from './footer-navigation/footer-navigation.component';
-import { LineChartComponent } from './line-chart/line-chart.component';
+import {
+    LimitsComponent,
+    FooterNavigationComponent,
+    LineChartComponent,
+    UserDetailsComponent
+} from './components';
+
+// Our Shared Directives
+import { OnlyNumberDirective } from './directives';
 
 // 3rd Part Libraries
 import { ClickOutsideModule } from 'ng-click-outside';
@@ -29,7 +35,6 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 //Forms
 import { ReactiveFormsModule } from '@angular/forms';
-import { UserDetailsComponent } from './user-details/user-details.component';
 
 
 @NgModule({
@@ -38,6 +43,7 @@ import { UserDetailsComponent } from './user-details/user-details.component';
         FooterNavigationComponent,
         LineChartComponent,
         UserDetailsComponent,
+        OnlyNumberDirective
     ],
     imports: [
         CommonModule,
@@ -77,7 +83,8 @@ import { UserDetailsComponent } from './user-details/user-details.component';
         MatInputModule,
         PickerModule,
         UserDetailsComponent,
-        CalendarModule
+        CalendarModule,
+        OnlyNumberDirective
     ],
 })
 export class SharedModule { }

@@ -4,6 +4,7 @@ import { Subject, pipe } from 'rxjs';
 import { takeUntil, map } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { AccountConnectionModal } from '../../core/modals';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -15,7 +16,8 @@ export class MainComponent implements OnInit, OnDestroy {
 
   constructor(
     private _mainService: MainService,
-    private _matDialog: MatDialog
+    private _matDialog: MatDialog,
+    private _router: Router
   ) { }
 
   ngOnInit() {
@@ -31,7 +33,7 @@ export class MainComponent implements OnInit, OnDestroy {
             const user = data.data;
             if (user.instagramAccounts) {
               if (user.instagramAccounts.length === 0) {
-               this._openAccountConnectModal();
+                this._openAccountConnectModal();
               }
             }
             else {
@@ -52,7 +54,10 @@ export class MainComponent implements OnInit, OnDestroy {
     })
     dialofRef.afterClosed()
       .pipe(takeUntil(this._unsubscribe))
-      .subscribe(() => {
+      .subscribe((data: { isAccountConnected: boolean }) => {
+        if (data && !data.isAccountConnected) {
+          this._router.navigate(['/auth/login'])
+        }
         this._getUser();
       })
   }

@@ -6,30 +6,24 @@
                 (click)="closeModal()">
         </div>
         <div class="notificatin-form">
-
             <form [formGroup]="notificationForm">
                 <div class="form-group d-flex align-items-center">
                     <label for="select" class="col-form-label  label p-0">Отправлять</label>
                     <div class="tab-content d-flex">
-
-                        <mat-radio-group formControlName="tab">
+                        <mat-radio-group formControlName="notifyRange">
                             <mat-radio-button value="1" class="radio-button-item"
-                                [ngClass]="{'activeTab':notificationForm.get('tab').value=='1'}">Раз в день
+                                [ngClass]="{'activeTab':notificationForm.get('notifyRange')?.value=='1'}">Раз в день
                             </mat-radio-button>
                             <mat-radio-button value="2" class="radio-button-item"
-                                [ngClass]="{'activeTab':notificationForm.get('tab').value=='2'}">Раз в
-                                неделю</mat-radio-button>
-
+                                [ngClass]="{'activeTab':notificationForm.get('notifyRange')?.value=='2'}">Раз в
+                                неделю
+                            </mat-radio-button>
                             <mat-radio-button value="3" class="radio-button-item"
-                                [ngClass]="{'activeTab':notificationForm.get('tab').value=='3'}">Раз в
+                                [ngClass]="{'activeTab':notificationForm.get('notifyRange')?.value=='3'}">Раз в
                                 месяц</mat-radio-button>
-
                         </mat-radio-group>
-
-
                     </div>
                 </div>
-
                 <div class="form-group d-flex align-items-center">
                     <label for="select" class="col-form-label  label p-0">За период</label>
                     <div class="input-content">
@@ -38,119 +32,86 @@
                         </select>
                     </div>
                 </div>
-
-
-
                 <div class="form-group d-flex">
                     <label for="checkbox" class=" col-form-label label ">Показатели</label>
                     <div class="checkbox-container d-flex justify-content-between">
-
                         <div class="checkbox-item">
-
                             <div class="checkbox-content">
                                 <div class="checkbox-group d-flex">
                                     <mat-checkbox>
-
+                                        <span class="wrap-checkbox-label"> Выложено постов</span>
                                     </mat-checkbox>
-                                    <label> Выложено постов</label>
-
                                 </div>
                             </div>
                             <div class="checkbox-content">
                                 <div class="checkbox-group d-flex">
                                     <mat-checkbox>
-
+                                        <span class="wrap-checkbox-label"> Подписалось</span>
                                     </mat-checkbox>
-                                    <label> Подписалось</label>
-
                                 </div>
                             </div>
                             <div class="checkbox-content">
                                 <div class="checkbox-group d-flex">
                                     <mat-checkbox>
-
+                                        <span class="wrap-checkbox-label"> Поставлено лайков</span>
                                     </mat-checkbox>
-                                    <label> Поставлено лайков</label>
-
                                 </div>
                             </div>
                             <div class="checkbox-content">
                                 <div class="checkbox-group d-flex">
                                     <mat-checkbox>
-
+                                        <span class="wrap-checkbox-label"> Поставлено комментариев</span>
                                     </mat-checkbox>
-                                    <label> Поставлено комментариев</label>
-
                                 </div>
                             </div>
                             <div class="checkbox-content">
                                 <div class="checkbox-group d-flex">
                                     <mat-checkbox>
-
+                                        <span class="wrap-checkbox-label"> Топ 3(5) постов за период</span>
                                     </mat-checkbox>
-                                    <label> Топ 3(5) постов за период</label>
-
                                 </div>
                             </div>
-
                         </div>
-
-
                         <div class="checkbox-item">
-
                             <div class="checkbox-content">
                                 <div class="checkbox-group d-flex">
                                     <mat-checkbox>
-
+                                        <span class="wrap-checkbox-label"> Выложено Stories</span>
                                     </mat-checkbox>
-                                    <label> Выложено Stories</label>
-
-                                </div>
-
-                            </div>
-                            <div class="checkbox-content">
-                                <div class="checkbox-group d-flex">
-                                    <mat-checkbox>
-
-                                    </mat-checkbox>
-                                    <label> Отписались</label>
-
                                 </div>
                             </div>
                             <div class="checkbox-content">
                                 <div class="checkbox-group d-flex">
                                     <mat-checkbox>
-
+                                        <span class="wrap-checkbox-label"> Отписались</span>
                                     </mat-checkbox>
-                                    <label> Поставлено закладок</label>
-
                                 </div>
                             </div>
                             <div class="checkbox-content">
                                 <div class="checkbox-group d-flex">
                                     <mat-checkbox>
-
+                                        <span class="wrap-checkbox-label"> Поставлено закладок</span>
                                     </mat-checkbox>
-                                    <label> Всего действий</label>
-
                                 </div>
                             </div>
                             <div class="checkbox-content">
                                 <div class="checkbox-group d-flex">
                                     <mat-checkbox>
-
+                                        <span class="wrap-checkbox-label"> Всего действий</span>
                                     </mat-checkbox>
-
-                                    <label>
-                                        Соотношение затраченной суммы
-                                        к полученным действиям
-                                    </label>
-
                                 </div>
                             </div>
-
+                            <div class="checkbox-content">
+                                <div class="checkbox-group d-flex">
+                                    <mat-checkbox>
+                                        <span class="wrap-checkbox-label">
+                                            Соотношение затраченной суммы
+                                            к полученным действиям
+                                        </span>
+                                    </mat-checkbox>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
                 </div>
             </form>

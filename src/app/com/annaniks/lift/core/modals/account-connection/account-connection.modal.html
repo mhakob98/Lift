@@ -21,8 +21,8 @@
                 <form [formGroup]="loginForm">
                     <p class="error text-danger">{{errorMessage}}</p>
                     <div class="form-group">
-                        <label class="lable mb-1">Ваш адрес</label>
-                        <input type="text" class="form-control" formControlName="email" placeholder="Ваш адрес *"
+                        <label class="lable mb-1">Ваш аккаунт</label>
+                        <input type="text" class="form-control" formControlName="email" placeholder="Ваш аккаунт *"
                             value="" [ngClass]="{'border':checkIsValid('email')}">
                     </div>
                     <div class="form-group">
@@ -128,4 +128,5 @@
             </div>
         </div>
     </div>
+    <i class="close-icon material-icons cursor-pointer" (click)="onClickClose()">close</i>
 </div>

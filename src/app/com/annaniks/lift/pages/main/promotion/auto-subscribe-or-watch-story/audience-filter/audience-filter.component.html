@@ -21,9 +21,9 @@
                             <mat-checkbox formControlName="status">
                                 Диапазон подписчиков от
                             </mat-checkbox>
-                            <span class="checkbox-label"><input formControlName="min" class="range-input" type="text">
+                            <span class="checkbox-label"><input formControlName="min"  OnlyNumber="true" class="range-input" type="text">
                                 до
-                                <input formControlName="max" class="range-input" type="text">
+                                <input formControlName="max"  OnlyNumber="true" class="range-input" type="text">
                             </span>
                         </div>
                         <div formGroupName="folowings" class="inline-checkoxes">
@@ -31,24 +31,24 @@
                                 Диапазон подписок от
                             </mat-checkbox>
                             <span class="checkbox-label">
-                                <input formControlName="min" class="range-input" type="text"> до
-                                <input class="range-input" formControlName="max" type="text">
+                                <input formControlName="min"  OnlyNumber="true"class="range-input" type="text"> до
+                                <input class="range-input" OnlyNumber="true" formControlName="max" type="text">
                             </span>
                         </div>
                         <div formGroupName="likeInPhoto" class="inline-checkoxes">
                             <mat-checkbox formControlName="status">Количество лайков последнего поста от</mat-checkbox>
                             <span class="checkbox-label">
-                                <input formControlName="min" class="range-input" type="text"> до
-                                <input formControlName="max" class="range-input" type="text">
+                                <input formControlName="min" OnlyNumber="true" class="range-input" type="text"> до
+                                <input formControlName="max" OnlyNumber="true" class="range-input" type="text">
                             </span>
                         </div>
 
                         <div formGroupName="postCount" class="inline-checkoxes">
                             <mat-checkbox formControlName="status"> Количество публикаций от </mat-checkbox>
                             <span class="checkbox-label">
-                                <input formControlName="min" class="range-input" type="text">
+                                <input formControlName="min" OnlyNumber="true" class="range-input" type="text">
                                 до
-                                <input formControlName="max" class="range-input" type="text">
+                                <input formControlName="max" OnlyNumber="true" class="range-input" type="text">
                             </span>
                         </div>
 
@@ -60,7 +60,7 @@
                                 Последний пост не позже
                             </mat-checkbox>
                             <span class="checkbox-label">
-                                <input formControlName="age" class="range-input" type="text">
+                                <input formControlName="age" OnlyNumber="true" class="range-input" type="text">
                             </span>
                         </div>
 
@@ -68,7 +68,7 @@
                         <div formGroupName="lastStoryAge" class="inline-checkoxes">
                             <mat-checkbox formControlName="status"> Последний Story не позже </mat-checkbox>
                             <span class="checkbox-label">
-                                <input formControlName="age" class="range-input" type="text">
+                                <input formControlName="age" OnlyNumber="true" class="range-input" type="text">
                             </span>
                         </div>
 
