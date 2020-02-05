@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AutoSubscribeOrWatchStoryService } from './auto-subscribe-watch-story.service';
 import { SubSink } from 'subsink';
 import { AuthService } from '../../../../core/services/auth.service';
@@ -17,7 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
   public loading: boolean = false;
   private _subs = new SubSink();
-  public currentRoute = '';
+  public isAutosubscribe: boolean = false;
   public massfollowingData: AccountSettings = new AccountSettings();
 
   constructor(
@@ -25,10 +25,11 @@ export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
     private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService,
     private _authService: AuthService,
     private _loadingService: LoadingService,
-    private _toastrService: ToastrService
+    private _toastrService: ToastrService,
+    private _activatedRoute: ActivatedRoute
 
   ) {
-    this.currentRoute = this._router.url;
+    this.isAutosubscribe = this._activatedRoute.snapshot.data.type == 'subscribe';
   }
 
   ngOnInit() {
@@ -57,7 +58,7 @@ export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
   public onSettingsSave(): void {
     this._loadingService.showLoading();
     this._subs.add(
-      this._autoSubscribeOrWatchStoryService.saveSettings()
+      this._autoSubscribeOrWatchStoryService.saveSettings(this.isAutosubscribe)
         .pipe(finalize(() => this._loadingService.hideLoading()))
         .subscribe((data) => {
           this._toastrService.success('Изменение успешно сохранены');
@@ -73,8 +74,10 @@ export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
 
   public getSettings(accountId: number): Observable<any> {
     this._loadingService.showLoading()
-    return this._autoSubscribeOrWatchStoryService.getSettings(accountId)
-      .pipe(finalize(() => this._loadingService.hideLoading()));
+    return this._autoSubscribeOrWatchStoryService.getSettings(this.isAutosubscribe, accountId)
+      .pipe(finalize(() => {
+        this._loadingService.hideLoading()
+      }));
   }
 
   ngOnDestroy() {
