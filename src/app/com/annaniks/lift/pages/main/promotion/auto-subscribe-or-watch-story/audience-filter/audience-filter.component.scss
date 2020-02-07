@@ -74,6 +74,7 @@
 .filters-container {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   padding: 52px 45px 49px 0;
 }
 textarea {

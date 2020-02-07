@@ -1,0 +1,15 @@
+@media only screen and (max-width: 1200px) {
+  .limits {
+    .limit-item:not(:last-child) {
+      margin-right: 105px !important;
+    }
+  }
+  .subscription-heder {
+    padding: 0 20px;
+  }
+  .search-tab-item {
+    p {
+      font-size: 16px !important;
+    }
+  }
+}

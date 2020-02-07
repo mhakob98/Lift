@@ -19,12 +19,13 @@
                 <label for="select" class="col-form-label  label p-0">Часовой пояс</label>
                 <div class="input-content">
                     <select id="select" name="select" class="custom-select" formCotrolName="time">
-                        <option value="(GMT +3) Москва">(GMT +3) Москва </option>
+                        <option value="+4:00">(GMT +3) Москва </option>
                     </select>
                     <p class="select-title mt-3">Локальное время 10:25</p>
                 </div>
             </div>
-            <button name="submit" type="submit" class="btn save-button" [disabled]="loginForm.invalid">Сохранить
+            <button name="submit" type="submit" (click)="changeMe('loginForm')" class="btn save-button"
+                [disabled]="loginForm.invalid || loading">Сохранить
                 изменения</button>
         </form>
     </div>
@@ -71,7 +72,7 @@
         <form [formGroup]="notificationForm">
             <div class="form-group">
                 <div class="enable-notification">
-                    <mat-checkbox>
+                    <mat-checkbox formControlName="notification">
                         Включить уведомления по Email
                     </mat-checkbox>
                 </div>
@@ -99,10 +100,14 @@
                     </div>
                 </div>
             </div>
+            <button name="submit" type="submit" (click)="changeMe('notificationForm')" class="btn save-button"
+                [disabled]="notificationForm.invalid || loading">Сохранить
+                изменения</button>
         </form>
     </div>
     <div class="d-flex next-button-content">
-        <button name="submit" type="submit" class="btn next-button m-auto">Дальше<img src="assets/icons/next.png"
+        <button [disabled]="loading" (click)="changeMe()" name="submit" type="submit"
+            class="btn next-button m-auto">Дальше<img src="assets/icons/next.png"
                 class="rounded img-responsive next-image ml-3"></button>
     </div>
 </div>
