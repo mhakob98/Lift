@@ -8,12 +8,12 @@ import { EmptyResponse } from '../../../../core/models/empty-response';
 import { ServerResponse } from '../../../../core/models/server-response';
 import { Search, SearchTerm } from '../../../../core/models/search';
 import { AuthService } from '../../../../core/services/auth.service';
-import { AccountSettings } from '../../../../core/models/account';
+import { MassFollowingSettings } from '../../../../core/models/account';
 
 @Injectable()
 export class AutoSubscribeOrWatchStoryService {
-    private _settingsEvent$ = new BehaviorSubject<AccountSettings>(new AccountSettings());
-    public settings: AccountSettings;
+    private _settingsEvent$ = new BehaviorSubject<MassFollowingSettings>(new MassFollowingSettings());
+    public settings: MassFollowingSettings;
 
     public addedConditionsSubject$ = new Subject<{ prev: string, next: string }>();
     public addedConditionsObservable$ = new Observable<{ prev: string, next: string }>();
@@ -50,15 +50,15 @@ export class AutoSubscribeOrWatchStoryService {
         return this._httpClient.post<ServerResponse<EmptyResponse>>(isAutosubscribe ? 'massfollowing' : 'masslooking', sendingData)
     }
 
-    public getSettings(isAutosubscribe: boolean, activeAccountId: number): Observable<ServerResponse<AccountSettings>> {
-        return this._httpClient.get<ServerResponse<AccountSettings>>(isAutosubscribe ? `massfollowing/${activeAccountId}` : `masslooking/${activeAccountId}`)
+    public getSettings(isAutosubscribe: boolean, activeAccountId: number): Observable<ServerResponse<MassFollowingSettings>> {
+        return this._httpClient.get<ServerResponse<MassFollowingSettings>>(isAutosubscribe ? `massfollowing/${activeAccountId}` : `masslooking/${activeAccountId}`)
             .pipe(
                 map((data) => {
                     if (data && data.data) {
                         this.settings = data.data;
                     }
                     else {
-                        this.settings = new AccountSettings();
+                        this.settings = new MassFollowingSettings();
                     }
                     this._settingsEvent$.next(this.settings);
                     return data;
@@ -74,11 +74,11 @@ export class AutoSubscribeOrWatchStoryService {
     }
 
     public resetSettings(): void {
-        this.settings = new AccountSettings();
+        this.settings = new MassFollowingSettings();
         this._settingsEvent$.next(this.settings);
     }
 
-    get settingsState(): Observable<AccountSettings> {
+    get settingsState(): Observable<MassFollowingSettings> {
         return this._settingsEvent$.asObservable();
     }
 }

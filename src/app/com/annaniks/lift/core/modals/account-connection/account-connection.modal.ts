@@ -33,11 +33,11 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
         private _fb: FormBuilder,
         private _mainService: MainService,
         private _dialogRef: MatDialogRef<AccountConnectionModal>,
-        private _authService: AuthService
     ) { }
 
     ngOnInit() {
         this._formBuilder();
+        this._getAccountSettingsVariants();
     }
 
     private _formBuilder(): void {
@@ -58,6 +58,14 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
         this.actionForm = this._fb.group({
             action: [null, Validators.required]
         })
+    }
+
+    private _getAccountSettingsVariants(): void {
+        this._mainService.getAccountSettingsVariants()
+            .pipe(takeUntil(this._unsubscribe$))
+            .subscribe((data)=>{
+                console.log(data);
+            })
     }
 
     private _connectAccount(): void {

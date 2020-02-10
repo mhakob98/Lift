@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, FormArray, AbstractControl } from '@angular/for
 import { SubSink } from 'subsink';
 import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
 import { Subject } from 'rxjs';
-import { AccountSettings, Condition } from 'src/app/com/annaniks/lift/core/models/account';
+import { MassFollowingSettings, Condition } from 'src/app/com/annaniks/lift/core/models/account';
 import { takeUntil } from 'rxjs/operators';
 import { SubscriptionParam } from 'src/app/com/annaniks/lift/core/models/subscription-parameter';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -30,14 +30,14 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._initForm();
-    this._handleAccountSettingsEvent();
+    this._handleMassFollowingSettingsEvent();
     this._bindValues()
   }
 
-  private _handleAccountSettingsEvent(): void {
+  private _handleMassFollowingSettingsEvent(): void {
     this._autoSubscribeOrWatchStoryService.settingsState
       .pipe(takeUntil(this._unsubscribe$))
-      .subscribe((settings: AccountSettings) => {
+      .subscribe((settings: MassFollowingSettings) => {
         if (settings) {
           this.conditions = [];
           if (settings.tags && settings.tags.length > 0) {
