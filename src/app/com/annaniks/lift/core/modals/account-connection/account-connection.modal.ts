@@ -6,6 +6,7 @@ import { finalize, takeUntil } from 'rxjs/operators';
 import { TwoFactorLoginData, ChallengeLoginData } from '../../models/account';
 import { Subject } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
+import { UserType } from '../../models/account-settings';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
     public showCode: boolean = false;
     public errorMessage: string;
     public loading: boolean = false;
+    public userTypes: UserType[] = [];
 
     constructor(
         private _fb: FormBuilder,
@@ -48,6 +50,7 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
         this.tariffForm = this._fb.group({
             tariff: [null, Validators.required]
         })
+
         this.promotionForm = this._fb.group({
             autosubscription: [false],
             autoreviewstories: [false],
@@ -64,7 +67,8 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
         this._mainService.getAccountSettingsVariants()
             .pipe(takeUntil(this._unsubscribe$))
             .subscribe((data) => {
-                console.log(data);
+                this.userTypes = data.data.userTypes;
+                console.log(this.userTypes, "jjkjkhjkhjkjhkhkh");
             })
     }
 
@@ -190,7 +194,13 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
         this._unsubscribe$.next();
         this._unsubscribe$.complete();
     }
+    public onclick(id) {
+        // console.log(id,"sdsdsdsd");
+        console.log(this.tariffForm.value.tariff);
 
+
+
+    }
 
 
 }
