@@ -12,12 +12,17 @@
                                     <input id="link" name="link"
                                         placeholder="https://liftme.pro/partnerlink 8002896share"
                                         class="form-control here" required="required" type="text" [(ngModel)]="link" #inputlink>
+                                    <input id="link-to-copy" name="link"
+                                        value="https://liftme.pro/partnerlink 8002896share" class="form-control here"
+                                        required="required" type="text">
                                 </div>
                             </div>
                             <div class="d-flex align-items-center card-description">
                                 <img src="assets/icons/copy.png"
                                     class="rounded img-responsive  cursor-pointer description-icon" (click)="copyInputMessage(inputlink)">
                                 <p class="cord-text ml-2">Скопировать ссылку в буфер</p>
+                                    class="rounded img-responsive  cursor-pointer description-icon">
+                                <p class="cord-text ml-2" (click)="copyToClipboard()">Скопировать ссылку в буфер</p>
                             </div>
                         </div>
                     </div>

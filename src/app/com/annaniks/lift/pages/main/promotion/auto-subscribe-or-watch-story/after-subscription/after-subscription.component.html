@@ -18,7 +18,7 @@
 
                     <div formGroupName="lastPostLikes" class="inline-checkoxes">
                         <mat-checkbox formControlName="status">Ставить</mat-checkbox>
-                        <span class="checkbox-label"> <input formControlName="count" class="range-input" type="number">
+                        <span class="checkbox-label"> <input formControlName="count" OnlyNumber="true" class="range-input" type="text">
                             лайков последним
                             постам</span>
                     </div>
@@ -39,7 +39,7 @@
                     </div>
                     <div formGroupName="unfollowDays" class="inline-checkoxes">
                         <mat-checkbox formControlName="status">Отписываться через</mat-checkbox>
-                        <span class="checkbox-label"> <input formControlName="count" class="range-input" type="number">
+                        <span class="checkbox-label"> <input formControlName="count" class="range-input" OnlyNumber="true" type="text">
                             дней</span>
                     </div>
                 </form>

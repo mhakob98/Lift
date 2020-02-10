@@ -78,6 +78,12 @@
     background: #3399cc !important;
 }
 
+.wrap-checkbox-label{
+    max-width: 100%;
+    word-break: break-word;
+    white-space: normal;
+}
+
 // ::ng-deep .mat-dialog-container {
 //     padding: 0 !important;
 // }

@@ -3,7 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
-    selector: "notification-modal",
+    selector: "app-notification-modal",
     templateUrl: "notification.modal.html",
     styleUrls: ["notification.modal.scss"]
 })
@@ -19,20 +19,17 @@ export class NotificationModal implements OnInit {
         this._formBuilder();
     }
 
-
+    private _formBuilder(): void {
+        this.notificationForm = this._fb.group({
+            time: [],
+            notifyRange: []
+        })
+    }
 
     public closeModal(): void {
         this._dialogRef.close();
     }
-    public _formBuilder(): void {
-        this.notificationForm = this._fb.group({
-            time: [],
-            tab: []
-        })
-        this.notificationForm.get('tab').valueChanges.subscribe((data) => {
-            console.log(data);
 
-        })
-    }
+
 
 }

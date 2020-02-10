@@ -1,4 +1,6 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { GestureConfig } from '@angular/material';
+
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -15,8 +17,6 @@ import { JwtInterceptor } from './com/annaniks/lift/core/interceptors/jwt.interc
 import { LoadingService } from './com/annaniks/lift/core/services/loading-service';
 import { LoadingComponent } from './com/annaniks/lift/layout/loading/loading.component';
 import { ToastrModule } from 'ngx-toastr';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +47,8 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
       multi: true
-    }
+    },
+    { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig },
   ],
   bootstrap: [AppComponent]
 })

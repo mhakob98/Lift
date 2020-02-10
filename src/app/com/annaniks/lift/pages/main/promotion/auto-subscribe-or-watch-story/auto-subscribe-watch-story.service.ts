@@ -29,7 +29,7 @@ export class AutoSubscribeOrWatchStoryService {
         return this._httpClient.get<ServerResponse<Search>>(`instagram-search/${searchTerm.query.replace(/\#/g, " ") || ''}/${searchTerm.type}`)
     }
 
-    public saveSettings(): Observable<ServerResponse<EmptyResponse>> {
+    public saveSettings(isAutosubscribe: boolean): Observable<ServerResponse<EmptyResponse>> {
         const sendingData = {
             loginId: this._authService.getAccount().id.toString(),
             tags: this.settings.tags || [],
@@ -47,11 +47,11 @@ export class AutoSubscribeOrWatchStoryService {
             subscribesPerHour: this.settings.subscribesPerHour || 10
 
         }
-        return this._httpClient.post<ServerResponse<EmptyResponse>>('massfollowing', sendingData)
+        return this._httpClient.post<ServerResponse<EmptyResponse>>(isAutosubscribe ? 'massfollowing' : 'masslooking', sendingData)
     }
 
-    public getSettings(activeAccountId: number): Observable<ServerResponse<AccountSettings>> {
-        return this._httpClient.get<ServerResponse<AccountSettings>>(`massfollowing/${activeAccountId}`)
+    public getSettings(isAutosubscribe: boolean, activeAccountId: number): Observable<ServerResponse<AccountSettings>> {
+        return this._httpClient.get<ServerResponse<AccountSettings>>(isAutosubscribe ? `massfollowing/${activeAccountId}` : `masslooking/${activeAccountId}`)
             .pipe(
                 map((data) => {
                     if (data && data.data) {

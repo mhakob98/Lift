@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Limits } from '../../core/models/limits';
-import { AuthService } from '../../core/services/auth.service';
+import { Limits } from '../../../core/models/limits';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-limits',

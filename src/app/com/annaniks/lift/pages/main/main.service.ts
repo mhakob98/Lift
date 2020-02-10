@@ -47,7 +47,7 @@ export class MainService {
                     this._authService.setUserState(user);
                     if (!this._authService.getAccount() || (this._authService.getAccount() && !this._authService.getAccount().id)) {
                         if (user && user.instagramAccounts && user.instagramAccounts.length > 0) {
-                            this._authService.setAccount(data.data.instagramAccounts[0])
+                            this._authService.setAccount(user.instagramAccounts[0])
                         }
                     }
                     return data;
@@ -82,6 +82,9 @@ export class MainService {
         return this._httpClient.post('checkpoint-challenge', data);
     }
 
+    public deleteInstaAccount() {
+        return this._httpClient.delete(`instagram-connect/${this._authService.getAccount().id}`);
+    }
     public getShowDisabledView(): boolean {
         return this._isShowDisabledView;
     }
