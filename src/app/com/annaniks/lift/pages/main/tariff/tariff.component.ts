@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { TariffService } from './tariff.service';
-import { TariffOperation, Tariff } from '../../../core/models/tariff';
+import { TariffTransaction, Tariff } from '../../../core/models/tariff';
 
 @Component({
     selector: "app-tariff",
@@ -13,20 +13,20 @@ export class TariffComponent implements OnInit {
     public tariff: Tariff;
     public localImage: string = "assets/images/boy.png";
 
-    public tariffOperation: TariffOperation[] = [
-        { data: "12 Января 2020", operation: "Списание со счета", cost: 1200, status: "проведено" },
-        { data: "12 Января 2020", operation: "Списание со счета", cost: 1200, status: "проведено" },
-        { data: "12 Января 2020", operation: "Списание со счета", cost: 1200, status: "проведено" },
-        { data: "12 Января 2020", operation: "Списание со счета", cost: 1200, status: "проведено" },
-        { data: "12 Января 2020", operation: "Списание со счета", cost: 1200, status: "проведено" },
-        { data: "12 Января 2020", operation: "Списание со счета", cost: 1200, status: "проведено" },
-        { data: "12 Января 2020", operation: "Списание со счета", cost: 1200, status: "Отменено" },
+    public tariffTransaction: TariffTransaction[] = [
+        // { data: "12 Января 2020", operation: "Списание со счета", cost: 1200, status: "проведено" },
+        // { data: "12 Января 2020", operation: "Списание со счета", cost: 1200, status: "проведено" },
+        // { data: "12 Января 2020", operation: "Списание со счета", cost: 1200, status: "проведено" },
+        // { data: "12 Января 2020", operation: "Списание со счета", cost: 1200, status: "проведено" },
+        // { data: "12 Января 2020", operation: "Списание со счета", cost: 1200, status: "проведено" },
+        // { data: "12 Января 2020", operation: "Списание со счета", cost: 1200, status: "проведено" },
+        // { data: "12 Января 2020", operation: "Списание со счета", cost: 1200, status: "Отменено" },
     ];
     constructor(private _tariffService: TariffService) { }
 
     ngOnInit() {
         this._getTariff();
-     this. _getTariffOpetation();
+     this. _getTariffTransaction();
     }
 
 
@@ -39,9 +39,11 @@ export class TariffComponent implements OnInit {
         })
     }
 
-    private _getTariffOpetation(): void {
-        this._tariffService.getTariffOpetation().subscribe((data) => {
-            // this.tariffOperation = data.data;
+    private _getTariffTransaction(): void {
+        this._tariffService.getTariffTransaction().subscribe((data) => {
+             this.tariffTransaction = data.data;
+            console.log(this.tariffTransaction,"fdfdfdfdfdf");
+            
         })
     }
 }

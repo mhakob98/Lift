@@ -44,18 +44,12 @@
                 </p>
             </div>
 
-
-
-
-
-
-
             <div class="tarif-container text-center" *ngSwitchCase="2">
                 <p class="title text-center">Выбор тарифа</p>
                 <form [formGroup]="tariffForm">
                     <div class="form-group radio-button-group mt-3" *ngFor="let item of userTypes"
-                        [ngClass]="{'activRadioButton':tariffForm.get('tariff').value==item.id}" (click)="onclick(item.id)">
-                        <label class="d-flex h-100" [for]="item.id" class="w-100">
+                        [ngClass]="{'activRadioButton':tariffForm.get('tariff').value==item.id}" (click)="joinToTariff(item.id)">
+                        <label [for]="item.id" class="w-100 h-100 cursor-pointer  d-flex">
                             <p class="m-auto">{{item?.name}} - что входит</p>
                         </label>
                         <input formControlName="tariff" [id]="item?.id" class="d-none"  type="radio" [value]="item.id">
@@ -63,14 +57,6 @@
                 </form>
                 <button type="submit" class="btn main-button mt-4 mb-4" [disabled]="tariffForm.invalid || loading" (click)="changeTab(3)">Дальше</button>
             </div>
-
-
-
-
-
-
-
-
 
             <div class="promotion-container text-center" *ngSwitchCase="3">
                 <p class="title text-center">Включение Автопродвижени</p>

@@ -6,7 +6,7 @@ import { finalize, takeUntil } from 'rxjs/operators';
 import { TwoFactorLoginData, ChallengeLoginData } from '../../models/account';
 import { Subject } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
-import {  UserType } from '../../models/account-settings';
+import { UserType } from '../../models/account-settings';
 
 
 @Component({
@@ -29,7 +29,7 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
     public showCode: boolean = false;
     public errorMessage: string;
     public loading: boolean = false;
-    public userTypes:UserType[]=[];
+    public userTypes: UserType[] = [];
 
     constructor(
         private _fb: FormBuilder,
@@ -50,7 +50,7 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
         this.tariffForm = this._fb.group({
             tariff: [null, Validators.required]
         })
-      
+
         this.promotionForm = this._fb.group({
             autosubscription: [false],
             autoreviewstories: [false],
@@ -66,9 +66,8 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
     private _getAccountSettingsVariants(): void {
         this._mainService.getAccountSettingsVariants()
             .pipe(takeUntil(this._unsubscribe$))
-            .subscribe((data)=>{
-                this.userTypes=data.data.userTypes;
-                console.log(this.userTypes,"jjkjkhjkhjkjhkhkh");
+            .subscribe((data) => {
+                this.userTypes = data.data.userTypes;
             })
     }
 
@@ -194,13 +193,17 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
         this._unsubscribe$.next();
         this._unsubscribe$.complete();
     }
-public onclick(id){
-    // console.log(id,"sdsdsdsd");
-   console.log(  this.tariffForm.value.tariff);
-  
-        
 
-}
+
+
+
+    public joinToTariff(id) {
+        this._mainService.joinToTariff({
+            tariffId:id,
+        }).subscribe((data)=>{
+            
+        })
+    }
 
 
 }

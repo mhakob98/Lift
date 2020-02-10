@@ -64,11 +64,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of tariffOperation">
-                        <td>{{item?.data}}</td>
-                        <td>{{item?.operation}}</td>
-                        <td class="d-flex">{{item?.cost}}<p class="ml-2">руб</p></td>
-                        <td class="income-text" [ngClass]="{'color':item.status=='Отменено'}">{{item?.status}}</td>
+                    <tr *ngFor="let item of tariffTransaction">
+                        <td>{{item?.id}}</td>
+                        <td>{{item?.operationName}}</td>
+                        <td class="d-flex">{{item?.value}}<p class="ml-2">руб</p></td>
+                        <td>{{item?.status}}</td>
+                        <!-- <td class="income-text" [ngClass]="{'color':item.status=='Отменено'}">{{item?.status}}</td> -->
                     </tr>
 
                 </tbody>

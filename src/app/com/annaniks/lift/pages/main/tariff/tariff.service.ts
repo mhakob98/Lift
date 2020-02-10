@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { TariffOperation, Tariff } from '../../../core/models/tariff';
+import { TariffTransaction, Tariff } from '../../../core/models/tariff';
 import { ServerResponse } from '../../../core/models/server-response';
 
 
@@ -16,7 +16,7 @@ export class TariffService {
         return this._httpClient.get<ServerResponse<Tariff[]>>('')
     }
 
-    public getTariffOpetation(): Observable<ServerResponse<TariffOperation[]>> {
-        return this._httpClient.get<ServerResponse<TariffOperation[]>>('')
+    public getTariffTransaction(): Observable<ServerResponse<TariffTransaction[]>> {
+        return this._httpClient.get<ServerResponse<TariffTransaction[]>>('tariff/transaction')
     }
 }
