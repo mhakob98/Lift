@@ -90,15 +90,19 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
           console.log(this._autoSubscribeOrWatchStoryService.settings);
 
           this.suitableSubsOrStoryForm.patchValue({
-            maximumPerDay: this._autoSubscribeOrWatchStoryService.settings.subscribesPerDay,
-            maximumPerHour: this._autoSubscribeOrWatchStoryService.settings.subscribesPerHour
+            maximumPerDay: this._autoSubscribeOrWatchStoryService.settings.subscribesPerDay || 0,
+            maximumPerHour: this._autoSubscribeOrWatchStoryService.settings.subscribesPerHour || 0
           })
         }
       })
   }
 
   public onTypeChanged($event: SubscriptionParam, index: number): void {
+
     this.conditions[index].type = $event;
+    setTimeout(() => {
+      console.log(this.conditions, $event, index);
+    }, 2000);
   }
 
   ngOnDestroy() {

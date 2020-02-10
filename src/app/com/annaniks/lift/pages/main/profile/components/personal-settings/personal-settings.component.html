@@ -190,8 +190,9 @@
         </form>
     </div>
     <div class="d-flex save-button-content">
-        <button name="submit" type="submit" class="btn save-button">Сохранить и перейти дальше<img
-                src="assets/icons/next.png" class="rounded img-responsive save-image ml-3"></button>
+        <button name="submit" type="submit" (click)="changeMe()"
+            [disabled]="loading || contactForm.invalid || dataForm.invalid" class="btn save-button">Сохранить и перейти
+            дальше<img src="assets/icons/next.png" class="rounded img-responsive save-image ml-3"></button>
     </div>
 
 

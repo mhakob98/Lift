@@ -38,6 +38,7 @@
               "src/assets/scss/styles/base/_mixins.scss",
               "src/assets/fonts/_fonts.scss",
               "src/styles.scss",
+              "src/assets/scss/styles/_responsive.scss",
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeng/resources/themes/nova-light/theme.css",
               "node_modules/primeng/resources/primeng.min.css",

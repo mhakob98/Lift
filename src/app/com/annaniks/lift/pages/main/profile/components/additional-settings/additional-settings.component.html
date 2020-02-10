@@ -70,8 +70,8 @@
             </form>
         </div>
         <div class="d-flex save-button-content">
-            <button name="submit" type="submit" class="btn save-button m-auto"
-                [disabled]="pagesForm.invalid">Сохранить</button>
+            <button name="submit" type="submit" class="btn save-button m-auto" [disabled]="pagesForm.invalid || loading"
+                (click)="changeMe()">Сохранить</button>
         </div>
     </div>
 </div>
