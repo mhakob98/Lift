@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, Input, AfterViewInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProfileService } from '../../profile.service';
 import { Subject } from 'rxjs';
 import { takeUntil, finalize } from 'rxjs/operators';
 import { ChangeMe } from 'src/app/com/annaniks/lift/core/models/change-me';
+import { User } from 'src/app/com/annaniks/lift/core/models/user';
 
 @Component({
     selector: "personal-settings",
@@ -11,7 +12,14 @@ import { ChangeMe } from 'src/app/com/annaniks/lift/core/models/change-me';
     styleUrls: ["personal-settings.component.scss"]
 })
 
-export class PersonalSettings implements OnInit, OnDestroy {
+export class PersonalSettings implements OnInit, OnDestroy, AfterViewInit {
+    @Input('user')
+    set _userData(event) {
+        this._formBuilder();
+        if (event) {
+            this._bindPersonalSettings(event);
+        }
+    }
     private _unsubscribe$: Subject<void> = new Subject<void>();
     public dataForm: FormGroup;
     public contactForm: FormGroup;
@@ -23,12 +31,14 @@ export class PersonalSettings implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-        this._formBuilder();
+    }
+
+    ngAfterViewInit() {
+        console.log(this._userData);
     }
 
     private _formBuilder(): void {
         this.dataForm = this._fb.group({
-            lastname: ["", Validators.required],
             name: ["", Validators.required],
             day: ["", Validators.required],
             month: ["", Validators.required],
@@ -39,6 +49,8 @@ export class PersonalSettings implements OnInit, OnDestroy {
             phoneNumber: ["", Validators.required],
             currentCity: ["", Validators.required]
         })
+        this.dataForm.valueChanges.subscribe(() => console.log(this.dataForm))
+
     }
 
 
@@ -51,7 +63,7 @@ export class PersonalSettings implements OnInit, OnDestroy {
         let dataForm = this.dataForm.value
         let contactForm = this.contactForm.value
         let sendingData: ChangeMe = {
-            name: dataForm.name + dataForm.lastname,
+            name: dataForm.name,
             male: dataForm.male,
             dbDay: dataForm.day,
             dbMount: dataForm.month,
@@ -69,6 +81,22 @@ export class PersonalSettings implements OnInit, OnDestroy {
                 console.log(response);
 
             })
+    }
+
+    private _bindPersonalSettings(settings): void {
+
+        this.contactForm.patchValue({
+            phoneNumber: settings.city,
+            currentCity: settings.phone
+        })
+
+        this.dataForm.patchValue({
+            name: settings.name,
+            day: settings.day,
+            month: settings.month,
+            year: settings.year,
+            male: settings.male == 'male ' ? true : false
+        })
     }
 
     ngOnDestroy() {

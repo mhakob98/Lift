@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, Input, AfterViewInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProfileService } from '../../profile.service';
 import { takeUntil, finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ChangeMe } from 'src/app/com/annaniks/lift/core/models/change-me';
+import { User } from 'src/app/com/annaniks/lift/core/models/user';
 
 @Component({
     selector: "additional-settings",
@@ -11,7 +12,14 @@ import { ChangeMe } from 'src/app/com/annaniks/lift/core/models/change-me';
     styleUrls: ["additional-settings.component.scss"]
 })
 
-export class AdditionalSettings implements OnInit, OnDestroy {
+export class AdditionalSettings implements OnInit, OnDestroy, AfterViewInit {
+    @Input('user')
+    set _userData(event) {
+        this._formBuilder();
+        if (event) {
+            this._bindPersonalSettings(event);
+        }
+    }
 
     private _unsubscribe$: Subject<void> = new Subject<void>();
     public additionalForm: FormGroup;
@@ -24,7 +32,10 @@ export class AdditionalSettings implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-        this._formBuilder();
+    }
+
+    ngAfterViewInit() {
+        console.log(this._userData);
     }
 
     private _formBuilder(): void {
@@ -68,6 +79,22 @@ export class AdditionalSettings implements OnInit, OnDestroy {
                 console.log(response);
 
             })
+    }
+
+    private _bindPersonalSettings(settings): void {
+        console.log(settings);
+
+        this.pagesForm.patchValue({
+            instagram: settings.instagramLink,
+            facebook: settings.facebookLink
+        })
+        this.additionalForm.patchValue({
+            // service: settings.service,
+            // occupation: settings.occupation,
+            // activity
+            description: settings.aboutYourself
+        })
+
     }
 
     ngOnDestroy() {
