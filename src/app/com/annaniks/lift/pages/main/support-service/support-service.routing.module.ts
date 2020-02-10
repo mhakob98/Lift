@@ -7,7 +7,8 @@ import { SupportServiceComponent } from './support-service.component';
 import { AddQuestionComponent } from './add-question/add-question.component';
 
 const supportServiceRoutes: Routes = [
-    { path: '', component: SupportServiceComponent }
+    { path: '', component: SupportServiceComponent },
+
 ]
 
 @NgModule({
@@ -15,6 +16,6 @@ const supportServiceRoutes: Routes = [
     exports: [RouterModule]
 })
 export class SupportServiceRoutingModule {
-    static components = [SupportServiceComponent,AddQuestionComponent];
+    static components = [SupportServiceComponent, AddQuestionComponent];
     static entryComponents = [AddQuestionComponent];
 }

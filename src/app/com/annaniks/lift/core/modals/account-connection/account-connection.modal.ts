@@ -199,9 +199,9 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
 
     public joinToTariff(id) {
         this._mainService.joinToTariff({
-            tariffId:id,
-        }).subscribe((data)=>{
-            
+            tariffId: id,
+        }).subscribe((data) => {
+
         })
     }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, Input, AfterViewInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NotificationModal } from '../notification-modal/notification.modal';
@@ -9,6 +9,7 @@ import { Subject } from 'rxjs';
 import { MatchPassword } from '../../../../../core/utilities/match-password';
 import { ToastrService } from 'ngx-toastr';
 import { ChangeMe } from 'src/app/com/annaniks/lift/core/models/change-me';
+import { User } from 'src/app/com/annaniks/lift/core/models/user';
 
 @Component({
     selector: "basic-settings",
@@ -16,7 +17,15 @@ import { ChangeMe } from 'src/app/com/annaniks/lift/core/models/change-me';
     styleUrls: ["basic-settings.component.scss"]
 })
 
-export class BasicSettingsComponent implements OnInit, OnDestroy {
+export class BasicSettingsComponent implements OnInit, OnDestroy, AfterViewInit {
+    @Input('user')
+    set _userData(event) {
+        this._formBuilder();
+        if (event) {
+            this._bindPersonalSettings(event);
+        }
+    }
+
     private _unsubscribe$: Subject<void> = new Subject<void>();
     private _matchPassword: MatchPassword = new MatchPassword();
     public loginForm: FormGroup;
@@ -34,7 +43,11 @@ export class BasicSettingsComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-        this._formBuilder();
+    }
+
+    ngAfterViewInit() {
+        console.log(this._userData);
+
     }
 
     private _formBuilder(): void {
@@ -76,6 +89,8 @@ export class BasicSettingsComponent implements OnInit, OnDestroy {
                     this._toastrService.error(this.passwordErrorMessage);
                 })
     }
+
+
 
     public openNotificationModal(): void {
         this._dialog.open(NotificationModal, {
@@ -126,6 +141,14 @@ export class BasicSettingsComponent implements OnInit, OnDestroy {
 
             })
     }
+
+    private _bindPersonalSettings(settings): void {
+        this.notificationForm.patchValue({
+            notification: settings.notification,
+            email: settings.email
+        })
+    }
+
 
     ngOnDestroy() {
         this._unsubscribe$.next();

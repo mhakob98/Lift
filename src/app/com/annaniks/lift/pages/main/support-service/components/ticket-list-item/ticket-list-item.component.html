@@ -1,4 +1,5 @@
-<a class="ticket-list-item w-100 cursor-pointer d-flex align-items-center" [ngClass]="{'active':active}" href="#">
+<a class="ticket-list-item w-100 cursor-pointer d-flex align-items-center" [ngClass]="{'active':active}"
+    [routerLink]="'/ticket/2'">
     <p class="date"><strong>от 12 Января 2020</strong></p>
     <p class="message">Здравствуйте! Хотел спросить, можно ли из моего аккаунта...</p>
     <p class="status">{{(active) ? 'Открыт' : 'Закрыт'}}</p>
