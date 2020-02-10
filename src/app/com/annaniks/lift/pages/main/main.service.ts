@@ -8,6 +8,7 @@ import { User } from '../../core/models/user';
 import { map, catchError } from 'rxjs/operators';
 import { AuthService } from '../../core/services/auth.service';
 import { AccountConnectData, TwoFactorLoginData, ChallengeLoginData } from '../../core/models/account';
+import { AccountSettings } from '../../core/models/account-settings';
 
 @Injectable()
 export class MainService {
@@ -71,7 +72,7 @@ export class MainService {
     }
 
     public getAccountSettingsVariants():Observable<ServerResponse<any>>{
-        return this._httpClient.get<ServerResponse<any>>('settings')
+        return this._httpClient.get<ServerResponse<AccountSettings>>('settings')
     }
 
     public accountConnect(data: AccountConnectData): Observable<any> {
