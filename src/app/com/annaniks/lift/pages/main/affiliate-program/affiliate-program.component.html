@@ -11,12 +11,12 @@
                                 <div class="input-content">
                                     <input id="link" name="link"
                                         placeholder="https://liftme.pro/partnerlink 8002896share"
-                                        class="form-control here" required="required" type="text">
+                                        class="form-control here" required="required" type="text" [(ngModel)]="link" #inputlink>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center card-description">
                                 <img src="assets/icons/copy.png"
-                                    class="rounded img-responsive  cursor-pointer description-icon">
+                                    class="rounded img-responsive  cursor-pointer description-icon" (click)="copyInputMessage(inputlink)">
                                 <p class="cord-text ml-2">Скопировать ссылку в буфер</p>
                             </div>
                         </div>
@@ -58,63 +58,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>12 Января 2020</td>
-                        <td>35</td>
-                        <td>3</td>
-                        <td>120 руб</td>
-                        <td class="income-text">19.35 руб</td>
+                    <tr *ngFor="let item of affiliateProgramOperation">
+                        <td>{{item?.data}}</td>
+                        <td>{{item?.transitions}}</td>
+                        <td>{{item?.registrations}}</td>
+                        <td class="d-flex">{{item?.operations}}<p class="ml-2"> руб</p>
+                        </td>
+                        <td class="income-text"> {{item?.income}} руб</td>
                     </tr>
-                    <tr>
-                        <td>12 Января 2020</td>
-                        <td>35</td>
-                        <td>3</td>
-                        <td>120 руб</td>
-                        <td class="income-text">19.35 руб</td>
-                    </tr>
-                    <tr>
-                        <td>12 Января 2020</td>
-                        <td>35</td>
-                        <td>3</td>
-                        <td>120 руб</td>
-                        <td class="income-text">19.35 руб</td>
-                    </tr>
-                    <tr>
-                        <td>12 Января 2020</td>
-                        <td>35</td>
-                        <td>3</td>
-                        <td>120 руб</td>
-                        <td class="income-text">19.35 руб</td>
-                    </tr>
-                    <tr>
-                        <td>12 Января 2020</td>
-                        <td>35</td>
-                        <td>3</td>
-                        <td>120 руб</td>
-                        <td class="income-text">19.35 руб</td>
-                    </tr>
-                    <tr>
-                        <td>12 Января 2020</td>
-                        <td>35</td>
-                        <td>3</td>
-                        <td>120 руб</td>
-                        <td class="income-text">19.35 руб</td>
-                    </tr>
-                    <tr>
-                        <td>12 Января 2020</td>
-                        <td>35</td>
-                        <td>3</td>
-                        <td>120 руб</td>
-                        <td class="income-text">19.35 руб</td>
-                    </tr>
-                    <tr>
-                        <td>12 Января 2020</td>
-                        <td>35</td>
-                        <td>3</td>
-                        <td>120 руб</td>
-                        <td class="income-text">19.35 руб</td>
-                    </tr>
-
                 </tbody>
             </table>
             <button class="show-more">Показать еще операции</button>
