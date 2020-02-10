@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AffiliateProgramService } from './affiliate-program.service';
 import { AffiliateProgramOperation } from '../../../core/models/affiliate-program';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'app-affiliate-program',
@@ -9,7 +10,7 @@ import { AffiliateProgramOperation } from '../../../core/models/affiliate-progra
 })
 export class AffiliateProgramComponent implements OnInit {
 
-    public link:string = "https://liftme.pro/partnerlink 8002896share";
+    public linkControl = new FormControl("https://liftme.pro/partnerlink 8002896share");
 
     public affiliateProgramOperation: AffiliateProgramOperation[] = [
         { data: "12 Января 2020", transitions: 35, registrations: 3, operations: 120, income: 19.35 },
@@ -24,7 +25,7 @@ export class AffiliateProgramComponent implements OnInit {
 
     ngOnInit() {
         this._getAffiliateProgramOperation();
-        console.log(this.link);
+        console.log(this.linkControl.value);
 
     }
 
