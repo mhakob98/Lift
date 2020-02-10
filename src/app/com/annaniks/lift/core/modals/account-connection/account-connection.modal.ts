@@ -169,11 +169,7 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
         //         console.log(data);
         //         this._dialogRef.close();
         //     })
-<<<<<<< HEAD
-=======
-
     }
->>>>>>> f4e04221831061fe0591203f0f49b8a821366ac6
 
     public onClickClose(): void {
         if (!this.loading) {
