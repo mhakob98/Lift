@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-<<<<<<< HEAD
 import { AffiliateProgramService } from './affiliate-program.service';
 import { AffiliateProgramOperation } from '../../../core/models/affiliate-program';
-=======
->>>>>>> f4e04221831061fe0591203f0f49b8a821366ac6
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'app-affiliate-program',
@@ -12,8 +10,7 @@ import { AffiliateProgramOperation } from '../../../core/models/affiliate-progra
 })
 export class AffiliateProgramComponent implements OnInit {
 
-<<<<<<< HEAD
-    public link:string = "https://liftme.pro/partnerlink 8002896share";
+    public linkControl = new FormControl("https://liftme.pro/partnerlink 8002896share");
 
     public affiliateProgramOperation: AffiliateProgramOperation[] = [
         { data: "12 Января 2020", transitions: 35, registrations: 3, operations: 120, income: 19.35 },
@@ -28,7 +25,7 @@ export class AffiliateProgramComponent implements OnInit {
 
     ngOnInit() {
         this._getAffiliateProgramOperation();
-        console.log(this.link);
+        console.log(this.linkControl.value);
 
     }
 
@@ -49,15 +46,4 @@ export class AffiliateProgramComponent implements OnInit {
 
     }
 
-=======
-    constructor() { }
-
-    ngOnInit() { }
-
-    public copyToClipboard(): void {
-        var copyText = document.getElementById("link-to-copy") as any;
-        copyText.select();
-        document.execCommand("copy");
-    }
->>>>>>> f4e04221831061fe0591203f0f49b8a821366ac6
 }
