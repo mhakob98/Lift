@@ -43,33 +43,32 @@
                 <p class="tttle">вы должны быть авторизованный в Instagram через тот аккаунт,который желайте подключить
                 </p>
             </div>
+
+
+
+
+
+
+
             <div class="tarif-container text-center" *ngSwitchCase="2">
                 <p class="title text-center">Выбор тарифа</p>
                 <form [formGroup]="tariffForm">
-                    <div class="form-group radio-button-group mt-3"
-                        [ngClass]="{'activRadioButton':tariffForm.get('tariff').value=='free'}">
-                        <label for="free" class="w-100">
-                            <p>Бесплатный - что входит</p>
+                    <div class="form-group radio-button-group mt-3" *ngFor="let item of userTypes"
+                        [ngClass]="{'activRadioButton':tariffForm.get('tariff').value==item.id}" (click)="onclick(item.id)">
+                        <label class="d-flex h-100" [for]="item.id" class="w-100">
+                            <p class="m-auto">{{item?.name}} - что входит</p>
                         </label>
-                        <input formControlName="tariff" class="d-none" id="free" type="radio" value="free">
-                    </div>
-                    <div class="form-group radio-button-group mt-3"
-                        [ngClass]="{'activRadioButton':tariffForm.get('tariff').value=='one-acc'}">
-                        <label for="one-acc" class="w-100">
-                            <p>1 аккаунт- что входит</p>
-                        </label>
-                        <input formControlName="tariff" class="d-none" id="one-acc" type="radio" value="one-acc">
-                    </div>
-                    <div class="form-group radio-button-group mt-3"
-                        [ngClass]="{'activRadioButton':tariffForm.get('tariff').value=='more-two'}">
-                        <label for="more-two" class="w-100">
-                            <p>2 + аккаунта - что входит</p>
-                        </label>
-                        <input formControlName="tariff" class="d-none" id="more-two" type="radio" value="more-two">
+                        <input formControlName="tariff" [id]="item?.id" class="d-none"  type="radio" [value]="item.id">
                     </div>
                 </form>
                 <button type="submit" class="btn main-button mt-4 mb-4" [disabled]="tariffForm.invalid || loading" (click)="changeTab(3)">Дальше</button>
             </div>
+
+
+
+
+
+
 
 
 
