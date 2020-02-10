@@ -4,16 +4,21 @@
             <p class="text pg-title">Управление вашим тарифом</p>
             <div class="tariff-card d-flex ">
                 <div class="tariff-card-container d-flex align-items-center justify-content-between">
-                    <img src="assets/images/boy.png" class="rounded-circle  img-responsive user-image">
+                    <img src="{{localImage}}" class="rounded-circle  img-responsive user-image">
+
+
+
                     <div class="description ml-2">
-                        <p class="title">Текущий тариф</p>
+                        <p class="title">{{tariff?.current}}</p>
                         <div class="d-flex mt-2 mb-2">
-                            <p class="optimal-text">Оптимальный </p>
+                            <p class="optimal-text">{{tariff?.type}} </p>
                             <img src="assets/icons/help-web-button.png" class="rounded  img-responsive ml-3 help-icon">
                         </div>
 
-                        <p class="title">Оплачено до 15.03.2020</p>
+                        <p class="title">Оплачено до {{tariff?.paid}}</p>
                     </div>
+
+                    
                     <div class="action-card d-flex flex-wrap">
                         <div class="action-card-item">
                             <div class="action-card-item-content ml-0">
@@ -65,65 +70,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>12 Января 2020</td>
-                        <td>Списание со счета</td>
-                        <td>- 200 руб</td>
-                        <td class="income-text">проведено</td>
-                    </tr>
-                    <tr>
-                        <td>12 Января 2020</td>
-                        <td>Списание со счета</td>
-                        <td>- 200 руб</td>
-                        <td class="income-text">проведено</td>
-                    </tr>
-                    <tr>
-                        <td>12 Января 2020</td>
-                        <td>Списание со счета</td>
-                        <td>- 200 руб</td>
-                        <td class="income-text">проведено</td>
-                    </tr>
-                    <tr>
-                        <td>12 Января 2020</td>
-                        <td>Списание со счета</td>
-                        <td>- 200 руб</td>
-                        <td class="income-text">проведено</td>
-                    </tr>
-                    <tr>
-                        <td>12 Января 2020</td>
-                        <td>Списание со счета</td>
-                        <td>- 200 руб</td>
-                        <td class="income-text">проведено</td>
-                    </tr>
-                    <tr>
-                        <td>12 Января 2020</td>
-                        <td>Списание со счета</td>
-                        <td>- 200 руб</td>
-                        <td class="income-text">проведено</td>
-                    </tr>
-                    <tr>
-                        <td>12 Января 2020</td>
-                        <td>Списание со счета</td>
-                        <td>- 200 руб</td>
-                        <td class="income-text">проведено</td>
-                    </tr>
-                    <tr>
-                        <td>12 Января 2020</td>
-                        <td>Списание со счета</td>
-                        <td>- 200 руб</td>
-                        <td class="income-text">проведено</td>
-                    </tr>
-                    <tr>
-                        <td>12 Января 2020</td>
-                        <td>Списание со счета</td>
-                        <td>- 200 руб</td>
-                        <td class="income-text">проведено</td>
-                    </tr>
-                    <tr>
-                        <td>12 Января 2020</td>
-                        <td>Списание со счета</td>
-                        <td>- 200 руб</td>
-                        <td class="canceled-text">Отменено</td>
+                    <tr *ngFor="let item of tariffOperation">
+                        <td>{{item?.data}}</td>
+                        <td>{{item?.operation}}</td>
+                        <td class="d-flex">{{item?.cost}}<p class="ml-2">руб</p></td>
+                        <td class="income-text" [ngClass]="{'color':item.status=='Отменено'}">{{item?.status}}</td>
                     </tr>
 
                 </tbody>
