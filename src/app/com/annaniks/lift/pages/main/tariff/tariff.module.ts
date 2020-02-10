@@ -7,10 +7,8 @@ import { CommonModule } from '@angular/common';
 
 @NgModule({
     declarations: [TariffComponent],
-    imports: [TariffRoutingModule,CommonModule],
+    imports: [TariffRoutingModule, CommonModule],
     providers: [TariffService]
 })
 
-export class TariffModule {
-
-}
+export class TariffModule {}

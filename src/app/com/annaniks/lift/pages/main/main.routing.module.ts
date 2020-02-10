@@ -49,6 +49,10 @@ const mainRoutes: Routes = [
             {
                 path: 'arcticle/:categoryId',
                 loadChildren: () => import('./arcticle-details/arcticle-details.module').then(m => m.ArcticleDetailsModule)
+            },
+            {
+                path: 'ticket/:id',
+                loadChildren: () => import('./support-service/ticket/ticket.module').then(m => m.TicketModule)
             }
         ]
     }

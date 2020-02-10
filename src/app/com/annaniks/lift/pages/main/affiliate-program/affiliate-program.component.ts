@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AffiliateProgramService } from './affiliate-program.service';
+import { AffiliateProgramOperation } from '../../../core/models/affiliate-program';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'app-affiliate-program',
@@ -7,13 +10,38 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AffiliateProgramComponent implements OnInit {
 
-    constructor() { }
+    public linkControl = new FormControl("https://liftme.pro/partnerlink 8002896share");
 
-    ngOnInit() { }
+    public affiliateProgramOperation: AffiliateProgramOperation[] = [
+        { data: "12 Января 2020", transitions: 35, registrations: 3, operations: 120, income: 19.35 },
+        { data: "12 Января 2020", transitions: 35, registrations: 3, operations: 120, income: 19.35 },
+        { data: "12 Января 2020", transitions: 35, registrations: 3, operations: 120, income: 19.35 },
+        { data: "12 Января 2020", transitions: 35, registrations: 3, operations: 120, income: 19.35 },
+        { data: "12 Января 2020", transitions: 35, registrations: 3, operations: 120, income: 19.35 },
+        { data: "12 Января 2020", transitions: 35, registrations: 3, operations: 120, income: 19.35 },
+    ];
 
-    public copyToClipboard(): void {
-        var copyText = document.getElementById("link-to-copy") as any;
-        copyText.select();
-        document.execCommand("copy");
+    constructor(private _affiliateProgramService: AffiliateProgramService) { }
+
+    ngOnInit() {
+        this._getAffiliateProgramOperation();
+        console.log(this.linkControl.value);
+
     }
+
+
+    copyInputMessage(inputElement) {
+        inputElement.select();
+        document.execCommand('copy');
+        inputElement.setSelectionRange(0, 0);
+    }
+
+
+    private _getAffiliateProgramOperation(): void {
+        this._affiliateProgramService.getAffiliateProgramOperation()
+            .subscribe((data) => {
+                // this.affiliateProgramOperation = data;
+            })
+    }
+
 }

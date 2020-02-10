@@ -4,7 +4,7 @@ export interface Account {
 
 }
 
-export interface AccountSettingsResponse { }
+export interface MassFollowingSettingsResponse { }
 
 export interface AccountConnectData {
     username: string;
@@ -23,7 +23,7 @@ export interface ChallengeLoginData {
     code: string;
 }
 
-export class AccountSettings {
+export class MassFollowingSettings {
     loginId: number | string;
     id?: number;
     userId?: number;

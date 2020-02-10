@@ -70,6 +70,10 @@ export class MainService {
         document.body.style.overflow = 'auto';
     }
 
+    public getAccountSettingsVariants():Observable<ServerResponse<any>>{
+        return this._httpClient.get<ServerResponse<any>>('settings')
+    }
+
     public accountConnect(data: AccountConnectData): Observable<any> {
         return this._httpClient.post('instagram-connect', data);
     }

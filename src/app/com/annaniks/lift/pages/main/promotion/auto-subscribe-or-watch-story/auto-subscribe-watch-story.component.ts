@@ -5,7 +5,7 @@ import { SubSink } from 'subsink';
 import { AuthService } from '../../../../core/services/auth.service';
 import { switchMap, finalize } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { AccountSettings } from '../../../../core/models/account';
+import { MassFollowingSettings } from '../../../../core/models/account';
 import { LoadingService } from '../../../../core/services/loading-service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -18,7 +18,7 @@ export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
   public loading: boolean = false;
   private _subs = new SubSink();
   public isAutosubscribe: boolean = false;
-  public massfollowingData: AccountSettings = new AccountSettings();
+  public massfollowingData: MassFollowingSettings = new MassFollowingSettings();
 
   constructor(
     private _router: Router,
