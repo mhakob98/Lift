@@ -9,6 +9,7 @@ import { map, catchError } from 'rxjs/operators';
 import { AuthService } from '../../core/services/auth.service';
 import { AccountConnectData, TwoFactorLoginData, ChallengeLoginData } from '../../core/models/account';
 import { AccountSettings } from '../../core/models/account-settings';
+import { JoinTariff } from '../../core/models/tariff';
 
 @Injectable()
 export class MainService {
@@ -71,7 +72,7 @@ export class MainService {
         document.body.style.overflow = 'auto';
     }
 
-    public getAccountSettingsVariants():Observable<ServerResponse<any>>{
+    public getAccountSettingsVariants(): Observable<ServerResponse<any>> {
         return this._httpClient.get<ServerResponse<AccountSettings>>('settings')
     }
 
@@ -92,6 +93,11 @@ export class MainService {
     }
     public getShowDisabledView(): boolean {
         return this._isShowDisabledView;
+    }
+
+
+    public joinToTariff(data: JoinTariff): Observable<any> {
+        return this._httpClient.post('tariff', data);
     }
 
 }

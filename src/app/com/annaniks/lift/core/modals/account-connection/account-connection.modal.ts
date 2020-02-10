@@ -68,7 +68,6 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
             .pipe(takeUntil(this._unsubscribe$))
             .subscribe((data) => {
                 this.userTypes = data.data.userTypes;
-                console.log(this.userTypes, "jjkjkhjkhjkjhkhkh");
             })
     }
 
@@ -194,12 +193,16 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
         this._unsubscribe$.next();
         this._unsubscribe$.complete();
     }
-    public onclick(id) {
-        // console.log(id,"sdsdsdsd");
-        console.log(this.tariffForm.value.tariff);
 
 
 
+
+    public joinToTariff(id) {
+        this._mainService.joinToTariff({
+            tariffId: id,
+        }).subscribe((data) => {
+
+        })
     }
 
 
