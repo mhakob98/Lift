@@ -21,7 +21,7 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
     private _isTwoFactorAuth: boolean = false;
     private _isChallangeAuth: boolean = false;
     private _twoFactorIdentifier: string;
-    private isFirstAccount: boolean = false;
+    public isFirstAccount: boolean = false;
     public tab: number = 1;
     public loginForm: FormGroup;
     public tariffForm: FormGroup;

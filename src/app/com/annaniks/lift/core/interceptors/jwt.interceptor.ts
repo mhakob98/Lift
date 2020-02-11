@@ -19,9 +19,6 @@ export class JwtInterceptor implements HttpInterceptor {
         private _router: Router
     ) {
         this._updateTokenState = this._updateTokenEvent$.asObservable();
-        this._updateTokenState.pipe(
-            distinctUntilChanged((x: boolean, y: boolean) => { console.log(x, y); return x != null }),
-        )
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -30,6 +27,10 @@ export class JwtInterceptor implements HttpInterceptor {
                 catchError((err) => {
                     const status: number = err.status;
                     const error = err.error;
+                    if ((status === 401 || error.status === 401) && req.url ==='refresh') { //ToDO fixing
+                        this._router.navigate(['/auth/login']);
+                        return throwError(err);
+                    }
                     if (status === 401 || error.status === 401) {
                         if (!this._loading) {
                             this._updateToken();
@@ -46,7 +47,7 @@ export class JwtInterceptor implements HttpInterceptor {
                                         this._router.navigate(['/auth/login']);
                                         return throwError(false);
                                     }
-                                })
+                                }),
                             )
                     }
                     return throwError(err);
@@ -65,9 +66,9 @@ export class JwtInterceptor implements HttpInterceptor {
             this._httpClient.post<ServerResponse<TokenResponse>>('refresh', {}, { params, headers })
                 .pipe(
                     finalize(() => this._loading = false),
-                    map((data) => data.data),
-                    map((data: TokenResponse) => {
-                        this._updateCookies(data);
+                    map((data: ServerResponse<TokenResponse>) => {
+                        const tokens = data.data;
+                        this._updateCookies(tokens);
                         this._updateTokenEvent$.next(true);
                     }),
                     catchError((err) => {
