@@ -95,8 +95,8 @@ export class MainService {
         return this._httpClient.post('checkpoint-challenge', data);
     }
 
-    public deleteInstaAccount() {
-        return this._httpClient.delete(`instagram-connect/${this._authService.getAccount().id}`);
+    public deleteInstaAccount(id: number) {
+        return this._httpClient.delete(`instagram-connect/${id}`);
     }
 
     public getShowDisabledView(): boolean {

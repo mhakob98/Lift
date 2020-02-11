@@ -13,7 +13,7 @@ export class SubscribeParametresComponent implements OnInit, OnDestroy {
   public settings: MassFollowingSettings = new MassFollowingSettings()
   private _subs = new SubSink();
   public isAutosubscribe: boolean = false;
-
+  show = false
   constructor(
     private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService,
     private _router: Router,
@@ -26,10 +26,11 @@ export class SubscribeParametresComponent implements OnInit, OnDestroy {
   }
 
   private _fetchSettings(): void {
+
+    this.settings = this._autoSubscribeOrWatchStoryService.settings
     this._subs.add(
       this._autoSubscribeOrWatchStoryService.settingsState.subscribe((data: MassFollowingSettings) => {
         this.settings = data;
-        console.log(this.settings);
       })
     )
   }

@@ -60,6 +60,7 @@ export class AutoSubscribeOrWatchStoryService {
                     else {
                         this.settings = new MassFollowingSettings();
                     }
+
                     this._settingsEvent$.next(this.settings);
                     return data;
                 })
