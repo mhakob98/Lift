@@ -18,8 +18,7 @@ export class SubscribeParametresComponent implements OnInit, OnDestroy {
     private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService,
     private _router: Router,
   ) {
-    this.isAutosubscribe = this._router.url != '/promotion/auto-watch-story'
-
+    this.isAutosubscribe = this._router.url != '/promotion/auto-watch-story';
   }
 
   ngOnInit() {
@@ -29,7 +28,8 @@ export class SubscribeParametresComponent implements OnInit, OnDestroy {
   private _fetchSettings(): void {
     this._subs.add(
       this._autoSubscribeOrWatchStoryService.settingsState.subscribe((data: MassFollowingSettings) => {
-        this.settings = data
+        this.settings = data;
+        console.log(this.settings);
       })
     )
   }
