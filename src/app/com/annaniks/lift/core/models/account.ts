@@ -105,7 +105,7 @@ export interface Hashtag {
     name: string;
     id: number;
     media_count: number;
-    use_default_avatar: string;
+    use_default_avatar: boolean;
     profile_pic_url: string;
     search_result_subtitle: string;
 }

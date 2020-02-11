@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 // Our Shared Components
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import {
     LimitsComponent,
     FooterNavigationComponent,
@@ -32,10 +32,11 @@ import { MatInputModule } from '@angular/material/input';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-
+import localeRu from '@angular/common/locales/ru';
 //Forms
 import { ReactiveFormsModule } from '@angular/forms';
 
+registerLocaleData(localeRu);
 
 @NgModule({
     declarations: [

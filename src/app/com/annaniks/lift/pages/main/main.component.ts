@@ -33,22 +33,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this._mainService.getMe()
       .pipe(
         takeUntil(this._unsubscribe$),
-        switchMap((data) => {
-          user = data.data;
-          return this._getAccountSettingsVariants()
-        }),
-        map((data) => {
-          if (user.instagramAccounts) {
-            if (user.instagramAccounts.length === 0) {
-              this._router.navigate(['']);
-              this._openAccountConnectModal();
-            }
-          }
-          else {
-            this._router.navigate(['']);
-            this._openAccountConnectModal();
-          }
-        })
+
       )
       .pipe(
 

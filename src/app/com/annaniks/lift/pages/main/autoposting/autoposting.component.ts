@@ -28,6 +28,8 @@ const colors: any = {
   styleUrls: ['./autoposting.component.scss']
 })
 export class AutopostingComponent implements OnInit {
+  public locale: string = 'ru';
+
   public viewDate: Date = new Date();
   public storyActions: CalendarEventAction[] = [{
     label: '<i class="fa fa-fw fa-pencil"></i>',
@@ -98,9 +100,9 @@ export class AutopostingComponent implements OnInit {
 
   public openPopUpModal(): void {
     const dialogRf = this._dialog.open(PopUpModal, {
-      width:"1200px",
+      width: "1200px",
       maxWidth: "80vw",
-      maxHeight:"80vh"
+      maxHeight: "80vh"
     })
   }
 }

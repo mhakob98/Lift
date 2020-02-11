@@ -17,7 +17,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     public tab: number = 1;
     constructor(
         private _navbarService: NavbarService,
-        private _mainService: MainService,
         private _authService: AuthService
     ) { }
 
@@ -31,12 +30,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     }
 
-    public deleteSelectedAccount(): void {
-        this._mainService.deleteInstaAccount().subscribe((data) => {
-            console.log(data);
-
-        })
-    }
 
     private _fetchProfileData(): void {
         this._authService.getUserState().pipe(
