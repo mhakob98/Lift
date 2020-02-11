@@ -11,7 +11,6 @@ export class AuthGuard implements CanActivate {
     ) { }
 
     canActivate(): Observable<boolean> | Promise<boolean> | boolean {
-        return true;
-        // return this._authService.checkAuthState();
+        return this._authService.checkAuthState();
     }
 }

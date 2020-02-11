@@ -7,6 +7,7 @@ import { AccountConnectionModal } from '../../core/modals';
 import { Router } from '@angular/router';
 import { AccountSettings } from '../../core/models/account-settings';
 import { ServerResponse } from '../../core/models/server-response';
+import { User } from '../../core/models/user';
 
 @Component({
   selector: 'app-main',
@@ -28,11 +29,15 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   private _getUser(): void {
+    let user = {} as User;
     this._mainService.getMe()
       .pipe(
         takeUntil(this._unsubscribe$),
         switchMap((data) => {
-          const user = data.data;
+          user = data.data;
+          return this._getAccountSettingsVariants()
+        }),
+        map((data) => {
           if (user.instagramAccounts) {
             if (user.instagramAccounts.length === 0) {
               this._router.navigate(['']);
@@ -43,8 +48,10 @@ export class MainComponent implements OnInit, OnDestroy {
             this._router.navigate(['']);
             this._openAccountConnectModal();
           }
-          return this._getAccountSettingsVariants();
         })
+      )
+      .pipe(
+
       )
       .subscribe();
   }

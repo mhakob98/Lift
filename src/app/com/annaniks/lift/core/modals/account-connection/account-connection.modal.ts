@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, Inject } from "@angular/core";
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MainService } from '../../../pages/main/main.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { TwoFactorLoginData, ChallengeLoginData } from '../../models/account';
 import { Subject } from 'rxjs';
@@ -21,6 +21,7 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
     private _isTwoFactorAuth: boolean = false;
     private _isChallangeAuth: boolean = false;
     private _twoFactorIdentifier: string;
+    private isFirstAccount: boolean = false;
     public tab: number = 1;
     public loginForm: FormGroup;
     public tariffForm: FormGroup;
@@ -35,10 +36,12 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
         private _fb: FormBuilder,
         private _mainService: MainService,
         private _dialogRef: MatDialogRef<AccountConnectionModal>,
+        @Inject(MAT_DIALOG_DATA) private _dialogData: { isFirstAccount?: boolean }
     ) { }
 
     ngOnInit() {
         this.userTypes = this._mainService.accountSettingsVariants.userTypes;
+        this.isFirstAccount = (this._dialogData && this._dialogData.isFirstAccount !== undefined) ? this._dialogData.isFirstAccount : true;
         this._formBuilder();
     }
 
@@ -78,7 +81,13 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
             .subscribe((data) => {
                 this.loginForm.get('email').disable();
                 this.loginForm.get('password').disable();
-                this._dialogRef.close({ isAccountConnected: true });
+                if (this.isFirstAccount) {
+                    this.tab = 2;
+                }
+                else {
+                    this.tab = 3;
+                }
+                // this._dialogRef.close({ isAccountConnected: true });
             },
                 (err) => {
                     const error = err.error;
@@ -116,7 +125,13 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
                 finalize(() => this.loading = false)
             )
             .subscribe((data) => {
-                this._dialogRef.close();
+                if (this.isFirstAccount) {
+                    this.tab = 2;
+                }
+                else {
+                    this.tab = 3;
+                }
+                // this._dialogRef.close();
             })
     }
 
@@ -132,7 +147,13 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
                 finalize(() => this.loading = false)
             )
             .subscribe((data) => {
-                this._dialogRef.close();
+                if (this.isFirstAccount) {
+                    this.tab = 2;
+                }
+                else {
+                    this.tab = 3;
+                }
+                // this._dialogRef.close();
             })
     }
 
@@ -180,6 +201,11 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
         }
     }
 
+    public onClickJoinToTariff(): void {
+        const tarriffId: number = this.tariffForm.get('tariff').value
+        this._joinToTariff(tarriffId);
+    }
+
 
     ngOnDestroy() {
         this._unsubscribe$.next();
@@ -189,12 +215,15 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
 
 
 
-    public joinToTariff(id) {
+    private _joinToTariff(id) {
         this._mainService.joinToTariff({
             tariffId: id,
-        }).subscribe((data) => {
-
         })
+            .pipe(takeUntil(this._unsubscribe$))
+            .subscribe(
+                (data) => {
+                    this.tab = 3;
+                })
     }
 
 

@@ -23,6 +23,9 @@ export class HeaderSwitchAccountComponent implements OnInit {
   public openAccountConnectionModal(): void {
     const dialogRef = this._dialog.open(AccountConnectionModal, {
       width: "700px",
+      data: {
+        isFirstAccount: false
+      }
     })
   }
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, Subject, BehaviorSubject } from 'rxjs';
-import { catchError, map, finalize, switchMap } from 'rxjs/operators';
+import { catchError, map, finalize, switchMap, distinctUntilChanged, take, filter } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie';
 import { TokenResponse } from '../models/auth';
 import { ServerResponse } from '../models/server-response';
@@ -19,6 +19,9 @@ export class JwtInterceptor implements HttpInterceptor {
         private _router: Router
     ) {
         this._updateTokenState = this._updateTokenEvent$.asObservable();
+        this._updateTokenState.pipe(
+            distinctUntilChanged((x: boolean, y: boolean) => { console.log(x, y); return x != null }),
+        )
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -33,6 +36,8 @@ export class JwtInterceptor implements HttpInterceptor {
                         }
                         return this._updateTokenState
                             .pipe(
+                                filter(token => token != null),
+                                take(1),
                                 switchMap((isUpdated) => {
                                     if (!!isUpdated) {
                                         return next.handle(this._setNewHeaders(req));
@@ -41,8 +46,6 @@ export class JwtInterceptor implements HttpInterceptor {
                                         this._router.navigate(['/auth/login']);
                                         return throwError(false);
                                     }
-                                    return throwError(err);
-
                                 })
                             )
                     }
