@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, AbstractControl } from '@angular/forms';
 import { SubSink } from 'subsink';
 import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
-import { Subject } from 'rxjs';
+import { Subject, interval } from 'rxjs';
 import { MassFollowingSettings, Condition } from 'src/app/com/annaniks/lift/core/models/account';
 import { takeUntil } from 'rxjs/operators';
 import { SubscriptionParam } from 'src/app/com/annaniks/lift/core/models/subscription-parameter';
@@ -31,7 +31,7 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this._initForm();
     this._handleMassFollowingSettingsEvent();
-    this._bindValues()
+    this._bindValues();
   }
 
   private _handleMassFollowingSettingsEvent(): void {
@@ -87,8 +87,6 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
       )
       .subscribe((subscribePerDay: number) => {
         if (subscribePerDay) {
-          console.log(this._autoSubscribeOrWatchStoryService.settings);
-
           this.suitableSubsOrStoryForm.patchValue({
             maximumPerDay: this._autoSubscribeOrWatchStoryService.settings.subscribesPerDay || 0,
             maximumPerHour: this._autoSubscribeOrWatchStoryService.settings.subscribesPerHour || 0
@@ -98,11 +96,11 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
   }
 
   public onTypeChanged($event: SubscriptionParam, index: number): void {
-
     this.conditions[index].type = $event;
-    setTimeout(() => {
-      console.log(this.conditions, $event, index);
-    }, 2000);
+  }
+
+  public onClickAddCondition(): void {
+    this.conditions.push({ type: '' })
   }
 
   ngOnDestroy() {

@@ -1,12 +1,12 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { FormGroup, FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormArray, FormBuilder, FormControl } from '@angular/forms';
 import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
 import { SearchTerm, Search } from '../../../../../core/models/search';
 import { Observable, Subject } from 'rxjs';
 import { Location } from '../../../../../core/models/account';
 import { takeUntil } from 'rxjs/operators';
 import gmapTheme from '../../../../../core/themes/gmap';
-import { RequireMatchOfType } from 'src/app/com/annaniks/lift/core/utilities/type-validator';
+import { RequireMatchOfType } from '../../../../../core/utilities/type-validator';
 
 declare var google;
 @Component({

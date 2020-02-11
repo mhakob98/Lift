@@ -14,6 +14,7 @@ import { JoinTariff } from '../../core/models/tariff';
 @Injectable()
 export class MainService {
     private _isShowDisabledView: boolean = true;
+    private _accountSettingsVariants: AccountSettings = {} as AccountSettings;
 
     constructor(
         private _httpClient: HttpClient,
@@ -74,6 +75,12 @@ export class MainService {
 
     public getAccountSettingsVariants(): Observable<ServerResponse<any>> {
         return this._httpClient.get<ServerResponse<AccountSettings>>('settings')
+            .pipe(
+                map((data) => {
+                    this._accountSettingsVariants = data.data;
+                    return data;
+                })
+            )
     }
 
     public accountConnect(data: AccountConnectData): Observable<any> {
@@ -91,13 +98,17 @@ export class MainService {
     public deleteInstaAccount() {
         return this._httpClient.delete(`instagram-connect/${this._authService.getAccount().id}`);
     }
+
     public getShowDisabledView(): boolean {
         return this._isShowDisabledView;
     }
 
-
     public joinToTariff(data: JoinTariff): Observable<any> {
         return this._httpClient.post('tariff', data);
+    }
+
+    get accountSettingsVariants(): AccountSettings {
+        return this._accountSettingsVariants;
     }
 
 }

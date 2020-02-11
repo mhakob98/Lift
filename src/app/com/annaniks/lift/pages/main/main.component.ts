@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MainService } from './main.service';
-import { Subject, pipe } from 'rxjs';
-import { takeUntil, map } from 'rxjs/operators';
+import { Subject, pipe, Observable } from 'rxjs';
+import { takeUntil, map, switchMap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { AccountConnectionModal } from '../../core/modals';
 import { Router } from '@angular/router';
+import { AccountSettings } from '../../core/models/account-settings';
+import { ServerResponse } from '../../core/models/server-response';
 
 @Component({
   selector: 'app-main',
@@ -12,7 +14,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit, OnDestroy {
-  private _unsubscribe: Subject<void> = new Subject<void>();
+  private _unsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(
     private _mainService: MainService,
@@ -21,30 +23,35 @@ export class MainComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this._getAccountSettingsVariants();
     this._getUser();
   }
 
   private _getUser(): void {
     this._mainService.getMe()
       .pipe(
-        takeUntil(this._unsubscribe),
-        pipe(
-          map((data) => {
-            const user = data.data;
-            if (user.instagramAccounts) {
-              if (user.instagramAccounts.length === 0) {
-                this._router.navigate(['']);
-                this._openAccountConnectModal();
-              }
-            }
-            else {
+        takeUntil(this._unsubscribe$),
+        switchMap((data) => {
+          const user = data.data;
+          if (user.instagramAccounts) {
+            if (user.instagramAccounts.length === 0) {
               this._router.navigate(['']);
               this._openAccountConnectModal();
             }
-          })
-        )
+          }
+          else {
+            this._router.navigate(['']);
+            this._openAccountConnectModal();
+          }
+          return this._getAccountSettingsVariants();
+        })
       )
       .subscribe();
+  }
+
+  private _getAccountSettingsVariants(): Observable<ServerResponse<AccountSettings>> {
+    return this._mainService.getAccountSettingsVariants()
+      .pipe(takeUntil(this._unsubscribe$))
   }
 
   private _openAccountConnectModal(): void {
@@ -55,7 +62,7 @@ export class MainComponent implements OnInit, OnDestroy {
       disableClose: true
     })
     dialofRef.afterClosed()
-      .pipe(takeUntil(this._unsubscribe))
+      .pipe(takeUntil(this._unsubscribe$))
       .subscribe((data: { isAccountConnected: boolean }) => {
         if (data && !data.isAccountConnected) {
           this._router.navigate(['/auth/login'])
@@ -69,8 +76,8 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this._unsubscribe.next();
-    this._unsubscribe.complete();
+    this._unsubscribe$.next();
+    this._unsubscribe$.complete();
   }
 
 }

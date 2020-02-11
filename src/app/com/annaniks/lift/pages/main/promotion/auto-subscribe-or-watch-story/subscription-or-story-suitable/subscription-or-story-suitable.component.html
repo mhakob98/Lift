@@ -28,7 +28,7 @@
 
                     </app-subscribe-watch-condition>
                     <button [disabled]="conditions.length > 4" class="add-condition"
-                        (click)="conditions.push({type:''})">+
+                        (click)="onClickAddCondition()">+
                         Добавить
                         условие</button>
                 </div>

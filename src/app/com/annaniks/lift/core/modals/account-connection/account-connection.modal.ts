@@ -38,8 +38,8 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
+        this.userTypes = this._mainService.accountSettingsVariants.userTypes;
         this._formBuilder();
-        this._getAccountSettingsVariants();
     }
 
     private _formBuilder(): void {
@@ -61,14 +61,6 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
         this.actionForm = this._fb.group({
             action: [null, Validators.required]
         })
-    }
-
-    private _getAccountSettingsVariants(): void {
-        this._mainService.getAccountSettingsVariants()
-            .pipe(takeUntil(this._unsubscribe$))
-            .subscribe((data) => {
-                this.userTypes = data.data.userTypes;
-            })
     }
 
     private _connectAccount(): void {

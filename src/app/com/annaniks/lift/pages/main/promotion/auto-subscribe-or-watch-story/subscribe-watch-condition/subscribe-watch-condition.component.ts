@@ -5,7 +5,7 @@ import { SubscriptionParam } from '../../../../../core/models/subscription-param
 import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
 import { startWith, pairwise, map } from 'rxjs/operators';
 import { SearchTerm, Search } from '../../../../../core/models/search';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-subscribe-watch-condition',
@@ -37,7 +37,6 @@ export class SubscribeWatchConditionComponent implements OnInit {
     this.isAutosubscribe = this._activatedRoute.snapshot.data.type == 'subscribe';
   }
 
-
   ngOnInit() {
     this._takeTypeControlValue();
     this._subscribeToTypeChanges();
@@ -60,7 +59,6 @@ export class SubscribeWatchConditionComponent implements OnInit {
 
   public checkConditionDisable(type: string): boolean {
     let isExist: boolean = false;
-
     this._autoSubscribeOrWatchStoryService.addedConditions.map((condition: { type: string }) => {
       if (condition.type === type) isExist = true;
     })
@@ -70,7 +68,7 @@ export class SubscribeWatchConditionComponent implements OnInit {
   private _subscribeToTypeChanges(): void {
     this._autoSubscribeOrWatchStoryService.addedConditionsObservable$.subscribe((data: any) => {
       if (!this._autoSubscribeOrWatchStoryService.addedConditions.includes(data.next)) {
-        this._autoSubscribeOrWatchStoryService.addedConditions.push(data.next);
+        // this._autoSubscribeOrWatchStoryService.addedConditions.push(data.next); //bug
       };
       if (this._autoSubscribeOrWatchStoryService.addedConditions.includes(data.prev)) {
         let index = this._autoSubscribeOrWatchStoryService.addedConditions.indexOf(data.prev)
@@ -85,9 +83,8 @@ export class SubscribeWatchConditionComponent implements OnInit {
   }
 
   get selectedType(): SubscriptionParam {
-    return this._selectedType;
+    return this._selectedType
   }
-
 
   ngOnDestroy() {
     this._subscribe$.unsubscribe();

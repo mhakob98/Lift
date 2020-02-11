@@ -67,16 +67,15 @@ export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
         }, (err) => {
           this._toastrService.error('Ошибка');
           this._loadingService.hideLoading();
-
         })
     )
   }
 
   public getSettings(accountId: number): Observable<any> {
-    this._loadingService.showLoading()
+    this._loadingService.showLoading();
     return this._autoSubscribeOrWatchStoryService.getSettings(this.isAutosubscribe, accountId)
       .pipe(finalize(() => {
-        this._loadingService.hideLoading()
+        this._loadingService.hideLoading();
       }));
   }
 

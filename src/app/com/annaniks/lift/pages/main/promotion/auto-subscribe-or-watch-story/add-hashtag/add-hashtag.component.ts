@@ -60,9 +60,7 @@ export class AddHashtagComponent implements OnInit, OnDestroy {
   }
 
   private _resetProperties(): void {
-    this.hashtagsForm = this._fb.group({
-      items: this._fb.array([])
-    });
+    this._formBuilder();
   }
 
   public search(event): void {
@@ -93,6 +91,7 @@ export class AddHashtagComponent implements OnInit, OnDestroy {
     this.hashtagsForm.value.items.map((hashtag) => {
       hashtags.push(hashtag.label)
     });
+    console.log('hashtags',hashtags);
     this._subscribeStoryService.settings.tags = hashtags;
   }
 

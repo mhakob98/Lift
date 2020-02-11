@@ -65,10 +65,10 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of tariffTransaction">
-                        <td>{{item?.id}}</td>
+                        <td>{{item?.createdAt | date:'dd/MM/yyy hh:mm:ss'}}</td>
                         <td>{{item?.operationName}}</td>
                         <td class="d-flex">{{item?.value}}<p class="ml-2">руб</p></td>
-                        <td>{{item?.status}}</td>
+                        <td>{{item?.statusStr}}</td>
                         <!-- <td class="income-text" [ngClass]="{'color':item.status=='Отменено'}">{{item?.status}}</td> -->
                     </tr>
 

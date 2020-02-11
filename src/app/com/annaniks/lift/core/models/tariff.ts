@@ -9,6 +9,7 @@ export interface TariffTransaction {
     _pivot_tariff: number;
     _pivot_transaction: number;
     message: string;
+    statusStr: string;
 }
 
 
