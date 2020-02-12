@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/com/annaniks/lift/core/services/auth.servic
 import { AccountConnectionModal } from 'src/app/com/annaniks/lift/core/modals';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
-import { ServerResponse } from '../../../../../core/models/server-response';
+import { ServerResponse } from 'src/app/com/annaniks/lift/core/models/server-response';
 import { AccountSettings } from 'src/app/com/annaniks/lift/core/models/account-settings';
 
 @Component({
@@ -42,7 +42,6 @@ export class PersonalSettings implements OnInit, OnDestroy {
         private _loadingService: LoadingService,
         private _dialog: MatDialog,
         private _router: Router
-
     ) { }
 
     ngOnInit() {
@@ -63,46 +62,32 @@ export class PersonalSettings implements OnInit, OnDestroy {
 
             })
             if (this.userAccounts.length == 0) {
-                this._loadingService.showLoading()
-                let user = {} as User;
-                this._mainService.getMe()
-                    .pipe(
-                        finalize(() => this._loadingService.hideLoading()),
-                        takeUntil(this._unsubscribe$),
-                        switchMap((data) => {
-                            user = data.data;
-                            return this._getAccountSettingsVariants()
-                        }),
-                        map((data) => {
-                            if (user.instagramAccounts) {
-                                if (user.instagramAccounts.length === 0) {
-                                    this._router.navigate(['']);
-                                    this.openAccountConnectionModal();
-                                }
-                            }
-                            else {
-                                this._router.navigate(['']);
-                                this.openAccountConnectionModal();
-                            }
-                        })
-                    ).subscribe()
-
+                this._refreshUser();
             }
         })
     }
 
-    private _getAccountSettingsVariants(): Observable<ServerResponse<AccountSettings>> {
-        return this._mainService.getAccountSettingsVariants()
-            .pipe(takeUntil(this._unsubscribe$))
-    }
-
     public openAccountConnectionModal(): void {
-        this._dialog.open(AccountConnectionModal, {
+        const dialofRef = this._dialog.open(AccountConnectionModal, {
             width: "700px",
             data: {
                 isFirstAccount: false
             }
         })
+        dialofRef.afterClosed()
+            .subscribe((data: { isAccountConnected: boolean }) => {
+                console.log(data);
+
+                if (data && !data.isAccountConnected) {
+                    this._router.navigate(['/auth/login'])
+                }
+                this._refreshUser();
+            })
+    }
+
+    private _getAccountSettingsVariants(): Observable<ServerResponse<AccountSettings>> {
+        return this._mainService.getAccountSettingsVariants()
+            .pipe(takeUntil(this._unsubscribe$))
     }
 
     private _formBuilder(): void {
@@ -135,6 +120,32 @@ export class PersonalSettings implements OnInit, OnDestroy {
                     this.userAccounts = data.instagramAccounts;
                 }
             })
+    }
+
+    private _refreshUser(): void {
+        this._loadingService.showLoading
+        let user = {} as User;
+        this._mainService.getMe()
+            .pipe(
+                finalize(() => this._loadingService.hideLoading()),
+                takeUntil(this._unsubscribe$),
+                switchMap((data) => {
+                    user = data.data;
+                    return this._getAccountSettingsVariants()
+                }),
+                map((data) => {
+                    if (user.instagramAccounts) {
+                        if (user.instagramAccounts.length === 0) {
+                            this._router.navigate(['']);
+                            this.openAccountConnectionModal();
+                        }
+                    }
+                    else {
+                        this._router.navigate(['']);
+                        this.openAccountConnectionModal();
+                    }
+                })
+            ).subscribe()
     }
 
     public changeMe(): void {
