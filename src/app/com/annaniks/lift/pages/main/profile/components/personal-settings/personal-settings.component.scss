@@ -110,15 +110,14 @@
   border: 1px solid red !important;
 }
 
-::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
-.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
-.mat-accent .mat-pseudo-checkbox-checked,
-.mat-accent .mat-pseudo-checkbox-indeterminate,
-.mat-pseudo-checkbox-checked,
-.mat-pseudo-checkbox-indeterminate {
-  background-color: #3399cc !important;
-}
-
-::ng-deep .mat-checkbox .mat-checkbox-frame {
-  border: 1px solid #c2d0db !important;
+::ng-deep mat-radio-button {
+  margin-right: 15px !important;
+  .mat-radio-container {
+    .mat-radio-outer-circle {
+      border-color: #3399cc !important;
+    }
+    .mat-radio-inner-circle {
+      background-color: #3399cc !important;
+    }
+  }
 }

@@ -3,8 +3,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProfileService } from '../../profile.service';
 import { takeUntil, finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { ChangeMe } from 'src/app/com/annaniks/lift/core/models/change-me';
-import { User } from 'src/app/com/annaniks/lift/core/models/user';
+import { ChangeMe } from '../../../../../core/models/change-me';
+import { MainService } from '../../../main.service';
+import { AccountSettings } from '../../../../../core/models/account-settings';
 
 @Component({
     selector: "additional-settings",
@@ -12,7 +13,7 @@ import { User } from 'src/app/com/annaniks/lift/core/models/user';
     styleUrls: ["additional-settings.component.scss"]
 })
 
-export class AdditionalSettings implements OnInit, OnDestroy, AfterViewInit {
+export class AdditionalSettings implements OnInit, OnDestroy {
     @Input('user')
     set _userData(event) {
         this._formBuilder();
@@ -25,17 +26,16 @@ export class AdditionalSettings implements OnInit, OnDestroy, AfterViewInit {
     public additionalForm: FormGroup;
     public pagesForm: FormGroup;
     public loading: boolean = false;
+    public settingVariants: AccountSettings
 
     constructor(
         private _fb: FormBuilder,
-        private _profileService: ProfileService
+        private _profileService: ProfileService,
+        private _mainService: MainService
     ) { }
 
     ngOnInit() {
-    }
-
-    ngAfterViewInit() {
-        console.log(this._userData);
+        this._fetchAccountSettingsVariants()
     }
 
     private _formBuilder(): void {
@@ -49,10 +49,6 @@ export class AdditionalSettings implements OnInit, OnDestroy, AfterViewInit {
             instagram: ["", Validators.required],
             facebook: ["", Validators.required]
         })
-        this.additionalForm.valueChanges.subscribe(data => {
-            console.log(data);
-
-        })
     }
 
     public checkIsValid(formGroup, controlName): boolean {
@@ -64,8 +60,8 @@ export class AdditionalSettings implements OnInit, OnDestroy, AfterViewInit {
         let additionalForm = this.additionalForm.value
         let pageForm = this.pagesForm.value
         let sendingData: ChangeMe = {
-            // goalUsing: additionalForm.service,
-            // occupation: additionalForm.occupation || 0,
+            goalUsing: additionalForm.service,
+            occupation: additionalForm.occupation || 0,
             aboutYourself: additionalForm.description,
             facebookLink: pageForm.facebook,
             instagramLink: pageForm.instagram
@@ -75,26 +71,29 @@ export class AdditionalSettings implements OnInit, OnDestroy, AfterViewInit {
                 takeUntil(this._unsubscribe$),
                 finalize(() => this.loading = false)
             ).
-            subscribe((response) => {
-                console.log(response);
-
-            })
+            subscribe()
     }
 
     private _bindPersonalSettings(settings): void {
-        console.log(settings);
 
         this.pagesForm.patchValue({
             instagram: settings.instagramLink,
             facebook: settings.facebookLink
         })
         this.additionalForm.patchValue({
-            // service: settings.service,
-            // occupation: settings.occupation,
-            // activity
+            service: settings.goalUsing,
+            occupation: settings.occupation,
             description: settings.aboutYourself
         })
 
+    }
+
+    private _fetchAccountSettingsVariants(): void {
+        this._mainService.getAccountSettingsVariants().pipe(
+            takeUntil(this._unsubscribe$)
+        ).subscribe(data => {
+            this.settingVariants = data.data
+        })
     }
 
     ngOnDestroy() {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { CookieService } from 'ngx-cookie';
 import { ServerResponse } from '../../core/models/server-response';
 import { EmptyResponse } from '../../core/models/empty-response';
@@ -15,7 +15,7 @@ import { JoinTariff } from '../../core/models/tariff';
 export class MainService {
     private _isShowDisabledView: boolean = true;
     private _accountSettingsVariants: AccountSettings = {} as AccountSettings;
-
+    private _accountSettings$: BehaviorSubject<AccountSettings> = new BehaviorSubject<AccountSettings>(null)
     constructor(
         private _httpClient: HttpClient,
         private _cookieService: CookieService,
@@ -78,6 +78,7 @@ export class MainService {
             .pipe(
                 map((data) => {
                     this._accountSettingsVariants = data.data;
+                    this._accountSettings$.next(this._accountSettingsVariants)
                     return data;
                 })
             )
@@ -107,7 +108,11 @@ export class MainService {
         return this._httpClient.post('tariff', data);
     }
 
-    get accountSettingsVariants(): AccountSettings {
+    public accountSettingsVariants(): Observable<any> {
+        return this._accountSettings$.asObservable();
+    }
+
+    get accountSettingsVariantsSync(): AccountSettings {
         return this._accountSettingsVariants;
     }
 

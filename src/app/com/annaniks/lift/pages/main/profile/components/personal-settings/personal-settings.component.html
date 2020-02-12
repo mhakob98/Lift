@@ -1,9 +1,6 @@
 <section class="presonal-settings-container">
     <div class="personal-settings-form data-form">
         <form [formGroup]="dataForm">
-
-
-
             <div class="form-group d-flex">
                 <label for="account" class="col-form-label label">Тип аккаунта</label>
                 <div class="input-content d-flex align-items-center">
@@ -40,17 +37,17 @@
                 <label for="select" class="col-form-label label ">Дата рождения</label>
                 <div class="input-item d-flex">
                     <div class="input-content">
-                        <select class="custom-select" formCotrolName="day">
-                            <option value="День">День</option>
-                            <option value="01">1</option>
-                            <option value="02">2</option>
-                            <option value="03">3</option>
-                            <option value="04">4</option>
-                            <option value="05">5</option>
-                            <option value="06">6</option>
-                            <option value="07">7</option>
-                            <option value="08">8</option>
-                            <option value="09">9</option>
+                        <select class="custom-select" formControlName="day">
+                            <option selected>День</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
                             <option value="10">10</option>
                             <option value="11">11</option>
                             <option value="12">12</option>
@@ -76,39 +73,39 @@
                         </select>
                     </div>
                     <div class="input-content">
-                        <select class="custom-select" formCotrolName="month">
-                            <option value="Месяц">Месяц</option>
-                            <option value="01">January</option>
-                            <option value="02">February</option>
-                            <option value="03">March</option>
-                            <option value="04">April</option>
-                            <option value="05">May</option>
-                            <option value="06">June</option>
-                            <option value="07">July</option>
-                            <option value="08">August</option>
-                            <option value="09">September</option>
+                        <select class="custom-select" formControlName="month">
+                            <option selected>Месяц</option>
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
                             <option value="10">October</option>
                             <option value="11">November</option>
                             <option value="12">December</option>
                         </select>
                     </div>
                     <div class="input-content">
-                        <select class="custom-select" formCotrolName="year">
-                            <option value="Год">Год</option>
-                            <option value="19">1990</option>
-                            <option value="20">1991</option>
-                            <option value="21">1992</option>
-                            <option value="22">1993</option>
-                            <option value="23">1994</option>
-                            <option value="24">1995</option>
-                            <option value="25">1996</option>
-                            <option value="26">1997</option>
-                            <option value="18">1998</option>
-                            <option value="27">1999</option>
-                            <option value="28">2000</option>
-                            <option value="29">2001</option>
-                            <option value="30">2002</option>
-                            <option value="31">2003</option>
+                        <select class="custom-select" formControlName="year">
+                            <option selected>Год</option>
+                            <option value="1990">1990</option>
+                            <option value="1991">1991</option>
+                            <option value="1992">1992</option>
+                            <option value="1993">1993</option>
+                            <option value="1994">1994</option>
+                            <option value="1995">1995</option>
+                            <option value="1996">1996</option>
+                            <option value="1997">1997</option>
+                            <option value="1998">1998</option>
+                            <option value="1999">1999</option>
+                            <option value="2000">2000</option>
+                            <option value="2001">2001</option>
+                            <option value="2002">2002</option>
+                            <option value="2003">2003</option>
                         </select>
                     </div>
 
@@ -120,7 +117,17 @@
 
 
             <div class="form-group d-flex">
-                <label for="checkbox" class=" col-form-label label ">Пол</label>
+                <label id="example-radio-group-label" class="col-form-label label">Пол</label>
+                <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="male"
+                    class="example-radio-group">
+                    <mat-radio-button [value]="true" class="example-radio-button">
+                        Мужской
+                    </mat-radio-button>
+                    <mat-radio-button [value]="false" class="example-radio-button">
+                        Женский
+                    </mat-radio-button>
+                </mat-radio-group>
+                <!-- <label for="checkbox" class=" col-form-label label ">Пол</label>
                 <div class="input-item d-flex">
 
                     <div class="input-content">
@@ -134,7 +141,7 @@
                         </mat-checkbox>
                     </div>
 
-                </div>
+                </div> -->
 
             </div>
         </form>
