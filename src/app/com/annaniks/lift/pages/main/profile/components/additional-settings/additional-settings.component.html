@@ -15,7 +15,8 @@
                         сервиса</label>
                     <div class="input-content">
                         <select id="select" name="select" class="custom-select" formControlName="service">
-                            <option value="">Выберите </option>
+                            <option *ngFor="let item of settingVariants?.goalUsings" [value]="item.id">{{item.name}}
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -24,18 +25,21 @@
                     <label for="select" class="col-form-label label ">Род деятельности</label>
                     <div class="input-content">
                         <select id="select" name="select" class="custom-select" formControlName="occupation">
-                            <option value="">Выберите </option>
+                            <option *ngFor="let item of settingVariants?.occupations" [value]="item.id">{{item.name}}
+                            </option>
                         </select>
                     </div>
                 </div>
-                <div class="form-group d-flex">
-                    <label for="select" class="col-form-label label">Род деятельности</label>
+                <!-- <div class="form-group d-flex">
+                    <label for="select" class="col-form-label label">Сфера деятельности</label>
                     <div class="input-content">
                         <select id="select" name="select" class="custom-select" formControlName="activity">
-                            <option value="">Выберите</option>
+                            <option *ngFor="let item of settingVariants?.occupations" [value]="item.id">{{item.name}}
+
+                            </option>
                         </select>
                     </div>
-                </div>
+                </div> -->
                 <div class="form-group d-flex">
                     <label for="publicinfo" class=" col-form-label label">Расскажите о себе</label>
                     <div class="tex-area-content">

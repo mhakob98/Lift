@@ -48,7 +48,6 @@ export class PersonalSettings implements OnInit, OnDestroy {
         this._getUser();
     }
 
-
     public deleteInstagramAccount(id: number): void {
         this._loadingService.showLoading();
         this._mainService.deleteInstaAccount(id).pipe(
@@ -59,7 +58,6 @@ export class PersonalSettings implements OnInit, OnDestroy {
                 if (account.id = id) {
                     this.userAccounts.splice(index, 1)
                 }
-
             })
             if (this.userAccounts.length == 0) {
                 this._refreshUser();
@@ -70,18 +68,19 @@ export class PersonalSettings implements OnInit, OnDestroy {
     public openAccountConnectionModal(): void {
         const dialofRef = this._dialog.open(AccountConnectionModal, {
             width: "700px",
+            disableClose: true,
             data: {
                 isFirstAccount: false
             }
         })
         dialofRef.afterClosed()
             .subscribe((data: { isAccountConnected: boolean }) => {
-                console.log(data);
-
-                if (data && !data.isAccountConnected) {
+                if (data && !data.isAccountConnected && this.userAccounts.length == 0) {
                     this._router.navigate(['/auth/login'])
+                    this._loadingService.hideLoading()
+                } else {
+                    this._refreshUser();
                 }
-                this._refreshUser();
             })
     }
 
@@ -93,24 +92,21 @@ export class PersonalSettings implements OnInit, OnDestroy {
     private _formBuilder(): void {
         this.dataForm = this._fb.group({
             name: ["", Validators.required],
-            day: ["", Validators.required],
+            day: [null, Validators.required],
             month: ["", Validators.required],
             year: ["", Validators.required],
-            male: true
+            male: [true, Validators.required]
         })
         this.contactForm = this._fb.group({
             phoneNumber: ["", Validators.required],
             currentCity: ["", Validators.required]
         })
-        this.dataForm.valueChanges.subscribe(() => console.log(this.dataForm))
 
     }
-
 
     public checkIsValid(formGroup, cotrolName): boolean {
         return formGroup.get(cotrolName).hasError('required') && formGroup.get(cotrolName).touched;
     }
-
 
     private _getUser(): void {
         this._authService.getUserState()
@@ -123,7 +119,7 @@ export class PersonalSettings implements OnInit, OnDestroy {
     }
 
     private _refreshUser(): void {
-        this._loadingService.showLoading
+        this._loadingService.showLoading()
         let user = {} as User;
         this._mainService.getMe()
             .pipe(
@@ -155,9 +151,9 @@ export class PersonalSettings implements OnInit, OnDestroy {
         let sendingData: ChangeMe = {
             name: dataForm.name,
             male: dataForm.male,
-            dbDay: dataForm.day,
-            dbMount: dataForm.month,
-            dbYear: dataForm.year,
+            dbDay: +dataForm.day,
+            dbMount: +dataForm.month,
+            dbYear: +dataForm.year,
             city: contactForm.currentCity,
             phone: contactForm.phoneNumber,
 
@@ -167,26 +163,23 @@ export class PersonalSettings implements OnInit, OnDestroy {
                 takeUntil(this._unsubscribe$),
                 finalize(() => this.loading = false)
             ).
-            subscribe((response) => {
-                console.log(response);
-
-            })
+            subscribe()
     }
 
     private _bindPersonalSettings(settings): void {
-
         this.contactForm.patchValue({
             phoneNumber: settings.city,
             currentCity: settings.phone
         })
-
         this.dataForm.patchValue({
+            male: settings.male,
             name: settings.name,
-            day: settings.day,
-            month: settings.month,
-            year: settings.year,
-            male: settings.male == 'male ' ? true : false
+            day: settings.dbDay ? settings.dbDay.toString() : null,
+            month: settings.dbMount ? settings.dbMount.toString() : null,
+            year: settings.dbYear ? settings.dbYear.toString() : null,
         })
+        console.log(this.dataForm);
+
     }
 
     ngOnDestroy() {
