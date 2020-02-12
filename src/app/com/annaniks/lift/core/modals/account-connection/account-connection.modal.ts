@@ -42,9 +42,17 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-        this.userTypes = this._mainService.accountSettingsVariants.userTypes;
+        this._fetchAccountSettingsVariants()
         this.isFirstAccount = (this._dialogData && this._dialogData.isFirstAccount !== undefined) ? this._dialogData.isFirstAccount : true;
         this._formBuilder();
+    }
+
+    private _fetchAccountSettingsVariants(): void {
+        this._mainService.getAccountSettingsVariants().pipe(
+            takeUntil(this._unsubscribe$)
+        ).subscribe((data: any) => {
+            this.userTypes = data.data.userTypes
+        })
     }
 
     private _formBuilder(): void {

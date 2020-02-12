@@ -42,7 +42,7 @@ export class TariffComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this._unsubscribe$))
             .subscribe((data) => {
                 this.tariffTransaction = data.data;
-                const tariffTransactionStatuses = this._mainService.accountSettingsVariants.transactionStatuses;
+                const tariffTransactionStatuses = this._mainService.accountSettingsVariantsSync.transactionStatuses;
                 this.tariffTransaction.map((element, index) => {
                     tariffTransactionStatuses.map((el, ind) => {
                         if (element.status === el.id) {

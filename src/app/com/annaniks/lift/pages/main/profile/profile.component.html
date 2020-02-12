@@ -15,8 +15,9 @@
                     </div>
                 </div>
                 <div class="tab-inner">
-                    <basic-settings [user]="userData" *ngSwitchCase="1"></basic-settings>
-                    <personal-settings [user]="userData" *ngSwitchCase="2"></personal-settings>
+                    <basic-settings (nextTab)="changedTab($event)" [user]="userData" *ngSwitchCase="1"></basic-settings>
+                    <personal-settings (nextTab)="changedTab($event)" [user]="userData" *ngSwitchCase="2">
+                    </personal-settings>
                     <additional-settings [user]="userData" *ngSwitchCase="3"></additional-settings>
                     <!-- <button (click)="deleteSelectedAccount()">DELETE ACCount</button> -->
                 </div>
