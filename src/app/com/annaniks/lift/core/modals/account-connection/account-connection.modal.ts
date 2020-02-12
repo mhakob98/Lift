@@ -7,6 +7,7 @@ import { TwoFactorLoginData, ChallengeLoginData } from '../../models/account';
 import { Subject } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { UserType } from '../../models/account-settings';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -35,6 +36,7 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
     constructor(
         private _fb: FormBuilder,
         private _mainService: MainService,
+        private _router: Router,
         private _dialogRef: MatDialogRef<AccountConnectionModal>,
         @Inject(MAT_DIALOG_DATA) private _dialogData: { isFirstAccount?: boolean }
     ) { }
@@ -59,8 +61,6 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
             autoreviewstories: [false],
             bonus: [false]
         })
-
-
         this.actionForm = this._fb.group({
             action: [null, Validators.required]
         })
@@ -87,7 +87,7 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
                 else {
                     this.tab = 3;
                 }
-                // this._dialogRef.close({ isAccountConnected: true });
+
             },
                 (err) => {
                     const error = err.error;
@@ -131,7 +131,6 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
                 else {
                     this.tab = 3;
                 }
-                // this._dialogRef.close();
             })
     }
 
@@ -153,8 +152,18 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
                 else {
                     this.tab = 3;
                 }
-                // this._dialogRef.close();
             })
+    }
+
+    private _joinToTariff(id) {
+        this._mainService.joinToTariff({
+            tariffId: id,
+        })
+            .pipe(takeUntil(this._unsubscribe$))
+            .subscribe(
+                (data) => {
+                    this.tab = 3;
+                })
     }
 
     public changedTab(tab): void {
@@ -183,16 +192,15 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
         this.tab = tab;
     }
 
-    public postAccountConnectionValues(): void {
-        // this._mainService.postAccountConnectionValues({
-        //     tarriff: this.tariffForm.value.tariff,
-        //     action: this.actionForm.value.action,
-        //     promotion: this.promotionForm.value,
-        // })
-        //     .subscribe((data) => {
-        //         console.log(data);
-        //         this._dialogRef.close();
-        //     })
+    public onClickSave(): void {
+        const action = this.actionForm.get('action').value;
+        if (action == 'auto-subscription') {
+            this._router.navigate(['/promotion/autosubscribe']);
+        }
+        if (action == 'view-stories') {
+            this._router.navigate(['/promotion/auto-watch-story']);
+        }
+        this._dialogRef.close();
     }
 
     public onClickClose(): void {
@@ -206,25 +214,8 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
         this._joinToTariff(tarriffId);
     }
 
-
     ngOnDestroy() {
         this._unsubscribe$.next();
         this._unsubscribe$.complete();
     }
-
-
-
-
-    private _joinToTariff(id) {
-        this._mainService.joinToTariff({
-            tariffId: id,
-        })
-            .pipe(takeUntil(this._unsubscribe$))
-            .subscribe(
-                (data) => {
-                    this.tab = 3;
-                })
-    }
-
-
 }

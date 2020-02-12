@@ -83,10 +83,6 @@
                 <button type="submit" class="btn main-button mt-4 mb-4" (click)="changeTab(4)">Дальше</button>
 
             </div>
-
-
-
-
             <div class="action-content text-center" *ngSwitchCase="4">
                 <p class="title text-center">Дальнейшие дествия</p>
 
@@ -111,7 +107,7 @@
                 </form>
 
                 <button type="submit" class="btn main-button mt-4 mb-4" [disabled]="actionForm.invalid || loading"
-                    (click)="postAccountConnectionValues()">сохранить</button>
+                    (click)="onClickSave()">Сохранить</button>
             </div>
         </div>
     </div>
