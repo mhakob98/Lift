@@ -5,6 +5,7 @@ export interface User {
     instagramAccounts: InstagramAccount[]
     updatedAt: string;
     createdAt: string;
+    refferalCode:string;
 }
 
 interface Role {

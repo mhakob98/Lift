@@ -2,13 +2,15 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth.service';
-import { map, catchError, finalize } from 'rxjs/operators';
+import { map, catchError, finalize, takeUntil } from 'rxjs/operators';
 import { MatchPassword } from '../../../../core/utilities/match-password';
 import { Subject, throwError } from 'rxjs';
 import { RegisterData } from '../../../../core/models/register';
 import { ServerResponse } from '../../../../core/models/server-response';
 import { TokenResponse } from '../../../../core/models/auth';
 import { CookieService } from 'ngx-cookie';
+import { AppService } from 'src/app/app.service';
+import { JoinRequestData } from '../../../../core/models/join';
 
 @Component({
   selector: 'app-sign-up',
@@ -20,13 +22,14 @@ export class SignUpComponent implements OnInit, OnDestroy {
   private _unsubscribe: Subject<void> = new Subject<void>();
   public signUpForm: FormGroup;
   public loading: boolean = false;
-  public errorMessage:string;
+  public errorMessage: string;
 
   constructor(
     private _fb: FormBuilder,
     private _router: Router,
     private _authService: AuthService,
-    private _cookieService:CookieService
+    private _appService: AppService,
+    private _cookieService: CookieService
   ) { }
 
   ngOnInit() {
@@ -53,11 +56,12 @@ export class SignUpComponent implements OnInit, OnDestroy {
       .register(registerData)
       .pipe(
         finalize(() => this.loading = false),
-        map((data:ServerResponse<TokenResponse>) => {
+        map((data: ServerResponse<TokenResponse>) => {
           this.errorMessage = undefined;
           const tokens = data.data;
-          this._cookieService.put('accessToken',tokens.accessToken);
-          this._cookieService.put('refreshToken',tokens.refreshToken);
+          this._cookieService.put('accessToken', tokens.accessToken);
+          this._cookieService.put('refreshToken', tokens.refreshToken);
+          this._checkIsHaveRefferalCode();
           this._router.navigate(['/statistics/preview']);
         }),
         catchError((err) => {
@@ -91,6 +95,24 @@ export class SignUpComponent implements OnInit, OnDestroy {
         ctrl.markAsTouched();
       }
     });
+  }
+
+  private _checkIsHaveRefferalCode(): void {
+    const refferalCode: string = this._cookieService.get('refferalCode') || '';
+    if (refferalCode) {
+      const joinRequest: JoinRequestData = {
+        action: 'registration',
+        refferalCode: refferalCode
+      }
+      this._appService.getTrackingByReferalCode(joinRequest)
+        .pipe(
+          takeUntil(this._unsubscribe),
+          finalize(() => {
+            this._cookieService.remove('refferalCode');
+          })
+        )
+        .subscribe()
+    }
   }
 
 

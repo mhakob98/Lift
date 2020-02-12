@@ -21,6 +21,11 @@ const appRoutes: Routes = [
       .then(m => m.NotFoundModule)
   },
   {
+    path: 'join/:referalCode',
+    loadChildren: () => import('./com/annaniks/lift/pages/join/join.module')
+      .then((m) => m.JoinModule)
+  },
+  {
     path: '**',
     redirectTo: 'not-found',
     pathMatch: 'full'

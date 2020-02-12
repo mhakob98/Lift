@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError, of } from 'rxjs';
 import { ServerResponse } from '../models/server-response';
 import { AuthState } from '../models/auth';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, filter } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { User, InstagramAccount } from '../models/user';
 
@@ -20,7 +20,7 @@ export class AuthService {
 
     constructor(
         private _httpClient: HttpClient,
-        private _router: Router
+        private _router: Router,
     ) { }
 
     public setUserState(userInfo): void {
@@ -29,21 +29,22 @@ export class AuthService {
     }
 
     public setAccount(account: InstagramAccount): void {
-        console.log(account);
         this._activeAccount = account;
         this._activeAccountState$.next(this._activeAccount)
     }
 
-    public getAccount() {
+    public getAccount(): InstagramAccount {
         return this._activeAccount;
     }
 
-    public getUserStateSync() {
+    public getUserStateSync(): User {
         return this._userInfo;
     }
 
-    public getUserState(): Observable<any> {
-        return this._userInfoState$.asObservable();
+    public getUserState(): Observable<User> {
+        return this._userInfoState$.asObservable().pipe(
+            filter((user) => user != null)
+        );
     }
 
     public setAuthState(isAuthorized: boolean): void {
@@ -58,7 +59,7 @@ export class AuthService {
         return this._isAuthorizedState$.asObservable();
     }
 
-    public getActiveAccount(): Observable<any> {
+    public getActiveAccount(): Observable<InstagramAccount> {
         return this._activeAccountState$.asObservable();
     }
 

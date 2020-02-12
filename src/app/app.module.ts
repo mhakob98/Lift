@@ -17,6 +17,7 @@ import { JwtInterceptor } from './com/annaniks/lift/core/interceptors/jwt.interc
 import { LoadingService } from './com/annaniks/lift/core/services/loading-service';
 import { LoadingComponent } from './com/annaniks/lift/layout/loading/loading.component';
 import { ToastrModule } from 'ngx-toastr';
+import { AppService } from './app.service';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ToastrModule } from 'ngx-toastr';
     ToastrModule.forRoot(),
   ],
   providers: [
+    AppService,
     AuthGuard,
     LoadingService,
     {
