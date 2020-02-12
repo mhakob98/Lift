@@ -1,25 +1,25 @@
 <div class="accounts-content">
-    <a class="account-item" routerLink="/profile">
+    <a (click)="navigated.emit()" class="account-item" routerLink="/profile">
         <img src="assets/icons/ellipse.png" alt="">
         <span>Профиль</span>
     </a>
-    <a class="account-item" routerLink="/tariff">
+    <a (click)="navigated.emit()" class="account-item" routerLink="/tariff">
         <img src="assets/icons/ellipse.png" alt="">
         <span>Тариф</span>
     </a>
-    <a class="account-item" routerLink="/support">
+    <a (click)="navigated.emit()" class="account-item" routerLink="/support">
         <img src="assets/icons/ellipse.png" alt="">
         <span>Поддержка</span>
     </a>
-    <a class="account-item" routerLink="/affiliate-program">
+    <a (click)="navigated.emit()" class="account-item" routerLink="/affiliate-program">
         <img src="assets/icons/ellipse.png" alt="">
         <span>Партнерам</span>
     </a>
-    <a class="account-item">
+    <a (click)="navigated.emit()" class="account-item">
         <img src="assets/icons/ellipse.png" alt="">
         <span>Информирование</span>
     </a>
-    <a class="account-item" (click)="onClickLogOut()">
+    <a (click)="navigated.emit()" class="account-item" (click)="onClickLogOut()">
         <img src="assets/icons/ellipse.png" alt="">
         <span>Выйти</span>
     </a>

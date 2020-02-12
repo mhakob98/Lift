@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, AfterViewInit } from "@angular/core";
+import { Component, OnInit, OnDestroy, Input, AfterViewInit, EventEmitter, Output } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProfileService } from '../../profile.service';
 import { Subject, Observable } from 'rxjs';
@@ -28,6 +28,10 @@ export class PersonalSettings implements OnInit, OnDestroy {
             this._bindPersonalSettings(event);
         }
     }
+
+    @Output('nextTab')
+    private _nextTab = new EventEmitter<number>();
+
     private _unsubscribe$: Subject<void> = new Subject<void>();
     public dataForm: FormGroup;
     public contactForm: FormGroup;
@@ -163,7 +167,7 @@ export class PersonalSettings implements OnInit, OnDestroy {
                 takeUntil(this._unsubscribe$),
                 finalize(() => this.loading = false)
             ).
-            subscribe()
+            subscribe(() => this._nextTab.emit(3))
     }
 
     private _bindPersonalSettings(settings): void {

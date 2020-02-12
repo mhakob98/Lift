@@ -48,7 +48,7 @@
                 <div class="arrow" (click)="toggleUserDetails()">
                     <img src="assets/icons/down.png" alt="dropdown">
                 </div>
-                <app-header-user *ngIf="showUserDetails"></app-header-user>
+                <app-header-user (navigated)="showUserDetails = false" *ngIf="showUserDetails"></app-header-user>
             </div>
         </div>
     </header>

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, AfterViewInit } from "@angular/core";
+import { Component, OnInit, OnDestroy, Input, AfterViewInit, Output, EventEmitter } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NotificationModal } from '../notification-modal/notification.modal';
@@ -25,6 +25,8 @@ export class BasicSettingsComponent implements OnInit, OnDestroy, AfterViewInit 
             this._bindPersonalSettings(event);
         }
     }
+    @Output('nextTab')
+    private _nextTab = new EventEmitter<number>();
 
     private _unsubscribe$: Subject<void> = new Subject<void>();
     private _matchPassword: MatchPassword = new MatchPassword();
@@ -110,7 +112,7 @@ export class BasicSettingsComponent implements OnInit, OnDestroy, AfterViewInit 
         return formGroup.get(controlName).hasError('required') && formGroup.get(controlName).touched;
     }
 
-    public changeMe(type: string): void {
+    public changeMe(type: string, navigate: boolean = false): void {
         this.loading = true
         let loginForm = this.loginForm.value
         let notificationForm = this.notificationForm.value
@@ -136,13 +138,14 @@ export class BasicSettingsComponent implements OnInit, OnDestroy, AfterViewInit 
                 takeUntil(this._unsubscribe$),
                 finalize(() => this.loading = false)
             ).
-            subscribe((response) => {
-                console.log(response);
-
-            })
+            subscribe(() => navigate ? this._nextTab.emit(2) : null)
     }
 
     private _bindPersonalSettings(settings): void {
+        this.loginForm.patchValue({
+            email: settings.email,
+            time: settings.timeZone
+        })
         this.notificationForm.patchValue({
             notification: settings.notification,
             email: settings.email

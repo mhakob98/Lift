@@ -101,7 +101,7 @@ export class MainService {
     }
 
     public getShowDisabledView(): boolean {
-        return this._isShowDisabledView;
+        return this._isShowDisabledView
     }
 
     public joinToTariff(data: JoinTariff): Observable<any> {
