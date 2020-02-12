@@ -58,9 +58,9 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of affiliateProgramOperation">
-                        <td>{{item?.data}}</td>
-                        <td>{{item?.transitions}}</td>
-                        <td>{{item?.registrations}}</td>
+                        <td>{{item?.date | date}}</td>
+                        <td>{{item?.transition}}</td>
+                        <td>{{item?.registration}}</td>
                         <td class="d-flex">{{item?.operations}}<p class="ml-2"> руб</p>
                         </td>
                         <td class="income-text"> {{item?.income}} руб</td>

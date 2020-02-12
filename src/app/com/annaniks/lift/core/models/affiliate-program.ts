@@ -1,9 +1,10 @@
 export interface AffiliateProgramOperation {
-    data: string;
-    transitions: number;
-    registrations: number;
+    registration: string;
+    transition: string;
+    date: string;
     operations: number;
     income: number;
+    message: string;
 }
 
 

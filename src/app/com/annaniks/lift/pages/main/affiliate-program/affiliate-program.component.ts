@@ -17,14 +17,7 @@ import { Location, PlatformLocation, DOCUMENT } from '@angular/common';
 export class AffiliateProgramComponent implements OnInit {
     private _unsubscribe$: Subject<void> = new Subject<void>();
     public referalCodeControl = new FormControl();
-    public affiliateProgramOperation: AffiliateProgramOperation[] = [
-        { data: "12 Января 2020", transitions: 35, registrations: 3, operations: 120, income: 19.35 },
-        { data: "12 Января 2020", transitions: 35, registrations: 3, operations: 120, income: 19.35 },
-        { data: "12 Января 2020", transitions: 35, registrations: 3, operations: 120, income: 19.35 },
-        { data: "12 Января 2020", transitions: 35, registrations: 3, operations: 120, income: 19.35 },
-        { data: "12 Января 2020", transitions: 35, registrations: 3, operations: 120, income: 19.35 },
-        { data: "12 Января 2020", transitions: 35, registrations: 3, operations: 120, income: 19.35 },
-    ];
+    public affiliateProgramOperation: AffiliateProgramOperation[]= [];
 
     constructor(
         private _affiliateProgramService: AffiliateProgramService,
@@ -59,7 +52,7 @@ export class AffiliateProgramComponent implements OnInit {
         this._affiliateProgramService.getAffiliateProgramOperation()
             .pipe(takeUntil(this._unsubscribe$))
             .subscribe((data) => {
-                // this.affiliateProgramOperation = data;
+                this.affiliateProgramOperation = data.data;                
             })
     }
 
