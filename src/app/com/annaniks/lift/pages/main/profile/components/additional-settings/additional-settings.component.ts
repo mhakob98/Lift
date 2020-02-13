@@ -92,7 +92,7 @@ export class AdditionalSettings implements OnInit, OnDestroy {
         this._mainService.getAccountSettingsVariants().pipe(
             takeUntil(this._unsubscribe$)
         ).subscribe(data => {
-            this.settingVariants = data.data
+            this.settingVariants = data
         })
     }
 
