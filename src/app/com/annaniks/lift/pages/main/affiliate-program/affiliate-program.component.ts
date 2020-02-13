@@ -17,7 +17,9 @@ import { Location, PlatformLocation, DOCUMENT } from '@angular/common';
 export class AffiliateProgramComponent implements OnInit {
     private _unsubscribe$: Subject<void> = new Subject<void>();
     public referalCodeControl = new FormControl();
-    public affiliateProgramOperation: AffiliateProgramOperation[]= [];
+    public affiliateProgramOperation: AffiliateProgramOperation[] = [];
+    public page: number = 1;
+    public loading: boolean = false;
 
     constructor(
         private _affiliateProgramService: AffiliateProgramService,
@@ -48,12 +50,19 @@ export class AffiliateProgramComponent implements OnInit {
         this._toastrService.success('Скопировано в буфер обмена')
     }
 
+    public onClickSeeMore(): void {
+        this.page = this.page + 1;
+        this._getAffiliateProgramOperation();
+    }
+
     private _getAffiliateProgramOperation(): void {
-        this._affiliateProgramService.getAffiliateProgramOperation()
-            .pipe(takeUntil(this._unsubscribe$))
-            .subscribe((data) => {
-                this.affiliateProgramOperation = data.data;                
-            })
+        this.loading=true;
+        this._affiliateProgramService.getAffiliateProgramOperation(this.page - 1, this.page * 10)
+        .subscribe((data) => {
+            this.affiliateProgramOperation.push(...data.data);
+            console.log(data);
+            this.loading=false;
+        })
     }
 
 }
