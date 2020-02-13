@@ -1,10 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { MainService } from '../../pages/main/main.service';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, finalize } from 'rxjs/operators';
 import { ServerResponse } from '../../core/models/server-response';
 import { User, InstagramAccount } from '../../core/models/user';
 import { AuthService } from '../../core/services/auth.service';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie';
 
 @Component({
   selector: 'app-header',
@@ -17,11 +19,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public showQuestion: boolean = false;
   public showUserDetails: boolean = false;
   public showSwitchAccount: boolean = false;
+  public leftMenuOpened: boolean = false;
+  public rightMenuOpened: boolean = false;
   public user: User;
   public userAccounts: InstagramAccount[] = [];
   public selectedAccount: InstagramAccount;
 
-  constructor(private _authService: AuthService) {
+  constructor(
+    private _authService: AuthService,
+    private _mainService: MainService,
+    private _router: Router,
+    private _cookieService: CookieService
+  ) {
 
   }
 
@@ -41,6 +50,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
       })
   }
 
+  public onClickLogOut(): void {
+    this._mainService.logOut()
+      .pipe(
+        takeUntil(this._unsubscribe$),
+        finalize(() => {
+          this._cookieService.removeAll();
+          this._router.navigate(['/auth/login']);
+        })
+      )
+      .subscribe()
+  }
+
+
   public handleSelectAccount($event: InstagramAccount) {
     this.selectedAccount = $event;
     this._authService.setAccount($event);
@@ -53,6 +75,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public toggleQuestions(): void {
     this.showQuestion = !this.showQuestion;
+  }
+
+  public toggleLeftMenu(): void {
+    this.leftMenuOpened = !this.leftMenuOpened
+    this.rightMenuOpened = false
+  }
+
+  public toggleRightMenu(): void {
+    this.rightMenuOpened = !this.rightMenuOpened
+    this.leftMenuOpened = false
   }
 
   public toggleUserDetails(): void {
@@ -77,6 +109,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public onClickedOutsideSwitch(): void {
     this.showSwitchAccount = false;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    console.log(event);
+
+    if (event.target.innerWidth <= 900) {
+      this.leftMenuOpened = false;
+      this.rightMenuOpened = false;
+    }
   }
 
   ngOnDestroy() {

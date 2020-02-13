@@ -13,3 +13,16 @@
     }
   }
 }
+@media only screen and (max-width: 900px) {
+  .main {
+    margin-top: 60px !important;
+  }
+
+  .header-container {
+    display: none;
+  }
+
+  .small-menu {
+    display: block !important;
+  }
+}

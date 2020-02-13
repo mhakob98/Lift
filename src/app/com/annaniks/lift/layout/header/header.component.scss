@@ -1,3 +1,7 @@
+$bar-width: 100px;
+$bar-height: 10px;
+$bar-spacing: 25px;
+
 .header-container {
   background-color: #305976;
   height: 100px;
@@ -16,29 +20,7 @@
     .logo {
       cursor: pointer;
     }
-    .switch-account {
-      position: relative;
-      height: 36px;
-      background-color: #3e6683;
-      padding: 9px 10px;
-      width: 200px;
-      .switch-account-action {
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-      }
-      p {
-        font-family: "SF UI Display Regular";
-        color: #8ee7e4;
-        font-size: 16px;
-        margin-left: 10px;
-      }
-      img {
-        &:last-child {
-          margin-left: auto;
-        }
-      }
-    }
+
     .nav-links {
       list-style: none;
       margin: 0;
@@ -116,6 +98,168 @@
           }
         }
       }
+    }
+  }
+}
+.switch-account {
+  position: relative;
+  height: 36px;
+  background-color: #3e6683;
+  padding: 9px 10px;
+  width: 200px;
+  .switch-account-action {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  p {
+    font-family: "SF UI Display Regular";
+    color: #8ee7e4;
+    font-size: 16px;
+    margin-left: 10px;
+    &.small {
+      color: white;
+    }
+  }
+  img {
+    &:last-child {
+      margin-left: auto;
+    }
+  }
+}
+.small-menu {
+  display: none;
+  background-color: #305976;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  &-container {
+    height: 100%;
+    padding: 0 20px;
+    .toggle-right {
+      position: relative;
+      .small-nots-count {
+        position: absolute;
+        border-radius: 3px;
+        background-color: #fd7f04;
+        display: flex;
+        top: 0;
+        right: -15px;
+        width: 20px;
+        height: 20px;
+      }
+      span {
+        display: block;
+        margin: auto;
+        color: white;
+        font-family: "SF UI Display Medium";
+      }
+    }
+    .toggle-left,
+    .toggle-right {
+      background: transparent;
+      border: none;
+
+      width: 40px;
+    }
+    .toggle-left {
+      margin-left: -10px;
+    }
+  }
+}
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  background-color: #f6f6f6;
+  overflow-x: hidden;
+  transition: 0.3s;
+  width: 250px;
+
+  &.right {
+    &.open {
+      margin-right: 0;
+    }
+    margin-right: -250px;
+    right: 0;
+    border-left: 1px solid#d6d6d6;
+    padding-top: 80px;
+    .user-info-mobile {
+      margin-bottom: 20px;
+      padding-left: 20px;
+      .user-details-mobile {
+        margin-left: 15px;
+        p {
+          font-family: "SF UI Display Medium";
+          &:first-child {
+            font-size: 14px;
+            color: #7d7d7d;
+            margin-bottom: 5px;
+          }
+          &:last-child {
+            font-size: 16px;
+            color: #3399cc;
+          }
+        }
+      }
+    }
+    a {
+      &:last-child {
+        color: #a0b0bc;
+      }
+    }
+  }
+  &.left {
+    &.open {
+      margin-left: 0;
+    }
+    padding-top: 80px;
+    padding-left: 10px;
+    margin-left: -250px;
+    left: 0;
+    border-right: 1px solid#d6d6d6;
+    .left-menu-links {
+      padding: 15px 20px;
+      font-family: "SF UI Display Semibold";
+      color: #3d3d3d;
+    }
+  }
+
+  a {
+    padding: 8px 8px 8px 20px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #3d3d3d;
+    font-family: "SF UI Display Semibold";
+    display: block;
+    transition: 0.3s;
+
+    &:hover {
+      background-color: #ebebeb;
+    }
+    img {
+      margin: -5px 10px 0 0;
+    }
+  }
+}
+.submenus-header {
+  color: #3d3d3d;
+  font-family: "SF UI Display Semibold";
+  margin-left: 10px;
+}
+::ng-deep mat-accordion {
+  .mat-expansion-panel {
+    box-shadow: none !important;
+    background-color: #f6f6f6 !important;
+  }
+  .mat-expansion-panel-body {
+    a {
+      font-family: "SF UI Display Regular" !important;
     }
   }
 }
