@@ -21,7 +21,6 @@ export class AdditionalSettings implements OnInit, OnDestroy {
             this._bindPersonalSettings(event);
         }
     }
-
     private _unsubscribe$: Subject<void> = new Subject<void>();
     public additionalForm: FormGroup;
     public pagesForm: FormGroup;
@@ -35,7 +34,7 @@ export class AdditionalSettings implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-        this._fetchAccountSettingsVariants()
+        this._fetchAccountSettingsVariants();
     }
 
     private _formBuilder(): void {
@@ -92,7 +91,7 @@ export class AdditionalSettings implements OnInit, OnDestroy {
         this._mainService.getAccountSettingsVariants().pipe(
             takeUntil(this._unsubscribe$)
         ).subscribe(data => {
-            this.settingVariants = data.data
+            this.settingVariants = data
         })
     }
 

@@ -50,7 +50,7 @@ export class MainService {
                     this._authService.setUserState(user);
                     if (!this._authService.getAccount() || (this._authService.getAccount() && !this._authService.getAccount().id)) {
                         if (user && user.instagramAccounts && user.instagramAccounts.length > 0) {
-                            this._authService.setAccount(user.instagramAccounts[0])
+                            this._authService.setAccount(user.instagramAccounts[0]);
                         }
                     }
                     return data;
@@ -73,13 +73,13 @@ export class MainService {
         document.body.style.overflow = 'auto';
     }
 
-    public getAccountSettingsVariants(): Observable<ServerResponse<any>> {
+    public getAccountSettingsVariants(): Observable<AccountSettings> {
         return this._httpClient.get<ServerResponse<AccountSettings>>('settings')
             .pipe(
                 map((data) => {
                     this._accountSettingsVariants = data.data;
-                    this._accountSettings$.next(this._accountSettingsVariants)
-                    return data;
+                    this._accountSettings$.next(this._accountSettingsVariants);
+                    return data.data;
                 })
             )
     }
