@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { SupportServiceRoutingModule } from './support-service.routing.module';
 import { SharedModule } from '../../../shared/shared.module';
 import { TicketListItemComponent } from './components';
+import { SupportService } from './support-service.service';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { TicketListItemComponent } from './components';
         SharedModule
     ],
     entryComponents: [SupportServiceRoutingModule.entryComponents],
+    providers: [SupportService],
     exports: []
 })
 export class SupportServiceModule {

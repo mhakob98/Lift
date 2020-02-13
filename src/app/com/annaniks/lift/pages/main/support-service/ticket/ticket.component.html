@@ -3,139 +3,27 @@
         <div class="messaging">
             <div class="inbox_msg">
                 <div class="mesgs">
-                    <div class="msg_history">
-                        <div class="incoming-msg d-flex align-items-start">
-                            <div class="incoming-msg-text">
-                                <div class="message-left">
-                                    <span class="message-date">12 Января 15:54 </span>
-                                    <span class="message-body">Проголосуй у меня странице
-                                        https://www.instagram.com/p/B7o2SXTJtVx/</span>
-                                </div>
-                                <div class="sent-by">
-                                    <div class="sent-by-text">
-                                        <p class="text-right">Служба поддержки</p>
-                                        <p class="text-right">Андрей</p>
-                                    </div>
-                                    <img src="assets/icons/avatar.png" class="incoming-msg-img">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="outgoing-msg d-flex align-items-start justify-content-end">
-                            <div class="outgoing-msg-text">
-                                <div class="message-left">
-                                    <span class="message-date">12 Января 15:54 </span>
-                                    <span class="message-body">Проголосуйменя странице
-                                        https://www.instagram.com/p/B7o2SXTJtVx/</span>
-                                </div>
-                                <img src="assets/icons/avatar.png" class="incoming-msg-img">
-                            </div>
-                        </div>
-
-                        <div class="incoming-msg d-flex align-items-start">
-                            <div class="incoming-msg-text">
-                                <div class="message-left">
-                                    <span class="message-date">12 Января 15:54 </span>
-                                    <span class="message-body">Прогоо у меня странице
-                                        https://www.instagm/p/B7o2SXTJtVx/</span>
-                                </div>
-                                <div class="sent-by">
-                                    <div class="sent-by-text">
-                                        <p class="text-right">Служба поддержки</p>
-                                        <p class="text-right">Андрей</p>
-                                    </div>
-                                    <img src="assets/icons/avatar.png" class="incoming-msg-img">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="outgoing-msg d-flex align-items-start justify-content-end">
-                            <div class="outgoing-msg-text">
-                                <div class="message-left">
-                                    <span class="message-date">12 Января 15:54 </span>
-                                    <span class="message-body">Проголосуй пожалуйста за мое фотменя странице
-                                        https://www.instagram.com/p/B7o2SXTJtVx/</span>
-                                </div>
-                                <img src="assets/icons/avatar.png" class="incoming-msg-img">
-                            </div>
-                        </div>
-                        <div class="incoming-msg d-flex align-items-start">
-                            <div class="incoming-msg-text">
-                                <div class="message-left">
-                                    <span class="message-date">12 Января 15:54 </span>
-                                    <span class="message-body">Проголосуй пожалуза мое фото у меня странице
-                                        https://www.inscom/p/B7oVx/</span>
-                                </div>
-                                <div class="sent-by">
-                                    <div class="sent-by-text">
-                                        <p class="text-right">Служба поддержки</p>
-                                        <p class="text-right">Андрей</p>
-                                    </div>
-                                    <img src="assets/icons/avatar.png" class="incoming-msg-img">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="outgoing-msg d-flex align-items-start justify-content-end">
-                            <div class="outgoing-msg-text">
-                                <div class="message-left">
-                                    <span class="message-date">12 Января 15:54 </span>
-                                    <span class="message-body">Проголосуй пожалуйста за мое фото у меня странице
-                                        https://www.instagram.com/p/B7o2SXTJtVx/</span>
-                                </div>
-                                <img src="assets/icons/avatar.png" class="incoming-msg-img">
-                            </div>
-                        </div>
-                        <div class="incoming-msg d-flex align-items-start">
-                            <div class="incoming-msg-text">
-                                <div class="message-left">
-                                    <span class="message-date">12 Января 15:54 </span>
-                                    <span class="message-body">Проголосуй пожалуйста за мое </span>
-                                </div>
-                                <div class="sent-by">
-                                    <div class="sent-by-text">
-                                        <p class="text-right">Служба поддержки</p>
-                                        <p class="text-right">Андрей</p>
-                                    </div>
-                                    <img src="assets/icons/avatar.png" class="incoming-msg-img">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="outgoing-msg d-flex align-items-start justify-content-end">
-                            <div class="outgoing-msg-text">
-                                <div class="message-left">
-                                    <span class="message-date">12 Января 15:54 </span>
-                                    <span class="message-body">Проголосуй пожалуйста
-                                        https://www.instagram.com/p/B7o2SXTJtVx/</span>
-                                </div>
-                                <img src="assets/icons/avatar.png" class="incoming-msg-img">
-                            </div>
-                        </div>
-
+                    <div class="msg_history" #msgContainer [scrollTop]="msgContainer.scrollHeight">
+                        <div *ngFor="let message of messages" app-ticket-message [message]="message"></div>
                     </div>
-                    <div class="type_msg w-100 ">
-
+                    <form class="type_msg w-100" [formGroup]="messageForm">
                         <div class="input_msg_write d-flex  align-items-center">
-                            <textarea placeholder="Введите сообщение" class="write_msg"></textarea>
-
+                            <textarea placeholder="Введите сообщение" class="write_msg"
+                                formControlName="message"></textarea>
                         </div>
                         <div class="send-btn d-flex justify-content-between">
-                            <button class="btn ">Отправить</button>
+                            <button class="btn" type="submit" (click)="onClickSend()" [disabled]="messageForm.invalid">Отправить</button>
                             <div class="image-upload">
                                 <label for="file-input">
                                     <img height="20" src="assets/icons/attachment.png" />
                                     Прикрепить файл
                                 </label>
-                                <input class="file" id="file-input" type="file" />
+                                <input class="file" id="file-input" type="file" multiple/>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
-
             </div>
-
         </div>
     </div>
 </div>
-<footer-navigation></footer-navigation>

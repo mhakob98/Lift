@@ -88,7 +88,7 @@ export class PersonalSettings implements OnInit, OnDestroy {
             })
     }
 
-    private _getAccountSettingsVariants(): Observable<ServerResponse<AccountSettings>> {
+    private _getAccountSettingsVariants(): Observable<AccountSettings> {
         return this._mainService.getAccountSettingsVariants()
             .pipe(takeUntil(this._unsubscribe$))
     }
