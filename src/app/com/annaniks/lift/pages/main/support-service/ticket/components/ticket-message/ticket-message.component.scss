@@ -3,6 +3,7 @@
   animation: slide-up 0.5s ease;
   .message-body {
     word-wrap: break-word;
+    word-break: break-word;
   }
   .sent-by {
     .msg-img {
