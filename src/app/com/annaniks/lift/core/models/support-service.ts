@@ -14,35 +14,50 @@ export interface Ticket {
     id: number;
     title: string;
     statusId: number;
-    statusName: string;
     categoryId: number;
-    categoryName?: string;
     userId: number;
     createdAt: string;
     updatedAt: string;
-    firstMessage: {
-        id: number;
-        message: string;
-        userId: number;
-        ticketId: number;
-        seen: boolean;
-        createdAt: string;
-        updatedAt: string;
-    }
-    user: {
-        id: number;
-        name: string;
-    }
-    category: {
-        id: number;
-        name: string;
-        createdAt: string;
-        updatedAt: string;
-    }
-    status: {
-        id: number;
-        name: string;
-        createdAt: string;
-        updatedAt: string;
-    }
+    firstMessage?: TicketFirstMessage;
+    messages: TicketMessage[];
+    category: TicketCategory;
+    status: TicketStatus;
+}
+
+export interface TicketMessage {
+    id: number;
+    message: string;
+    userId: number;
+    ticketId: number;
+    seen: boolean
+    createdAt: string;
+    updatedAt: string;
+    user: { id: 14, name: "Rado Poghossian" }
+    files: []
+}
+
+export interface TicketCategory {
+    id: number;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export declare type TicketStatus = TicketCategory;
+
+
+export interface TicketFirstMessage {
+    id: number;
+    message: string;
+    userId: number;
+    ticketId: number;
+    seen: boolean;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export interface WriteTicketMessageData {
+    message: string;
+    ticketId: number;
+    files?: File[]
 }

@@ -50,7 +50,7 @@ export class MainService {
                     this._authService.setUserState(user);
                     if (!this._authService.getAccount() || (this._authService.getAccount() && !this._authService.getAccount().id)) {
                         if (user && user.instagramAccounts && user.instagramAccounts.length > 0) {
-                            this._authService.setAccount(user.instagramAccounts[0])
+                            this._authService.setAccount(user.instagramAccounts[0]);
                         }
                     }
                     return data;

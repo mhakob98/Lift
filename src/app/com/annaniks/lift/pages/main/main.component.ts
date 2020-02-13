@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MainService } from './main.service';
-import { Subject, pipe, Observable } from 'rxjs';
+import { Subject, pipe, Observable, forkJoin } from 'rxjs';
 import { takeUntil, map, switchMap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { AccountConnectionModal } from '../../core/modals';
@@ -24,35 +24,22 @@ export class MainComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this._getUser();
+    this._fetchMainData();
   }
 
-  public _getUser(): void {
-    let user = {} as User;
-    this._mainService.getMe()
+  private _fetchMainData(): void {
+    const joined = [this._getUser(), this._getAccountSettingsVariants()];
+    forkJoin(joined)
+      .pipe(takeUntil(this._unsubscribe$))
+      .subscribe();
+  }
+
+  public _getUser(): Observable<User> {
+    return this._mainService.getMe()
       .pipe(
         takeUntil(this._unsubscribe$),
-        switchMap((data) => {
-          user = data.data;
-          return this._getAccountSettingsVariants()
-        }),
-        map((data) => {
-          if (user.instagramAccounts) {
-            if (user.instagramAccounts.length === 0) {
-              this._router.navigate(['']);
-              this._openAccountConnectModal();
-            }
-          }
-          else {
-            this._router.navigate(['']);
-            this._openAccountConnectModal();
-          }
-        })
+        map((data) => data.data)
       )
-      .pipe(
-
-      )
-      .subscribe();
   }
 
   private _getAccountSettingsVariants(): Observable<AccountSettings> {
