@@ -30,6 +30,8 @@
             </ul>
         </nav>
         <div class="account">
+
+
             <div class="account-nots" (clickOutside)="onClickedOutsideNots()">
                 <img src="assets/icons/bell.png" alt="notifications" (click)="toggleNotsPanel()">
                 <div class="nots-panel" (click)="toggleNotsPanel()">
@@ -48,8 +50,95 @@
                 <div class="arrow" (click)="toggleUserDetails()">
                     <img src="assets/icons/down.png" alt="dropdown">
                 </div>
-                <app-header-user (navigated)="showUserDetails = false" *ngIf="showUserDetails"></app-header-user>
+                <app-header-user (logOut)="onClickLogOut()" (navigated)="showUserDetails = false"
+                    *ngIf="showUserDetails"></app-header-user>
             </div>
         </div>
     </header>
+</div>
+
+<div class="small-menu">
+    <div class="small-menu-container d-flex justify-content-between align-items-center">
+        <button (click)="toggleLeftMenu()" class="toggle-left">
+            <img width="25px" height="25px"
+                src="{{leftMenuOpened ? 'assets/icons/close.png' : 'assets/icons/menu.png' }}">
+        </button>
+        <div class="switch-account" (clickOutside)="onClickedOutsideSwitch()">
+            <div class="switch-account-action" (click)="toggleSwitchAccount()">
+                <img src="assets/icons/insta_icon.png" alt="Instagram">
+                <p class="small">{{selectedAccount?.login}}</p>
+                <img width="15px" src="assets/icons/arr_down_white.png" alt="">
+            </div>
+        </div>
+        <button (click)="toggleRightMenu()" class="toggle-right">
+            <img width="40px" height="40px" *ngIf="!rightMenuOpened" src="assets/boy.png">
+            <img width="20px" height="20px" *ngIf="rightMenuOpened" src="assets/icons/close.png">
+
+            <div *ngIf="!rightMenuOpened" class="small-nots-count">
+                <span>2</span>
+            </div>
+        </button>
+
+    </div>
+</div>
+
+<div class="sidenav left" [ngClass]="{'open':leftMenuOpened}">
+    <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <div class="d-flex align-items-center">
+                        <img src="assets/icons/pie-chart.png">
+                        <p class="submenus-header">СТАТИСТИКА</p>
+                    </div>
+
+                </mat-panel-title>
+
+            </mat-expansion-panel-header>
+            <a routerLink="/statistics/preview">Обзор</a>
+            <a routerLink="/statistics/subscribers">Подписчики</a>
+            <a routerLink="/statistics/my-subscribes">Мои подписки</a>
+            <a routerLink="/statistics/posts">Посты</a>
+            <a routerLink="/statistics/likes">Лайки</a>
+            <a routerLink="/statistics/comments">Комментарии</a>
+            <a routerLink="/statistics/bookmarks">Закладки</a>
+        </mat-expansion-panel>
+    </mat-accordion>
+    <a class="left-menu-links">
+        <img width="15px" src="assets/icons/rocket.png">
+        ПРОДВИЖЕНИЕ
+    </a>
+    <a class="left-menu-links">
+        <img width="15px" src="assets/icons/wrench.png">
+        ИНСТРУМЕНТЫ
+    </a>
+    <a class="left-menu-links">
+        <img width="15px" src="assets/icons/knowledge.png">
+        БАЗА ЗНАНИЙ
+    </a>
+</div>
+<div class="sidenav right" [ngClass]="{'open':rightMenuOpened}">
+    <div class="d-flex align-items-center user-info-mobile">
+        <img src="assets/boy.png" alt="">
+        <div class="user-details-mobile">
+            <p>Тариф</p>
+            <p>Персональный <img src="assets/icons/change.png" width="20px" alt=""></p>
+        </div>
+    </div>
+    <a routerLink="/profile">
+        <img width="20px" src="assets/icons/profile.png">
+        ПРОФИЛЬ
+    </a>
+    <a routerLink="/support">
+        <img width="20px" src="assets/icons/support.png">
+        ПОДДЕРЖКА
+    </a>
+    <a routerLink="/affiliate-program">
+        <img width="20px" src="assets/icons/partners.png">
+        ПАРТНЕРАМ
+    </a>
+    <a routerLink="/profile" (click)="onClickLogOut()">
+        <img width="20px" src="assets/icons/logout.png">
+        ВЫЙТИ
+    </a>
 </div>
