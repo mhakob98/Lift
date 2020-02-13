@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TariffTransaction, Tariff } from '../../../core/models/tariff';
 import { ServerResponse } from '../../../core/models/server-response';
@@ -16,7 +16,13 @@ export class TariffService {
         return this._httpClient.get<ServerResponse<Tariff[]>>('')
     }
 
-    public getTariffTransaction(): Observable<ServerResponse<TariffTransaction[]>> {
-        return this._httpClient.get<ServerResponse<TariffTransaction[]>>('tariff/transaction')
+    public getTariffTransaction(offset: number,limit: number): Observable<ServerResponse<TariffTransaction[]>> {
+        let params = new HttpParams()
+        params = params.set('offset', offset.toString())
+        params = params.set('limit', limit.toString())
+     
+        return this._httpClient.get<ServerResponse<TariffTransaction[]>>('tariff/transaction', { params })
     }
+
+
 }
