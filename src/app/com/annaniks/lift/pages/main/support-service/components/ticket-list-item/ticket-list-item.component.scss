@@ -5,7 +5,7 @@
   border: 1px solid #f6f6f6;
   transition: border-color 0.5s;
   border-radius: 8px;
-  text-decoration:none;
+  text-decoration: none;
   .date {
     font-weight: bold;
     color: #7d7d7d;
@@ -28,10 +28,43 @@
 
 .active {
   border-color: #9cdcd2 !important;
-  .date{
-    color:black;
+  .date {
+    color: black;
   }
-  .status{
-    color:#9cdcd2 !important;
+  .status {
+    color: #9cdcd2 !important;
+  }
+}
+
+.loading {
+  .date {
+    width: 20%;
+    height: 16px;
+    background: linear-gradient(to right, #eff2e8, #bcbfc1, #c9d0d1, #d9e2de, #eff2e8);
+    background-size: 400%;
+    animation: animate 6s linear infinite;
+  }
+  .message {
+    width: 40%;
+    height: 16px;
+    background: linear-gradient(to right, #eff2e8, #bcbfc1, #c9d0d1, #d9e2de, #eff2e8);
+    background-size: 400%;
+    animation: animate 6s linear infinite;
+  }
+  .status {
+    width: 15%;
+    height: 16px;
+    background: linear-gradient(to right, #eff2e8, #bcbfc1, #c9d0d1, #d9e2de, #eff2e8);
+    background-size: 400%;
+    animation: animate 6s linear infinite;
+  }
+}
+
+@keyframes animate {
+  0% {
+    background-position: 400%;
+  }
+  100% {
+    background-position: 0%;
   }
 }

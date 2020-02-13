@@ -9,12 +9,19 @@
             </button>
         </div>
         <div class="active-tickets">
-            <div class="tickets-list">
-                <app-ticket-list-item [active]="true"></app-ticket-list-item>
-                <app-ticket-list-item [active]="true"></app-ticket-list-item>
-                <app-ticket-list-item [active]="true"></app-ticket-list-item>
-                <app-ticket-list-item [active]="true"></app-ticket-list-item>
+            <div class="tickets-list" *ngIf="!loading">
+                <app-ticket-list-item [ticket]="ticket" *ngFor="let ticket of openedTickets"></app-ticket-list-item>
             </div>
+            <div class="tickets-list" *ngIf="loading">
+                <app-ticket-list-item [mode]="'skeletion'"></app-ticket-list-item>
+                <app-ticket-list-item [mode]="'skeletion'"></app-ticket-list-item>
+                <app-ticket-list-item [mode]="'skeletion'"></app-ticket-list-item>
+                <app-ticket-list-item [mode]="'skeletion'"></app-ticket-list-item>
+                <app-ticket-list-item [mode]="'skeletion'"></app-ticket-list-item>
+            </div>
+            <p class="empty-message" *ngIf="!loading && openedTickets?.length==0">
+                Нет открытых тикетов
+            </p>
         </div>
         <div class="closed-tickets">
             <div class="collapse-heading">
@@ -25,13 +32,19 @@
                 </div>
                 <div class="line"></div>
             </div>
-            <div class="tickets-list" *ngIf="open">
-                <app-ticket-list-item></app-ticket-list-item>
-                <app-ticket-list-item></app-ticket-list-item>
-                <app-ticket-list-item></app-ticket-list-item>
-                <app-ticket-list-item></app-ticket-list-item>
-                <app-ticket-list-item></app-ticket-list-item>
+            <div class="tickets-list" *ngIf="open && !loading">
+                <app-ticket-list-item [ticket]="ticket" *ngFor="let ticket of closedTickets"></app-ticket-list-item>
             </div>
+            <div class="tickets-list" *ngIf="open && loading">
+                <app-ticket-list-item [mode]="'skeletion'"></app-ticket-list-item>
+                <app-ticket-list-item [mode]="'skeletion'"></app-ticket-list-item>
+                <app-ticket-list-item [mode]="'skeletion'"></app-ticket-list-item>
+                <app-ticket-list-item [mode]="'skeletion'"></app-ticket-list-item>
+                <app-ticket-list-item [mode]="'skeletion'"></app-ticket-list-item>
+            </div>
+            <p class="empty-message" *ngIf="open && !loading && closedTickets?.length==0">
+                Нет закрытых тикетов
+            </p>
         </div>
     </div>
 </div>

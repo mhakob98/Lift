@@ -24,7 +24,6 @@ export class MainComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this._getAccountSettingsVariants();
     this._getUser();
   }
 
@@ -56,7 +55,7 @@ export class MainComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  private _getAccountSettingsVariants(): Observable<ServerResponse<AccountSettings>> {
+  private _getAccountSettingsVariants(): Observable<AccountSettings> {
     return this._mainService.getAccountSettingsVariants()
       .pipe(takeUntil(this._unsubscribe$))
   }

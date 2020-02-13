@@ -3,6 +3,8 @@ export interface AccountSettings {
     occupations: Occupation[];
     userTypes: UserType[];
     transactionStatuses: TransactionStatuse[];
+    supportTicketCategores: SupportTicketCategory[];
+    supportTicketStatus: SupportTicketStatus[];
     message: string;
 }
 
@@ -17,7 +19,6 @@ export interface Occupation {
     id: number;
     name: string;
 }
-
 export interface UserType {
     id: number;
     name: string;
@@ -30,8 +31,16 @@ export interface UserType {
     createdAt: string;
     updatedAt: string;
 }
-
 export interface TransactionStatuse {
     id: number;
     name: string;
 }
+
+export interface SupportTicketCategory {
+    id: number;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export declare type SupportTicketStatus = SupportTicketCategory;

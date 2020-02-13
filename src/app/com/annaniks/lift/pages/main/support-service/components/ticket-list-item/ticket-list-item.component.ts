@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Ticket } from '../../../../../core/models/support-service';
 
 @Component({
     selector: 'app-ticket-list-item',
@@ -6,7 +7,9 @@ import { Component, OnInit, Input } from '@angular/core';
     styleUrls: ['ticket-list-item.component.scss']
 })
 export class TicketListItemComponent implements OnInit {
-    @Input('active') public active:boolean = false;
+    @Input('ticket') public ticket: Ticket = {} as Ticket;
+    @Input('active') public active: boolean = false;
+    @Input('mode') public mode: 'skeletion' | 'normal' = 'normal';
 
     constructor() { }
 

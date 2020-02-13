@@ -73,13 +73,13 @@ export class MainService {
         document.body.style.overflow = 'auto';
     }
 
-    public getAccountSettingsVariants(): Observable<ServerResponse<any>> {
+    public getAccountSettingsVariants(): Observable<AccountSettings> {
         return this._httpClient.get<ServerResponse<AccountSettings>>('settings')
             .pipe(
                 map((data) => {
                     this._accountSettingsVariants = data.data;
-                    this._accountSettings$.next(this._accountSettingsVariants)
-                    return data;
+                    this._accountSettings$.next(this._accountSettingsVariants);
+                    return data.data;
                 })
             )
     }
