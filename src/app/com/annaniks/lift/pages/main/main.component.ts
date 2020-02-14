@@ -67,7 +67,6 @@ export class MainComponent implements OnInit, OnDestroy {
     dialofRef.afterClosed()
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe((data: { isAccountConnected: boolean }) => {
-
         if (data && !data.isAccountConnected) {
           this._router.navigate(['/auth/login'])
         }

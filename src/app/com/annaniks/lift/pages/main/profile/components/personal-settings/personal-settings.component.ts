@@ -58,14 +58,15 @@ export class PersonalSettings implements OnInit, OnDestroy {
             finalize(() => this._loadingService.hideLoading()),
             takeUntil(this._unsubscribe$)
         ).subscribe((data) => {
-            this.userAccounts.map((account: InstagramAccount, index: number) => {
-                if (account.id = id) {
-                    this.userAccounts.splice(index, 1)
-                }
-            })
-            if (this.userAccounts.length == 0) {
-                this._refreshUser();
-            }
+            // this.userAccounts.map((account: InstagramAccount, index: number) => {
+            //     if (account.id = id) {
+            //         this.userAccounts.splice(index, 1);
+            //     }
+            // })
+            this._refreshUser();
+            // if (this.userAccounts.length == 0) {
+            //     this._refreshUser();
+            // }
         })
     }
 
@@ -118,13 +119,8 @@ export class PersonalSettings implements OnInit, OnDestroy {
     }
 
     private _refreshUser(): void {
-        this._loadingService.showLoading()
-        this._mainService.getMe()
-            .pipe(
-                finalize(() => this._loadingService.hideLoading()),
-                takeUntil(this._unsubscribe$),
-            )
-            .subscribe();
+        this._loadingService.showLoading();
+        this._mainService.getMe().subscribe();
     }
 
     public changeMe(): void {

@@ -41,6 +41,8 @@ export class MainService {
             .pipe(
                 map((data: ServerResponse<User>) => {
                     const user = data.data;
+                    console.log(user);
+                    this._authService.setUserState(user);
                     if (user) {
                         if (user.instagramAccounts && user.instagramAccounts.length === 0) {
                             this.setShowDisabledView(true);
@@ -57,7 +59,6 @@ export class MainService {
                         this.setShowDisabledView(true);
                         return;
                     }
-                    this._authService.setUserState(user);
                     if (!this._authService.getAccount() || (this._authService.getAccount() && !this._authService.getAccount().id)) {
                         if (user && user.instagramAccounts && user.instagramAccounts.length > 0) {
                             this._authService.setAccount(user.instagramAccounts[0]);

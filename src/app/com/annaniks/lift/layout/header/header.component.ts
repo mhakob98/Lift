@@ -42,9 +42,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this._authService.getUserState()
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe((data) => {
+        console.log(data);
         if (!!data) {
           this.user = data;
           this.userAccounts = this.user.instagramAccounts;
+          console.log(data);
           this.selectedAccount = (this.userAccounts.length > 0) ? this.userAccounts[0] : null;
         }
       })
