@@ -27,7 +27,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     public changedTab(tab): void {
         this.tab = tab;
-
     }
 
 

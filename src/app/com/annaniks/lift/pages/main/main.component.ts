@@ -47,7 +47,6 @@ export class MainComponent implements OnInit, OnDestroy {
   public _getUser(): Observable<User> {
     return this._mainService.getMe()
       .pipe(
-        takeUntil(this._unsubscribe$),
         map((data) => data.data)
       )
   }

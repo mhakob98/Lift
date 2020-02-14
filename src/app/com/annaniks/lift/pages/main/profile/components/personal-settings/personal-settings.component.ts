@@ -58,11 +58,15 @@ export class PersonalSettings implements OnInit, OnDestroy {
             finalize(() => this._loadingService.hideLoading()),
             takeUntil(this._unsubscribe$)
         ).subscribe((data) => {
+            const activeAccount = this._authService.getAccount();
             // this.userAccounts.map((account: InstagramAccount, index: number) => {
             //     if (account.id = id) {
             //         this.userAccounts.splice(index, 1);
             //     }
             // })
+            if (activeAccount && activeAccount.id && (id === activeAccount.id)) {
+                this._authService.setAccount({} as InstagramAccount);
+            }
             this._refreshUser();
             // if (this.userAccounts.length == 0) {
             //     this._refreshUser();
