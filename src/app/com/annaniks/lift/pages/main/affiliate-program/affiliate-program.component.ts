@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../../../core/models/user';
-import { Location, PlatformLocation, DOCUMENT } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
     selector: 'app-affiliate-program',
@@ -47,7 +47,7 @@ export class AffiliateProgramComponent implements OnInit {
         inputElement.select();
         document.execCommand('copy');
         inputElement.setSelectionRange(0, 0);
-        this._toastrService.success('Скопировано в буфер обмена')
+        this._toastrService.success('Скопировано в буфер обмена');
     }
 
     public onClickSeeMore(): void {
@@ -60,7 +60,6 @@ export class AffiliateProgramComponent implements OnInit {
         this._affiliateProgramService.getAffiliateProgramOperation(this.page - 1, this.page * 10)
         .subscribe((data) => {
             this.affiliateProgramOperation.push(...data.data);
-            console.log(data);
             this.loading=false;
         })
     }

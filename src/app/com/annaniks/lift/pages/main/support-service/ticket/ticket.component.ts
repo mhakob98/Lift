@@ -19,6 +19,7 @@ export class TicketComponent implements OnInit, OnDestroy {
     public ticket: Ticket = {} as Ticket;
     public messages: TicketMessage[] = [];
     public messageForm: FormGroup;
+    public attachedFiles: File[] = [];
     @ViewChild('msgContainer', { static: false }) public msgContainer: ElementRef;
 
 
@@ -55,13 +56,14 @@ export class TicketComponent implements OnInit, OnDestroy {
             ticketId: Number(this._ticketId),
             message: this.messageForm.get('message').value,
         }
-        this._ticketService.writeMessage(writeMessageData)
+        this._ticketService.writeMessage(writeMessageData,this.attachedFiles)
             .pipe(takeUntil(this._unsubscribe$))
             .subscribe(
                 (data) => {
                     const message: TicketMessage = data.data;
                     this.messages.push(message);
                     this.messageForm.get('message').reset();
+                    this.attachedFiles = [];
                     this._toastrService.success('Сообщение успешно отправлено');
                 },
                 (err) => {
@@ -78,7 +80,21 @@ export class TicketComponent implements OnInit, OnDestroy {
         }
     }
 
+    public onChangeFiles($event,fileInput): void {
+        const files = $event;
+        const fileList: FileList = files.target.files;
+        for (let i = 0; i < fileList.length; i++) {
+            const file: File = fileList[i];
+            this.attachedFiles.push(file);
+        }
+        fileInput.value = null;
+        $event.preventDetault();
+        
+    }
 
+    public onClickRemoveAttachedFile(index: number): void {
+        this.attachedFiles.splice(index, 1);
+    }
 
     ngOnDestroy() {
         this._unsubscribe$.next();
