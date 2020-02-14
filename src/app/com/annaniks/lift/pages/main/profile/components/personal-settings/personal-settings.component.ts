@@ -81,16 +81,11 @@ export class PersonalSettings implements OnInit, OnDestroy {
             .subscribe((data: { isAccountConnected: boolean }) => {
                 if (data && !data.isAccountConnected && this.userAccounts.length == 0) {
                     this._router.navigate(['/auth/login'])
-                    this._loadingService.hideLoading()
+                    this._loadingService.hideLoading();
                 } else {
                     this._refreshUser();
                 }
             })
-    }
-
-    private _getAccountSettingsVariants(): Observable<AccountSettings> {
-        return this._mainService.getAccountSettingsVariants()
-            .pipe(takeUntil(this._unsubscribe$))
     }
 
     private _formBuilder(): void {
@@ -124,28 +119,12 @@ export class PersonalSettings implements OnInit, OnDestroy {
 
     private _refreshUser(): void {
         this._loadingService.showLoading()
-        let user = {} as User;
         this._mainService.getMe()
             .pipe(
                 finalize(() => this._loadingService.hideLoading()),
                 takeUntil(this._unsubscribe$),
-                switchMap((data) => {
-                    user = data.data;
-                    return this._getAccountSettingsVariants()
-                }),
-                map((data) => {
-                    if (user.instagramAccounts) {
-                        if (user.instagramAccounts.length === 0) {
-                            this._router.navigate(['']);
-                            this.openAccountConnectionModal();
-                        }
-                    }
-                    else {
-                        this._router.navigate(['']);
-                        this.openAccountConnectionModal();
-                    }
-                })
-            ).subscribe()
+            )
+            .subscribe();
     }
 
     public changeMe(): void {
@@ -182,8 +161,6 @@ export class PersonalSettings implements OnInit, OnDestroy {
             month: settings.dbMount ? settings.dbMount.toString() : null,
             year: settings.dbYear ? settings.dbYear.toString() : null,
         })
-        console.log(this.dataForm);
-
     }
 
     ngOnDestroy() {

@@ -70,8 +70,6 @@ export class AutopostingComponent implements OnInit {
 
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    console.log(events);
-    // if ( ){}
     if (isSameMonth(date, this.viewDate)) {
       if (
         (isSameDay(this.viewDate, date)) ||
