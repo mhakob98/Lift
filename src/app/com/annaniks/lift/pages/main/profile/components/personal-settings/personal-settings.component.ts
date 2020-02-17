@@ -11,8 +11,7 @@ import { AuthService } from 'src/app/com/annaniks/lift/core/services/auth.servic
 import { AccountConnectionModal } from 'src/app/com/annaniks/lift/core/modals';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
-import { ServerResponse } from 'src/app/com/annaniks/lift/core/models/server-response';
-import { AccountSettings } from 'src/app/com/annaniks/lift/core/models/account-settings';
+
 
 @Component({
     selector: "personal-settings",

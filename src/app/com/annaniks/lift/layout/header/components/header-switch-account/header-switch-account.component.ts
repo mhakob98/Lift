@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AccountConnectionModal } from '../../../../core/modals';
 import { InstagramAccount } from '../../../../core/models/user';
+import { MainService } from '../../../../pages/main/main.service';
 
 @Component({
   selector: 'app-header-switch-account',
@@ -15,6 +16,7 @@ export class HeaderSwitchAccountComponent implements OnInit {
 
   constructor(
     private _dialog: MatDialog,
+    private _mainService: MainService
   ) { }
 
   ngOnInit() {
@@ -25,6 +27,11 @@ export class HeaderSwitchAccountComponent implements OnInit {
       width: "700px",
       data: {
         isFirstAccount: false
+      }
+    })
+    dialogRef.afterClosed().subscribe((data) => {
+      if (data && data.isAccountConnected) {
+        this._mainService.getMe().subscribe();
       }
     })
   }

@@ -32,7 +32,7 @@ export interface TicketMessage {
     seen: boolean
     createdAt: string;
     updatedAt: string;
-    user: { id: 14, name: "Rado Poghossian" }
+    user: { id: number, name:string  }
     files: AttachedFile[]
 }
 

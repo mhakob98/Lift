@@ -3,19 +3,24 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ServerResponse } from '../../../core/models/server-response';
 import { EmptyResponse } from '../../../core/models/empty-response';
-import { AllTicketsResponse } from '../../../core/models/support-service';
+import { AllTicketsResponse, CreateTicketData } from '../../../core/models/support-service';
 
 @Injectable()
 export class SupportService {
 
     constructor(private _httpClient: HttpClient) { }
 
-    public createTicket(createTicketData): Observable<ServerResponse<EmptyResponse>> {
+    public createTicket(createTicketData: CreateTicketData, attachedFiles: File[]): Observable<ServerResponse<EmptyResponse>> {
         const formData: FormData = new FormData();
         if (createTicketData) {
             const keys = Object.keys(createTicketData) || [];
             keys.map((element, index) => {
                 formData.append(element, createTicketData[element]);
+            })
+        }
+        if (attachedFiles) {
+            attachedFiles.map((element, index) => {
+                formData.append('files', element, element.name);
             })
         }
         return this._httpClient.post<ServerResponse<EmptyResponse>>('support', formData);

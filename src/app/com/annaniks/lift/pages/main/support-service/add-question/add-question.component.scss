@@ -42,6 +42,40 @@
   }
 }
 
+
+.attached-files-container {
+  padding: 10px 0;
+  .text {
+    font-family: "SF UI Display Regular";
+    font-size: 18px;
+    color: #7d7d7d;
+    margin-bottom: 10px;
+  }
+  .attached-file-item {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 10px 0;
+    padding-right: 10px;
+    position: relative;
+    margin-right: 10px;
+    .delete-icon {
+      display: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    &:hover {
+      .delete-icon {
+        display: block;
+      }
+    }
+  }
+}
+
 .border {
   border: 1px solid red !important;
 }
