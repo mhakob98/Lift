@@ -7,6 +7,7 @@ import { User, InstagramAccount } from '../../core/models/user';
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
+import { ArticleShort } from '../../core/models/article';
 
 @Component({
   selector: 'app-header',
@@ -24,31 +25,37 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public user: User;
   public userAccounts: InstagramAccount[] = [];
   public selectedAccount: InstagramAccount;
+  public articles: ArticleShort[] = [];
 
   constructor(
     private _authService: AuthService,
     private _mainService: MainService,
     private _router: Router,
     private _cookieService: CookieService
-  ) {
-
-  }
+  ) { }
 
   ngOnInit() {
     this._getUser();
+    this._getArticles();
   }
 
   private _getUser(): void {
     this._authService.getUserState()
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe((data) => {
-        console.log(data);
         if (!!data) {
           this.user = data;
           this.userAccounts = this.user.instagramAccounts;
-          console.log(data);
           this.selectedAccount = (this.userAccounts.length > 0) ? this.userAccounts[0] : null;
         }
+      })
+  }
+
+  private _getArticles(): void {
+    this._mainService.getArticles()
+      .pipe(takeUntil(this._unsubscribe$))
+      .subscribe((data) => {
+        this.articles = data.data;
       })
   }
 

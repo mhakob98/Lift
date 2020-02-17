@@ -7,7 +7,14 @@ import { EmptyResponse } from '../../core/models/empty-response';
 import { User } from '../../core/models/user';
 import { map, catchError, filter } from 'rxjs/operators';
 import { AuthService } from '../../core/services/auth.service';
-import { AccountConnectData, TwoFactorLoginData, ChallengeLoginData } from '../../core/models/account';
+import {
+    AccountConnectData,
+    TwoFactorLoginData,
+    ChallengeLoginData
+} from '../../core/models/account';
+import {
+    ArticleShort
+} from '../../core/models/article';
 import { AccountSettings } from '../../core/models/account-settings';
 import { JoinTariff } from '../../core/models/tariff';
 import { Router } from '@angular/router';
@@ -121,6 +128,10 @@ export class MainService {
 
     public accountSettingsVariants(): Observable<AccountContactSettings> {
         return this._accountSettings$.asObservable();
+    }
+
+    public getArticles(): Observable<ServerResponse<ArticleShort[]>> {
+        return this._httpClient.get<ServerResponse<ArticleShort[]>>('article/wizard');
     }
 
     get accountSettingsVariantsSync(): AccountSettings {
