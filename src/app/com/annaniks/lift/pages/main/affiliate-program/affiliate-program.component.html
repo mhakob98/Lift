@@ -15,7 +15,8 @@
                                         [formControl]="referalCodeControl" #inputlink>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center card-description"  (click)="copyInputMessage(inputlink)">
+                            <div class="d-flex align-items-center card-description"
+                                (click)="copyInputMessage(inputlink)">
                                 <img src="assets/icons/copy.png"
                                     class="rounded img-responsive  cursor-pointer description-icon">
                                 <p class="cord-text ml-2">Скопировать ссылку в буфер</p>
@@ -67,7 +68,7 @@
                     </tr>
                 </tbody>
             </table>
-            <button class="show-more">Показать еще операции</button>
+            <button class="show-more d-flex" (click)="onClickSeeMore()"><div class="d-flex m-auto">Показать еще операции<mat-spinner class="ml-3" *ngIf="loading"></mat-spinner></div></button>
         </div>
     </div>
 </section>

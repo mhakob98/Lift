@@ -5,21 +5,26 @@ import { CookieService } from 'ngx-cookie';
 import { ServerResponse } from '../../core/models/server-response';
 import { EmptyResponse } from '../../core/models/empty-response';
 import { User } from '../../core/models/user';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, filter } from 'rxjs/operators';
 import { AuthService } from '../../core/services/auth.service';
 import { AccountConnectData, TwoFactorLoginData, ChallengeLoginData } from '../../core/models/account';
 import { AccountSettings } from '../../core/models/account-settings';
 import { JoinTariff } from '../../core/models/tariff';
+import { Router } from '@angular/router';
+import { AccountContactSettings } from '../../core/models/account-contact-settings';
 
 @Injectable()
 export class MainService {
     private _isShowDisabledView: boolean = true;
     private _accountSettingsVariants: AccountSettings = {} as AccountSettings;
-    private _accountSettings$: BehaviorSubject<AccountSettings> = new BehaviorSubject<AccountSettings>(null)
+    private _accountSettings$: BehaviorSubject<AccountSettings> = new BehaviorSubject<AccountSettings>(null);
+    private _accountConnection$: BehaviorSubject<{ isOpen: boolean }> = new BehaviorSubject<{ isOpen: boolean }>(null);
+
     constructor(
         private _httpClient: HttpClient,
         private _cookieService: CookieService,
         private _authService: AuthService,
+        private _router: Router
     ) { }
 
     public logOut(): Observable<ServerResponse<EmptyResponse>> {
@@ -31,23 +36,29 @@ export class MainService {
     }
 
     public getMe(): Observable<ServerResponse<User>> {
+        this.setShowDisabledView(true);
         return this._httpClient.get<ServerResponse<User>>('me')
             .pipe(
                 map((data: ServerResponse<User>) => {
                     const user = data.data;
+                    console.log(user);
+                    this._authService.setUserState(user);
                     if (user) {
                         if (user.instagramAccounts && user.instagramAccounts.length === 0) {
                             this.setShowDisabledView(true);
+                            this._router.navigate(['']);
+                            this._accountConnection$.next({ isOpen: true });
                         }
                         else {
                             this.setShowDisabledView(false);
                         }
                     }
                     else {
+                        this._router.navigate(['']);
+                        this._accountConnection$.next({ isOpen: true });
                         this.setShowDisabledView(true);
                         return;
                     }
-                    this._authService.setUserState(user);
                     if (!this._authService.getAccount() || (this._authService.getAccount() && !this._authService.getAccount().id)) {
                         if (user && user.instagramAccounts && user.instagramAccounts.length > 0) {
                             this._authService.setAccount(user.instagramAccounts[0]);
@@ -108,12 +119,19 @@ export class MainService {
         return this._httpClient.post('tariff', data);
     }
 
-    public accountSettingsVariants(): Observable<any> {
+    public accountSettingsVariants(): Observable<AccountContactSettings> {
         return this._accountSettings$.asObservable();
     }
 
     get accountSettingsVariantsSync(): AccountSettings {
         return this._accountSettingsVariants;
+    }
+
+    get accountConnectionState(): Observable<{ isOpen: boolean }> {
+        return this._accountConnection$.asObservable()
+            .pipe(
+                filter((event) => event != null)
+            );
     }
 
 }

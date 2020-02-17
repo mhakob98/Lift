@@ -63,7 +63,7 @@
             <img width="25px" height="25px"
                 src="{{leftMenuOpened ? 'assets/icons/close.png' : 'assets/icons/menu.png' }}">
         </button>
-        <div class="switch-account" (clickOutside)="onClickedOutsideSwitch()">
+        <div class="switch-account" >
             <div class="switch-account-action" (click)="toggleSwitchAccount()">
                 <img src="assets/icons/insta_icon.png" alt="Instagram">
                 <p class="small">{{selectedAccount?.login}}</p>
@@ -84,7 +84,7 @@
 
 <div class="sidenav left" [ngClass]="{'open':leftMenuOpened}">
     <mat-accordion>
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <div class="d-flex align-items-center">

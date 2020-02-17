@@ -33,7 +33,16 @@ export interface TicketMessage {
     createdAt: string;
     updatedAt: string;
     user: { id: 14, name: "Rado Poghossian" }
-    files: []
+    files: AttachedFile[]
+}
+
+export class AttachedFile {
+    id: number;
+    name: string;
+    messageId: number;
+    path: string;
+    createdAt: string;
+    updatedAt: string;
 }
 
 export interface TicketCategory {

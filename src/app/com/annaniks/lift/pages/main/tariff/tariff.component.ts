@@ -17,6 +17,8 @@ export class TariffComponent implements OnInit, OnDestroy {
     public localImage: string = "assets/images/boy.png";
 
     public tariffTransaction: TariffTransaction[] = [];
+    public page: number = 1;
+    public loading: boolean = false;
     constructor(
         private _tariffService: TariffService,
         private _mainService: MainService
@@ -37,11 +39,20 @@ export class TariffComponent implements OnInit, OnDestroy {
             })
     }
 
+
+    public onClickSeeMore(): void {
+        this.page = this.page + 1;
+        this._getTariffTransaction();
+
+    }
+
     private _getTariffTransaction(): void {
-        this._tariffService.getTariffTransaction()
+        this.loading = true;
+        this._tariffService.getTariffTransaction((this.page - 1) * 10, this.page * 10)
             .pipe(takeUntil(this._unsubscribe$))
             .subscribe((data) => {
-                this.tariffTransaction = data.data;
+
+                this.tariffTransaction.push(...data.data)
                 const tariffTransactionStatuses = this._mainService.accountSettingsVariantsSync.transactionStatuses;
                 this.tariffTransaction.map((element, index) => {
                     tariffTransactionStatuses.map((el, ind) => {
@@ -50,8 +61,13 @@ export class TariffComponent implements OnInit, OnDestroy {
                         }
                     })
                 })
+                this.loading = false;
             })
+
+
     }
+
+
 
     ngOnDestroy() {
         this._unsubscribe$.next();

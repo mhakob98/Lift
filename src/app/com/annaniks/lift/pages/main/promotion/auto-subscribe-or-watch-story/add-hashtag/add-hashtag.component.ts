@@ -91,7 +91,6 @@ export class AddHashtagComponent implements OnInit, OnDestroy {
     this.hashtagsForm.value.items.map((hashtag) => {
       hashtags.push(hashtag.label)
     });
-    console.log('hashtags', hashtags);
     this._subscribeStoryService.settings.tags = hashtags;
   }
 

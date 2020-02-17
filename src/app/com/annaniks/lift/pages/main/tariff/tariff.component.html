@@ -13,7 +13,7 @@
                         </div>
                         <p class="title">Оплачено до {{tariff?.paid}}</p>
                     </div>
-                   <div class="action-card d-flex flex-wrap">
+                    <div class="action-card d-flex flex-wrap">
                         <div class="action-card-item">
                             <div class="action-card-item-content ml-0">
                                 <p class="text">Подписка / Отписка</p>
@@ -67,14 +67,19 @@
                     <tr *ngFor="let item of tariffTransaction">
                         <td>{{item?.createdAt | date:'dd/MM/yyy hh:mm:ss'}}</td>
                         <td>{{item?.operationName}}</td>
-                        <td class="d-flex">{{item?.value}}<p class="ml-2">руб</p></td>
+                        <td class="d-flex">{{item?.value}}<p class="ml-2">руб</p>
+                        </td>
                         <td>{{item?.statusStr}}</td>
                         <!-- <td class="income-text" [ngClass]="{'color':item.status=='Отменено'}">{{item?.status}}</td> -->
                     </tr>
 
                 </tbody>
             </table>
-            <button class="show-more">Показать еще операции</button>
+            <button class="show-more d-flex" (click)="onClickSeeMore()">
+                <div class="m-auto d-flex"><span>Показать еще операции</span>
+                    <mat-spinner class="ml-3" *ngIf="loading"></mat-spinner>
+                </div>
+            </button>
 
         </div>
     </div>
