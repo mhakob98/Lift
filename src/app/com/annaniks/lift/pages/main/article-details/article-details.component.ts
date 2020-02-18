@@ -5,6 +5,7 @@ import { Subject, Observable } from 'rxjs';
 import { ArticleDetailsService } from './article-details.service';
 import { ArticleFull, ArticleShort } from '../../../core/models/article';
 import { MainService } from '../main.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-article-details',
@@ -16,11 +17,14 @@ export class ArcticleDetailsComponent implements OnInit, OnDestroy {
     public articleId: string;
     public article: ArticleFull = {} as ArticleFull;
     public articles: ArticleShort[] = [];
+    public sendLikeMessage: boolean = false;
+
 
     constructor(
         private _activatedRoute: ActivatedRoute,
         private _articleDetailsService: ArticleDetailsService,
-        private _mainService: MainService
+        private _mainService: MainService,
+        private _toastrService: ToastrService
     ) { }
 
     ngOnInit() {
@@ -55,6 +59,32 @@ export class ArcticleDetailsComponent implements OnInit, OnDestroy {
             .subscribe((data) => {
                 this.articles = data.data;
             })
+    }
+
+    private _sendLike(isLiked: boolean): void {
+        const isLikedData = {
+            articleId: this.articleId,
+            like: isLiked,
+        }
+
+        this._articleDetailsService.articleUsefull(isLikedData)
+            .pipe(takeUntil(this._unsubscribe$))
+            .subscribe((data) => {
+                this._toastrService.success('Спасибо за ваш ответ. Ваш ответ успешно принят');
+                this.sendLikeMessage = true;
+            },
+                (err) => {
+                    const error = err.error;
+                    const errorMessage: string = error.message || 'Ошибка';
+                    this._toastrService.error(errorMessage);
+
+                })
+
+    }
+
+    public onClickLike(isLike: 'yes' | 'no'): void {
+        const isLiked: boolean = (isLike == 'yes') ? true : false;
+        this._sendLike(isLiked);
     }
 
     ngOnDestroy() {
