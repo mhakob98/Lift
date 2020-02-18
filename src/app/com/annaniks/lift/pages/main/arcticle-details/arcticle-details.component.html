@@ -41,7 +41,9 @@
                 <p class="text-description">В позиционировании мы определяем креатив на уровне смыслов. Какая будет
                     смысловая часть креатива, какой будет текст. </p>
 
-                <button class="load-more d-flex"><span class="button-text ml-3 mr-2">Было полезно?</span> Да / Нет</button>
+                <button class="load-more d-flex"><span class="button-text ml-3 mr-2">Было полезно?</span>
+                    <p (click)="articleUsefull('yes')">Да </p><p  (click)="articleUsefull('no')">/ Нет</p>
+                </button>
 
             </div>
             <div class="article-details-right-description">
@@ -55,11 +57,11 @@
                     <p class="title">Статья подкатегории</p>
                 </div>
                 <div>
-                        <p class="text">Категория</p>
-                        <p class="title">Статья подкатегории</p>
-                        <p class="title">Статья подкатегории</p>
-                        <p class="title">Статья подкатегории</p>
-                    </div>
+                    <p class="text">Категория</p>
+                    <p class="title">Статья подкатегории</p>
+                    <p class="title">Статья подкатегории</p>
+                    <p class="title">Статья подкатегории</p>
+                </div>
             </div>
         </div>
     </div>
