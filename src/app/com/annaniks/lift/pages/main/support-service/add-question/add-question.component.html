@@ -13,7 +13,8 @@
                         [ngClass]="{'border':checkIsValid('subject')}">
                 </div>
                 <div class="input-content ml-3">
-                    <select id="select" name="select" class="custom-select" formControlName="questionCategory" [ngClass]="{'border':checkIsValid('questionCategory')}">
+                    <select id="select" name="select" class="custom-select" formControlName="questionCategory"
+                        [ngClass]="{'border':checkIsValid('questionCategory')}">
                         <option value="null" selected>Категория вопроса </option>
                         <option *ngFor="let item of supportCategories" [value]="item?.id">{{item?.name}}</option>
                     </select>
@@ -24,13 +25,25 @@
                     class="form-control here text-area-content" required="required" type="text"
                     formControlName="message" [ngClass]="{'border':checkIsValid('message')}"></textarea>
             </div>
+            <div class="attached-files-container">
+                <p class="text" *ngIf="attachedFiles && attachedFiles.length>0">Прикрепленные файлы</p>
+                <div class="affached-file-list d-flex align-items-center flex-wrap">
+                    <div *ngFor="let file of attachedFiles;let ind=index;" class="attached-file-item">
+                        <span>{{file?.name}}</span>
+                        <i class="icon delete-icon material-icons"
+                            (click)="onClickRemoveAttachedFile(ind)">close</i>
+                    </div>
+                </div>
+            </div>
             <div class="d-flex submit-button-content justify-content-between">
                 <button name="submit" type="submit" class="btn submit-button"
                     [disabled]="questionForm.invalid || loading" (click)="onClickSend()">Отправить</button>
-                <div class="d-flex align-items-center">
+                <label class="d-flex align-items-center cursor-pointer" for="file-input">
                     <img src="assets/icons/file.png" class="rounded img-responsive  cursor-pointer file-icon">
                     <p class="title ml-2">Прикрепить файл</p>
-                </div>
+                </label>
+                <input #fileInput class="file d-none" id="file-input" type="file" multiple
+                    (change)="onChangeFiles($event,fileInput)" />
             </div>
 
         </form>

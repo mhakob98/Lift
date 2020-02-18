@@ -20,6 +20,8 @@ export class AddQuestionComponent implements OnInit {
   public questionForm: FormGroup;
   public supportCategories: SupportTicketCategory[] = [];
   public errorMessage: string;
+  public attachedFiles: File[] = [];
+
 
   constructor(
     private _dialogRef: MatDialogRef<AddQuestionComponent>,
@@ -60,9 +62,9 @@ export class AddQuestionComponent implements OnInit {
     const createTicketData: CreateTicketData = {
       categoryId: this.questionForm.get('questionCategory').value || 0,
       title: this.questionForm.get('subject').value,
-      message: this.questionForm.get('message').value
+      message: this.questionForm.get('message').value,
     }
-    this._supportService.createTicket(createTicketData)
+    this._supportService.createTicket(createTicketData,this.attachedFiles)
       .pipe(
         takeUntil(this._unsubscribe$),
         finalize(() => this.loading = false)
@@ -86,6 +88,20 @@ export class AddQuestionComponent implements OnInit {
     }
   }
 
+  public onChangeFiles($event, fileInput): void {
+    const files = $event;
+    const fileList: FileList = files.target.files;
+    for (let i = 0; i < fileList.length; i++) {
+      const file: File = fileList[i];
+      this.attachedFiles.push(file);
+    }
+    fileInput.value = null;
+    $event.preventDetault();
+  }
+
+  public onClickRemoveAttachedFile(index: number): void {
+    this.attachedFiles.splice(index, 1);
+  }
 
   public checkIsValid(controlName): boolean {
     return this.questionForm.get(controlName).hasError('required') && this.questionForm.get(controlName).touched;

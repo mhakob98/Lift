@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ArcticleDetailsComponent } from './arcticle-details.component';
+import { ArcticleDetailsComponent } from './article-details.component';
 
 const arcticleDetailsRoutes: Routes = [
     { path: '', component: ArcticleDetailsComponent }
