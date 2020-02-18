@@ -1,9 +1,10 @@
-import { Component, Input, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { TicketMessage } from '../../../../../../core/models/support-service';
+import { Component, Input, OnInit, OnDestroy, ViewEncapsulation, Inject } from '@angular/core';
+import { TicketMessage, AttachedFile } from '../../../../../../core/models/support-service';
 import { User } from '../../../../../../core/models/user';
 import { AuthService } from '../../../../../../core/services/auth.service';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, take } from 'rxjs/operators';
+import { TicketService } from '../../ticket.service';
 
 @Component({
     selector: '[app-ticket-message]',
@@ -14,11 +15,17 @@ import { takeUntil } from 'rxjs/operators';
 export class TicketMessageComponent implements OnInit, OnDestroy {
     private _unsubscribe$: Subject<void> = new Subject<void>();
     public user: User = {} as User;
+    public attachedFiles: AttachedFile[] = [];
     @Input('message') public ticketMessage: TicketMessage = {} as TicketMessage;
 
-    constructor(private _authService: AuthService) {}
+    constructor(
+        private _authService: AuthService,
+        @Inject('BASE_URL') private baseUrl: string,
+        private _ticketService: TicketService
+    ) { }
 
     ngOnInit() {
+        this.attachedFiles = this.ticketMessage.files || [];
         this._authService.getUserState()
             .pipe(takeUntil(this._unsubscribe$))
             .subscribe((data) => {
@@ -26,5 +33,21 @@ export class TicketMessageComponent implements OnInit, OnDestroy {
             })
     }
 
-    ngOnDestroy() { }
+    private _downloadFile(fileBlob: Blob): void {
+        const url = window.URL.createObjectURL(fileBlob);
+        window.open(url);
+    }
+
+    public onClickFileName(file: AttachedFile): void {
+        this._ticketService.getAttachedFile(`download/${file.path}`)
+            .pipe(takeUntil(this._unsubscribe$))
+            .subscribe((data) => {
+                this._downloadFile(data);
+            })
+    }
+
+    ngOnDestroy() {
+        this._unsubscribe$.next();
+        this._unsubscribe$.complete();
+    }
 }

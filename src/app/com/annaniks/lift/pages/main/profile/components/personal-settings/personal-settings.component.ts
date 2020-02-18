@@ -11,8 +11,7 @@ import { AuthService } from 'src/app/com/annaniks/lift/core/services/auth.servic
 import { AccountConnectionModal } from 'src/app/com/annaniks/lift/core/modals';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
-import { ServerResponse } from 'src/app/com/annaniks/lift/core/models/server-response';
-import { AccountSettings } from 'src/app/com/annaniks/lift/core/models/account-settings';
+
 
 @Component({
     selector: "personal-settings",
@@ -58,14 +57,19 @@ export class PersonalSettings implements OnInit, OnDestroy {
             finalize(() => this._loadingService.hideLoading()),
             takeUntil(this._unsubscribe$)
         ).subscribe((data) => {
-            this.userAccounts.map((account: InstagramAccount, index: number) => {
-                if (account.id = id) {
-                    this.userAccounts.splice(index, 1)
-                }
-            })
-            if (this.userAccounts.length == 0) {
-                this._refreshUser();
+            const activeAccount = this._authService.getAccount();
+            // this.userAccounts.map((account: InstagramAccount, index: number) => {
+            //     if (account.id = id) {
+            //         this.userAccounts.splice(index, 1);
+            //     }
+            // })
+            if (activeAccount && activeAccount.id && (id === activeAccount.id)) {
+                this._authService.setAccount({} as InstagramAccount);
             }
+            this._refreshUser();
+            // if (this.userAccounts.length == 0) {
+            //     this._refreshUser();
+            // }
         })
     }
 
@@ -81,16 +85,11 @@ export class PersonalSettings implements OnInit, OnDestroy {
             .subscribe((data: { isAccountConnected: boolean }) => {
                 if (data && !data.isAccountConnected && this.userAccounts.length == 0) {
                     this._router.navigate(['/auth/login'])
-                    this._loadingService.hideLoading()
+                    this._loadingService.hideLoading();
                 } else {
                     this._refreshUser();
                 }
             })
-    }
-
-    private _getAccountSettingsVariants(): Observable<AccountSettings> {
-        return this._mainService.getAccountSettingsVariants()
-            .pipe(takeUntil(this._unsubscribe$))
     }
 
     private _formBuilder(): void {
@@ -123,29 +122,8 @@ export class PersonalSettings implements OnInit, OnDestroy {
     }
 
     private _refreshUser(): void {
-        this._loadingService.showLoading()
-        let user = {} as User;
-        this._mainService.getMe()
-            .pipe(
-                finalize(() => this._loadingService.hideLoading()),
-                takeUntil(this._unsubscribe$),
-                switchMap((data) => {
-                    user = data.data;
-                    return this._getAccountSettingsVariants()
-                }),
-                map((data) => {
-                    if (user.instagramAccounts) {
-                        if (user.instagramAccounts.length === 0) {
-                            this._router.navigate(['']);
-                            this.openAccountConnectionModal();
-                        }
-                    }
-                    else {
-                        this._router.navigate(['']);
-                        this.openAccountConnectionModal();
-                    }
-                })
-            ).subscribe()
+        this._loadingService.showLoading();
+        this._mainService.getMe().subscribe();
     }
 
     public changeMe(): void {
@@ -182,8 +160,6 @@ export class PersonalSettings implements OnInit, OnDestroy {
             month: settings.dbMount ? settings.dbMount.toString() : null,
             year: settings.dbYear ? settings.dbYear.toString() : null,
         })
-        console.log(this.dataForm);
-
     }
 
     ngOnDestroy() {

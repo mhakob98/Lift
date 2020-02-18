@@ -1,6 +1,7 @@
-<div [ngClass]="(ticketMessage?.user?.id === user?.id) ? 'outgoing-msg': 'incoming-msg'" class="d-flex align-items-start msg-text"
-    [class.justify-content-end]="ticketMessage?.user?.id === user?.id">
-    <div [ngClass]="(ticketMessage?.user?.id === user?.id) ? 'outgoing-msg-text': 'incoming-msg-text'">
+<div [ngClass]="(ticketMessage?.user?.id === user?.id) ? 'outgoing-msg': 'incoming-msg'"
+    class="d-flex align-items-start msg-text" [class.justify-content-end]="ticketMessage?.user?.id === user?.id">
+    <div [ngClass]="(ticketMessage?.user?.id === user?.id) ? 'outgoing-msg-text': 'incoming-msg-text'"
+        class="msg-text-container">
         <div class="message-left">
             <span class="message-date">{{ticketMessage?.createdAt | date:'dd/MM/yyyy hh:mm:ss'}}</span>
             <span class="message-body">{{ticketMessage?.message}}</span>
@@ -11,6 +12,13 @@
                 <p class="text-right">{{ticketMessage?.user?.name}}</p>
             </div>
             <img src="assets/icons/avatar.png" class="incoming-msg-img msg-img">
+        </div>
+        <div class="attached-files-container" *ngIf="attachedFiles?.length>0">
+            <div class="attached-file-list">
+                <div class="attached-file-item" *ngFor="let file of attachedFiles">
+                    <a (click)="onClickFileName(file)" class="file-link cursor-pointer">{{file?.name}}</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

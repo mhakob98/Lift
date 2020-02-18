@@ -61,7 +61,6 @@ export class TariffComponent implements OnInit, OnDestroy {
                         }
                     })
                 })
-                console.log(data);
                 this.loading = false;
             })
 

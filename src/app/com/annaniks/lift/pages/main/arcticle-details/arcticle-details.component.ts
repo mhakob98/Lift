@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ArticleDetailsService } from './article-details.service';
+ 
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { TicketMessage } from '../../../core/models/support-service';
 import { ToastrService } from 'ngx-toastr';
+import { ArticleDetailsService } from '../article-details/article-details.service';
 
 @Component({
     selector: 'app-arcticle-details',
@@ -36,7 +37,7 @@ export class ArcticleDetailsComponent implements OnInit, OnDestroy {
         this._articleDetailsService.articleUsefull(isLikedData)
             .pipe(takeUntil(this._unsubscribe$))
             .subscribe((data) => {
-                this._toastrService.success('Спасибо за ваш ответ ваш ответ принят');
+                this._toastrService.success('Спасибо за ваш ответ. Ваш ответ успешно принят');
                 this.sendLikeMessage=true;
             },
                 (err) => {

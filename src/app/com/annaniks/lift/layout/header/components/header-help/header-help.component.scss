@@ -6,6 +6,7 @@ $break-medium: 1024px;
   position: absolute;
   width: 916px;
   height: 840px;
+  overflow: auto;
   right: 0;
   z-index: 2;
   background: #ffffff;
@@ -37,6 +38,12 @@ $break-medium: 1024px;
         line-height: 18px;
         color: #000000;
         margin-bottom: 26px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        a{
+          color:black;
+        }
       }
     }
   }

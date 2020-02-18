@@ -13,7 +13,7 @@ export class TicketService {
         return this._httpClient.get<ServerResponse<Ticket>>(`support/ticket/${ticketId}`)
     }
 
-    public writeMessage(writeMessageData: WriteTicketMessageData): Observable<ServerResponse<TicketMessage>> {
+    public writeMessage(writeMessageData: WriteTicketMessageData, files: File[]): Observable<ServerResponse<TicketMessage>> {
         const formData: FormData = new FormData();
         if (writeMessageData) {
             const keys = Object.keys(writeMessageData);
@@ -23,6 +23,15 @@ export class TicketService {
                 }
             })
         }
+        if (files) {
+            files.map((element, index) => {
+                formData.append('files', element, element.name);
+            })
+        }
         return this._httpClient.post<ServerResponse<TicketMessage>>('support/ticket/message', formData)
+    }
+
+    public getAttachedFile(url: string): Observable<Blob> {
+        return this._httpClient.get(url, { responseType: 'blob' });
     }
 }

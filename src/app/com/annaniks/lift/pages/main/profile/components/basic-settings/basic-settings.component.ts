@@ -17,7 +17,7 @@ import { User } from 'src/app/com/annaniks/lift/core/models/user';
     styleUrls: ["basic-settings.component.scss"]
 })
 
-export class BasicSettingsComponent implements OnInit, OnDestroy, AfterViewInit {
+export class BasicSettingsComponent implements OnInit, OnDestroy {
     @Input('user')
     set _userData(event) {
         this._formBuilder();
@@ -45,11 +45,6 @@ export class BasicSettingsComponent implements OnInit, OnDestroy, AfterViewInit 
     ) { }
 
     ngOnInit() {
-    }
-
-    ngAfterViewInit() {
-        console.log(this._userData);
-
     }
 
     private _formBuilder(): void {

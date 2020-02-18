@@ -47,8 +47,8 @@ const mainRoutes: Routes = [
                 loadChildren: () => import('./tariff/tariff.module').then(m => m.TariffModule)
             },
             {
-                path: 'arcticle/:categoryId',
-                loadChildren: () => import('./arcticle-details/arcticle-details.module').then(m => m.ArcticleDetailsModule)
+                path: 'article/:arcticleId',
+                loadChildren: () => import('./article-details/article-details.module').then(m => m.ArcticleDetailsModule)
             },
             {
                 path: 'ticket/:ticketId',

@@ -1,12 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MainService } from './main.service';
-import { Subject, pipe, Observable, forkJoin } from 'rxjs';
-import { takeUntil, map, switchMap } from 'rxjs/operators';
+import { Subject, Observable, forkJoin } from 'rxjs';
+import { takeUntil, map } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { AccountConnectionModal } from '../../core/modals';
 import { Router } from '@angular/router';
 import { AccountSettings } from '../../core/models/account-settings';
-import { ServerResponse } from '../../core/models/server-response';
 import { User } from '../../core/models/user';
 
 @Component({
@@ -24,6 +23,7 @@ export class MainComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this._handleAccountConnectEvent();
     this._fetchMainData();
   }
 
@@ -34,10 +34,19 @@ export class MainComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
+  private _handleAccountConnectEvent(): void {
+    this._mainService.accountConnectionState
+      .pipe(takeUntil(this._unsubscribe$))
+      .subscribe((data) => {
+        if (data && data.isOpen) {
+          this._openAccountConnectModal();
+        }
+      })
+  }
+
   public _getUser(): Observable<User> {
     return this._mainService.getMe()
       .pipe(
-        takeUntil(this._unsubscribe$),
         map((data) => data.data)
       )
   }
@@ -57,11 +66,10 @@ export class MainComponent implements OnInit, OnDestroy {
     dialofRef.afterClosed()
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe((data: { isAccountConnected: boolean }) => {
-
         if (data && !data.isAccountConnected) {
           this._router.navigate(['/auth/login'])
         }
-        this._getUser();
+        this._getUser().subscribe();
       })
   }
 

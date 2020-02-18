@@ -1,12 +1,26 @@
 .msg-text {
   max-width: 100% !important;
   animation: slide-up 0.5s ease;
+  .msg-text-container {
+    flex-wrap: wrap !important;
+  }
   .message-body {
     word-wrap: break-word;
+    word-break: break-word;
   }
   .sent-by {
     .msg-img {
       margin-left: 10px;
+    }
+  }
+  .attached-files-container {
+    flex: 0 1 100%;
+    .attached-file-item {
+      padding: 7px 0;
+      .file-link {
+        color: #007bff;
+        text-decoration: underline;
+      }
     }
   }
 }

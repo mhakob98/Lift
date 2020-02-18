@@ -14,8 +14,6 @@ export class AddPostStoryComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data,
     private _formBuilder: FormBuilder
   ) {
-    console.log(this.data);
-
   }
 
 
@@ -25,22 +23,16 @@ export class AddPostStoryComponent implements OnInit {
 
   private _initForm(): void {
     if (this.data.type == 'post') {
-      console.log(21);
-
       this.addPostStoryForm = this._formBuilder.group({
         postLife: this._formBuilder.group({ status: false, count: 10 }),
         showFirstComment: true,
       })
     }
     else {
-      console.log(22);
-
       this.addPostStoryForm = this._formBuilder.group({
         storyLife: this._formBuilder.group({ status: false, count: 10 }),
       })
     }
-    console.log(this.addPostStoryForm);
-
   }
 
   public toggleShowEmojies(): void {
