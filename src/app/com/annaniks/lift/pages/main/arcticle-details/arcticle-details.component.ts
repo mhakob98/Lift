@@ -14,6 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ArcticleDetailsComponent implements OnInit, OnDestroy {
     private _unsubscribe$: Subject<void> = new Subject<void>();
     public articleId: string;
+    public sendLikeMessage: boolean =false;
     constructor(private _articleDetailsService: ArticleDetailsService,
         private _activatedRoute: ActivatedRoute, private _toastrService: ToastrService) {
         this.articleId = this._activatedRoute.snapshot.paramMap.get('categoryId')
@@ -21,23 +22,22 @@ export class ArcticleDetailsComponent implements OnInit, OnDestroy {
 
     ngOnInit() { }
 
-    public articleUsefull(likeValue): void {
-        let like: boolean;
-        if (likeValue == 'yes') {
-            like = true;
-        }
-        else {
-            like = false;
-        }
-        this._articleDetailsService.articleUsefull({
+    public onClickLike(isLike: 'yes' | 'no'): void {
+        const isLiked: boolean = (isLike == 'yes') ? true : false;
+        this._sendLike(isLiked);
+    }
+
+    private _sendLike(isLiked: boolean): void {
+        const isLikedData = {
             articleId: this.articleId,
-            like: like,
-        })
+            like: isLiked,
+        }
+
+        this._articleDetailsService.articleUsefull(isLikedData)
             .pipe(takeUntil(this._unsubscribe$))
             .subscribe((data) => {
-                this._toastrService.success('Ваш ответ принят');
-                console.log(data);
-                
+                this._toastrService.success('Спасибо за ваш ответ ваш ответ принят');
+                this.sendLikeMessage=true;
             },
                 (err) => {
                     const error = err.error;

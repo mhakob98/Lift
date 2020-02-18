@@ -41,8 +41,13 @@
                 <p class="text-description">В позиционировании мы определяем креатив на уровне смыслов. Какая будет
                     смысловая часть креатива, какой будет текст. </p>
 
-                <button class="load-more d-flex"><span class="button-text ml-3 mr-2">Было полезно?</span>
-                    <p (click)="articleUsefull('yes')">Да </p><p  (click)="articleUsefull('no')">/ Нет</p>
+                <button class="load-more d-flex" >
+                    <p *ngIf="!sendLikeMessage">
+                        <span class="button-text ml-3 mr-2">Было полезно?</span>
+                        <span (click)="onClickLike('yes')">Да </span>
+                        <span (click)="onClickLike('no')">/ Нет</span>
+                    </p>
+                    <p *ngIf="sendLikeMessage">Спасибо за ваш ответ ваш ответ принят</p>
                 </button>
 
             </div>
