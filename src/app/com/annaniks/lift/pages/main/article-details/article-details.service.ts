@@ -1,17 +1,17 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
 import { ServerResponse } from '../../../core/models/server-response';
-import { ArticleFull } from '../../../core/models/article';
+import { ArticleDetails } from '../../../core/models/article-details';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
+
 export class ArticleDetailsService {
 
-    constructor(private _httpClient: HttpClient) { }
+    constructor(private _httpClinet: HttpClient) { }
 
-    public getArticleById(articleId: string): Observable<ServerResponse<ArticleFull>> {
-        let params = new HttpParams();
-        params = params.set('id', articleId);
-        return this._httpClient.get<ServerResponse<ArticleFull>>('article/get', { params })
+    public articleUsefull(body: ArticleDetails): Observable<ServerResponse<ArticleDetails>> {
+        return this._httpClinet.post<ServerResponse<ArticleDetails>>('article/useful', body)
     }
+
 }
