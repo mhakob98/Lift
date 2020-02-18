@@ -49,18 +49,27 @@ export class AfterSubscriptionComponent implements OnInit, OnDestroy {
     })
     this.afterSubscriptionForm.valueChanges.subscribe((data) => {
       let formValue = this.afterSubscriptionForm.value
-      this._autoSubscribeOrWatchStoryService.settings.dontFollowHiddenAccounts = formValue.dontFollowHiddenAccounts
+      if (formValue.lastPostLikes.status) {
+        this._autoSubscribeOrWatchStoryService.settings.likeCountForFollower = formValue.lastPostLikes.count
+      } else {
+        this._autoSubscribeOrWatchStoryService.settings.likeCountForFollower = null
+
+      }
+      if (formValue.unfollowDays.status) {
+        this._autoSubscribeOrWatchStoryService.settings.unfollowDays = formValue.unfollowDays.count
+      } else {
+        this._autoSubscribeOrWatchStoryService.settings.unfollowDays = null
+      }
       this._autoSubscribeOrWatchStoryService.settings.seeStories = formValue.seeStories
       this._autoSubscribeOrWatchStoryService.settings.hidePostsAndStories = formValue.hidePostsAndStories
-      this._autoSubscribeOrWatchStoryService.settings.unfollowDays = formValue.unfollowDays.count
       this._autoSubscribeOrWatchStoryService.settings.dontFollowHiddenAccounts = formValue.dontFollowHiddenAccounts
     })
   }
 
   private _bindMassfollowing(event): void {
     this.afterSubscriptionForm.patchValue({
-      lastPostLikes: false,
-      unfollowDays: { status: event.unfollowDays ? true : false, count: event.unfollowDays },
+      lastPostLikes: { status: event.likeCountForFollower ? true : false, count: event.likeCountForFollower || null },
+      unfollowDays: { status: event.unfollowDays ? true : false, count: event.unfollowDays || null },
       hidePostsAndStories: event.hidePostsAndStories ? true : false,
       dontFollowHiddenAccounts: event.dontFollowHiddenAccounts ? true : false,
       seeStories: event.seeStories ? true : false

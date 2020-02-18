@@ -1,12 +1,12 @@
 export interface User {
-    id:number;
+    id: number;
     name: string;
     email: string;
     roleId: Role;
     instagramAccounts: InstagramAccount[]
     updatedAt: string;
     createdAt: string;
-    refferalCode:string;
+    refferalCode: string;
 }
 
 interface Role {
@@ -23,6 +23,7 @@ export interface InstagramAccount {
     password?: string;
     apiKey?: string;
     userId: number;
+    avatar: string;
     verification: boolean;
     createdAt: string;
     updatedAt: string;

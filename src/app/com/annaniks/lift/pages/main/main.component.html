@@ -1,7 +1,12 @@
-<app-header></app-header>
-<main class="main">
-    <app-submenu></app-submenu>
-    <router-outlet></router-outlet>
-</main>
-<footer-navigation></footer-navigation>
-<div class="disabled-view" [style.display]="(isShowDisabledView) ? 'block' : 'none'"></div>
+<div *ngIf="!isShowDisabledView">
+    <app-header></app-header>
+    <main class="main">
+        <app-submenu></app-submenu>
+        <router-outlet></router-outlet>
+    </main>
+    <footer-navigation></footer-navigation>
+</div>
+
+<div *ngIf="isShowDisabledView" class="se-pre-con">
+
+</div>

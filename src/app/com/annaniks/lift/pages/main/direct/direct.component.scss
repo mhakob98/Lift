@@ -83,6 +83,22 @@ img {
 .chat_img {
   float: left;
   width: 22%;
+  img {
+    border-radius: 50%;
+  }
+  .chat_img_multiple {
+    img {
+      width: 40px;
+      height: 40px;
+      &:first-child {
+        position: absolute;
+        right: 10px;
+        bottom: -10px;
+      }
+    }
+    position: relative;
+    top: 6px;
+  }
 }
 .chat_ib {
   float: left;
@@ -96,12 +112,15 @@ img {
   clear: both;
   display: flex;
   flex-direction: row-reverse;
+  min-height: 60px;
 }
 .chat_list {
   border-radius: 4px;
   padding: 8px 16px 8px;
   margin-bottom: 11px;
+  min-height: 80px;
   border: 2px solid #eaeaea;
+  cursor: pointer;
 }
 .inbox_chat {
   height: 550px;

@@ -32,6 +32,7 @@
     "ng-click-outside": "^5.1.1",
     "ngx-cookie": "^4.1.2",
     "ngx-slick-carousel": "^0.4.7",
+    "ngx-socket-io": "^3.0.1",
     "ngx-toastr": "^11.3.2",
     "primeicons": "^2.0.0",
     "primeng": "^9.0.0-rc.2",

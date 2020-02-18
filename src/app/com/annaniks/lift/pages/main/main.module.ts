@@ -10,6 +10,7 @@ import { AccountConnectionModal } from '../../core/modals';
 import { SharedModule } from '../../shared/shared.module';
 import { MainService } from './main.service';
 
+
 @NgModule({
     declarations: [
         MainRoutingModule.components,

@@ -32,24 +32,25 @@
                         </div>
                     </div>
                     <div class="inbox_chat">
-                        <div class="chat_list active_chat">
+
+                        <div class="chat_list" (click)="activeChatIndex = ind"
+                            *ngFor="let item of allChats;let ind = index"
+                            [ngClass]="{'active_chat':activeChatIndex == ind}">
                             <div class="chat_people">
-                                <div class="chat_img"> <img src="assets/icons/avatar.png" alt="sunil">
+
+                                <div class="chat_img">
+                                    <img *ngIf="!item.is_group" [src]="item.users[0].profile_pic_url" alt="sunil">
+                                    <div *ngIf="item.is_group" class="chat_img_multiple">
+                                        <img [src]="item.users[0].profile_pic_url">
+                                        <img [src]="item.users[1].profile_pic_url">
+                                    </div>
+
                                 </div>
                                 <div class="chat_ib">
-                                    <p>@sandraherrits</p>
+                                    <p>{{item.thread_title}}</p>
                                 </div>
-                                <div class="chat-count">
+                                <div *ngIf="item.read_state != 0" class="chat-count">
                                     <p>2</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="chat_list" *ngFor="let item of [1,2,3,4,5,6,7]">
-                            <div class="chat_people">
-                                <div class="chat_img"> <img src="assets/icons/avatar.png" alt="sunil">
-                                </div>
-                                <div class="chat_ib">
-                                    <p>@sandraherrits</p>
                                 </div>
                             </div>
                         </div>
@@ -57,15 +58,20 @@
                     </div>
                 </div>
                 <div class="mesgs">
-                    <div class="msg_history">
-                        <div class="incoming-msg d-flex align-items-start">
-                            <img src="assets/icons/avatar.png" class="incoming-msg-img">
+                    <div *ngIf="allChats?.length > 0" class="msg_history">
+                        <div class="incoming-msg d-flex align-items-start"
+                            *ngFor="let message of allChats[activeChatIndex].items">
+                            <img class="incoming-msg-img" [src]="getPhotoByUserId(message.user_id).picture">
                             <div class="incoming-msg-text first">
-                                <span class="message-body">Привет!</span>
+                                <span class="message-body">{{message.text}}</span>
+                                <img *ngIf="message.item_type == 'animated_media'"
+                                    [src]="message.animated_media.images.fixed_height.url" alt="">
+                                <img *ngIf="message.item_type == 'media'"
+                                    [src]="message.media.image_versions2.candidates[1].url" alt="">
                                 <span class="message-date">14:35</span>
                             </div>
                         </div>
-                        <div class="incoming-msg d-flex align-items-start">
+                        <!-- <div class="incoming-msg d-flex align-items-start">
                             <div class="incoming-msg-text additional">
                                 <span class="message-body">Проголосуй пожалуйста за мое фото у меня странице
                                     https://www.instagram.com/p/B7o2SXTJtVx/</span>
@@ -144,7 +150,7 @@
                                 <span class="message-body">Привет! Уже проголосовала</span>
                                 <span class="message-date">14:38</span>
                             </div>
-                        </div>
+                        </div> -->
 
                     </div>
                     <div class="type_msg d-flex w-100 justify-content-between align-items-baseline">
