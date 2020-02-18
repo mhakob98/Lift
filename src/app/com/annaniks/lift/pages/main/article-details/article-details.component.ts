@@ -44,11 +44,11 @@ export class ArcticleDetailsComponent implements OnInit, OnDestroy {
     }
 
     private _getArticle(articleId: string): Observable<void> {
+        this.sendLikeMessage = false;
         return this._articleDetailsService.getArticleById(articleId)
             .pipe(
                 map((data) => {
                     this.article = data.data;
-                    console.log(data);
                 })
             )
     }
