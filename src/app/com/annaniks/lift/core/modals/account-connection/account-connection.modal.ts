@@ -15,7 +15,6 @@ import { Router } from '@angular/router';
     templateUrl: "account-connection.modal.html",
     styleUrls: ["account-connection.modal.scss"]
 })
-
 export class AccountConnectionModal implements OnInit, OnDestroy {
     private _unsubscribe$: Subject<void> = new Subject<void>();
     private _isAccountConnected: boolean = false;
@@ -81,13 +80,13 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
             .subscribe((data) => {
                 this.loginForm.get('email').disable();
                 this.loginForm.get('password').disable();
+                this._isAccountConnected = true;
                 if (this.isFirstAccount) {
                     this.tab = 2;
                 }
                 else {
                     this.tab = 3;
                 }
-
             },
                 (err) => {
                     const error = err.error;
@@ -200,7 +199,7 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
         if (action == 'view-stories') {
             this._router.navigate(['/promotion/auto-watch-story']);
         }
-        this._dialogRef.close();
+        this._dialogRef.close({ isAccountConnected: true });
     }
 
     public onClickClose(): void {

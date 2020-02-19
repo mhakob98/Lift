@@ -43,53 +43,10 @@ export class PersonalSettings implements OnInit, OnDestroy {
         private _mainService: MainService,
         private _authService: AuthService,
         private _loadingService: LoadingService,
-        private _dialog: MatDialog,
-        private _router: Router
     ) { }
 
     ngOnInit() {
         this._getUser();
-    }
-
-    public deleteInstagramAccount(id: number): void {
-        this._loadingService.showLoading();
-        this._mainService.deleteInstaAccount(id).pipe(
-            finalize(() => this._loadingService.hideLoading()),
-            takeUntil(this._unsubscribe$)
-        ).subscribe((data) => {
-            const activeAccount = this._authService.getAccount();
-            // this.userAccounts.map((account: InstagramAccount, index: number) => {
-            //     if (account.id = id) {
-            //         this.userAccounts.splice(index, 1);
-            //     }
-            // })
-            if (activeAccount && activeAccount.id && (id === activeAccount.id)) {
-                this._authService.setAccount({} as InstagramAccount);
-            }
-            this._refreshUser();
-            // if (this.userAccounts.length == 0) {
-            //     this._refreshUser();
-            // }
-        })
-    }
-
-    public openAccountConnectionModal(): void {
-        const dialofRef = this._dialog.open(AccountConnectionModal, {
-            width: "700px",
-            disableClose: true,
-            data: {
-                isFirstAccount: false
-            }
-        })
-        dialofRef.afterClosed()
-            .subscribe((data: { isAccountConnected: boolean }) => {
-                if (data && !data.isAccountConnected && this.userAccounts.length == 0) {
-                    this._router.navigate(['/auth/login'])
-                    this._loadingService.hideLoading();
-                } else {
-                    this._refreshUser();
-                }
-            })
     }
 
     private _formBuilder(): void {
@@ -107,10 +64,6 @@ export class PersonalSettings implements OnInit, OnDestroy {
 
     }
 
-    public checkIsValid(formGroup, cotrolName): boolean {
-        return formGroup.get(cotrolName).hasError('required') && formGroup.get(cotrolName).touched;
-    }
-
     private _getUser(): void {
         this._authService.getUserState()
             .pipe(takeUntil(this._unsubscribe$))
@@ -124,6 +77,43 @@ export class PersonalSettings implements OnInit, OnDestroy {
     private _refreshUser(): void {
         this._loadingService.showLoading();
         this._mainService.getMe().subscribe();
+    }
+
+    private _bindPersonalSettings(settings): void {
+        this.contactForm.patchValue({
+            phoneNumber: settings.city,
+            currentCity: settings.phone
+        })
+        this.dataForm.patchValue({
+            male: settings.male,
+            name: settings.name,
+            day: settings.dbDay ? settings.dbDay.toString() : null,
+            month: settings.dbMount ? settings.dbMount.toString() : null,
+            year: settings.dbYear ? settings.dbYear.toString() : null,
+        })
+    }
+
+    public deleteInstagramAccount(id: number): void {
+        this._loadingService.showLoading();
+        this._mainService.deleteInstaAccount(id).pipe(
+            finalize(() => this._loadingService.hideLoading()),
+            takeUntil(this._unsubscribe$)
+        ).subscribe((data) => {
+            const activeAccount = this._authService.getAccount();
+            if (activeAccount && activeAccount.id && (id === activeAccount.id)) {
+                this._authService.setAccount({} as InstagramAccount);
+            }
+            this._refreshUser();
+        })
+    }
+
+    public checkIsValid(formGroup, cotrolName): boolean {
+        return formGroup.get(cotrolName).hasError('required') && formGroup.get(cotrolName).touched;
+    }
+
+
+    public onClickAddAccount(): void {
+        this._mainService.openAccountConnectionModal({ isFirstAccount: false });
     }
 
     public changeMe(): void {
@@ -146,20 +136,6 @@ export class PersonalSettings implements OnInit, OnDestroy {
                 finalize(() => this.loading = false)
             ).
             subscribe(() => this._nextTab.emit(3))
-    }
-
-    private _bindPersonalSettings(settings): void {
-        this.contactForm.patchValue({
-            phoneNumber: settings.city,
-            currentCity: settings.phone
-        })
-        this.dataForm.patchValue({
-            male: settings.male,
-            name: settings.name,
-            day: settings.dbDay ? settings.dbDay.toString() : null,
-            month: settings.dbMount ? settings.dbMount.toString() : null,
-            year: settings.dbYear ? settings.dbYear.toString() : null,
-        })
     }
 
     ngOnDestroy() {
