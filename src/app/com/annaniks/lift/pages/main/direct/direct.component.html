@@ -33,7 +33,7 @@
                     </div>
                     <div class="inbox_chat">
 
-                        <div class="chat_list" (click)="activeChatIndex = ind"
+                        <div class="chat_list" (click)="setActiveChat(ind)"
                             *ngFor="let item of allChats;let ind = index"
                             [ngClass]="{'active_chat':activeChatIndex == ind}">
                             <div class="chat_people">
@@ -58,19 +58,14 @@
                     </div>
                 </div>
                 <div class="mesgs">
-                    <div *ngIf="allChats?.length > 0" class="msg_history">
-                        <div class="incoming-msg d-flex align-items-start"
-                            *ngFor="let message of allChats[activeChatIndex].items">
-                            <img class="incoming-msg-img" [src]="getPhotoByUserId(message.user_id).picture">
-                            <div class="incoming-msg-text first">
-                                <span class="message-body">{{message.text}}</span>
-                                <img *ngIf="message.item_type == 'animated_media'"
-                                    [src]="message.animated_media.images.fixed_height.url" alt="">
-                                <img *ngIf="message.item_type == 'media'"
-                                    [src]="message.media.image_versions2.candidates[1].url" alt="">
-                                <span class="message-date">14:35</span>
-                            </div>
-                        </div>
+                    <div ngxInfiniteScroller initialScrollPosition="TOP" strategy="scrollingToTop"
+                        (onScrollUp)="onScrolledUp()" *ngIf="allChats?.length > 0" class="msg_history">
+                        <app-message-item [previousMessage]="ind > 0 ? allChats[activeChatIndex].items[ind - 1] : null "
+                            [isIncoming]="getPhotoByUserIdAndCheckIfIncoming(message.user_id).isIncoming"
+                            [senderPhoto]="getPhotoByUserIdAndCheckIfIncoming(message.user_id).picture"
+                            [message]="message"
+                            *ngFor="let message of allChats[activeChatIndex].items.reverse();let ind = index">
+                        </app-message-item>
                         <!-- <div class="incoming-msg d-flex align-items-start">
                             <div class="incoming-msg-text additional">
                                 <span class="message-body">Проголосуй пожалуйста за мое фото у меня странице
@@ -153,7 +148,8 @@
                         </div> -->
 
                     </div>
-                    <div class="type_msg d-flex w-100 justify-content-between align-items-baseline">
+                    <form [formGroup]="messageForm"
+                        class="type_msg d-flex w-100 justify-content-between align-items-baseline">
                         <div class="image-upload">
                             <label for="file-input">
                                 <img height="20" src="assets/icons/attachment.png" />
@@ -162,15 +158,19 @@
                         </div>
                         <div class="input_msg_write d-flex  align-items-center">
 
-                            <input type="text" class="write_msg" placeholder="Введите сообщение" />
-                            <button class="chat-actions" type="button"><img src="assets/icons/gallery.png"
-                                    alt=""></button>
-                            <button class="chat-actions" type="button"><img src="assets/icons/smole.png"
-                                    alt=""></button>
+                            <input formControlName="message" type="text" class="write_msg"
+                                placeholder="Введите сообщение" />
+                            <div class="image-upload">
+                                <label for="file-input">
+                                    <img src="assets/icons/gallery.png" alt=""> </label>
+                                <input accept="image/*" class="file" id="file-input" type="file" />
+                            </div>
+                            <!-- <button class="chat-actions" type="button"><img src="assets/icons/smole.png"
+                                    alt=""></button> -->
                         </div>
-                        <button class="msg_send_btn" type="button"><img src="assets/icons/send-chat.png"
-                                alt=""></button>
-                    </div>
+                        <button (click)="sendMessage()" class="msg_send_btn" type="submit"><img
+                                src="assets/icons/send-chat.png" alt=""></button>
+                    </form>
                 </div>
 
             </div>

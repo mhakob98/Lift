@@ -1,0 +1,10 @@
+<div [ngClass]="!isIncoming ? 'incoming-msg' : 'outgoing-msg flex-row-reverse'"
+    class="d-flex align-items-start msg-item">
+    <img *ngIf="previousMessage?.user_id != directMessage.user_id" class="message-msg-img" [src]="userPhoto">
+    <div class="message-msg-text"
+        [ngClass]="previousMessage?.user_id == directMessage.user_id ? 'additional' : 'first'">
+        <span class="message-body">{{directMessage.text}}</span>
+        <img *ngIf="getImageSource().isImage" [src]="getImageSource().imageSource">
+        <span class="message-date">{{+directMessage.timestamp / 1000  | date:"HH:mm"}}</span>
+    </div>
+</div>

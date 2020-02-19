@@ -27,6 +27,7 @@ export interface InstagramAccount {
     verification: boolean;
     createdAt: string;
     updatedAt: string;
+    instagramId: string
 }
 
 export interface Account {
