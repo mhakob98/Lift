@@ -89,7 +89,7 @@
                 <form [formGroup]="actionForm">
                     <div class="form-group radio-button-group mt-3"
                         [ngClass]="{'activRadioButton':actionForm.get('action').value=='auto-subscription'}">
-                        <label for="auto-subscription" class="w-100">
+                        <label for="auto-subscription" class="cursor-pointer w-100 h-100 d-flex align-items-center justify-content-center">
                             <p>Настроить автоподписку</p>
                         </label>
                         <input formControlName="action" class="d-none" id="auto-subscription" type="radio"
@@ -98,7 +98,7 @@
 
                     <div class="form-group radio-button-group mt-3"
                         [ngClass]="{'activRadioButton':actionForm.get('action').value=='view-stories'}">
-                        <label for="view-stories" class="w-100">
+                        <label for="view-stories" class="cursor-pointer w-100 h-100 d-flex align-items-center justify-content-center">
                             <p>Настроить просмотр Stories</p>
                         </label>
                         <input formControlName="action" class="d-none" id="view-stories" type="radio"

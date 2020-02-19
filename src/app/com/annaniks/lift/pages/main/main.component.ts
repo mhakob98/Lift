@@ -14,24 +14,20 @@ import { User } from '../../core/models/user';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit, OnDestroy {
+  private _user: User = {} as User;
   private _unsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(
     private _mainService: MainService,
     private _matDialog: MatDialog,
     private _router: Router
-  ) { }
+  ) {
+    this._resetMainProperties();
+  }
 
   ngOnInit() {
     this._handleAccountConnectEvent();
-    this._fetchMainData();
-  }
-
-  private _fetchMainData(): void {
-    const joined = [this._getUser(), this._getAccountSettingsVariants()];
-    forkJoin(joined)
-      .pipe(takeUntil(this._unsubscribe$))
-      .subscribe();
+    this._mainService.fetchMainData();
   }
 
   private _handleAccountConnectEvent(): void {
@@ -39,7 +35,8 @@ export class MainComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe((data) => {
         if (data && data.isOpen) {
-          this._openAccountConnectModal();
+          const accountData = data.accountData || {};
+          this._openAccountConnectModal(accountData);
         }
       })
   }
@@ -47,29 +44,38 @@ export class MainComponent implements OnInit, OnDestroy {
   public _getUser(): Observable<User> {
     return this._mainService.getMe()
       .pipe(
-        map((data) => data.data)
+        map((data) => {
+          this._user = data.data;
+          return data.data;
+        })
       )
   }
 
-  private _getAccountSettingsVariants(): Observable<AccountSettings> {
-    return this._mainService.getAccountSettingsVariants()
-      .pipe(takeUntil(this._unsubscribe$))
+  private _resetMainProperties(): void {
+    this._mainService.resetMainProperties();
   }
 
-  private _openAccountConnectModal(): void {
+  private _getAccountSettingsVariants(): Observable<AccountSettings> {
+    return this._mainService.getAccountSettingsVariants();
+  }
+
+  private _openAccountConnectModal(accountData?: any): void {
     const dialofRef = this._matDialog.open(AccountConnectionModal, {
       maxWidth: '80vw',
       maxHeight: '80vh',
       width: '700px',
-      disableClose: true
+      disableClose: true,
+      data: accountData
     })
     dialofRef.afterClosed()
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe((data: { isAccountConnected: boolean }) => {
-        if (data && !data.isAccountConnected) {
+        if (data && data.isAccountConnected) {
+          this._getUser().subscribe();
+        }
+        else if (!this._user || (this._user.instagramAccounts && this._user.instagramAccounts.length == 0)) {
           this._router.navigate(['/auth/login'])
         }
-        this._getUser().subscribe();
       })
   }
 

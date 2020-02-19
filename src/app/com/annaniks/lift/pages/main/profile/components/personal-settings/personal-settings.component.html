@@ -148,13 +148,12 @@
     </div>
 
     <div class="personal-settings-form connected-accounts-content">
-
         <div class="form-group d-flex">
             <label for="account" class="col-form-label label">Подключенные
                 аккаунты</label>
             <div class="connected-content">
-                <div class=" d-flex align-items-center">
-                    <div class="connected-accounts d-flex">
+                <div class="d-flex align-items-center">
+                    <div class="connected-accounts d-flex flex-wrap">
                         <div *ngFor="let account of userAccounts"
                             class="connected-accounts-item ordinal d-flex align-items-center">
                             <img src="assets/images/ava1.png" class="rounded-circle img-responsive accoutn-image">
@@ -162,8 +161,7 @@
                             <img class="delete-account" src="assets/icons/x.png"
                                 (click)="deleteInstagramAccount(account.id)" alt="">
                         </div>
-
-                        <div (click)="openAccountConnectionModal()"
+                        <div (click)="onClickAddAccount()"
                             class="connected-accounts-item add-account d-flex align-items-center">
                             <img src="assets/images/add.png" class="rounded-circle img-responsive add-image">
                             <p class="text add-text ml-2">Добавить аккаунт</p>
@@ -174,14 +172,9 @@
                 </p>
             </div>
         </div>
-
-
-
     </div>
 
-
     <div class="personal-settings-form contacts-form">
-
         <form [formGroup]="contactForm">
             <div class="form-group d-flex">
                 <label for="phoneNumber" class="col-form-label label ">Контактный номер</label>

@@ -21,7 +21,6 @@ export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
   public massfollowingData: MassFollowingSettings = new MassFollowingSettings();
 
   constructor(
-    private _router: Router,
     private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService,
     private _authService: AuthService,
     private _loadingService: LoadingService,
@@ -43,7 +42,7 @@ export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap((account) => {
           this._autoSubscribeOrWatchStoryService.resetSettings();
-          if (account) {
+          if (account && account.id) {
             return this.getSettings(account.id);
           }
           return of();
