@@ -5,7 +5,7 @@
                 <label for="account" class="col-form-label label">Тип аккаунта</label>
                 <div class="input-content d-flex align-items-center">
 
-                    <img src="assets/images/user.png" class="rounded-circle img-responsive user-image">
+                    <img [src]="(user && user.avatar) ? user?.avatar : 'assets/images/user.png'" class="rounded-circle img-responsive user-image">
                     <div class=" ml-2">
                         <div class="d-flex">
                             <p class="text">Стандартный</p>
@@ -158,7 +158,7 @@
                             class="connected-accounts-item ordinal d-flex align-items-center">
                             <img src="assets/images/ava1.png" class="rounded-circle img-responsive accoutn-image">
                             <p class="text ml-2">{{account.login}}</p>
-                            <img class="delete-account" src="assets/icons/x.png"
+                            <img class="delete-account" [src]="(account?.avatar) ? account.avatar : 'assets/images/user.png'"
                                 (click)="deleteInstagramAccount(account.id)" alt="">
                         </div>
                         <div (click)="onClickAddAccount()"

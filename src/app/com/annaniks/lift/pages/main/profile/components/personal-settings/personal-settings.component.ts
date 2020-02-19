@@ -24,17 +24,18 @@ export class PersonalSettings implements OnInit, OnDestroy {
     set _userData(event) {
         this._formBuilder();
         if (event) {
+            this.user = event;
             this._bindPersonalSettings(event);
         }
     }
 
     @Output('nextTab')
     private _nextTab = new EventEmitter<number>();
-
     private _unsubscribe$: Subject<void> = new Subject<void>();
     public dataForm: FormGroup;
     public contactForm: FormGroup;
     public loading: boolean = false;
+    public user: User = {} as User;
     public userAccounts: InstagramAccount[] = [];
 
     constructor(
