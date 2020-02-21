@@ -4,6 +4,7 @@ import { TariffTransaction, Tariff } from '../../../core/models/tariff';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MainService } from '../main.service';
+import { NavbarService } from '../../../core/services/navbar.service';
 
 @Component({
     selector: "app-tariff",
@@ -21,8 +22,11 @@ export class TariffComponent implements OnInit, OnDestroy {
     public loading: boolean = false;
     constructor(
         private _tariffService: TariffService,
-        private _mainService: MainService
-    ) { }
+        private _mainService: MainService,
+        private _navbarService: NavbarService
+    ) {
+        this._navbarService.setNavbarItems([]);
+    }
 
     ngOnInit() {
         this._getTariff();

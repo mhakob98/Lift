@@ -10,8 +10,8 @@
         <div class="messaging">
             <div class="inbox_msg">
                 <div class="inbox_people">
-                    <div class="d-flex justify-content-between message-remark">
-                        <button class="new-message">
+                    <div class="d-flex justify-content-between message-remark position-relative">
+                        <button class="new-message" (click)="createChatOpened = !createChatOpened">
                             Новое сообщение
                             <img src="assets/icons/message.png" alt="">
                         </button>
@@ -19,6 +19,26 @@
                             Новая рассылка
                             <img src="assets/icons/email.png" alt="">
                         </button>
+                        <!-- <div class="new-message-dropDown position-absolute" [ngClass]="{'d-block':createChatOpened}">
+                            <div class="subscribed-to">
+                                <p-autoComplete maxlength="50" field="username" placeholder="Введите имена аккаунтов"
+                                    [formControl]="accounts" [suggestions]="searchStream$ | async"
+                                    (completeMethod)="searchFor($event)" [multiple]="true">
+                                    <ng-template let-user pTemplate="item">
+                                        <div class="d-flex align-items-center">
+                                            <img [src]="user.profile_pic_url" class="rounded-circle" height="32" />
+                                            <div class="ml-1">{{user.username}}</div>
+                                        </div>
+                                    </ng-template>
+                                </p-autoComplete>
+                                <div class="sent-button-container">
+                                    <button class="btn btn-secondary">
+                                        Создать
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div> -->
                     </div>
                     <div class="headind_srch d-flex">
                         <div class="search-tab-item">
@@ -154,7 +174,7 @@
                             <label for="file-input">
                                 <img height="20" src="assets/icons/attachment.png" />
                             </label>
-                            <input class="file" id="file-input" type="file" />
+                            <input (change)="handleInputChange($event)" class="file" id="file-input" type="file" />
                         </div>
                         <div class="input_msg_write d-flex  align-items-center">
 
@@ -163,13 +183,14 @@
                             <div class="image-upload">
                                 <label for="file-input">
                                     <img src="assets/icons/gallery.png" alt=""> </label>
-                                <input accept="image/*" class="file" id="file-input" type="file" />
+                                <input (change)="handleInputChange($event)" class="file" id="file-input-image"
+                                    type="file" />
                             </div>
                             <!-- <button class="chat-actions" type="button"><img src="assets/icons/smole.png"
                                     alt=""></button> -->
                         </div>
-                        <button (click)="sendMessage()" class="msg_send_btn" type="submit"><img
-                                src="assets/icons/send-chat.png" alt=""></button>
+                        <button [disabled]="messageForm.invalid" (click)="sendMessage()" class="msg_send_btn"
+                            type="submit"><img src="assets/icons/send-chat.png" alt=""></button>
                     </form>
                 </div>
 

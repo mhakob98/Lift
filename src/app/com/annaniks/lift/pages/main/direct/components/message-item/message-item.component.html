@@ -1,10 +1,22 @@
 <div [ngClass]="!isIncoming ? 'incoming-msg' : 'outgoing-msg flex-row-reverse'"
     class="d-flex align-items-start msg-item">
-    <img *ngIf="previousMessage?.user_id != directMessage.user_id" class="message-msg-img" [src]="userPhoto">
+    <img *ngIf="previousMessage?.user_id != directMessage?.user_id" class="message-msg-img" [src]="userPhoto">
     <div class="message-msg-text"
-        [ngClass]="previousMessage?.user_id == directMessage.user_id ? 'additional' : 'first'">
-        <span class="message-body">{{directMessage.text}}</span>
+        [ngClass]="previousMessage?.user_id == directMessage?.user_id ? 'additional' : 'first'">
+        <span class="message-body">{{directMessage?.text}}</span>
         <img *ngIf="getImageSource().isImage" [src]="getImageSource().imageSource">
-        <span class="message-date">{{+directMessage.timestamp / 1000  | date:"HH:mm"}}</span>
+        <audio *ngIf="directMessage.item_type == 'voice_media'" controls>
+            <source [src]="directMessage?.voice_media?.media?.audio.audio_src" type="audio/ogg">
+            <source [src]="directMessage?.voice_media?.media?.audio.audio_src" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <div *ngIf="directMessage?.item_type == 'placeholder'">
+            <h3 class="unavailable-message">{{directMessage?.placeholder.title}}</h3>
+            <p>{{directMessage?.placeholder?.message}}</p>
+        </div>
+        <div class="iframe-container" *ngIf="directMessage.item_type == 'media_share'">
+            <iframe height="550" [src]="iframe"></iframe>
+        </div>
+        <span class="message-date">{{+directMessage?.timestamp / 1000  | date:"HH:mm"}}</span>
     </div>
 </div>

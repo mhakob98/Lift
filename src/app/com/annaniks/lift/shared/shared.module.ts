@@ -37,6 +37,7 @@ import { NgxInfiniteScrollerModule } from 'ngx-infinite-scroller';
 
 //Forms
 import { ReactiveFormsModule } from '@angular/forms';
+import { IframeAutoHeightDirective } from '../core/directives/auto-height.directive';
 
 registerLocaleData(localeRu);
 
@@ -46,7 +47,8 @@ registerLocaleData(localeRu);
         FooterNavigationComponent,
         LineChartComponent,
         UserDetailsComponent,
-        OnlyNumberDirective
+        OnlyNumberDirective,
+        IframeAutoHeightDirective
     ],
     imports: [
         CommonModule,
@@ -89,7 +91,8 @@ registerLocaleData(localeRu);
         UserDetailsComponent,
         CalendarModule,
         OnlyNumberDirective,
-        NgxInfiniteScrollerModule
+        NgxInfiniteScrollerModule,
+        IframeAutoHeightDirective
     ],
 })
 export class SharedModule { }

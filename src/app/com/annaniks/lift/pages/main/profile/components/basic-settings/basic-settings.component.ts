@@ -74,7 +74,10 @@ export class BasicSettingsComponent implements OnInit, OnDestroy {
         this._profileService.changePassword(sendingData)
             .pipe(
                 takeUntil(this._unsubscribe$),
-                finalize(() => this.changePasswordLoading = false)
+                finalize(() => {
+                    this.changePasswordLoading = false
+                    this.passwordForm.reset()
+                })
             )
             .subscribe(
                 (data) => {

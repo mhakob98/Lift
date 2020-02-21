@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
-import { Subject } from 'rxjs';
 import { DirectMessage } from 'src/app/com/annaniks/lift/core/models/direct.message';
-import { MessagingService } from '../../messaging.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-message-item',
@@ -19,17 +18,18 @@ export class MessageItemComponent implements OnInit {
 
   @Input('isIncoming') public isIncoming: boolean = false;
 
-
-  private _unsubscribe$: Subject<void> = new Subject<void>();
+  public iframe: SafeResourceUrl = '';
 
   constructor(
-    private _messagingService: MessagingService
+    public sanitizer: DomSanitizer
   ) { }
 
   ngOnInit() {
     this.getImageSource()
+    if (this.directMessage.item_type == 'media_share') {
+      this.iframe = this.sanitizer.bypassSecurityTrustResourceUrl(`http://instagram.com/p/${this.directMessage.media_share.code}/embed`)
+    }
   }
-
 
   public getImageSource(): { imageSource: string, isImage: boolean } {
     let response: { imageSource: string, isImage: boolean } = { imageSource: '', isImage: true }

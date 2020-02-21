@@ -1,7 +1,7 @@
 <div *ngIf="!isShowDisabledView">
     <app-header></app-header>
     <main class="main">
-        <app-submenu></app-submenu>
+        <app-submenu *ngIf="!isArticlePage"></app-submenu>
         <router-outlet></router-outlet>
     </main>
     <footer-navigation></footer-navigation>

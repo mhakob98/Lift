@@ -6,6 +6,7 @@ import { ArticleDetailsService } from './article-details.service';
 import { ArticleFull, ArticleShort } from '../../../core/models/article';
 import { MainService } from '../main.service';
 import { ToastrService } from 'ngx-toastr';
+import { NavbarService } from '../../../core/services/navbar.service';
 
 @Component({
     selector: 'app-article-details',
@@ -24,8 +25,11 @@ export class ArcticleDetailsComponent implements OnInit, OnDestroy {
         private _activatedRoute: ActivatedRoute,
         private _articleDetailsService: ArticleDetailsService,
         private _mainService: MainService,
-        private _toastrService: ToastrService
-    ) { }
+        private _toastrService: ToastrService,
+        private _navbarService: NavbarService
+    ) {
+        this._navbarService.setNavbarItems([]);
+    }
 
     ngOnInit() {
         this._checkRouteParams();
