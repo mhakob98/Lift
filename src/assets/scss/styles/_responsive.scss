@@ -1,7 +1,7 @@
 @media only screen and (max-width: 1200px) {
   .limits {
     .limit-item:not(:last-child) {
-      margin-right: 105px !important;
+      margin-right: 105px;
     }
   }
   .subscription-heder {
@@ -16,6 +16,7 @@
 @media only screen and (max-width: 900px) {
   .main {
     margin-top: 60px !important;
+    padding: 16px;
   }
 
   .header-container {
@@ -24,5 +25,42 @@
 
   .small-menu {
     display: block !important;
+  }
+
+  // Submenu
+  .sub-navigation-container {
+    display: none;
+  }
+
+  //Limits
+  .limits {
+    flex-wrap: wrap;
+    min-height: 180px !important;
+    justify-content: space-between;
+    .limit-item {
+      margin-right: 0 !important;
+    }
+  }
+  .limits-title {
+    font-size: 16px !important;
+    margin: 10px 0 !important;
+  }
+
+  // Promotion module
+  .accordion-body {
+    padding: 0 !important;
+  }
+  .subscription-heder {
+    padding: 0;
+    .subscribers-statistic {
+      p {
+        display: none;
+      }
+    }
+    .subscription-title {
+      p {
+        font-size: 18px !important;
+      }
+    }
   }
 }

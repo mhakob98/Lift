@@ -4,7 +4,7 @@ import { Subject, Observable, forkJoin } from 'rxjs';
 import { takeUntil, map } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { AccountConnectionModal } from '../../core/modals';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, NavigationStart, NavigationEnd } from '@angular/router';
 import { AccountSettings } from '../../core/models/account-settings';
 import { User } from '../../core/models/user';
 
@@ -16,11 +16,12 @@ import { User } from '../../core/models/user';
 export class MainComponent implements OnInit, OnDestroy {
   private _user: User = {} as User;
   private _unsubscribe$: Subject<void> = new Subject<void>();
-
+  public isArticlePage: boolean = false;
   constructor(
     private _mainService: MainService,
     private _matDialog: MatDialog,
-    private _router: Router
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute
   ) {
     this._resetMainProperties();
   }
@@ -78,6 +79,7 @@ export class MainComponent implements OnInit, OnDestroy {
         }
       })
   }
+
 
   get isShowDisabledView(): boolean {
     return this._mainService.getShowDisabledView();

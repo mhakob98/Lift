@@ -33,8 +33,11 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import localeRu from '@angular/common/locales/ru';
+import { NgxInfiniteScrollerModule } from 'ngx-infinite-scroller';
+
 //Forms
 import { ReactiveFormsModule } from '@angular/forms';
+import { IframeAutoHeightDirective } from '../core/directives/auto-height.directive';
 
 registerLocaleData(localeRu);
 
@@ -44,7 +47,8 @@ registerLocaleData(localeRu);
         FooterNavigationComponent,
         LineChartComponent,
         UserDetailsComponent,
-        OnlyNumberDirective
+        OnlyNumberDirective,
+        IframeAutoHeightDirective
     ],
     imports: [
         CommonModule,
@@ -60,6 +64,7 @@ registerLocaleData(localeRu);
         MatExpansionModule,
         MatInputModule,
         PickerModule,
+        NgxInfiniteScrollerModule,
         CalendarModule.forRoot({
             provide: DateAdapter,
             useFactory: adapterFactory
@@ -85,7 +90,9 @@ registerLocaleData(localeRu);
         PickerModule,
         UserDetailsComponent,
         CalendarModule,
-        OnlyNumberDirective
+        OnlyNumberDirective,
+        NgxInfiniteScrollerModule,
+        IframeAutoHeightDirective
     ],
 })
 export class SharedModule { }

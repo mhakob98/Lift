@@ -36,7 +36,7 @@ import { ToastrModule } from 'ngx-toastr';
         ToastrModule
     ],
 
-    providers: [AutoSubscribeOrWatchStoryService]
+    providers: []
 })
 export class AutoSubscribeOrWatchStoryModule {
 }

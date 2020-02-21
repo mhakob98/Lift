@@ -44,7 +44,8 @@ export class AutoSubscribeOrWatchStoryService {
             unfollowDays: this.settings.unfollowDays,
             filter: this.settings.filter,
             subscribesPerDay: this.settings.subscribesPerDay || 10,
-            subscribesPerHour: this.settings.subscribesPerHour || 10
+            subscribesPerHour: this.settings.subscribesPerHour || 10,
+            likeCountForFollower: this.settings.likeCountForFollower
 
         }
         return this._httpClient.post<ServerResponse<EmptyResponse>>(isAutosubscribe ? 'massfollowing' : 'masslooking', sendingData)
