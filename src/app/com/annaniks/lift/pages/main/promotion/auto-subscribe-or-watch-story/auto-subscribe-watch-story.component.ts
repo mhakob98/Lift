@@ -49,7 +49,7 @@ export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
         })
       ).subscribe(data => {
         this._loadingService.hideLoading();
-        window.scrollTo(0, 0)
+        window.scrollTo(0, 0);
         this.massfollowingData = data.data;
       });
   }

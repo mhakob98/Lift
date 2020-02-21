@@ -3,6 +3,7 @@ export interface User {
     name: string;
     email: string;
     roleId: Role;
+    avatar: string;
     instagramAccounts: InstagramAccount[]
     updatedAt: string;
     createdAt: string;
