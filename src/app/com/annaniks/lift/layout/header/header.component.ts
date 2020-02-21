@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, Inject } from '@angular/core';
 import { MainService } from '../../pages/main/main.service';
 import { Subject } from 'rxjs';
 import { takeUntil, finalize } from 'rxjs/operators';
@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public leftMenuOpened: boolean = false;
   public rightMenuOpened: boolean = false;
   public user: User;
+  public localImage: string = 'assets/images/user.png';
   public userAccounts: InstagramAccount[] = [];
   public selectedAccount: InstagramAccount;
   public articles: ArticleShort[] = [];
@@ -31,7 +32,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private _authService: AuthService,
     private _mainService: MainService,
     private _router: Router,
-    private _cookieService: CookieService
+    private _cookieService: CookieService,
+    @Inject('FILE_URL') private _fileUrl: string
   ) { }
 
   ngOnInit() {
@@ -45,6 +47,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .subscribe((data) => {
         if (!!data) {
           this.user = data;
+          this.localImage = (this.user && this.user.avatar) ? `${this._fileUrl}/${this.user.avatar}` : 'assets/images/user.png';
           this.userAccounts = this.user.instagramAccounts;
           this.selectedAccount = (this.userAccounts.length > 0) ? this.userAccounts[0] : null;
         }

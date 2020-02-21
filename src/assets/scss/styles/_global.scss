@@ -45,6 +45,11 @@ a:focus {
   outline: none !important;
 }
 
+.img-center{
+  object-fit: cover;
+  object-position: center;
+}
+
 .panelClass {
   padding: 10px 10px !important;
 }
@@ -95,4 +100,9 @@ a:focus {
   ol{
     list-style-type: decimal !important;
   }
+}
+
+.img-avatar{
+  width: 60px;
+  height: 60px;
 }

@@ -44,7 +44,7 @@
                 <app-header-help *ngIf="showQuestion" (close)="showQuestion = false" [articles]="articles"></app-header-help>
             </div>
             <div class="account-details" (clickOutside)="onClickedOutsideUserDetails()">
-                <img class="user" src="assets/boy.png" alt="account">
+                <img class="user img-avatar img-center" [src]="localImage" alt="account">
                 <div class="arrow" (click)="toggleUserDetails()">
                     <img src="assets/icons/down.png" alt="dropdown">
                 </div>

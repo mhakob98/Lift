@@ -5,7 +5,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { TwoFactorLoginData, ChallengeLoginData } from '../../models/account';
 import { Subject } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
 import { UserType } from '../../models/account-settings';
 import { Router } from '@angular/router';
 

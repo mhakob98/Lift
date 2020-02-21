@@ -33,6 +33,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import localeRu from '@angular/common/locales/ru';
+import { NgxMaskModule } from 'ngx-mask';
 //Forms
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -63,7 +64,8 @@ registerLocaleData(localeRu);
         CalendarModule.forRoot({
             provide: DateAdapter,
             useFactory: adapterFactory
-        })
+        }),
+        NgxMaskModule.forRoot()
 
     ],
     entryComponents: [],
@@ -85,7 +87,8 @@ registerLocaleData(localeRu);
         PickerModule,
         UserDetailsComponent,
         CalendarModule,
-        OnlyNumberDirective
+        OnlyNumberDirective,
+        NgxMaskModule
     ],
 })
 export class SharedModule { }
