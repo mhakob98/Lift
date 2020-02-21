@@ -48,7 +48,7 @@ const mainRoutes: Routes = [
             },
             {
                 path: 'article/:arcticleId',
-                loadChildren: () => import('./article-details/article-details.module').then(m => m.ArcticleDetailsModule)
+                loadChildren: () => import('./article-details/article-details.module').then(m => m.ArcticleDetailsModule),
             },
             {
                 path: 'ticket/:ticketId',
