@@ -53,6 +53,10 @@ export class MainService {
                 } catch (error) {
                     this._router.navigate(['/auth/login'])
                 }
+            }, () => {
+                this._router.navigate(['/auth/login']);
+                this._cookieService.remove('accessToken');
+                this._cookieService.remove('refreshToken');
             });
     }
 

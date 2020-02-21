@@ -4,35 +4,29 @@
             <div class="form-group d-flex">
                 <label for="account" class="col-form-label label">Тип аккаунта</label>
                 <div class="input-content d-flex align-items-center">
-
-                    <img [src]="(user && user.avatar) ? user?.avatar : 'assets/images/user.png'" class="rounded-circle img-responsive user-image">
+                    <img [src]="localImage"
+                        class="rounded-circle img-responsive user-image img-center">
                     <div class=" ml-2">
                         <div class="d-flex">
                             <p class="text">Стандартный</p>
                             <img src="assets/images/help-web-button.png"
                                 class="ml-3 rounded-circle img-responsive help-image">
                         </div>
-                        <p class="data-text">Изменить</p>
+                        <label for="photo" class="data-text cursor-pointer">Изменить</label>
+                        <input type="file" (change)="changePhoto($event)" class="d-none" id="photo" accept=".png,.jpg,.jpeg" />
                     </div>
                 </div>
             </div>
-
             <div class="form-group d-flex">
                 <label for="firstname" class="col-form-label label ">Ваше Фамилия и Имя</label>
                 <div class="input-item  d-flex">
-
-
                     <div class="input-content">
                         <input id="firstname" name="firstname" placeholder="Имя" class="form-control here"
                             required="required" type="text" formControlName="name"
                             [ngClass]="{'border':checkIsValid(dataForm,'name')}">
                     </div>
                 </div>
-
             </div>
-
-
-
             <div class="form-group d-flex">
                 <label for="select" class="col-form-label label ">Дата рождения</label>
                 <div class="input-item d-flex">
@@ -108,14 +102,8 @@
                             <option value="2003">2003</option>
                         </select>
                     </div>
-
-
                 </div>
-
             </div>
-
-
-
             <div class="form-group d-flex">
                 <label id="example-radio-group-label" class="col-form-label label">Пол</label>
                 <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="male"
@@ -127,22 +115,6 @@
                         Женский
                     </mat-radio-button>
                 </mat-radio-group>
-                <!-- <label for="checkbox" class=" col-form-label label ">Пол</label>
-                <div class="input-item d-flex">
-
-                    <div class="input-content">
-                        <mat-checkbox>
-                            Мужской
-                        </mat-checkbox>
-                    </div>
-                    <div class="input-content ml-3">
-                        <mat-checkbox>
-                            Женский
-                        </mat-checkbox>
-                    </div>
-
-                </div> -->
-
             </div>
         </form>
     </div>
@@ -156,7 +128,8 @@
                     <div class="connected-accounts d-flex flex-wrap">
                         <div *ngFor="let account of userAccounts"
                             class="connected-accounts-item ordinal d-flex align-items-center">
-                            <img [src]="(account?.avatar) ? account.avatar : 'assets/images/user.png'" class="rounded-circle img-responsive accoutn-image">
+                            <img [src]="(account?.avatar) ? account.avatar : 'assets/images/user.png'"
+                                class="rounded-circle img-responsive accoutn-image">
                             <p class="text ml-2">{{account.login}}</p>
                             <img class="delete-account" [src]="'assets/icons/x.png'"
                                 (click)="deleteInstagramAccount(account.id)" alt="">
@@ -179,9 +152,9 @@
             <div class="form-group d-flex">
                 <label for="phoneNumber" class="col-form-label label ">Контактный номер</label>
                 <div class=" input-content">
-                    <input id="phoneNumber" name="phoneNumber" placeholder="Контактный номер" class="form-control here"
-                        type="text" formControlName="phoneNumber"
-                        [ngClass]="{'border':checkIsValid(contactForm,'phoneNumber')}">
+                    <input id="phoneNumber" name="phoneNumber" prefix="+7" mask="(000) 000 00 00"
+                        placeholder="Контактный номер" class="form-control here" type="text"
+                        formControlName="phoneNumber" [ngClass]="{'border':checkIsValid(contactForm,'phoneNumber')}">
                 </div>
             </div>
 

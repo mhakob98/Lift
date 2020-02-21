@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: 'http://192.168.1.110:8000/',
+  fileUrl: 'http://192.168.1.110:8000/files',
   socketUrl: 'http://192.168.1.110:3031/direct'
 };
 

@@ -1,17 +1,16 @@
-import { Component, OnInit, OnDestroy, Input, AfterViewInit, EventEmitter, Output } from "@angular/core";
+import { Component, OnInit, OnDestroy, Input, AfterViewInit, EventEmitter, Output, Inject } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProfileService } from '../../profile.service';
-import { Subject, Observable } from 'rxjs';
-import { takeUntil, finalize, switchMap, map } from 'rxjs/operators';
+import { Subject, Observable, forkJoin, throwError } from 'rxjs';
+import { takeUntil, finalize, switchMap, map, catchError } from 'rxjs/operators';
 import { ChangeMe } from 'src/app/com/annaniks/lift/core/models/change-me';
 import { User, InstagramAccount } from 'src/app/com/annaniks/lift/core/models/user';
 import { MainService } from '../../../main.service';
 import { LoadingService } from 'src/app/com/annaniks/lift/core/services/loading-service';
 import { AuthService } from 'src/app/com/annaniks/lift/core/services/auth.service';
-import { AccountConnectionModal } from 'src/app/com/annaniks/lift/core/modals';
-import { MatDialog } from '@angular/material';
-import { Router } from '@angular/router';
-
+import { EmptyResponse } from 'src/app/com/annaniks/lift/core/models/empty-response';
+import { ToastrService } from 'ngx-toastr';
+import { ServerResponse } from 'src/app/com/annaniks/lift/core/models/server-response';
 
 @Component({
     selector: "personal-settings",
@@ -25,18 +24,20 @@ export class PersonalSettings implements OnInit, OnDestroy {
         this._formBuilder();
         if (event) {
             this.user = event;
+            this.localImage = (this.user && this.user.avatar) ? `${this._fileUrl}/${this.user.avatar}` : 'assets/images/user.png';
             this._bindPersonalSettings(event);
         }
     }
-
     @Output('nextTab')
     private _nextTab = new EventEmitter<number>();
     private _unsubscribe$: Subject<void> = new Subject<void>();
+    public localImage: string = 'assets/images/user.png';
     public dataForm: FormGroup;
     public contactForm: FormGroup;
     public loading: boolean = false;
     public user: User = {} as User;
     public userAccounts: InstagramAccount[] = [];
+    public userImage: File;
 
     constructor(
         private _fb: FormBuilder,
@@ -44,6 +45,8 @@ export class PersonalSettings implements OnInit, OnDestroy {
         private _mainService: MainService,
         private _authService: AuthService,
         private _loadingService: LoadingService,
+        @Inject('FILE_URL') private _fileUrl: string,
+        private _toastrService: ToastrService
     ) { }
 
     ngOnInit() {
@@ -75,15 +78,20 @@ export class PersonalSettings implements OnInit, OnDestroy {
             })
     }
 
-    private _refreshUser(): void {
+    private _refreshUser(): Observable<ServerResponse<User>> {
         this._loadingService.showLoading();
-        this._mainService.getMe().subscribe();
+        return this._mainService.getMe()
+            .pipe(
+                finalize(() => {
+                    this._loadingService.hideLoading();
+                })
+            );
     }
 
     private _bindPersonalSettings(settings): void {
         this.contactForm.patchValue({
-            phoneNumber: settings.city,
-            currentCity: settings.phone
+            phoneNumber: settings.phone,
+            currentCity: settings.city
         })
         this.dataForm.patchValue({
             male: settings.male,
@@ -94,33 +102,45 @@ export class PersonalSettings implements OnInit, OnDestroy {
         })
     }
 
+    private _changeUserData(userData: ChangeMe): Observable<EmptyResponse> {
+        return this._profileService.changeMe(userData)
+            .pipe(
+                map((data) => data.data)
+            )
+    }
+
+    private _changeUserImage(): Observable<EmptyResponse> {
+        return this._profileService.changeUserPhoto(this.userImage)
+            .pipe(map((data) => data.data));
+    }
+
     public deleteInstagramAccount(id: number): void {
         this._loadingService.showLoading();
         this._mainService.deleteInstaAccount(id).pipe(
             finalize(() => this._loadingService.hideLoading()),
-            takeUntil(this._unsubscribe$)
-        ).subscribe((data) => {
-            const activeAccount = this._authService.getAccount();
-            if (activeAccount && activeAccount.id && (id === activeAccount.id)) {
-                this._authService.setAccount({} as InstagramAccount);
-            }
-            this._refreshUser();
-        })
+            takeUntil(this._unsubscribe$),
+            switchMap(() => {
+                const activeAccount = this._authService.getAccount();
+                if (activeAccount && activeAccount.id && (id === activeAccount.id)) {
+                    this._authService.setAccount({} as InstagramAccount);
+                }
+                return this._refreshUser();
+            })
+        ).subscribe();
     }
 
     public checkIsValid(formGroup, cotrolName): boolean {
         return formGroup.get(cotrolName).hasError('required') && formGroup.get(cotrolName).touched;
     }
 
-
     public onClickAddAccount(): void {
         this._mainService.openAccountConnectionModal({ isFirstAccount: false });
     }
 
     public changeMe(): void {
-        this.loading = true
-        let dataForm = this.dataForm.value
-        let contactForm = this.contactForm.value
+        this.loading = true;
+        let dataForm = this.dataForm.value;
+        let contactForm = this.contactForm.value;
         let sendingData: ChangeMe = {
             name: dataForm.name,
             male: dataForm.male,
@@ -129,14 +149,38 @@ export class PersonalSettings implements OnInit, OnDestroy {
             dbYear: +dataForm.year,
             city: contactForm.currentCity,
             phone: contactForm.phoneNumber,
-
         }
-        this._profileService.changeMe(sendingData)
+        const requests = [this._changeUserData(sendingData)]
+        if (this.userImage) {
+            requests.push(this._changeUserImage())
+        }
+        forkJoin(requests)
             .pipe(
-                takeUntil(this._unsubscribe$),
-                finalize(() => this.loading = false)
-            ).
-            subscribe(() => this._nextTab.emit(3))
+                finalize(() => this.loading = false),
+                switchMap(() => {
+                    this._nextTab.emit(3);
+                    this._toastrService.success('Изменение сохранены');
+                    return this._refreshUser();
+                }),
+                catchError((err) => {
+                    this._toastrService.error('Ошибка');
+                    return throwError(err);
+                })
+            )
+            .subscribe()
+    }
+
+    public changePhoto($event): void {
+        const fileList: FileList = $event.target.files;
+        if (fileList && fileList[0]) {
+            this.userImage = fileList[0];
+            const file: File = fileList[0];
+            const reader: FileReader = new FileReader();
+            reader.onload = (event: any) => {
+                this.localImage = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
     }
 
     ngOnDestroy() {

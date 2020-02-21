@@ -42,6 +42,11 @@ import { AppService } from './app.service';
       multi: true
     },
     {
+      provide: 'FILE_URL',
+      useValue: environment.fileUrl,
+      multi: true
+    },
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiInterceptor,
       multi: true
