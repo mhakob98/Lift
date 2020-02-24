@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NavbarService } from '../../../core/services/navbar.service';
-import { MainService } from '../main.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { User } from '../../../core/models/user';
 import { AuthService } from '../../../core/services/auth.service';
+import { MatDialog } from '@angular/material';
 
 @Component({
     selector: 'app-profile',
@@ -25,9 +25,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this._fetchProfileData()
     }
 
-    public changedTab(tab): void {
-        this.tab = tab;
-    }
 
 
     private _fetchProfileData(): void {
@@ -38,6 +35,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
         })
 
     }
+    
+    public changedTab(tab): void {
+        this.tab = tab;
+    }
+ 
 
     ngOnDestroy() {
         this._unsubscribe$.next()

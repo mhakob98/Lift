@@ -132,7 +132,7 @@
                                 class="rounded-circle img-responsive accoutn-image">
                             <p class="text ml-2">{{account.login}}</p>
                             <img class="delete-account" [src]="'assets/icons/x.png'"
-                                (click)="deleteInstagramAccount(account.id)" alt="">
+                                (click)="openActionModal(account.id)" alt="">
                         </div>
                         <div (click)="onClickAddAccount()"
                             class="connected-accounts-item add-account d-flex align-items-center">

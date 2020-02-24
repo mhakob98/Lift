@@ -11,6 +11,8 @@ import { AuthService } from 'src/app/com/annaniks/lift/core/services/auth.servic
 import { EmptyResponse } from 'src/app/com/annaniks/lift/core/models/empty-response';
 import { ToastrService } from 'ngx-toastr';
 import { ServerResponse } from 'src/app/com/annaniks/lift/core/models/server-response';
+import { ActionModal } from 'src/app/com/annaniks/lift/core/modals';
+import { MatDialog } from '@angular/material';
 
 @Component({
     selector: "personal-settings",
@@ -46,7 +48,8 @@ export class PersonalSettings implements OnInit, OnDestroy {
         private _authService: AuthService,
         private _loadingService: LoadingService,
         @Inject('FILE_URL') private _fileUrl: string,
-        private _toastrService: ToastrService
+        private _toastrService: ToastrService,
+        private _dialog: MatDialog
     ) { }
 
     ngOnInit() {
@@ -114,7 +117,7 @@ export class PersonalSettings implements OnInit, OnDestroy {
             .pipe(map((data) => data.data));
     }
 
-    public deleteInstagramAccount(id: number): void {
+    private _deleteInstagramAccount(id: number): void {
         this._loadingService.showLoading();
         this._mainService.deleteInstaAccount(id).pipe(
             finalize(() => this._loadingService.hideLoading()),
@@ -181,6 +184,18 @@ export class PersonalSettings implements OnInit, OnDestroy {
             };
             reader.readAsDataURL(file);
         }
+    }
+
+    public openActionModal(accountId:number): void {
+        const dialogRef = this._dialog.open(ActionModal, {
+            width: "350px"
+        })
+        dialogRef.afterClosed().subscribe((data) => {
+            if (data == 'yes') {
+               this. _deleteInstagramAccount(accountId);
+            }
+
+        })
     }
 
     ngOnDestroy() {
