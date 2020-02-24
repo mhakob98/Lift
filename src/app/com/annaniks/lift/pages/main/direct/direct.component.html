@@ -10,7 +10,8 @@
         <div class="messaging">
             <div class="inbox_msg">
                 <div class="inbox_people">
-                    <div class="d-flex justify-content-between message-remark position-relative">
+                    <div (clickOutside)="onClickedOutside()"
+                        class="d-flex justify-content-between message-remark position-relative">
                         <button class="new-message" (click)="createChatOpened = !createChatOpened">
                             Новое сообщение
                             <img src="assets/icons/message.png" alt="">
@@ -19,26 +20,10 @@
                             Новая рассылка
                             <img src="assets/icons/email.png" alt="">
                         </button>
-                        <!-- <div class="new-message-dropDown position-absolute" [ngClass]="{'d-block':createChatOpened}">
-                            <div class="subscribed-to">
-                                <p-autoComplete maxlength="50" field="username" placeholder="Введите имена аккаунтов"
-                                    [formControl]="accounts" [suggestions]="searchStream$ | async"
-                                    (completeMethod)="searchFor($event)" [multiple]="true">
-                                    <ng-template let-user pTemplate="item">
-                                        <div class="d-flex align-items-center">
-                                            <img [src]="user.profile_pic_url" class="rounded-circle" height="32" />
-                                            <div class="ml-1">{{user.username}}</div>
-                                        </div>
-                                    </ng-template>
-                                </p-autoComplete>
-                                <div class="sent-button-container">
-                                    <button class="btn btn-secondary">
-                                        Создать
-                                    </button>
-                                </div>
-
-                            </div>
-                        </div> -->
+                        <div class="new-message-dropDown position-absolute" [ngClass]="{'d-block':createChatOpened}">
+                            <app-create-chat [(allChats)]="allChats" [(activeChatIndex)]="activeChatIndex"
+                                [(createChatOpened)]="createChatOpened"></app-create-chat>
+                        </div>
                     </div>
                     <div class="headind_srch d-flex">
                         <div class="search-tab-item">
@@ -70,7 +55,7 @@
                                     <p>{{item.thread_title}}</p>
                                 </div>
                                 <div *ngIf="item.read_state != 0" class="chat-count">
-                                    <p>2</p>
+
                                 </div>
                             </div>
                         </div>
@@ -86,6 +71,9 @@
                             [message]="message"
                             *ngFor="let message of allChats[activeChatIndex].items.reverse();let ind = index">
                         </app-message-item>
+                        <div *ngIf="allChats[activeChatIndex].items.length == 0" class="no-chat">
+                            <p class="text-center">У вас пока нет сообщений</p>
+                        </div>
                         <!-- <div class="incoming-msg d-flex align-items-start">
                             <div class="incoming-msg-text additional">
                                 <span class="message-body">Проголосуй пожалуйста за мое фото у меня странице
@@ -170,21 +158,21 @@
                     </div>
                     <form [formGroup]="messageForm"
                         class="type_msg d-flex w-100 justify-content-between align-items-baseline">
-                        <div class="image-upload">
+                        <!-- <div class="image-upload">
                             <label for="file-input">
                                 <img height="20" src="assets/icons/attachment.png" />
                             </label>
                             <input (change)="handleInputChange($event)" class="file" id="file-input" type="file" />
-                        </div>
+                        </div> -->
                         <div class="input_msg_write d-flex  align-items-center">
 
                             <input formControlName="message" type="text" class="write_msg"
                                 placeholder="Введите сообщение" />
                             <div class="image-upload">
                                 <label for="file-input">
-                                    <img src="assets/icons/gallery.png" alt=""> </label>
-                                <input (change)="handleInputChange($event)" class="file" id="file-input-image"
-                                    type="file" />
+                                    <img src="assets/icons/gallery.png" />
+                                </label>
+                                <input (change)="handleInputChange($event)" class="file" id="file-input" type="file" />
                             </div>
                             <!-- <button class="chat-actions" type="button"><img src="assets/icons/smole.png"
                                     alt=""></button> -->

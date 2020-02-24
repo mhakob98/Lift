@@ -74,6 +74,9 @@ img {
   background: #3499cc;
   border-radius: 6px;
   margin: auto;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
 }
 .chat-count p {
   padding: 8px;
@@ -187,6 +190,13 @@ img {
   width: 66%;
   background: #f6f6f6;
   border-radius: 6px;
+  .no-chat {
+    p {
+      font-family: "SF UI Display Regular";
+      font-size: 16px;
+      color: #3d3d3d;
+    }
+  }
 }
 
 .sent_msg p {
@@ -363,10 +373,12 @@ img {
     bottom: -160px;
     z-index: 1;
     background: white;
+    padding: 8px;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     min-height: 160px;
     left: 50%;
     transform: translateX(-50%);
+    border-radius: 8px;
     .sent-button-container {
       margin-top: 20px;
       width: 100%;
@@ -374,6 +386,7 @@ img {
       justify-content: center;
       button {
         width: 90%;
+        background-color: #305976;
       }
     }
   }
@@ -403,14 +416,10 @@ img {
     // transform: translateY(0);
   }
 }
-p-autocomplete {
-  ::ng-deep {
-    .ui-autocomplete-multiple {
-      width: 100% !important;
-    }
 
-    .ui-autocomplete-multiple-container {
-      width: 100% !important;
-    }
-  }
+.ui-autocomplete-multiple-container {
+  width: 100% !important;
+}
+.ui-autocomplete-multiple {
+  width: 100% !important;
 }
