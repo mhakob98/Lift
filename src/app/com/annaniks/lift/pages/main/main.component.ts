@@ -7,6 +7,7 @@ import { AccountConnectionModal } from '../../core/modals';
 import { Router, ActivatedRoute, NavigationStart, NavigationEnd } from '@angular/router';
 import { AccountSettings } from '../../core/models/account-settings';
 import { User } from '../../core/models/user';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-main',
@@ -16,12 +17,10 @@ import { User } from '../../core/models/user';
 export class MainComponent implements OnInit, OnDestroy {
   private _user: User = {} as User;
   private _unsubscribe$: Subject<void> = new Subject<void>();
-  public isArticlePage: boolean = false;
   constructor(
     private _mainService: MainService,
     private _matDialog: MatDialog,
     private _router: Router,
-    private _activatedRoute: ActivatedRoute
   ) {
     this._resetMainProperties();
   }
@@ -54,10 +53,6 @@ export class MainComponent implements OnInit, OnDestroy {
 
   private _resetMainProperties(): void {
     this._mainService.resetMainProperties();
-  }
-
-  private _getAccountSettingsVariants(): Observable<AccountSettings> {
-    return this._mainService.getAccountSettingsVariants();
   }
 
   private _openAccountConnectModal(accountData?: any): void {

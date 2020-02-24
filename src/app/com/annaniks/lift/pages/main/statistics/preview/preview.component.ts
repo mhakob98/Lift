@@ -5,6 +5,7 @@ import { of, combineLatest } from 'rxjs';
 import { Preview } from '../../../../core/models/statistics-preview';
 import { MatDialog } from '@angular/material/dialog';
 
+
 @Component({
   selector: 'app-preview',
   templateUrl: './preview.component.html',

@@ -11,6 +11,8 @@ import { AuthService } from 'src/app/com/annaniks/lift/core/services/auth.servic
 import { EmptyResponse } from 'src/app/com/annaniks/lift/core/models/empty-response';
 import { ToastrService } from 'ngx-toastr';
 import { ServerResponse } from 'src/app/com/annaniks/lift/core/models/server-response';
+import { InstagramAccountChangeModal } from 'src/app/com/annaniks/lift/core/modals/instagram-account-change/instagram-account-change.modal';
+import { MatDialog } from '@angular/material';
 
 @Component({
     selector: "personal-settings",
@@ -46,7 +48,8 @@ export class PersonalSettings implements OnInit, OnDestroy {
         private _authService: AuthService,
         private _loadingService: LoadingService,
         @Inject('FILE_URL') private _fileUrl: string,
-        private _toastrService: ToastrService
+        private _toastrService: ToastrService,
+        private _matDialog: MatDialog
     ) { }
 
     ngOnInit() {
@@ -127,6 +130,16 @@ export class PersonalSettings implements OnInit, OnDestroy {
                 return this._refreshUser();
             })
         ).subscribe();
+    }
+
+    public onClickChangeAccount(account: InstagramAccount): void {
+        const dialogRef = this._matDialog.open(InstagramAccountChangeModal, {
+            maxWidth: "80vw",
+            width: "600px",
+            data: {
+                account: account
+            }
+        })
     }
 
     public checkIsValid(formGroup, cotrolName): boolean {

@@ -49,7 +49,6 @@ export class BasicSettingsComponent implements OnInit, OnDestroy {
 
     private _formBuilder(): void {
         this.loginForm = this._fb.group({
-            // login: ["", Validators.required],
             email: ["", Validators.required],
             time: ["+4:00"]
         })
