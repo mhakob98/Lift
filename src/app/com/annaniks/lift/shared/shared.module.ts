@@ -37,7 +37,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { NgxInfiniteScrollerModule } from 'ngx-infinite-scroller';
 
 //Forms
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { IframeAutoHeightDirective } from '../core/directives/auto-height.directive';
 
 registerLocaleData(localeRu);
@@ -61,6 +61,7 @@ registerLocaleData(localeRu);
         MatDialogModule,
         MatSlideToggleModule,
         ReactiveFormsModule,
+        FormsModule,
         MatRadioModule,
         MatExpansionModule,
         MatInputModule,
@@ -95,7 +96,8 @@ registerLocaleData(localeRu);
         OnlyNumberDirective,
         NgxMaskModule,
         NgxInfiniteScrollerModule,
-        IframeAutoHeightDirective
+        IframeAutoHeightDirective,
+        FormsModule
     ],
 })
 export class SharedModule { }
