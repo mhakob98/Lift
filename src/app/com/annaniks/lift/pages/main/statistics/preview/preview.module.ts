@@ -11,8 +11,6 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 //SlideToggle Module
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SharedModule } from '../../../../shared/shared.module';
-//InstagramAccountChangeModal
-import { InstagramAccountChangeModal } from '../../../../core/modals';
 //FormsModule
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
@@ -20,7 +18,6 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 @NgModule({
     declarations: [
         PreviewRoutingModule.components,
-        InstagramAccountChangeModal
     ],
     imports: [
         PreviewRoutingModule,
@@ -30,8 +27,7 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
         SharedModule,FormsModule,
         ReactiveFormsModule
     ],
-    entryComponents:[InstagramAccountChangeModal],
-
+    entryComponents:[],
     providers: [PreviewService]
 })
 export class PreviewModule { }

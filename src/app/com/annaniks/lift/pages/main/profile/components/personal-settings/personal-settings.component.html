@@ -128,11 +128,11 @@
                     <div class="connected-accounts d-flex flex-wrap">
                         <div *ngFor="let account of userAccounts"
                             class="connected-accounts-item ordinal d-flex align-items-center"
-                            [class.border-red]="account.verification">
+                            [class.border-red]="!account.verification">
                             <div class="user-img">
                                 <img [src]="(account?.avatar) ? account.avatar : 'assets/images/user.png'"
                                     class="rounded-circle img-responsive account-image">
-                                <div class="account-change-overlay"><i class="material-icons icon">create</i></div>
+                                <div class="account-change-overlay" (click)="onClickChangeAccount(account)"><i class="material-icons icon">create</i></div>
                             </div>
                             <p class="text ml-2">{{account.login}}</p>
                             <img class="delete-account" [src]="'assets/icons/x.png'"

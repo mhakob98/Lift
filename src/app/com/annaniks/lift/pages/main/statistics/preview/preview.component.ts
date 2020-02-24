@@ -4,7 +4,6 @@ import { catchError, map, filter, tap } from 'rxjs/operators';
 import { of, combineLatest } from 'rxjs';
 import { Preview } from '../../../../core/models/statistics-preview';
 import { MatDialog } from '@angular/material/dialog';
-import { InstagramAccountChangeModal } from '../../../../core/modals';
 
 
 @Component({
@@ -84,12 +83,5 @@ export class PreviewComponent implements OnInit {
         }
       }
     ]
-  }
-
-  public openAccontChangeModal(): void {
-    const dialogRef = this._matDialog.open(InstagramAccountChangeModal, {
-      maxWidth: "80vw",
-      width: "600px"
-    })
   }
 }

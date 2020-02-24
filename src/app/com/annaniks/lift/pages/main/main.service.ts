@@ -110,10 +110,9 @@ export class MainService {
 
     private _checkIsHaveUnActiveAccount(userAccounts: InstagramAccount[]): void {
         const isNeedVerificationAccounts: InstagramAccount[] = [];
-        // const isNeedChangePasswordAccounts: InstagramAccount[] = [];
         let verificationAccountNames: string = '';
         userAccounts.map((element: InstagramAccount) => {
-            if (element.verification) {
+            if (!element.verification) {
                 isNeedVerificationAccounts.push(element);
             }
         })
