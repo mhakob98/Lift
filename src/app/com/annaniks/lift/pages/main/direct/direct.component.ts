@@ -16,7 +16,7 @@ import { CookieService } from 'ngx-cookie';
   encapsulation: ViewEncapsulation.None
 })
 export class DirectComponent implements OnInit, OnDestroy {
-  public allChats: any;
+  public allChats: any = [];
   public activeChatIndex: number = 0;
   private _unsubscribe$: Subject<void> = new Subject<void>();
   public messageForm: FormGroup;

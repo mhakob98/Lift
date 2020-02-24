@@ -59,12 +59,15 @@
                                 </div>
                             </div>
                         </div>
-
+                        <div *ngIf="allChats.length == 0" class="no-chat">
+                            <p class="empty-message">У вас пока нет сообщений</p>
+                        </div>
                     </div>
                 </div>
                 <div class="mesgs">
-                    <div ngxInfiniteScroller initialScrollPosition="TOP" strategy="scrollingToTop"
-                        (onScrollUp)="onScrolledUp()" *ngIf="allChats?.length > 0" class="msg_history">
+                    <div #msgContainer [scrollTop]="msgContainer.scrollHeight" ngxInfiniteScroller
+                        initialScrollPosition="BOTTOM" strategy="scrollingToTop" (onScrollUp)="onScrolledUp()"
+                        *ngIf="allChats?.length > 0" class="msg_history">
                         <app-message-item [previousMessage]="ind > 0 ? allChats[activeChatIndex].items[ind - 1] : null "
                             [isIncoming]="getPhotoByUserIdAndCheckIfIncoming(message.user_id).isIncoming"
                             [senderPhoto]="getPhotoByUserIdAndCheckIfIncoming(message.user_id).picture"
@@ -72,7 +75,7 @@
                             *ngFor="let message of allChats[activeChatIndex].items.reverse();let ind = index">
                         </app-message-item>
                         <div *ngIf="allChats[activeChatIndex].items.length == 0" class="no-chat">
-                            <p class="text-center">У вас пока нет сообщений</p>
+                            <p class="text-center empty-message">У вас пока нет сообщений</p>
                         </div>
                         <!-- <div class="incoming-msg d-flex align-items-start">
                             <div class="incoming-msg-text additional">

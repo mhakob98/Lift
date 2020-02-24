@@ -190,15 +190,14 @@ img {
   width: 66%;
   background: #f6f6f6;
   border-radius: 6px;
-  .no-chat {
-    p {
-      font-family: "SF UI Display Regular";
-      font-size: 16px;
-      color: #3d3d3d;
-    }
+}
+.no-chat {
+  p {
+    font-family: "SF UI Display Regular";
+    font-size: 16px;
+    color: #3d3d3d;
   }
 }
-
 .sent_msg p {
   background: #05728f none repeat scroll 0 0;
   border-radius: 3px;
