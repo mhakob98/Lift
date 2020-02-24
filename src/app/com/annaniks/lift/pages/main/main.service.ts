@@ -4,7 +4,7 @@ import { Observable, throwError, BehaviorSubject, Subject, forkJoin } from 'rxjs
 import { CookieService } from 'ngx-cookie';
 import { ServerResponse } from '../../core/models/server-response';
 import { EmptyResponse } from '../../core/models/empty-response';
-import { User } from '../../core/models/user';
+import { User, InstagramAccount } from '../../core/models/user';
 import { map, catchError, filter } from 'rxjs/operators';
 import { AuthService } from '../../core/services/auth.service';
 import {
@@ -20,6 +20,7 @@ import { JoinTariff } from '../../core/models/tariff';
 import { Router } from '@angular/router';
 import { AccountContactSettings } from '../../core/models/account-contact-settings';
 import { ChangeInstagramAccountRequest } from '../../core/models/change-password-recuest';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class MainService {
@@ -32,7 +33,8 @@ export class MainService {
         private _httpClient: HttpClient,
         private _cookieService: CookieService,
         private _authService: AuthService,
-        private _router: Router
+        private _router: Router,
+        private _toastrService: ToastrService
     ) { }
 
     public logOut(): Observable<ServerResponse<EmptyResponse>> {
@@ -80,7 +82,7 @@ export class MainService {
             );
     }
 
-    private _checkUserAccountsState(user): void {
+    private _checkUserAccountsState(user: User): void {
         this._authService.setUserState(user);
         if (user) {
             if (user.instagramAccounts && user.instagramAccounts.length === 0) {
@@ -89,6 +91,7 @@ export class MainService {
                 this._accountConnection$.next({ isOpen: true });
             }
             else {
+                this._checkIsHaveUnActiveAccount(user.instagramAccounts);
                 this.setShowDisabledView(false);
             }
         }
@@ -102,6 +105,34 @@ export class MainService {
             if (user && user.instagramAccounts && user.instagramAccounts.length > 0) {
                 this._authService.setAccount(user.instagramAccounts[0]);
             }
+        }
+    }
+
+    private _checkIsHaveUnActiveAccount(userAccounts: InstagramAccount[]): void {
+        const isNeedVerificationAccounts: InstagramAccount[] = [];
+        // const isNeedChangePasswordAccounts: InstagramAccount[] = [];
+        let verificationAccountNames: string = '';
+        userAccounts.map((element: InstagramAccount) => {
+            if (element.verification) {
+                isNeedVerificationAccounts.push(element);
+            }
+        })
+        if (isNeedVerificationAccounts && isNeedVerificationAccounts.length > 0) {
+            isNeedVerificationAccounts.map((element: InstagramAccount, index: number) => {
+                if (index == isNeedVerificationAccounts.length - 1) {
+                    verificationAccountNames += `${element.login} `;
+                }
+                verificationAccountNames += `${element.login}, `;
+            })
+            const message: string = `Для ${verificationAccountNames} аккаунтов необходима верификация для продолжения дальнейших действий:`;
+            const toastrRef = this._toastrService.error(message, 'Важная информация !!!', {
+                disableTimeOut: true,
+                positionClass: 'toast-top-full-width',
+                progressBar:true
+            })
+            toastrRef.onHidden.subscribe(() => {
+                this._router.navigate(["/profile"], { queryParams: { tab: 'personal-settings' } });
+            })
         }
     }
 
@@ -169,7 +200,6 @@ export class MainService {
 
     public closeAccountConnectionModal(): void {
         this._accountConnection$.next({ isOpen: false });
-
     }
 
     get accountSettingsVariantsSync(): AccountSettings {

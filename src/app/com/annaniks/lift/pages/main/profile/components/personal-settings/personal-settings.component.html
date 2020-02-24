@@ -4,8 +4,7 @@
             <div class="form-group d-flex">
                 <label for="account" class="col-form-label label">Тип аккаунта</label>
                 <div class="input-content d-flex align-items-center">
-                    <img [src]="localImage"
-                        class="rounded-circle img-responsive user-image img-center">
+                    <img [src]="localImage" class="rounded-circle img-responsive user-image img-center">
                     <div class=" ml-2">
                         <div class="d-flex">
                             <p class="text">Стандартный</p>
@@ -13,7 +12,8 @@
                                 class="ml-3 rounded-circle img-responsive help-image">
                         </div>
                         <label for="photo" class="data-text cursor-pointer">Изменить</label>
-                        <input type="file" (change)="changePhoto($event)" class="d-none" id="photo" accept=".png,.jpg,.jpeg" />
+                        <input type="file" (change)="changePhoto($event)" class="d-none" id="photo"
+                            accept=".png,.jpg,.jpeg" />
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                     <div class="input-content">
                         <input id="firstname" name="firstname" placeholder="Имя" class="form-control here"
                             required="required" type="text" formControlName="name"
-                            [ngClass]="{'border':checkIsValid(dataForm,'name')}">
+                            [ngClass]="{'border-red':checkIsValid(dataForm,'name')}">
                     </div>
                 </div>
             </div>
@@ -127,9 +127,13 @@
                 <div class="d-flex align-items-center">
                     <div class="connected-accounts d-flex flex-wrap">
                         <div *ngFor="let account of userAccounts"
-                            class="connected-accounts-item ordinal d-flex align-items-center">
-                            <img [src]="(account?.avatar) ? account.avatar : 'assets/images/user.png'"
-                                class="rounded-circle img-responsive accoutn-image">
+                            class="connected-accounts-item ordinal d-flex align-items-center"
+                            [class.border-red]="account.verification">
+                            <div class="user-img">
+                                <img [src]="(account?.avatar) ? account.avatar : 'assets/images/user.png'"
+                                    class="rounded-circle img-responsive account-image">
+                                <div class="account-change-overlay"><i class="material-icons icon">create</i></div>
+                            </div>
                             <p class="text ml-2">{{account.login}}</p>
                             <img class="delete-account" [src]="'assets/icons/x.png'"
                                 (click)="deleteInstagramAccount(account.id)" alt="">
@@ -154,7 +158,8 @@
                 <div class=" input-content">
                     <input id="phoneNumber" name="phoneNumber" prefix="+7" mask="(000) 000 00 00"
                         placeholder="Контактный номер" class="form-control here" type="text"
-                        formControlName="phoneNumber" [ngClass]="{'border':checkIsValid(contactForm,'phoneNumber')}">
+                        formControlName="phoneNumber"
+                        [ngClass]="{'border-red':checkIsValid(contactForm,'phoneNumber')}">
                 </div>
             </div>
 
@@ -163,7 +168,7 @@
                 <div class="input-content">
                     <input id="current-city" name="current-city" placeholder="Город проживания"
                         class="form-control here" type="text" formControlName="currentCity"
-                        [ngClass]="{'border':checkIsValid(contactForm,'currentCity')}">
+                        [ngClass]="{'border-red':checkIsValid(contactForm,'currentCity')}">
                 </div>
             </div>
 
