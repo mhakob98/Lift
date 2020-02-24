@@ -19,6 +19,7 @@ import { AccountSettings } from '../../core/models/account-settings';
 import { JoinTariff } from '../../core/models/tariff';
 import { Router } from '@angular/router';
 import { AccountContactSettings } from '../../core/models/account-contact-settings';
+import { ChangeInstagramAccountRequest } from '../../core/models/change-password-recuest';
 
 @Injectable()
 export class MainService {
@@ -180,6 +181,11 @@ export class MainService {
             .pipe(
                 filter((event) => event != null)
             );
+    }
+
+
+    public changeInstagramAccountPassword(body: ChangeInstagramAccountRequest): Observable<ServerResponse<ChangeInstagramAccountRequest>> {
+        return this._httpClient.post<ServerResponse<ChangeInstagramAccountRequest>>('instagram/change-password', body)
     }
 
 }

@@ -6,8 +6,13 @@
                 <span>Управление постами</span>
                 <img src="assets/icons/settings.png" alt="Manage posts">
             </div>
-        </div>
 
+
+        </div>
+        <div class="post-statistic-sources">
+            <h4>Все источники <img src="assets/icons/arrow_down.png"></h4>
+
+        </div>
         <!-- POST STATISTIC CHART -->
         <div class="post-statistic-chart-heading">
             <button class="post-statistic-action active">Лайки</button>
@@ -26,6 +31,23 @@
             <button class="pie-statistic-action">Язык</button>
             <button class="pie-statistic-action">Сайт</button>
         </div>
+
+        <!--PIE STATISTIC CHART IN MOBILE VERSION-->
+        <div class="form-group">
+            <div class="input-content w-100">
+                <select id="select" name="select" class="custom-select">
+                    <option value="География">География </option>
+                    <option value="Пол">Пол </option>
+                    <option value="Открытость профиля">Открытость профиля </option>
+                    <option value="Популярность">Популярность </option>
+                    <option value="Язык">Язык </option>
+                    <option value="Сайт">Сайт </option>
+                </select>
+            </div>
+        </div>
+
+
+
         <div class="chart-map">
             <canvas id="myChart" class="pie-chart"></canvas>
 
@@ -39,6 +61,7 @@
 
         <!-- STATISTIC BY DAY -->
         <h4 class="statistic-by-day-heading">Статистика по дням</h4>
+
         <table class="table table-image sp-table">
             <thead>
                 <tr>
