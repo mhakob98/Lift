@@ -1,0 +1,35 @@
+.instagram-account-form {
+    &:after {
+        content: "";
+        display: block;
+        width: 100%;
+        margin: 55px 0 28px 0;
+    }
+
+    .label {
+        padding: 0;
+        width: 100%;
+        max-width: 210px;
+    }
+
+    .input-content {
+        padding: 0;
+        width: 100%;
+    }
+
+    .save-button {
+        background: #3399cc;
+        color: white;
+        padding: 13px 34px;
+        cursor: pointer;
+        margin: 30px auto;
+    }
+
+    .title {
+        font-weight: 600;
+    }
+}
+
+.border {
+    border: 1px solid red !important;
+}

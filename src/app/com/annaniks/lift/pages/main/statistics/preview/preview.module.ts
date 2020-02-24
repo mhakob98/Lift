@@ -11,6 +11,9 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 //SlideToggle Module
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SharedModule } from '../../../../shared/shared.module';
+//FormsModule
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
     declarations: [
@@ -21,9 +24,10 @@ import { SharedModule } from '../../../../shared/shared.module';
         CommonModule,
         SlickCarouselModule,
         MatSlideToggleModule,
-        SharedModule
+        SharedModule,FormsModule,
+        ReactiveFormsModule
     ],
-
+    entryComponents:[],
     providers: [PreviewService]
 })
 export class PreviewModule { }

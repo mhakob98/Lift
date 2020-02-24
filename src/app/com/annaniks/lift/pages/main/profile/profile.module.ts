@@ -11,13 +11,15 @@ import { PersonalSettings } from './components/personal-settings/personal-settin
 import { NotificationModal } from './components/notification-modal/notification.modal';
 import { MatRadioModule } from '@angular/material/radio';
 import { ProfileService } from './profile.service';
+import { InstagramAccountChangeModal } from '../../../core/modals';
 @NgModule({
     declarations: [
         ProfileComponent,
         BasicSettingsComponent,
         AdditionalSettings,
         PersonalSettings,
-        NotificationModal
+        NotificationModal,
+        InstagramAccountChangeModal
     ],
     imports: [
         ProfileRoutingModule,
@@ -28,7 +30,10 @@ import { ProfileService } from './profile.service';
         MatCheckboxModule,
         MatRadioModule
     ],
-    entryComponents: [NotificationModal],
+    entryComponents: [
+        NotificationModal,
+        InstagramAccountChangeModal
+    ],
     providers: [ProfileService]
 })
 export class ProfileModule { }

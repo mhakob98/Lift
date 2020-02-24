@@ -1,34 +1,60 @@
 .sp-container {
   background-color: #f6f8f9;
+
   .cp-content {
     max-width: 1200px;
     margin: 0 auto;
+
     .post-statistic-heading {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin: 59px 0 38px 0;
+
       h4 {
         font-family: "SF UI Display Semibold";
       }
+
       .post-statistic-manage {
         cursor: pointer;
         display: flex;
+
         span {
           font-family: "SF UI Display Regular";
 
           color: #7d7d7d;
           font-size: 18px;
         }
+
         img {
           margin-left: 10px;
         }
       }
+
+
     }
+
+    .post-statistic-sources {
+      display: none;
+      margin-bottom: 38px;
+
+      img {
+        margin-left: 10px;
+      }
+
+      &:before {
+        content: "";
+        display: block;
+        border: 1px solid #d7d7d7;
+        margin-bottom: 38px;
+      }
+    }
+
     .post-statistic-chart-heading {
       display: flex;
       height: 30px;
       background-color: #eef1f2;
+
       .post-statistic-action {
         border-top: none;
         border-bottom: none;
@@ -38,6 +64,7 @@
         font-size: 14px;
         color: #3d3d3d;
         font-family: "SF UI Display Regular";
+
         &.active {
           background-color: #3399cc;
           color: white;
@@ -49,12 +76,14 @@
       display: flex;
       justify-content: center;
       margin: 63px 0 20px 0;
+
       .pie-statistic-action {
         border: none;
         background: transparent;
         color: #7d7d7d;
         margin: 0 10px;
         font-family: "SF UI Display Medium";
+
         &.active {
           background: #a0b0bc;
           border-radius: 2px;
@@ -62,20 +91,28 @@
         }
       }
     }
+
+    .form-group {
+      display: none;
+      margin: 30px auto;
+      width: 95%;
+    }
+
     .chart-map {
       display: flex;
       align-items: center;
-      height: 400px;
 
       .pie-chart {
         width: 660px !important;
         height: 330px !important;
       }
+
       .map-container {
         display: flex;
         height: 100%;
         width: 50%;
       }
+
       #map {
         width: 100%;
         height: 320px;
@@ -88,19 +125,27 @@
 
       font-size: 24px;
       color: #3d3d3d;
+
       &.statistic-by-day-heading {
         margin: 35px 0 50px 0;
       }
+
       span {
         color: #3399cc;
         text-decoration: underline;
         text-decoration-style: dashed;
       }
     }
+    .table-heading{
+      max-width: 900px;
+    }
 
     .sp-table {
       color: #7d7d7d;
       margin-bottom: 27px;
+      overflow-x: auto;
+      max-width: 900px;
+
       td,
       th {
         vertical-align: middle;
@@ -108,9 +153,11 @@
         padding: 0;
         font-family: "SF UI Display Regular";
       }
+
       th {
         font-weight: 400;
       }
+
       tbody {
         tr {
           height: 70px;
@@ -126,6 +173,7 @@
         }
       }
     }
+
     .load-more {
       border-radius: 2px;
       border: none;
@@ -137,4 +185,30 @@
       font-family: "SF UI Display Regular";
     }
   }
+}
+
+@media only screen and (max-width:900px) {
+  .post-statistic-manage {
+    display: none !important;
+  }
+
+  .post-statistic-sources {
+    display: block !important;
+  }
+
+  .pie-statistic-chart-heading {
+    display: none !important;
+  }
+
+  .form-group {
+    display: flex !important;
+  }
+  .chart-map{
+    flex-direction: column !important;
+    .map-container{
+      width: 100% !important;
+      margin-top: 50px !important;
+    }
+  }
+
 }
