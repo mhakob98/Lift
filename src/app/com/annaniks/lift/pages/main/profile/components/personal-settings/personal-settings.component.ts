@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Input, AfterViewInit, EventEmitter, Output, Inject } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProfileService } from '../../profile.service';
-import { Subject, Observable, forkJoin, throwError } from 'rxjs';
+import { Subject, Observable, forkJoin, throwError, of } from 'rxjs';
 import { takeUntil, finalize, switchMap, map, catchError } from 'rxjs/operators';
 import { ChangeMe } from 'src/app/com/annaniks/lift/core/models/change-me';
 import { User, InstagramAccount } from 'src/app/com/annaniks/lift/core/models/user';
@@ -132,7 +132,7 @@ export class PersonalSettings implements OnInit, OnDestroy {
         ).subscribe();
     }
 
-    public onClickChangeAccount(account: InstagramAccount): void {
+    private _changeAccountModal(account: InstagramAccount): void {
         const dialogRef = this._matDialog.open(InstagramAccountChangeModal, {
             maxWidth: "80vw",
             width: "600px",
@@ -140,6 +140,40 @@ export class PersonalSettings implements OnInit, OnDestroy {
                 account: account
             }
         })
+    }
+
+    private _verifyAccountModal(account: InstagramAccount): void {
+        const dialoRef = this._matDialog.open(AccountVerificationModal, {
+            width: "650px",
+            data: {
+                account: account
+            }
+        })
+        dialoRef.afterClosed()
+            .pipe(
+                switchMap((data: { isVerified: true }) => {
+                    if (data && data.isVerified) {
+                        return this._refreshUser();
+                    }
+                    return of();
+                })
+            )
+            .subscribe();
+    }
+
+
+    public onClickChangeAccount(account: InstagramAccount): void {
+        if (account.needPassword) {
+            this._changeAccountModal(account);
+            return;
+        }
+        if (!account.verification) {
+            this._verifyAccountModal(account);
+            return;
+        }
+        this._verifyAccountModal(account);
+
+        // this._changeAccountModal(account);
     }
 
     public checkIsValid(formGroup, cotrolName): boolean {
@@ -196,23 +230,17 @@ export class PersonalSettings implements OnInit, OnDestroy {
         }
     }
 
-    public openActionModal(accountId:number): void {
+    public openActionModal(accountId: number): void {
         const dialogRef = this._matDialog.open(ActionModal, {
             width: "350px"
         })
         dialogRef.afterClosed().subscribe((data) => {
             if (data == 'yes') {
-               this. _deleteInstagramAccount(accountId);
+                this._deleteInstagramAccount(accountId);
             }
 
         })
     }
-
-    public openVerificationModal():void{
-        const dialoRef=this._matDialog.open(AccountVerificationModal,{
-          width:"650px"
-        })
-      }
 
     ngOnDestroy() {
         this._unsubscribe$.next();
