@@ -36,7 +36,8 @@
                             <p>Запланировано</p>
                         </div>
                     </div>
-                    <div class="inbox_chat">
+                    <div class="inbox_chat" ngxInfiniteScroller initialScrollPosition="TOP" strategy="scrollingToBottom"
+                        (onScrollDown)="moreInbox()">
 
                         <div class="chat_list" (click)="setActiveChat(ind)"
                             *ngFor="let item of allChats;let ind = index"

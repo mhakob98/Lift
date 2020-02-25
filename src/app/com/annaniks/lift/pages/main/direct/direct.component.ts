@@ -39,6 +39,7 @@ export class DirectComponent implements OnInit, OnDestroy {
     this.subscribeToActiveChatEvent();
     this.getMoreMessages()
     this._immediatlyFetchMessages()
+    this.getMoreInbox()
   }
 
   private _initForm(): void {
@@ -113,6 +114,23 @@ export class DirectComponent implements OnInit, OnDestroy {
 
   public onScrolledUp(): void {
     MessagingService.emitMoreMessages();
+  }
+
+  public moreInbox(): void {
+    MessagingService.emitMoreInbox()
+  }
+
+  public getMoreInbox(): void {
+    MessagingService.getMoreInbox()
+      .pipe(
+        takeUntil(this._unsubscribe$)
+      )
+      .subscribe((moreInbox) => {
+        if (moreInbox.messages.length > 0) {
+          this.allChats.push(...moreInbox.messages)
+        }
+        console.log("more", moreInbox);
+      })
   }
 
   public getMoreMessages(): void {

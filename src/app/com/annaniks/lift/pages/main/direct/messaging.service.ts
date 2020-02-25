@@ -60,6 +60,13 @@ export class MessagingService extends Socket {
         return self.fromEvent('new-message');
     }
 
+    public static emitMoreInbox(): void {
+        self.emit('more-inbox');
+    }
+
+    public static getMoreInbox(): Observable<any> {
+        return self.fromEvent('more-inbox');
+    }
     public static removeAllListeners(): void {
         self.removeAllListeners();
     }
