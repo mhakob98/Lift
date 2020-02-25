@@ -12,6 +12,7 @@ import { NotificationModal } from './components/notification-modal/notification.
 import { MatRadioModule } from '@angular/material/radio';
 import { ProfileService } from './profile.service';
 import { ActionModal } from '../../../core/modals';
+import { InstagramAccountChangeModal } from '../../../core/modals';
 @NgModule({
     declarations: [
         ProfileComponent,
@@ -19,7 +20,8 @@ import { ActionModal } from '../../../core/modals';
         AdditionalSettings,
         PersonalSettings,
         NotificationModal,
-        ActionModal
+        ActionModal,
+        InstagramAccountChangeModal
     ],
     imports: [
         ProfileRoutingModule,

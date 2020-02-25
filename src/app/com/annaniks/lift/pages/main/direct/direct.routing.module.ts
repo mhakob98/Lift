@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DirectComponent } from './direct.component';
+import { MessageItemComponent } from './components';
+import { CreateChatComponent } from './components/create-chat/create-chat.component';
 
 
 const directRoutes: Routes = [
@@ -12,5 +14,5 @@ const directRoutes: Routes = [
     exports: [RouterModule]
 })
 export class DirectRoutingModule {
-    static components = [DirectComponent]
+    static components = [DirectComponent, CreateChatComponent, MessageItemComponent]
 }

@@ -1,13 +1,12 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { NavbarService } from '../../../core/services/navbar.service';
 import { MessagingService } from './messaging.service'
-import { Subject, Observable } from 'rxjs';
-import { takeUntil, map } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { AuthService } from '../../../core/services/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WriteDirectMessageData } from '../../../core/models/direct.message';
-import { SearchTerm, Search } from '../../../core/models/search';
-import { AutoSubscribeOrWatchStoryService } from '../promotion/auto-subscribe-or-watch-story/auto-subscribe-watch-story.service';
+import { CookieService } from 'ngx-cookie';
 
 
 @Component({
@@ -17,30 +16,29 @@ import { AutoSubscribeOrWatchStoryService } from '../promotion/auto-subscribe-or
   encapsulation: ViewEncapsulation.None
 })
 export class DirectComponent implements OnInit, OnDestroy {
-  public allChats: any;
+  public allChats: any = [];
   public activeChatIndex: number = 0;
   private _unsubscribe$: Subject<void> = new Subject<void>();
   public messageForm: FormGroup;
-  public searchStream$: Observable<Search>;
   public createChatOpened: boolean = false;
+  private _messagingService: MessagingService;
+
   constructor(
     private _navbarService: NavbarService,
-    private _messagingService: MessagingService,
     private _authService: AuthService,
     private _fb: FormBuilder,
-    private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService,
-
-
+    private _cookiesService: CookieService,
   ) {
     this._navbarService.setNavbarItems([]);
+    this._messagingService = new MessagingService(_authService, _cookiesService)
   }
 
   ngOnInit() {
     this._initForm();
-    this._immediatlyFetchMessages()
     this._fetchMessages();
     this.subscribeToActiveChatEvent();
     this.getMoreMessages()
+    this._immediatlyFetchMessages()
   }
 
   private _initForm(): void {
@@ -50,16 +48,15 @@ export class DirectComponent implements OnInit, OnDestroy {
   }
 
   private _immediatlyFetchMessages(): void {
-    this._messagingService.immediatlyFetchMessages();
+    MessagingService.immediatlyFetchMessages();
   }
 
   private _fetchMessages(): void {
-    this._messagingService.getMessage()
+    MessagingService.getMessage()
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe((data) => {
         this.allChats = data
-        console.log(data);
-
+        this.setActiveChat(0)
       })
   }
 
@@ -68,7 +65,7 @@ export class DirectComponent implements OnInit, OnDestroy {
       thread_id: this.allChats[this.activeChatIndex].thread_id,
       message: this.messageForm.get('message').value,
     }
-    this._messagingService.sendMessage(writeMessageData)
+    MessagingService.sendMessage(writeMessageData)
     this.messageForm.get('message').reset();
   }
 
@@ -88,7 +85,7 @@ export class DirectComponent implements OnInit, OnDestroy {
 
   public setActiveChat(ind: number) {
     this.activeChatIndex = ind
-    this._messagingService.setActiveChat(this.allChats[ind])
+    MessagingService.setActiveChat(this.allChats[ind])
   }
 
   public handleInputChange(e): void {
@@ -104,46 +101,39 @@ export class DirectComponent implements OnInit, OnDestroy {
   }
 
   private _handleReaderLoaded(e): void {
-    console.log(e);
-
-    this._messagingService.uploadBase64(e.target.result)
+    MessagingService.uploadBase64(e.target.result)
   }
 
   public subscribeToActiveChatEvent(): void {
-    this._messagingService.subscribeToActiveThread()
+    MessagingService.subscribeToActiveThread()
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe(data => {
-        console.log(data);
-
       })
   }
 
   public onScrolledUp(): void {
-    this._messagingService.emitMoreMessages();
+    MessagingService.emitMoreMessages();
   }
 
   public getMoreMessages(): void {
-    this._messagingService.getMoreMessages()
+    MessagingService.getMoreMessages()
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe(moreMessages => {
         this.allChats[this.activeChatIndex].items.push(...moreMessages.items)
       })
   }
 
-  public searchFor(searchEvent): void {
-    let searchTerm: SearchTerm = {
-      query: searchEvent.query,
-      type: 'user'
+  public onClickedOutside(): void {
+    if (this.createChatOpened) {
+      this.createChatOpened = false;
     }
-    searchTerm.type = 'user'
-    this.searchStream$ = this._autoSubscribeOrWatchStoryService.searchFor(searchTerm).pipe(map(search => search.data))
   }
 
   ngOnDestroy() {
     this._unsubscribe$.next();
-    this._unsubscribe$.complete()
-    this._messagingService.removeAllListeners()
-    this._messagingService.disconnect()
+    this._unsubscribe$.complete();
+    MessagingService.removeAllListeners();
+    MessagingService.disconnect();
   }
 
 }

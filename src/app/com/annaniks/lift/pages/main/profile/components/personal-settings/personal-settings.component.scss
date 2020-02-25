@@ -56,6 +56,7 @@
           cursor: pointer;
         }
         .connected-accounts-item {
+          padding: 5px;
           margin-right: 43px;
           position: relative;
           &.ordinal {
@@ -74,10 +75,38 @@
             height: 20px;
             cursor: pointer;
           }
-          .accoutn-image {
-            border: 2px solid #f6f6f6;
-            width: 65px;
-            height: 65px;
+          .user-img {
+            position: relative;
+            .account-image {
+              display: block;
+              border: 2px solid #f6f6f6;
+              width: 65px;
+              height: 65px;
+              opacity: 1;
+              transition: 0.5s ease;
+              backface-visibility: hidden;
+            }
+            .account-change-overlay {
+              transition: 0.5s ease;
+              opacity: 0;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              -ms-transform: translate(-50%, -50%);
+              cursor: pointer;
+              .icon{
+                color:#305976;
+              }
+            }
+            &:hover {
+              .account-image {
+                opacity: 0.3;
+              }
+              .account-change-overlay {
+                opacity: 1;
+              }
+            }
           }
 
           .add-text {
@@ -106,7 +135,7 @@
   }
 }
 
-.border {
+.border-red {
   border: 1px solid red !important;
 }
 

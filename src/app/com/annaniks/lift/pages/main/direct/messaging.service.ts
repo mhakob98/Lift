@@ -1,57 +1,71 @@
-import { Injectable, OnDestroy } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DirectMessage } from '../../../core/models/direct.message';
 import { environment } from 'src/environments/environment';
-import { AppModule } from 'src/app/app.module';
 import { CookieService } from 'ngx-cookie';
 import { AuthService } from '../../../core/services/auth.service';
-@Injectable()
-export class MessagingService extends Socket {
 
+declare let self;
+export class MessagingService extends Socket {
     constructor(
-        private _authService: AuthService,
-        private _cookieService: CookieService
+        _authService: AuthService,
+        _cookieService: CookieService
     ) {
         super({
             url: environment.socketUrl, options: {
                 query: `accessToken=${_cookieService.get('accessToken')}&loginId=${_authService.getAccount().id}`
             }
         });
-        console.log("CONNECTING");
+        self = this;
     }
 
-    public sendMessage(chat: { thread_id: string, message: string }): void {
-        this.emit("message", { thread_id: chat.thread_id, message: chat.message });
+    public static sendMessage(chat: { thread_id: string, message: string }): void {
+        self.emit("message", { thread_id: chat.thread_id, message: chat.message });
     }
 
-    public getMessage(): Observable<[]> {
-        return this.fromEvent("inbox").pipe(map((data: { messages: [] }) => data.messages))
+    public static getMessage(): Observable<[]> {
+        return self.fromEvent("inbox").pipe(map((data: { messages: [] }) => data.messages))
     }
 
-    public setActiveChat(activeThread: any): void {
-        this.emit('select-threed', activeThread)
+    public static setActiveChat(activeThread: any): void {
+        self.emit('select-threed', activeThread)
     }
 
-    public subscribeToActiveThread(): Observable<any> {
-        return this.fromEvent('select-threed')
+    public static subscribeToActiveThread(): Observable<any> {
+        return self.fromEvent('select-threed')
     }
 
-    public emitMoreMessages(): void {
-        this.emit('more-message')
+    public static emitMoreMessages(): void {
+        self.emit('more-message')
     }
 
-    public getMoreMessages(): Observable<{ items: DirectMessage[] }> {
-        return this.fromEvent('more-message');
+    public static getMoreMessages(): Observable<{ items: DirectMessage[] }> {
+        return self.fromEvent('more-message');
     }
 
-    public immediatlyFetchMessages(): void {
-        this.emit('immediatly-fetch-messages')
+    public static immediatlyFetchMessages(): void {
+        self.emit('immediatly-fetch-messages')
     }
 
-    public uploadBase64(base64: string): void {
-        this.emit('message-image', base64)
+    public static uploadBase64(base64: string): void {
+        self.emit('message-image', base64)
+    }
+
+    public static createChat(memebers: number[]): void {
+        self.emit('new-message', memebers)
+    }
+
+    public static subscribeToChat(): Observable<any> {
+        return self.fromEvent('new-message');
+    }
+
+    public static removeAllListeners(): void {
+        self.removeAllListeners();
+    }
+
+    public static disconnect(): void {
+        self.disconnect();
     }
 
 }
