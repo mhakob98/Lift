@@ -171,9 +171,7 @@ export class PersonalSettings implements OnInit, OnDestroy {
             this._verifyAccountModal(account);
             return;
         }
-        this._verifyAccountModal(account);
-
-        // this._changeAccountModal(account);
+        this._changeAccountModal(account);
     }
 
     public checkIsValid(formGroup, cotrolName): boolean {
