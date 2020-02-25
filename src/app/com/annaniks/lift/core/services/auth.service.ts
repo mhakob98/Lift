@@ -25,7 +25,7 @@ export class AuthService {
     ) { }
 
     private _saveActiveAccount(accountId: number): Observable<EmptyResponse> {
-        return this._httpClient.get<EmptyResponse>('');
+        return this._httpClient.post<EmptyResponse>('instagram/switch-account', { accountId: accountId });
     }
 
     public setUserState(userInfo): void {
@@ -36,7 +36,7 @@ export class AuthService {
     public setAccount(account: InstagramAccount): void {
         this._activeAccount = account;
         this._activeAccountState$.next(this._activeAccount);
-        // this._saveActiveAccount(account.id).subscribe();
+        this._saveActiveAccount(account.id).subscribe();
     }
 
     public getAccount(): InstagramAccount {

@@ -128,7 +128,7 @@
                     <div class="connected-accounts d-flex flex-wrap">
                         <div *ngFor="let account of userAccounts"
                             class="connected-accounts-item ordinal d-flex align-items-center"
-                            [class.border-red]="!account.verification">
+                            [class.border-red]="!account.verification || !account.needPassword">
                             <div class="user-img">
                                 <img [src]="(account?.avatar) ? account.avatar : 'assets/images/user.png'"
                                     class="rounded-circle img-responsive account-image">

@@ -23,12 +23,14 @@ export interface InstagramAccount {
     login: string;
     password?: string;
     apiKey?: string;
-    userId: number;
+    userId?: number;
     avatar: string;
     verification: boolean;
-    createdAt: string;
-    updatedAt: string;
-    instagramId: string
+    createdAt?: string;
+    updatedAt?: string;
+    instagramId: string;
+    selected?:boolean;
+    needPassword:boolean;
 }
 
 export interface Account {
