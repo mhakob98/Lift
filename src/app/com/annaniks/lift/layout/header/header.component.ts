@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.user = data;
           this.localImage = (this.user && this.user.avatar) ? `${this._fileUrl}/${this.user.avatar}` : 'assets/images/user.png';
           this.userAccounts = this.user.instagramAccounts;
-          this.selectedAccount = (this.userAccounts.length > 0) ? this.userAccounts[0] : null;
+          this.selectedAccount = this._authService.getAccount();
         }
       })
   }

@@ -21,7 +21,6 @@ import { Router } from '@angular/router';
 import { AccountContactSettings } from '../../core/models/account-contact-settings';
 import { ChangeInstagramAccountRequest } from '../../core/models/change-password-recuest';
 import { ToastrService } from 'ngx-toastr';
-import { runInThisContext } from 'vm';
 import { VerificationCode } from '../../core/models/verification-code';
 
 @Injectable()
@@ -105,26 +104,35 @@ export class MainService {
         }
         if (!this._authService.getAccount() || (this._authService.getAccount() && !this._authService.getAccount().id)) {
             if (user && user.instagramAccounts && user.instagramAccounts.length > 0) {
-                this._authService.setAccount(user.instagramAccounts[0]);
+                const selectedAccount = user.instagramAccounts.find((element) => element.selected === true) || user.instagramAccounts[0];
+                this._authService.setAccount(selectedAccount);
             }
         }
     }
 
+    private _createImportantToastr(message: string): void {
+        const toastrRef = this._toastrService.error(message, 'Важная информация !!!', {
+            disableTimeOut: true,
+            positionClass: 'toast-top-full-width',
+            progressBar: true
+        })
+        toastrRef.onHidden.subscribe(() => {
+            this._router.navigate(["/profile"], { queryParams: { tab: 'personal-settings' } });
+        })
+    }
+
     private _checkIsHaveUnActiveAccount(userAccounts: InstagramAccount[]): void {
-        const isNeedVerificationAccounts: InstagramAccount[] = [];
         let verificationAccountNames: string = '';
+        let changePasswordAccountNames: string = '';
         userAccounts.map((element: InstagramAccount) => {
             if (!element.verification) {
-                isNeedVerificationAccounts.push(element);
+                verificationAccountNames += `${element.login}, `;
+            }
+            if (!element.needPassword) {
+                changePasswordAccountNames += `${element.login}, `;
             }
         })
-        if (isNeedVerificationAccounts && isNeedVerificationAccounts.length > 0) {
-            isNeedVerificationAccounts.map((element: InstagramAccount, index: number) => {
-                if (index == isNeedVerificationAccounts.length - 1) {
-                    verificationAccountNames += `${element.login} `;
-                }
-                verificationAccountNames += `${element.login}, `;
-            })
+        if (verificationAccountNames) {
             const message: string = `Для ${verificationAccountNames} аккаунтов необходима верификация для продолжения дальнейших действий:`;
             const toastrRef = this._toastrService.error(message, 'Важная информация !!!', {
                 disableTimeOut: true,
@@ -134,6 +142,11 @@ export class MainService {
             toastrRef.onHidden.subscribe(() => {
                 this._router.navigate(["/profile"], { queryParams: { tab: 'personal-settings' } });
             })
+            this._createImportantToastr(message);
+        }
+        if (changePasswordAccountNames) {
+            const message: string = `Для ${changePasswordAccountNames} аккаунтов необходима изменение пароля для продолжения дальнейших действий:.`;
+            this._createImportantToastr(message);
         }
     }
 

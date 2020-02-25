@@ -6,7 +6,6 @@
             Но, почему-то, не слишком часто встречается информация о дополнительных приемах,
             позволяющих провести собеседования (а, соответственно, и оценить профессиональные
             и личные качества соискателя) с наибольшей эффективностью.
-
         </p>
         <div class="additional-form">
             <form [formGroup]="additionalForm">
@@ -41,15 +40,13 @@
                     </div>
                 </div> -->
                 <div class="form-group d-flex">
-                    <label for="publicinfo" class=" col-form-label label">Расскажите о себе</label>
+                    <label for="publicinfo" class="col-form-label label">Расскажите о себе</label>
                     <div class="tex-area-content">
                         <textarea id="publicinfo" name="publicinfo" cols="40" rows="4" class="form-control text-area"
                             placeholder="Пример, что рассказывать" formControlName="description"
                             [ngClass]="{'border':checkIsValid(additionalForm,'description')}"></textarea>
                     </div>
                 </div>
-
-
             </form>
         </div>
         <div class="pages-form">
