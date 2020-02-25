@@ -4,11 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { User } from '../../../core/models/user';
 import { AuthService } from '../../../core/services/auth.service';
-<<<<<<< HEAD
-import { MatDialog } from '@angular/material';
-=======
 import { ActivatedRoute } from '@angular/router';
->>>>>>> 6e68b169298b9b1277fd8edcb97515f1cb67b9ee
 
 @Component({
     selector: 'app-profile',
@@ -32,8 +28,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this._fetchProfileData();
     }
 
-<<<<<<< HEAD
-=======
     private _checkRouteParams(): void {
         this._activatedRoute.queryParams
             .pipe(takeUntil(this._unsubscribe$))
@@ -63,7 +57,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
                 }
             })
     }
->>>>>>> 6e68b169298b9b1277fd8edcb97515f1cb67b9ee
 
     private _fetchProfileData(): void {
         this._authService.getUserState().pipe(
@@ -76,10 +69,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     public changedTab(tab): void {
         this.tab = tab;
     }
-    
-    public changedTab(tab): void {
-        this.tab = tab;
-    }
+
  
 
     ngOnDestroy() {
