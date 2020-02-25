@@ -108,7 +108,9 @@ export class DirectComponent implements OnInit, OnDestroy {
   public subscribeToActiveChatEvent(): void {
     MessagingService.subscribeToActiveThread()
       .pipe(takeUntil(this._unsubscribe$))
-      .subscribe(data => {
+      .subscribe((data) => {
+        this.allChats[this.activeChatIndex].items = data.items
+        console.log(this.allChats[this.activeChatIndex].items);
       })
   }
 
@@ -129,7 +131,6 @@ export class DirectComponent implements OnInit, OnDestroy {
         if (moreInbox.messages.length > 0) {
           this.allChats.push(...moreInbox.messages)
         }
-        console.log("more", moreInbox);
       })
   }
 

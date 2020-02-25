@@ -36,8 +36,8 @@
                             <p>Запланировано</p>
                         </div>
                     </div>
-                    <div class="inbox_chat" ngxInfiniteScroller initialScrollPosition="TOP" strategy="scrollingToBottom"
-                        (onScrollDown)="moreInbox()">
+                    <div class="inbox_chat" ngxInfiniteScroller initialScrollPosition="MIDDLE"
+                        strategy="scrollingToBottom" (onScrollDown)="moreInbox()">
 
                         <div class="chat_list" (click)="setActiveChat(ind)"
                             *ngFor="let item of allChats;let ind = index"
@@ -66,9 +66,8 @@
                     </div>
                 </div>
                 <div class="mesgs">
-                    <div #msgContainer [scrollTop]="msgContainer.scrollHeight" ngxInfiniteScroller
-                        initialScrollPosition="BOTTOM" strategy="scrollingToTop" (onScrollUp)="onScrolledUp()"
-                        *ngIf="allChats?.length > 0" class="msg_history">
+                    <div ngxInfiniteScroller initialScrollPosition="BOTTOM" strategy="scrollingToTop"
+                        (onScrollUp)="onScrolledUp()" *ngIf="allChats?.length > 0" class="msg_history">
                         <app-message-item [previousMessage]="ind > 0 ? allChats[activeChatIndex].items[ind - 1] : null "
                             [isIncoming]="getPhotoByUserIdAndCheckIfIncoming(message.user_id).isIncoming"
                             [senderPhoto]="getPhotoByUserIdAndCheckIfIncoming(message.user_id).picture"
