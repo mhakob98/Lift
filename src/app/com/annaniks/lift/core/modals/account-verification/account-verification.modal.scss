@@ -1,30 +1,20 @@
 .instagram-account-form {
-    &:after {
-        content: "";
-        display: block;
-        width: 100%;
-        margin: 55px 0 28px 0;
-    }
-
     .label {
         padding: 0;
         width: 100%;
         max-width: 210px;
     }
-
     .input-content {
         padding: 0;
         width: 100%;
     }
-
     .save-button {
         background: #3399cc;
         color: white;
         padding: 13px 34px;
         cursor: pointer;
-        margin: 30px auto;
+        margin: 0 auto;
     }
-
     .title {
         font-weight: 600;
     }

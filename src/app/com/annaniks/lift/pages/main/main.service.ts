@@ -128,20 +128,12 @@ export class MainService {
             if (!element.verification) {
                 verificationAccountNames += `${element.login}, `;
             }
-            if (!element.needPassword) {
+            if (element.needPassword) {
                 changePasswordAccountNames += `${element.login}, `;
             }
         })
         if (verificationAccountNames) {
             const message: string = `Для ${verificationAccountNames} аккаунтов необходима верификация для продолжения дальнейших действий:`;
-            const toastrRef = this._toastrService.error(message, 'Важная информация !!!', {
-                disableTimeOut: true,
-                positionClass: 'toast-top-full-width',
-                progressBar: true
-            })
-            toastrRef.onHidden.subscribe(() => {
-                this._router.navigate(["/profile"], { queryParams: { tab: 'personal-settings' } });
-            })
             this._createImportantToastr(message);
         }
         if (changePasswordAccountNames) {
@@ -229,6 +221,10 @@ export class MainService {
 
     public changeInstagramAccountPassword(body: ChangeInstagramAccountRequest): Observable<ServerResponse<ChangeInstagramAccountRequest>> {
         return this._httpClient.post<ServerResponse<ChangeInstagramAccountRequest>>('instagram/change-password', body)
+    }
+
+    public resendCode(accountId: number): Observable<EmptyResponse> {
+        return this._httpClient.post<EmptyResponse>('instagram/resend-code', { accountId: accountId });
     }
 
     public verificationCode(body): Observable<ServerResponse<VerificationCode>> {

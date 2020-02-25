@@ -15,10 +15,10 @@
                 <input id="code" name="code" placeholder="Код подтверждения" class="form-control here"
                     type="text" formControlName="code"
                     [ngClass]="{'border':checkIsValid('code')}">
-                    <p class="text mt-2 text-right cursor-pointer">Запросить код еще раз?</p>
+                    <p class="text mt-2 text-right cursor-pointer" (click)="onClickSendCodeAgain()">Запросить код еще раз?</p>
             </div>
         </div>
         <button name="submit" type="submit" class="btn save-button d-flex" [disabled]="verificationForm.invalid  || loading"
-            (click)="onClickSave()">Сохранить</button>
+            (click)="onClickSave()">Отправить</button>
     </form>
 </div>

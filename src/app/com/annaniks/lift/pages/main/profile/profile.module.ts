@@ -11,7 +11,11 @@ import { PersonalSettings } from './components/personal-settings/personal-settin
 import { NotificationModal } from './components/notification-modal/notification.modal';
 import { MatRadioModule } from '@angular/material/radio';
 import { ProfileService } from './profile.service';
-import { ActionModal, AccountVerificationModal, InstagramAccountChangeModal} from '../../../core/modals';
+import {
+    ActionModal,
+    AccountVerificationModal,
+    InstagramAccountChangeModal
+} from '../../../core/modals';
 
 @NgModule({
     declarations: [
@@ -32,9 +36,14 @@ import { ActionModal, AccountVerificationModal, InstagramAccountChangeModal} fro
         ReactiveFormsModule,
         MatCheckboxModule,
         MatRadioModule,
-     
+
     ],
-    entryComponents: [NotificationModal,ActionModal,AccountVerificationModal],
+    entryComponents: [
+        NotificationModal,
+        ActionModal,
+        AccountVerificationModal,
+        InstagramAccountChangeModal
+    ],
     providers: [ProfileService]
 })
 export class ProfileModule { }
