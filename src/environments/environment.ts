@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://192.168.1.111:8000/',
-  fileUrl: 'http://192.168.1.111:8000/files',
-  socketUrl: 'http://192.168.1.111:3031/direct'
+  apiUrl: 'http://192.168.1.109:8000/',
+  fileUrl: 'http://192.168.1.109:8000/files',
+  socketUrl: 'http://192.168.1.109:3031/direct'
 };
 
 /*
