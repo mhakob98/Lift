@@ -6,6 +6,7 @@ import { AuthState } from '../models/auth';
 import { map, catchError, filter } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { User, InstagramAccount } from '../models/user';
+import { EmptyResponse } from '../models/empty-response';
 
 @Injectable({
     providedIn: 'root'
@@ -23,6 +24,10 @@ export class AuthService {
         private _router: Router,
     ) { }
 
+    private _saveActiveAccount(accountId: number): Observable<EmptyResponse> {
+        return this._httpClient.post<EmptyResponse>('instagram/switch-account', { accountId: accountId });
+    }
+
     public setUserState(userInfo): void {
         this._userInfo = userInfo;
         this._userInfoState$.next(this._userInfo);
@@ -30,7 +35,8 @@ export class AuthService {
 
     public setAccount(account: InstagramAccount): void {
         this._activeAccount = account;
-        this._activeAccountState$.next(this._activeAccount)
+        this._activeAccountState$.next(this._activeAccount);
+        this._saveActiveAccount(account.id).subscribe();
     }
 
     public getAccount(): InstagramAccount {
