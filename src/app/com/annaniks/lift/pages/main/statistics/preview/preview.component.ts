@@ -3,7 +3,6 @@ import { PreviewService } from './preview.service';
 import { catchError, map, filter, tap } from 'rxjs/operators';
 import { of, combineLatest } from 'rxjs';
 import { Preview } from '../../../../core/models/statistics-preview';
-import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -79,8 +78,10 @@ export class PreviewComponent implements OnInit {
         ({ preview, bestPostsForLastMonth, mailingsForLastMonth }))
     )
 
-  constructor(private _previewService: PreviewService, private _matDialog: MatDialog) { }
+  constructor(private _previewService: PreviewService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
+
+
+
 }

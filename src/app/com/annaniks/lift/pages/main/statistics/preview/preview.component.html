@@ -1,20 +1,19 @@
 <div *ngIf="vm$ | async as vm">
     <section class="preview-content">
         <app-user-details></app-user-details>
-        <div class="statistics ml-0 mr-0">
+        <div class="statistics w-100">
             <div class="pg-container">
-                <div class="row">
-                    <div class="col-6">
+                <div class="statistic-row">
+                    <div class="statistic-col firt-statistic-col">
                         <div class="statistics-card">
-                            <div class="card-content">
                                 <div class="card-descrption  d-flex">
                                     <img src="assets/images/previw_card_icon.png"
                                         class="rounded img-responsive card-image">
-                                    <div class="card-text align-items-center  ml-5">
+                                    <div class="card-text align-items-center  ml-4">
                                         <p class="text">подписчики</p>
                                         <p class="text value">80252</p>
                                     </div>
-                                    <div class="progress-description ml-5">
+                                    <div class="progress-description ml-3">
                                         <p class="progress-text">+23 сегодня <img
                                                 src="assets/images/preview_up_icon.png" class="rounded img-responsive">
                                         </p>
@@ -24,20 +23,19 @@
                                 <div class="card-chart">
                                     <app-line-chart customId="preview-subscribers"></app-line-chart>
                                 </div>
-                            </div>
+                           
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="statistic-col">
                         <div class="statistics-card">
-                            <div class="card-content">
                                 <div class="card-descrption  d-flex">
                                     <img src="assets/images/preview_card_like_icon.png"
                                         class="rounded img-responsive card-image">
-                                    <div class="card-text align-items-center  ml-5">
+                                    <div class="card-text align-items-center  ml-4">
                                         <p class="text">Лайки</p>
                                         <p class="text value">258656</p>
                                     </div>
-                                    <div class="progress-description ml-5">
+                                    <div class="progress-description ml-3">
                                         <p class="progress-text">+3200 сегодня <img
                                                 src="assets/images/preview_up_icon.png" class="rounded img-responsive">
                                         </p>
@@ -47,7 +45,6 @@
                                 <div class="card-chart">
                                     <app-line-chart customId="preview-likes"></app-line-chart>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -563,3 +560,5 @@
         </div>
     </section>
 </div>
+
+<button class="btn btn-danger" (click)="openVerificationModal()">AccountVerificationModal</button>

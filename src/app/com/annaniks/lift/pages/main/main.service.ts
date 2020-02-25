@@ -21,6 +21,7 @@ import { Router } from '@angular/router';
 import { AccountContactSettings } from '../../core/models/account-contact-settings';
 import { ChangeInstagramAccountRequest } from '../../core/models/change-password-recuest';
 import { ToastrService } from 'ngx-toastr';
+import { VerificationCode } from '../../core/models/verification-code';
 
 @Injectable()
 export class MainService {
@@ -133,6 +134,14 @@ export class MainService {
         })
         if (verificationAccountNames) {
             const message: string = `Для ${verificationAccountNames} аккаунтов необходима верификация для продолжения дальнейших действий:`;
+            const toastrRef = this._toastrService.error(message, 'Важная информация !!!', {
+                disableTimeOut: true,
+                positionClass: 'toast-top-full-width',
+                progressBar: true
+            })
+            toastrRef.onHidden.subscribe(() => {
+                this._router.navigate(["/profile"], { queryParams: { tab: 'personal-settings' } });
+            })
             this._createImportantToastr(message);
         }
         if (changePasswordAccountNames) {
@@ -218,9 +227,12 @@ export class MainService {
             );
     }
 
-
     public changeInstagramAccountPassword(body: ChangeInstagramAccountRequest): Observable<ServerResponse<ChangeInstagramAccountRequest>> {
         return this._httpClient.post<ServerResponse<ChangeInstagramAccountRequest>>('instagram/change-password', body)
+    }
+
+    public verificationCode(body): Observable<ServerResponse<VerificationCode>> {
+        return this._httpClient.post<ServerResponse<VerificationCode>>('instagram/verification-code', body)
     }
 
 }

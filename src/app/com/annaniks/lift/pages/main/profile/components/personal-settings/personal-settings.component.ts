@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/com/annaniks/lift/core/services/auth.servic
 import { EmptyResponse } from 'src/app/com/annaniks/lift/core/models/empty-response';
 import { ToastrService } from 'ngx-toastr';
 import { ServerResponse } from 'src/app/com/annaniks/lift/core/models/server-response';
-import { InstagramAccountChangeModal } from 'src/app/com/annaniks/lift/core/modals/instagram-account-change/instagram-account-change.modal';
+import { ActionModal, InstagramAccountChangeModal, AccountVerificationModal } from 'src/app/com/annaniks/lift/core/modals';
 import { MatDialog } from '@angular/material';
 
 @Component({
@@ -117,7 +117,7 @@ export class PersonalSettings implements OnInit, OnDestroy {
             .pipe(map((data) => data.data));
     }
 
-    public deleteInstagramAccount(id: number): void {
+    private _deleteInstagramAccount(id: number): void {
         this._loadingService.showLoading();
         this._mainService.deleteInstaAccount(id).pipe(
             finalize(() => this._loadingService.hideLoading()),
@@ -195,6 +195,24 @@ export class PersonalSettings implements OnInit, OnDestroy {
             reader.readAsDataURL(file);
         }
     }
+
+    public openActionModal(accountId:number): void {
+        const dialogRef = this._matDialog.open(ActionModal, {
+            width: "350px"
+        })
+        dialogRef.afterClosed().subscribe((data) => {
+            if (data == 'yes') {
+               this. _deleteInstagramAccount(accountId);
+            }
+
+        })
+    }
+
+    public openVerificationModal():void{
+        const dialoRef=this._matDialog.open(AccountVerificationModal,{
+          width:"650px"
+        })
+      }
 
     ngOnDestroy() {
         this._unsubscribe$.next();

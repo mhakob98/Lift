@@ -132,11 +132,11 @@
                             <div class="user-img">
                                 <img [src]="(account?.avatar) ? account.avatar : 'assets/images/user.png'"
                                     class="rounded-circle img-responsive account-image">
-                                <div class="account-change-overlay" (click)="onClickChangeAccount(account)"><i class="material-icons icon">create</i></div>
+                                <div class="account-change-overlay" (click)="onClickChangeAccount(account)"><i class="material-icons icon" >create</i></div>
                             </div>
                             <p class="text ml-2">{{account.login}}</p>
                             <img class="delete-account" [src]="'assets/icons/x.png'"
-                                (click)="deleteInstagramAccount(account.id)" alt="">
+                                (click)="openActionModal(account.id)" alt="">
                         </div>
                         <div (click)="onClickAddAccount()"
                             class="connected-accounts-item add-account d-flex align-items-center">
@@ -182,3 +182,5 @@
 
 
 </section>
+
+<button class="btn btn-dark" (click)="openVerificationModal()">openVerificationModal</button>
