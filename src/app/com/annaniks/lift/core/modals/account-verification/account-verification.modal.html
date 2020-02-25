@@ -1,0 +1,24 @@
+<div class="instagram-account-form">
+    <form [formGroup]="verificationForm">
+        <p class="error text-danger ">{{passwordErrorMessage}}</p>
+        <div class="form-group">
+            <label for="accountName" class="col-form-label label">Название аккаунта</label>
+            <div class="input-content">
+                <input id="accountName" name="accountName" placeholder="Название аккаунта" class="form-control here"
+                    type="text" formControlName="accountName"
+                    [ngClass]="{'border':checkIsValid('accountName')}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="code" class="col-form-label label">Код подтверждения</label>
+            <div class="input-content">
+                <input id="code" name="code" placeholder="Код подтверждения" class="form-control here"
+                    type="text" formControlName="code"
+                    [ngClass]="{'border':checkIsValid('code')}">
+                    <p class="text mt-2 text-right cursor-pointer">Запросить код еще раз?</p>
+            </div>
+        </div>
+        <button name="submit" type="submit" class="btn save-button d-flex" [disabled]="verificationForm.invalid  || loading"
+            (click)="onClickSave()">Сохранить</button>
+    </form>
+</div>

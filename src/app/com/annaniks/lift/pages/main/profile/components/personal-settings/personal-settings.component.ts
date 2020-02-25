@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/com/annaniks/lift/core/services/auth.servic
 import { EmptyResponse } from 'src/app/com/annaniks/lift/core/models/empty-response';
 import { ToastrService } from 'ngx-toastr';
 import { ServerResponse } from 'src/app/com/annaniks/lift/core/models/server-response';
-import { ActionModal, InstagramAccountChangeModal } from 'src/app/com/annaniks/lift/core/modals';
+import { ActionModal, InstagramAccountChangeModal, AccountVerificationModal } from 'src/app/com/annaniks/lift/core/modals';
 import { MatDialog } from '@angular/material';
 
 @Component({
@@ -207,6 +207,12 @@ export class PersonalSettings implements OnInit, OnDestroy {
 
         })
     }
+
+    public openVerificationModal():void{
+        const dialoRef=this._matDialog.open(AccountVerificationModal,{
+          width:"650px"
+        })
+      }
 
     ngOnDestroy() {
         this._unsubscribe$.next();
