@@ -4,15 +4,30 @@
       margin-right: 105px;
     }
   }
+
   .subscription-heder {
     padding: 0 20px;
   }
+
   .search-tab-item {
     p {
       font-size: 16px !important;
     }
   }
+
+  .action-row {
+    .action-col {
+      width: 50% !important;
+    }
+  }
+  .setting-details-description{
+    display: none !important;
+  }
+  .auto-promotion-title{
+    display: block !important;
+  }
 }
+
 @media only screen and (max-width: 900px) {
   .main {
     margin-top: 60px !important;
@@ -37,10 +52,12 @@
     flex-wrap: wrap;
     min-height: 180px !important;
     justify-content: space-between;
+
     .limit-item {
       margin-right: 0 !important;
     }
   }
+
   .limits-title {
     font-size: 16px !important;
     margin: 10px 0 !important;
@@ -50,16 +67,134 @@
   .accordion-body {
     padding: 0 !important;
   }
+
   .subscription-heder {
     padding: 0;
+
     .subscribers-statistic {
       p {
         display: none;
       }
     }
+
     .subscription-title {
       p {
         font-size: 18px !important;
+      }
+    }
+  }
+
+  //// Preview module
+  .preview-content {
+    .user-details {
+      .user-respons-name {
+        display: block !important;
+      }
+
+      .user-description {
+        display: none !important
+      }
+
+      .subscription-text {
+        flex-direction: column !important;
+      }
+
+    }
+
+    .statistic-row {
+      flex-direction: column !important;
+
+      .statistic-col {
+        width: 100% !important;
+      }
+    }
+
+    .action-row {
+      .action-col {
+        width: 100% !important;
+
+      }
+    }
+
+    .slider-container {
+
+      .slide-item {
+        .post-description {
+          flex-direction: column !important;
+
+          .post-image {
+            margin: 0 !important;
+            height: 250px !important;
+            width: 100% !important;
+          }
+        }
+
+      }
+    }
+
+    .mailing-lists {
+      .mailing-list-description {
+        flex-direction: column !important;
+
+        .mailing-list-image {
+          margin: 0 !important;
+          height: 250px !important;
+          width: 100% !important;
+        }
+        .time{
+          text-align: end !important;
+        }
+      }
+    }
+    .settings-row{
+      flex-direction: column !important;
+      .setting-detailes{
+        width: 100% !important;
+      }
+    }
+    
+  }
+  .add-content{
+    display: none !important;
+  }
+  .calendar-item{
+    background: white !important;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.23) !important;
+    padding: 20px 0 !important;
+  }
+  .event-content,.change-content{
+    display: block !important;
+  }
+}
+
+@media only screen and (max-width:480px) {
+
+  //// Preview module
+  .preview-content {
+    .card-descrption {
+      flex-direction: column !important;
+
+      .card-image {
+        width: 40px;
+        height: 40px;
+      }
+
+      .value {
+        font-size: 18px !important;
+      }
+
+      .progress-description {
+        margin: 20px 0 !important;
+      }
+    }
+
+    .card-chart {
+      margin: 0 !important;
+    }
+    .rate-content{
+      flex-direction: column !important;
+      .rate-item{
+        max-width: 100% !important;
       }
     }
   }

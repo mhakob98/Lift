@@ -15,36 +15,27 @@ export class PreviewComponent implements OnInit {
   public slideConfig = {
     slidesToShow: 3,
     slidesToScroll: 3,
-    dots: true,
+    dots: false,
     infinite: false,
     speed: 300,
-    loop: true,
-    autoplay: true,
+    loop: false,
+    autoplay: false,
     autoplayTimeout: 1000,
-    autoplayHoverPause: true,
+    autoplayHoverPause: false,
     // prevArrow: "<img class='a-left control-c prev slick-prev'  src='/assets/images/arrow-left.png' >",
     // nextArrow: "<img class='a-right control-c next slick-next' src='/assets/images/arrow-right.png'>",
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1200,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          infinite:true,
           dots: true
         }
       },
       {
         breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          infinite: true,
-          dots: true
-        }
-      },
-      {
-        breakpoint: 480,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
