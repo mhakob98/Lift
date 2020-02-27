@@ -67,6 +67,15 @@ export class MessagingService extends Socket {
     public static getMoreInbox(): Observable<any> {
         return self.fromEvent('more-inbox');
     }
+
+    public static getUnreads(): Observable<{ items: any, messages: DirectMessage[] }> {
+        return self.fromEvent('unreads')
+    }
+
+    public static messageSuccessfullySent(): Observable<any> {
+        return self.fromEvent('message')
+    }
+
     public static removeAllListeners(): void {
         self.removeAllListeners();
     }
@@ -74,5 +83,6 @@ export class MessagingService extends Socket {
     public static disconnect(): void {
         self.disconnect();
     }
+
 
 }

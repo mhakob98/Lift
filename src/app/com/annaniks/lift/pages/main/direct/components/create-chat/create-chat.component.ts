@@ -15,11 +15,11 @@ import { map, takeUntil } from 'rxjs/operators';
 export class CreateChatComponent implements OnInit {
 
   @Input() allChats: any;
-  @Input() activeChatIndex: number;
+  @Input() activeChat: any;
   @Input() createChatOpened: boolean;
 
   @Output() allChatsChange: EventEmitter<any> = new EventEmitter<any>();
-  @Output() activeChatIndexChange: EventEmitter<number> = new EventEmitter<number>();
+  @Output() activeChatChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() createChatOpenedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   public chatMembers: FormControl = new FormControl('');
@@ -68,19 +68,19 @@ export class CreateChatComponent implements OnInit {
         })
         if (!isChatExists) {
           this.allChats.unshift(data.newThreed)
-          this._actionsAfterChatCreating(chatIndex)
+          this._actionsAfterChatCreating(this.allChats[chatIndex])
           this.allChatsChange.emit(this.allChats)
         } else {
-          this._actionsAfterChatCreating(chatIndex)
+          this._actionsAfterChatCreating(this.allChats[chatIndex])
         }
       })
   }
 
   private _actionsAfterChatCreating(chatIndex): void {
     MessagingService.setActiveChat(this.allChats[chatIndex])
-    this.activeChatIndex = chatIndex;
+    this.activeChat = chatIndex;
     this.createChatOpened = false;
-    this.activeChatIndexChange.emit(this.activeChatIndex);
+    this.activeChatChange.emit(this.activeChat);
     this.createChatOpenedChange.emit(this.createChatOpened)
   }
 }

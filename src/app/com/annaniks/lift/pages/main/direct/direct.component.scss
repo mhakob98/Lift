@@ -249,6 +249,7 @@ img {
   margin-top: 45px;
 }
 .msg_history {
+  padding: 0 15px;
   height: 610px;
   overflow-y: auto;
   &::-webkit-scrollbar-track {
@@ -278,6 +279,12 @@ img {
     height: 60px;
     border-radius: 50%;
     margin-right: 9px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
   }
   .message-msg-text {
     position: relative;
@@ -305,6 +312,12 @@ img {
     height: 60px;
     border-radius: 50%;
     margin-left: 9px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
   }
   .message-msg-text {
     position: relative;

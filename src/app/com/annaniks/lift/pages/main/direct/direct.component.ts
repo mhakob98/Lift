@@ -1,11 +1,11 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
 import { NavbarService } from '../../../core/services/navbar.service';
 import { MessagingService } from './messaging.service'
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, finalize } from 'rxjs/operators';
 import { AuthService } from '../../../core/services/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { WriteDirectMessageData } from '../../../core/models/direct.message';
+import { WriteDirectMessageData, DirectMessage } from '../../../core/models/direct.message';
 import { CookieService } from 'ngx-cookie';
 
 
@@ -16,12 +16,14 @@ import { CookieService } from 'ngx-cookie';
   encapsulation: ViewEncapsulation.None
 })
 export class DirectComponent implements OnInit, OnDestroy {
-  public allChats: any = [];
-  public activeChatIndex: number = 0;
   private _unsubscribe$: Subject<void> = new Subject<void>();
+  private _messagingService: MessagingService;
+  public allChats: any[] = [];
+  public activeChatMessages: DirectMessage[] = []
+  public activeChat: any;
   public messageForm: FormGroup;
   public createChatOpened: boolean = false;
-  private _messagingService: MessagingService;
+  public loading: boolean = false;
 
   constructor(
     private _navbarService: NavbarService,
@@ -29,6 +31,7 @@ export class DirectComponent implements OnInit, OnDestroy {
     private _fb: FormBuilder,
     private _cookiesService: CookieService,
   ) {
+    this.loading = true
     this._navbarService.setNavbarItems([]);
     this._messagingService = new MessagingService(_authService, _cookiesService)
   }
@@ -39,7 +42,9 @@ export class DirectComponent implements OnInit, OnDestroy {
     this.subscribeToActiveChatEvent();
     this.getMoreMessages()
     this._immediatlyFetchMessages()
-    this.getMoreInbox()
+    this.getMoreInbox();
+    this._getUnreadChats();
+    this._subscribeToMessageStatus();
   }
 
   private _initForm(): void {
@@ -54,16 +59,37 @@ export class DirectComponent implements OnInit, OnDestroy {
 
   private _fetchMessages(): void {
     MessagingService.getMessage()
-      .pipe(takeUntil(this._unsubscribe$))
+      .pipe(
+        takeUntil(this._unsubscribe$),
+      )
       .subscribe((data) => {
-        this.allChats = data
-        this.setActiveChat(0)
+        this.allChats = data;
+        this.setActiveChat(this.allChats[0])
+      })
+  }
+
+  private _getUnreadChats(): void {
+    MessagingService.getUnreads()
+      .pipe(
+        takeUntil(this._unsubscribe$)
+      )
+      .subscribe(chats => {
+        const chatsArray = [];
+        chatsArray.push(...chats.items);
+        this.allChats.map((data) => {
+          const chatIndex = chatsArray.findIndex((element) => element.thread_id === data.thread_id);
+          if (chatIndex == -1) {
+            chatsArray.push(data);
+          }
+        })
+        this.allChats = chatsArray;
+        // this.setActiveChat(this.allChats[0]);
       })
   }
 
   public sendMessage(): void {
     const writeMessageData: WriteDirectMessageData = {
-      thread_id: this.allChats[this.activeChatIndex].thread_id,
+      thread_id: this.activeChat.thread_id,
       message: this.messageForm.get('message').value,
     }
     MessagingService.sendMessage(writeMessageData)
@@ -73,7 +99,7 @@ export class DirectComponent implements OnInit, OnDestroy {
   public getPhotoByUserIdAndCheckIfIncoming(userId: number): { picture: string, isIncoming: boolean } {
     let profilePicture: string = this._authService.getAccount().avatar || 'assets/icons/avatar.png'
     let isIncoming: boolean = false;
-    this.allChats[this.activeChatIndex].users.map(user => {
+    this.activeChat.users.map(user => {
       if (user.pk == userId) {
         profilePicture = user.profile_pic_url
       }
@@ -84,9 +110,21 @@ export class DirectComponent implements OnInit, OnDestroy {
     return { picture: profilePicture, isIncoming }
   }
 
-  public setActiveChat(ind: number) {
-    this.activeChatIndex = ind
-    MessagingService.setActiveChat(this.allChats[ind])
+  public setActiveChat(thread) {
+    this.loading = true
+    this.activeChat = thread
+    this.activeChatMessages = [];
+    if (thread) {
+      MessagingService.setActiveChat(thread)
+    }
+  }
+
+  private _subscribeToMessageStatus(): void {
+    MessagingService.messageSuccessfullySent()
+      .pipe(takeUntil(this._unsubscribe$))
+      .subscribe((data) => {
+        this.activeChatMessages.unshift(data.item)
+      })
   }
 
   public handleInputChange(e): void {
@@ -109,8 +147,16 @@ export class DirectComponent implements OnInit, OnDestroy {
     MessagingService.subscribeToActiveThread()
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe((data) => {
-        this.allChats[this.activeChatIndex].items = data.items
-        console.log(this.allChats[this.activeChatIndex].items);
+        console.log(data);
+        let index: number;
+        this.allChats.map((chat, ind: number) => {
+          if (chat.thread_id == data.threed.thread_id) {
+            index = ind
+          }
+        })
+        this.allChats[index] = data.threed
+        this.activeChatMessages = data.items;
+        this.loading = false
       })
   }
 
@@ -121,6 +167,8 @@ export class DirectComponent implements OnInit, OnDestroy {
   public moreInbox(): void {
     MessagingService.emitMoreInbox()
   }
+
+
 
   public getMoreInbox(): void {
     MessagingService.getMoreInbox()
@@ -138,7 +186,9 @@ export class DirectComponent implements OnInit, OnDestroy {
     MessagingService.getMoreMessages()
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe(moreMessages => {
-        this.allChats[this.activeChatIndex].items.push(...moreMessages.items)
+        this.activeChatMessages.push(...moreMessages.items)
+
+        // this.allChats[this.activeChatIndex].items.push(...moreMessages.items)
       })
   }
 

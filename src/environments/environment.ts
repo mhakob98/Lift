@@ -4,9 +4,12 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://192.168.1.109:8000/',
-  fileUrl: 'http://192.168.1.109:8000/files',
-  socketUrl: 'http://192.168.1.109:3031/direct'
+  apiUrl: 'http://annaniks.com:18180/',
+  fileUrl: 'http://annaniks.com:18180/files',
+  socketUrl: 'http://annaniks.com:3031/direct'
+  // apiUrl: 'http://192.168.1.109:8000/',
+  // fileUrl: 'http://192.168.1.109:8000/files',
+  // socketUrl: 'http://192.168.1.109:3031/direct'
 };
 
 /*
