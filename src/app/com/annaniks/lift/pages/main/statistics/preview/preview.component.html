@@ -1,4 +1,4 @@
-<div *ngIf="vm$ | async as vm">
+<!-- <div *ngIf="vm$ | async as vm">
     <section class="preview-content">
         <app-user-details></app-user-details>
         <div class="statistics w-100">
@@ -52,8 +52,8 @@
                         </div>
                     </div>
                 </div>
-                <!---->
-                <div class="action-row d-flex flex-wrap">
+
+         <div class="action-row d-flex flex-wrap">
                     <div class="action-col">
                         <div class="action-item-content d-flex">
                             <div class="action-content d-flex">
@@ -118,7 +118,6 @@
                         </div>
                     </div>
                 </div>
-                <!---->
             </div>
         </div>
         <div class="posts mt-4">
@@ -258,7 +257,7 @@
             </div>
         </div>
         <div class="mailing-lists mt-4">
-            <div class="pg-container">
+            <div class="pg-container">//////////////////////////////////////////////////////////
                 <p class="title mb-3">Рассылки за последний месяц</p>
                 <div class="slider-container">
                     <ngx-slick-carousel class="carousel-row  row ml-0 mr-0 mb-3" #slickModal="slick-carousel"
@@ -379,10 +378,11 @@
                             </div>
                         </div>
                     </ngx-slick-carousel>
-                    <p class="auto-promotion-title title mt-3">Автопродвижение</p>
+                 
 
                 </div>
             </div>
+            <p class="auto-promotion-title title mt-3">Автопродвижение</p>
         </div>
 
         <div class="settings mt-4">
@@ -574,5 +574,123 @@
                 </div>
             </div>
         </div>
+    </section>
+</div> -->
+
+<div *ngIf="vm$ | async as vm">
+    <section class="pg-container preview-content">
+        <app-user-details></app-user-details>
+        <!--statistic card-->
+        <div class="statistics">
+            <div class="pg-container statistic-content">
+                <div class="statistic-card d-flex flex-wrap">
+                    <div class="card-item" *ngFor="let item of card">
+                        <div class="card">
+                            <div class="card-description">
+                                <div class="card-top-content d-flex align-items-center">
+                                    <img src="{{item.image}}" class="rounded img-responsive card-image">
+                                    <div class="card-subscription">
+                                        <p class="text">{{item.title}}</p>
+                                        <p class="text value">{{item.value}}</p>
+                                    </div>
+
+                                    <div class="card-progress text-center">
+                                        <p class="progress-text">+23 сегодня
+                                            <img src="assets/images/preview_up_icon.png" class="rounded img-responsive">
+                                        </p>
+                                        <p class="progress-text">Прогресс <b class="progress-value">0.3%</b> </p>
+                                    </div>
+                                </div>
+                                <div class="card-chart">
+                                    <app-line-chart customId="{{item.chart}}"></app-line-chart>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--action-->
+        <div class="action">
+            <div class="action-cards d-flex flex-wrap">
+                <div class="acton-item" *ngFor="let item of action">
+                    <div class="card">
+                        <div class="card-description d-flex">
+                            <img src="assets/images/action_subscribe.png" class="rounded img-responsive action-image">
+                            <div class="action-description">
+                                <p class="text">{{item.title}}</p>
+                                <p class="text value">{{item.value}}</p>
+                                <p class="text"> {{item.date}} <img src="assets/images/preview_down_icon.png"
+                                        class="rounded img-responsive action-icon  ml-3"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--slider-->
+        <div class="slider-content">
+            <p class="title d-flex align-items-center">Лучшие посты за последний месяц
+                <img src="assets/icons/arr_down_blue.png"
+                    class="rounded img-responsive  cursor-pointer ml-2 down-image cursor-poiner" *ngIf="slide1" (click)="closeSlider('1')">
+                    <img src="assets/icons/arrow_up.png"
+                    class="rounded img-responsive  cursor-pointer ml-2 down-image cursor-poiner" *ngIf="!slide1" (click)="closeSlider('1')">
+            </p>
+            <ngx-slick-carousel class="carousel-row mb-3" #slickModal="slick-carousel" [config]="slideConfig" *ngIf="slide1">
+                <div ngxSlickItem class="slider-item" *ngFor="let item of slider">
+                    <div class="slider-description d-flex flex-wrap">
+                        <img src="assets/images/post1.png" class="rounded img-responsive post-image">
+                        <div class="posts d-flex flex-column justify-content-between">
+                            <div>
+                                <p class="text-date">14 Декабря </p>
+                                <p class="text">Utah Dream World </p>
+                            </div>
+                            <div class="post-review d-flex align-items-center">
+                                <img class="rounded img-responsive review-icon mr-1" src="assets/images/like.png ">
+                                <p class="value">12588</p>
+                                <img class="rounded img-responsive review-icon ml-1 mr-1" src="assets/images/chat.png ">
+                                <p class="value">126</p>
+                                <img class="rounded img-responsive review-icon ml-1 mr-1"
+                                    src="assets/images/bookmark.png">
+                                <p class="value">718</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ngx-slick-carousel>
+
+        </div>
+
+
+        <!--slider two-->
+        <div class="slider-content">
+            <p class="title d-flex align-items-center">Рассылки за последний месяц
+                <img src="assets/icons/arr_down_blue.png"
+                    class="rounded img-responsive  cursor-pointer ml-2 down-image cursor-poiner" *ngIf="slide2" (click)="closeSlider('2')">
+                    <img src="assets/icons/arrow_up.png"
+                    class="rounded img-responsive  cursor-pointer ml-2 down-image cursor-poiner" *ngIf="!slide2" (click)="closeSlider('2')">
+            </p>
+            <ngx-slick-carousel class="carousel-row mb-3" #slickModal="slick-carousel" [config]="slideConfig" *ngIf="slide2">
+                <div ngxSlickItem class="slider-item" *ngFor="let item of slider">
+                    <div class="slider-description d-flex flex-wrap">
+                        <img src="assets/images/mailing-lists1.png" class="rounded img-responsive post-image">
+                        <div class="posts d-flex flex-column justify-content-between">
+                            <div>
+                                <p class="text-date">14 Декабря </p>
+                                <p class="text">Utah Dream World </p>
+                            </div>
+                            <div class="post-review align-items-center">
+                                <p class="value"><b class="mr-2">12588</b>отправлено</p>
+                                <p class="value"><b class="mr-2"> 2126</b>ответили</p>
+                                <p class="value"><b class="mr-2">718</b>успешность</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ngx-slick-carousel>
+        </div>
+
+
     </section>
 </div>

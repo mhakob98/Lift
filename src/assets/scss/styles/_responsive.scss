@@ -20,11 +20,23 @@
       width: 50% !important;
     }
   }
-  .setting-details-description{
+
+  .setting-details-description {
     display: none !important;
   }
-  .auto-promotion-title{
+
+  .auto-promotion-title {
     display: block !important;
+  }
+}
+
+@media only screen and (max-width:900px) and (min-width:480px) {
+  .action {
+    .action-cards {
+      .acton-item {
+        width: 50% !important;
+      }
+    }
   }
 }
 
@@ -84,118 +96,93 @@
     }
   }
 
-  //// Preview module
+  /////Preview
   .preview-content {
     .user-details {
-      .user-respons-name {
-        display: block !important;
+      .user-details-left {
+        margin: auto !important;
+        .user-details-left-botton-content {
+          display: block !important;
+        }
       }
 
-      .user-description {
-        display: none !important
-      }
+      .user-details-right {
+        display: none !important;
 
-      .subscription-text {
+      }
+    }
+
+    .statistics {
+      .statistic-card {
         flex-direction: column !important;
-      }
 
-    }
+        .card-item {
+          width: 100% !important;
 
-    .statistic-row {
-      flex-direction: column !important;
-
-      .statistic-col {
-        width: 100% !important;
-      }
-    }
-
-    .action-row {
-      .action-col {
-        width: 100% !important;
-
-      }
-    }
-
-    .slider-container {
-
-      .slide-item {
-        .post-description {
-          flex-direction: column !important;
-
-          .post-image {
-            margin: 0 !important;
-            height: 250px !important;
-            width: 100% !important;
+          .card-description {
+            margin: 39px 0 !important;
           }
         }
-
       }
     }
-
-    .mailing-lists {
-      .mailing-list-description {
-        flex-direction: column !important;
-
-        .mailing-list-image {
-          margin: 0 !important;
-          height: 250px !important;
-          width: 100% !important;
-        }
-        .time{
-          text-align: end !important;
-        }
-      }
+  }
+  .slider-content {
+    .title{
+    .down-image{
+      display: block !important;
     }
-    .settings-row{
-      flex-direction: column !important;
-      .setting-detailes{
-        width: 100% !important;
-      }
+  }
+  .slider-description{
+    flex-direction:  column !important;
+    .post-image{
+      height: 200px !important;
+      width: 100% !important;
+
     }
-    
+    .posts{
+      margin: 20px 0 0 0!important;
+    }
   }
-  .add-content{
-    display: none !important;
-  }
-  .calendar-item{
-    background: white !important;
-    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.23) !important;
-    padding: 20px 0 !important;
-  }
-  .event-content,.change-content{
-    display: block !important;
-  }
+}
 }
 
 @media only screen and (max-width:480px) {
 
-  //// Preview module
-  .preview-content {
-    .card-descrption {
-      flex-direction: column !important;
+  //preview 
+  .subscription-content {
+    flex-direction: column !important;
+  }
 
-      .card-image {
-        width: 40px;
-        height: 40px;
-      }
+  .statistics {
+    .card-item {
+      .card-description {
+        .card-image {
+          height: 40px !important;
+          width: 40px !important;
+        }
 
-      .value {
-        font-size: 18px !important;
-      }
+        .card-subscription {
+          font-size: 15px !important;
+        }
 
-      .progress-description {
-        margin: 20px 0 !important;
+        .progress-text,
+        .progress-value {
+          font-size: 10px !important;
+        }
       }
     }
 
-    .card-chart {
-      margin: 0 !important;
-    }
-    .rate-content{
+  }
+
+  .action {
+    .action-cards {
       flex-direction: column !important;
-      .rate-item{
-        max-width: 100% !important;
+
+      .acton-item {
+        width: 100% !important;
       }
     }
   }
+
+
 }
