@@ -1,9 +1,24 @@
 <h3 class="add-ps-title">Добавить новый {{data.type == 'post' ? 'пост' : 'story'}}</h3>
 
-<div [formGroup]="addPostStoryForm" class="ps-container d-flex justify-content-between">
+<form [formGroup]="addPostStoryForm" class="ps-container d-flex justify-content-between">
     <div class="ps-body ">
-        <div class="photo-video-place">
-
+        <div class="photo-video-place drop-zone">
+            <div class="drop-file d-flex align-items-center justify-content-center h-100" *ngIf="!file">
+                <div class="center">
+                    <p class="inf">Перетащите сюда изображение или видеофайл <br>или</p>
+                    <div class="upload-area">
+                        <label for="upload">
+                            <div class="upload-btn">
+                                <span class="btn-label">Выберите файл</span>
+                            </div>
+                        </label>
+                        <input type="file" class="d-none" id="upload" (change)="onSelectFiles($event)" />
+                    </div>
+                </div>
+            </div>
+            <div class="dropped-files h-100" *ngIf="file">
+                <img [src]="localImage" class="w-100 h-100">
+            </div>
         </div>
         <button class="search-for-ideas">
             <img src="assets/icons/idea.png" alt="">
@@ -81,7 +96,7 @@
             </mat-expansion-panel>
 
         </mat-accordion>
-        <form *ngIf="data.type == 'post'" class="description-form d-flex justify-content-between align-items-center">
+        <div *ngIf="data.type == 'post'" class="description-form d-flex justify-content-between align-items-center">
 
             <img src="assets/icons/ava.png" alt="">
             <mat-form-field class="w-100">
@@ -94,7 +109,7 @@
                 </mat-hint>
             </mat-form-field>
 
-        </form>
+        </div>
         <mat-accordion>
             <mat-expansion-panel [expanded]="true" class="settings">
                 <mat-expansion-panel-header expandedHeight="47px">
@@ -107,7 +122,7 @@
                         <p class="publish-now-text">Опубликовать <a href="">сейчас</a></p>
                         <img src="assets/icons/arrow_down.png" alt="">
                     </div>
-                    <form class="add-ps-form" *ngIf="data.type == 'post'">
+                    <div class="add-ps-form" *ngIf="data.type == 'post'">
                         <mat-checkbox formControlName="showFirstComment">Указать первый комментарий</mat-checkbox>
 
                         <div class="inline-checkoxes" formGroupName="postLife">
@@ -117,15 +132,15 @@
                                     type="number">
                                 дней</span>
                         </div>
-                    </form>
-                    <form class="add-ps-form" *ngIf="data.type == 'story'">
+                    </div>
+                    <div class="add-ps-form" *ngIf="data.type == 'story'">
                         <div class="inline-checkoxes" formGroupName="storyLife">
                             <mat-checkbox formControlName="status">Удаление story через</mat-checkbox>
                             <span class="checkbox-label"> <input formControlName="age" class="range-input"
                                     type="number">
                                 дней</span>
                         </div>
-                    </form>
+                    </div>
                 </div>
 
             </mat-expansion-panel>
@@ -137,4 +152,4 @@
             <button class="discard">Отмена</button>
         </div>
     </div>
-</div>
+</form>
