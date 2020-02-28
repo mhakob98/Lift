@@ -60,7 +60,33 @@
                                 </div>
                             </div>
                         </div>
-                        <div *ngIf="allChats.length == 0" class="no-chat">
+                        <div *ngIf="loading" class="loading">
+                            <div class="thread_loading">
+                                <div></div>
+                                <span></span>
+                            </div>
+                            <div class="thread_loading">
+                                <div></div>
+                                <span></span>
+                            </div>
+                            <div class="thread_loading">
+                                <div></div>
+                                <span></span>
+                            </div>
+                            <div class="thread_loading">
+                                <div></div>
+                                <span></span>
+                            </div>
+                            <div class="thread_loading">
+                                <div></div>
+                                <span></span>
+                            </div>
+                            <div class="thread_loading">
+                                <div></div>
+                                <span></span>
+                            </div>
+                        </div>
+                        <div *ngIf="allChats.length == 0 && !loading" class="no-chat">
                             <p class="empty-message">У вас пока нет сообщений</p>
                         </div>
                     </div>

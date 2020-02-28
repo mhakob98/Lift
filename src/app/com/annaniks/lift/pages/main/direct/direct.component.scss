@@ -435,3 +435,41 @@ img {
 .ui-autocomplete-multiple {
   width: 100% !important;
 }
+
+.loading {
+  .thread_loading {
+    background-color: #f6f6f6;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row-reverse;
+    width: 340px;
+    height: 80px;
+    div {
+      background: linear-gradient(to right, #eff2e8, #bcbfc1, #c9d0d1, #d9e2de, #eff2e8);
+      background-size: 400%;
+      animation: animate 6s linear infinite;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    span {
+      background: linear-gradient(to right, #eff2e8, #bcbfc1, #c9d0d1, #d9e2de, #eff2e8);
+      background-size: 400%;
+      animation: animate 6s linear infinite;
+      display: block;
+      width: 250px;
+      height: 18px;
+    }
+  }
+}
+
+@keyframes animate {
+  0% {
+    background-position: 400%;
+  }
+  100% {
+    background-position: 0%;
+  }
+}
