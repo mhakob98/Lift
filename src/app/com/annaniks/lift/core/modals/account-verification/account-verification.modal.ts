@@ -65,7 +65,7 @@ export class AccountVerificationModal implements OnInit {
                 });
             },
                 (err) => {
-                    const error = err.error;
+                    const error = err.error.data || null;
                     this.passwordErrorMessage = error.message || "Ошибка";
                     this._toastrService.error(this.passwordErrorMessage);
                 })
