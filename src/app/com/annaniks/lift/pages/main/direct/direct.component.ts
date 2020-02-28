@@ -17,7 +17,6 @@ import { CookieService } from 'ngx-cookie';
 })
 export class DirectComponent implements OnInit, OnDestroy {
   private _unsubscribe$: Subject<void> = new Subject<void>();
-  private _messagingService: MessagingService;
   public allChats: any[] = [];
   public activeChatMessages: DirectMessage[] = []
   public activeChat: any;
@@ -29,11 +28,10 @@ export class DirectComponent implements OnInit, OnDestroy {
     private _navbarService: NavbarService,
     private _authService: AuthService,
     private _fb: FormBuilder,
-    private _cookiesService: CookieService,
+    private _messagingService: MessagingService
   ) {
     this.loading = true
     this._navbarService.setNavbarItems([]);
-    this._messagingService = new MessagingService(_authService, _cookiesService)
   }
 
   ngOnInit() {
@@ -54,22 +52,23 @@ export class DirectComponent implements OnInit, OnDestroy {
   }
 
   private _immediatlyFetchMessages(): void {
-    MessagingService.immediatlyFetchMessages();
+    this._messagingService.immediatlyFetchMessages();
   }
 
   private _fetchMessages(): void {
-    MessagingService.getMessage()
+    this._messagingService.getMessage()
       .pipe(
         takeUntil(this._unsubscribe$),
       )
       .subscribe((data) => {
+        console.log(data);
         this.allChats = data;
         this.setActiveChat(this.allChats[0])
       })
   }
 
   private _getUnreadChats(): void {
-    MessagingService.getUnreads()
+    this._messagingService.getUnreads()
       .pipe(
         takeUntil(this._unsubscribe$)
       )
@@ -92,7 +91,7 @@ export class DirectComponent implements OnInit, OnDestroy {
       thread_id: this.activeChat.thread_id,
       message: this.messageForm.get('message').value,
     }
-    MessagingService.sendMessage(writeMessageData)
+    this._messagingService.sendMessage(writeMessageData)
     this.messageForm.get('message').reset();
   }
 
@@ -115,12 +114,12 @@ export class DirectComponent implements OnInit, OnDestroy {
     this.activeChat = thread
     this.activeChatMessages = [];
     if (thread) {
-      MessagingService.setActiveChat(thread)
+      this._messagingService.setActiveChat(thread)
     }
   }
 
   private _subscribeToMessageStatus(): void {
-    MessagingService.messageSuccessfullySent()
+    this._messagingService.messageSuccessfullySent()
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe((data) => {
         this.activeChatMessages.unshift(data.item)
@@ -140,11 +139,11 @@ export class DirectComponent implements OnInit, OnDestroy {
   }
 
   private _handleReaderLoaded(e): void {
-    MessagingService.uploadBase64(e.target.result)
+    this._messagingService.uploadBase64(e.target.result)
   }
 
   public subscribeToActiveChatEvent(): void {
-    MessagingService.subscribeToActiveThread()
+    this._messagingService.subscribeToActiveThread()
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe((data) => {
         console.log(data);
@@ -161,17 +160,17 @@ export class DirectComponent implements OnInit, OnDestroy {
   }
 
   public onScrolledUp(): void {
-    MessagingService.emitMoreMessages();
+    this._messagingService.emitMoreMessages();
   }
 
   public moreInbox(): void {
-    MessagingService.emitMoreInbox()
+    this._messagingService.emitMoreInbox()
   }
 
 
 
   public getMoreInbox(): void {
-    MessagingService.getMoreInbox()
+    this._messagingService.getMoreInbox()
       .pipe(
         takeUntil(this._unsubscribe$)
       )
@@ -183,7 +182,7 @@ export class DirectComponent implements OnInit, OnDestroy {
   }
 
   public getMoreMessages(): void {
-    MessagingService.getMoreMessages()
+    this._messagingService.getMoreMessages()
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe(moreMessages => {
         this.activeChatMessages.push(...moreMessages.items)
@@ -201,8 +200,8 @@ export class DirectComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this._unsubscribe$.next();
     this._unsubscribe$.complete();
-    MessagingService.removeAllListeners();
-    MessagingService.disconnect();
+    this._messagingService.socket.removeAllListeners();
+    this._messagingService.socket.disconnect();
   }
 
 }

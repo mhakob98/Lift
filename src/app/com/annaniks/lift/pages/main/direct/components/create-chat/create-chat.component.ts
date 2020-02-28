@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MessagingService } from '../../messaging.service';
 import { SearchTerm, Search } from 'src/app/com/annaniks/lift/core/models/search';
@@ -27,6 +27,7 @@ export class CreateChatComponent implements OnInit {
   private _unsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(
+    private _messagingService: MessagingService,
     private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService,
   ) {
   }
@@ -40,7 +41,7 @@ export class CreateChatComponent implements OnInit {
     this.chatMembers.value.filter(element => {
       memebers.push(Number(element.pk));
     });
-    MessagingService.createChat(memebers);
+    this._messagingService.createChat(memebers);
   }
 
   public searchFor(searchEvent): void {
@@ -53,7 +54,7 @@ export class CreateChatComponent implements OnInit {
   }
 
   public subscribeToChatCreating(): void {
-    MessagingService.subscribeToChat()
+    this._messagingService.subscribeToChat()
       .pipe(
         takeUntil(this._unsubscribe$)
       )
@@ -77,7 +78,7 @@ export class CreateChatComponent implements OnInit {
   }
 
   private _actionsAfterChatCreating(chatIndex): void {
-    MessagingService.setActiveChat(this.allChats[chatIndex])
+    this._messagingService.setActiveChat(this.allChats[chatIndex])
     this.activeChat = chatIndex;
     this.createChatOpened = false;
     this.activeChatChange.emit(this.activeChat);

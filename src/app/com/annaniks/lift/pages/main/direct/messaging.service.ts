@@ -1,88 +1,110 @@
-import { Socket } from 'ngx-socket-io';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { DirectMessage } from '../../../core/models/direct.message';
 import { environment } from 'src/environments/environment';
 import { CookieService } from 'ngx-cookie';
 import { AuthService } from '../../../core/services/auth.service';
+import * as io from 'socket.io-client';
 
-declare let self;
-export class MessagingService extends Socket {
+@Injectable()
+export class MessagingService {
+    public socket;
+
     constructor(
-        _authService: AuthService,
-        _cookieService: CookieService
+        private _authService: AuthService,
+        private _cookieService: CookieService
     ) {
-        super({
-            url: environment.socketUrl, options: {
-                query: `accessToken=${_cookieService.get('accessToken')}&loginId=${_authService.getAccount().id}`
-            }
+        this.socket = io(environment.socketUrl, {
+            query: `accessToken=${this._cookieService.get('accessToken')}&loginId=${this._authService.getAccount().id}`
         });
-        self = this;
     }
 
-    public static sendMessage(chat: { thread_id: string, message: string }): void {
-        self.emit("message", { thread_id: chat.thread_id, message: chat.message });
+    public sendMessage(chat: { thread_id: string, message: string }): void {
+        this.socket.emit("message", { thread_id: chat.thread_id, message: chat.message });
     }
 
-    public static getMessage(): Observable<[]> {
-        return self.fromEvent("inbox").pipe(map((data: { messages: [] }) => data.messages))
+    public getMessage = () => {
+        return Observable.create((observer) => {
+            this.socket.on('inbox', (data) => {
+                observer.next(data.messages);
+            });
+        });
     }
 
-    public static setActiveChat(activeThread: any): void {
-        self.emit('select-threed', activeThread)
+    public setActiveChat(activeThread: any): void {
+        this.socket.emit('select-threed', activeThread)
     }
 
-    public static subscribeToActiveThread(): Observable<any> {
-        return self.fromEvent('select-threed')
+    public subscribeToActiveThread = () => {
+        return Observable.create((observer) => {
+            this.socket.on('select-threed', (data) => {
+                console.log(data);
+
+                observer.next(data);
+            });
+        });
     }
 
-    public static emitMoreMessages(): void {
-        self.emit('more-message')
+    public emitMoreMessages(): void {
+        this.socket.emit('more-message')
     }
 
-    public static getMoreMessages(): Observable<{ items: DirectMessage[] }> {
-        return self.fromEvent('more-message');
+    public getMoreMessages = () => {
+        return Observable.create((observer) => {
+            this.socket.on('more-message', (data) => {
+                observer.next(data.message);
+            });
+        });
     }
 
-    public static immediatlyFetchMessages(): void {
-        self.emit('immediatly-fetch-messages')
+    public immediatlyFetchMessages(): void {
+        this.socket.emit('immediatly-fetch-messages')
     }
 
-    public static uploadBase64(base64: string): void {
-        self.emit('message-image', base64)
+    public uploadBase64(base64: string): void {
+        this.socket.emit('message-image', base64)
     }
 
-    public static createChat(memebers: number[]): void {
-        self.emit('new-message', memebers)
+    public createChat(memebers: number[]): void {
+        this.socket.emit('new-message', memebers)
     }
 
-    public static subscribeToChat(): Observable<any> {
-        return self.fromEvent('new-message');
+    public subscribeToChat = () => {
+        return Observable.create((observer) => {
+            this.socket.on('new-message', (data) => {
+                observer.next(data);
+            });
+        });
     }
 
-    public static emitMoreInbox(): void {
-        self.emit('more-inbox');
+    public emitMoreInbox(): void {
+        this.socket.emit('more-inbox');
     }
 
-    public static getMoreInbox(): Observable<any> {
-        return self.fromEvent('more-inbox');
+    public getMoreInbox = () => {
+        return Observable.create((observer) => {
+            this.socket.on('more-inbox', (data) => {
+                observer.next(data);
+            });
+        });
     }
 
-    public static getUnreads(): Observable<{ items: any, messages: DirectMessage[] }> {
-        return self.fromEvent('unreads')
+    public getUnreads = () => {
+        return Observable.create((observer) => {
+            this.socket.on('unreads', (data) => {
+                observer.next(data);
+            });
+        });
     }
 
-    public static messageSuccessfullySent(): Observable<any> {
-        return self.fromEvent('message')
+    public messageSuccessfullySent = () => {
+        return Observable.create((observer) => {
+            this.socket.on('message', (data) => {
+                observer.next(data);
+            });
+        });
     }
 
-    public static removeAllListeners(): void {
-        self.removeAllListeners();
-    }
 
-    public static disconnect(): void {
-        self.disconnect();
-    }
 
 
 }
