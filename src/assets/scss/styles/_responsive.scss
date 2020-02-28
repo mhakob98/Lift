@@ -125,6 +125,23 @@
         }
       }
     }
+    .settings{
+      .settings-details{
+        flex-direction: column !important;
+        .settings-item{
+          width: 100% !important;
+          .seting-item-top-content{
+            display: none !important;
+          }
+          .main-content{
+            flex-direction: column !important;
+            .main-item{
+              width: 100% !important;
+            }
+          }
+        }
+      }
+    }
   }
   .slider-content {
     .title{
@@ -143,6 +160,21 @@
       margin: 20px 0 0 0!important;
     }
   }
+}
+.title-respons{
+  display: block !important;
+}
+.change-content{
+  display:block  !important;
+}
+.calendar-main-content{
+  flex-direction: column !important;
+}
+.add-content{
+  display: none !important;
+}
+.event-content{
+  display: block !important;
 }
 }
 
@@ -183,6 +215,9 @@
       }
     }
   }
-
-
+ 
+   .mat-slide-toggle{
+    width: 100% !important;
+  }
+ 
 }
