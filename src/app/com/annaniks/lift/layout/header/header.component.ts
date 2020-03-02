@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy, HostListener, Inject } from '@angular/cor
 import { MainService } from '../../pages/main/main.service';
 import { Subject } from 'rxjs';
 import { takeUntil, finalize } from 'rxjs/operators';
-import { ServerResponse } from '../../core/models/server-response';
 import { User, InstagramAccount } from '../../core/models/user';
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';

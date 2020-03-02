@@ -1,13 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MainService } from './main.service';
-import { Subject, Observable, forkJoin } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { takeUntil, map } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { AccountConnectionModal } from '../../core/modals';
-import { Router, ActivatedRoute, NavigationStart, NavigationEnd } from '@angular/router';
-import { AccountSettings } from '../../core/models/account-settings';
+import { Router} from '@angular/router';
 import { User } from '../../core/models/user';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-main',
@@ -41,16 +39,6 @@ export class MainComponent implements OnInit, OnDestroy {
       })
   }
 
-  public _getUser(): Observable<User> {
-    return this._mainService.getMe()
-      .pipe(
-        map((data) => {
-          this._user = data.data;
-          return data.data;
-        })
-      )
-  }
-
   private _resetMainProperties(): void {
     this._mainService.resetMainProperties();
   }
@@ -73,6 +61,16 @@ export class MainComponent implements OnInit, OnDestroy {
           this._router.navigate(['/auth/login'])
         }
       })
+  }
+
+  private _getUser(): Observable<User> {
+    return this._mainService.getMe()
+      .pipe(
+        map((data) => {
+          this._user = data.data;
+          return data.data;
+        })
+      )
   }
 
 
