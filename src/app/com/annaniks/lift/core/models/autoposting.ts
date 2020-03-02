@@ -1,12 +1,14 @@
 export interface CreatePostData {
-    accountId: string;
-    usertags: {
-        in: UserTag[];
-    };
-    location: Location;
+    accountId: number;
     caption: string;
     time: string;
-    file: File;
+    photo: File;
+    removeAt: number;
+    firstComment?: string;
+    usertags?: {
+        in: UserTag[];
+    };
+    location?: Location;
 }
 
 interface UserTag {

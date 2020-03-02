@@ -100,7 +100,7 @@
 
             <img src="assets/icons/ava.png" alt="">
             <mat-form-field class="w-100">
-                <input matInput #message maxlength="256" placeholder="Введите подпись...">
+                <input formControlName="type_mark" matInput #message maxlength="256" placeholder="Введите подпись...">
                 <mat-hint align="start"><strong>
                         <img (click)="toggleShowEmojies()" src="assets/icons/smile.png" alt="">
                         <emoji-mart *ngIf="showEmojies" title="Pick your emoji…" emoji="point_up"></emoji-mart>
@@ -119,15 +119,19 @@
                 </mat-expansion-panel-header>
                 <div class="w-100">
                     <div class="publish-now d-flex align-items-baseline  w-100">
-                        <p class="publish-now-text">Опубликовать <a href="">сейчас</a></p>
-                        <img src="assets/icons/arrow_down.png" alt="">
+                        <p class="publish-now-text">Опубликовать
+                            <span>сейчас</span>
+                            <mat-form-field>
+                                <input matInput [ngxMatDatetimePicker]="picker" formControlName="postLife">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <ngx-mat-datetime-picker #picker></ngx-mat-datetime-picker>
+                            </mat-form-field>
+                        </p>
                     </div>
                     <div class="add-ps-form" *ngIf="data.type == 'post'">
                         <mat-checkbox formControlName="showFirstComment">Указать первый комментарий</mat-checkbox>
-
                         <div class="inline-checkoxes" formGroupName="postLife">
                             <mat-checkbox formControlName="status">Удаление поста через</mat-checkbox>
-
                             <span class="checkbox-label"> <input formControlName="age" class="range-input"
                                     type="number">
                                 дней</span>
@@ -148,7 +152,7 @@
         </mat-accordion>
         <div class="add-ps-actions d-flex justify-content-between">
             <button class="publish">Опубликовать</button>
-            <button class="save">Сохранить</button>
+            <button class="save" (click)="createPost()">Сохранить</button>
             <button class="discard">Отмена</button>
         </div>
     </div>

@@ -40,8 +40,8 @@
       }
     }
   }
-  .dropped-files{
-    img{
+  .dropped-files {
+    img {
       object-fit: contain;
       object-position: center;
     }
@@ -106,7 +106,7 @@
     font-family: "SF UI Display Regular";
     color: rgb(61, 61, 61);
     line-height: 1.2;
-    a {
+    span {
       text-decoration: none;
       color: #3399cc;
       cursor: pointer;

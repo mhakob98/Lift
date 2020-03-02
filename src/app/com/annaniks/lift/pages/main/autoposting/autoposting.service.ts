@@ -23,6 +23,6 @@ export class AutoPostingService {
                 }
             })
         }
-        return this._httpClient.post<ServerResponse<any>>('', formData);
+        return this._httpClient.post<ServerResponse<any>>('auto-posting/post', formData);
     }
 }

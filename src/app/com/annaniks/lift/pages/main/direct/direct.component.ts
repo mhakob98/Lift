@@ -2,11 +2,10 @@ import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ElementRef 
 import { NavbarService } from '../../../core/services/navbar.service';
 import { MessagingService } from './messaging.service'
 import { Subject } from 'rxjs';
-import { takeUntil, finalize } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { AuthService } from '../../../core/services/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WriteDirectMessageData, DirectMessage } from '../../../core/models/direct.message';
-import { CookieService } from 'ngx-cookie';
 
 
 @Component({
