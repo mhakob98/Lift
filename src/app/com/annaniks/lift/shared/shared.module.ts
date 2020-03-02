@@ -38,7 +38,6 @@ import { NgxInfiniteScrollerModule } from 'ngx-infinite-scroller';
 
 //Forms
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { IframeAutoHeightDirective } from '../core/directives/auto-height.directive';
 
 registerLocaleData(localeRu);
 
@@ -49,7 +48,6 @@ registerLocaleData(localeRu);
         LineChartComponent,
         UserDetailsComponent,
         OnlyNumberDirective,
-        IframeAutoHeightDirective
     ],
     imports: [
         CommonModule,
@@ -96,7 +94,6 @@ registerLocaleData(localeRu);
         OnlyNumberDirective,
         NgxMaskModule,
         NgxInfiniteScrollerModule,
-        IframeAutoHeightDirective,
         FormsModule
     ],
 })

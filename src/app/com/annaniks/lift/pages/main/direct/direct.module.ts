@@ -2,10 +2,9 @@
 import { NgModule } from '@angular/core';
 import { DirectRoutingModule } from './direct.routing.module';
 import { CommonModule } from '@angular/common';
-import { MessageItemComponent } from './components';
 // 3rd part libraries
-import { SocketIoModule } from 'ngx-socket-io';
 import { SharedModule } from '../../../shared/shared.module';
+import { MessagingService } from './messaging.service';
 
 @NgModule({
     declarations: [
@@ -14,10 +13,10 @@ import { SharedModule } from '../../../shared/shared.module';
     imports: [
         DirectRoutingModule,
         CommonModule,
-        SocketIoModule,
         SharedModule
     ],
     providers: [
+        MessagingService
     ]
 })
 export class DirectModule { }
