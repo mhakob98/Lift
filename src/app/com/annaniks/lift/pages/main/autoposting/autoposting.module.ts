@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //modal
 import { PopUpModal } from '../../../core/modals';
+import { AutoPostingService } from './autoposting.service';
 
 
 @NgModule({
@@ -27,7 +28,13 @@ import { PopUpModal } from '../../../core/modals';
         FormsModule,
         ReactiveFormsModule
     ],
-    entryComponents: [AddPostStoryComponent, PopUpModal],
+    entryComponents: [
+        AddPostStoryComponent, 
+        PopUpModal
+    ],
+    providers:[
+        AutoPostingService
+    ],
     exports: []
 })
 export class AutopostingModule {

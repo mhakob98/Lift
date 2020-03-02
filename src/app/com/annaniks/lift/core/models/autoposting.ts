@@ -25,3 +25,9 @@ interface Location {
     external_id_source: string;
     external_id: number;
 }
+
+export interface GetPostAndStoriesData {
+    accountId: number;
+    month: number;
+    year: number;
+}

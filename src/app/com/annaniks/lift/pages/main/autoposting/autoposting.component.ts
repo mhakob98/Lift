@@ -12,6 +12,10 @@ import {
   addHours
 } from 'date-fns';
 import { PopUpModal } from '../../../core/modals';
+import { AutoPostingService } from './autoposting.service';
+import { GetPostAndStoriesData } from '../../../core/models/autoposting';
+import { MainService } from '../main.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 const colors: any = {
   pink: {
@@ -51,7 +55,7 @@ export class AutopostingComponent implements OnInit {
         beforeStart: true,
         afterEnd: true
       },
-      draggable: false
+      draggable: true
     },
     {
       start: subDays(endOfMonth(new Date()), 3),
@@ -63,13 +67,29 @@ export class AutopostingComponent implements OnInit {
 
   ];
 
-  constructor(public _dialog: MatDialog) { }
+  constructor(
+    private _autoPostingService: AutoPostingService,
+    private _dialog: MatDialog,
+    private _authService: AuthService
+  ) { }
 
   ngOnInit() {
+    this._getStoriesAndPosts();
+  }
+
+  private _getStoriesAndPosts(): void {
+    const sendingData: GetPostAndStoriesData = {
+      accountId: this._authService.getAccount().id,
+      month:2,
+      year:2020
+    }
+    this._autoPostingService.getPostsAndStoriesByMonth(sendingData).subscribe((data)=>{
+      console.log(data);
+    })
   }
 
 
-  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+  public dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       if (
         (isSameDay(this.viewDate, date)) ||
