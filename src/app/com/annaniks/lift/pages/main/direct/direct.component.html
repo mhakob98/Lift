@@ -21,8 +21,8 @@
                             <img src="assets/icons/email.png" alt="">
                         </button>
                         <div class="new-message-dropDown position-absolute" [ngClass]="{'d-block':createChatOpened}">
-                            <app-create-chat [(allChats)]="allChats" [(activeChatIndex)]="activeChatIndex"
-                                [(createChatOpened)]="createChatOpened"></app-create-chat>
+                            <app-create-chat [(allChats)]="allChats" (activeChatChange)="setActiveChat($event)"
+                                [(activeChat)]="activeChat" [(createChatOpened)]="createChatOpened"></app-create-chat>
                         </div>
                     </div>
                     <div class="headind_srch d-flex">
@@ -36,11 +36,12 @@
                             <p>Запланировано</p>
                         </div>
                     </div>
-                    <div class="inbox_chat">
+                    <div class="inbox_chat" ngxInfiniteScroller initialScrollPosition="TOP" strategy="scrollingToBottom"
+                        (onScrollDown)="moreInbox()">
 
-                        <div class="chat_list" (click)="setActiveChat(ind)"
+                        <div class="chat_list" (click)="setActiveChat(item)"
                             *ngFor="let item of allChats;let ind = index"
-                            [ngClass]="{'active_chat':activeChatIndex == ind}">
+                            [ngClass]="{'active_chat':activeChat.thread_id == allChats[ind].thread_id}">
                             <div class="chat_people">
 
                                 <div class="chat_img">
@@ -59,25 +60,66 @@
                                 </div>
                             </div>
                         </div>
-                        <div *ngIf="allChats.length == 0" class="no-chat">
+                        <div *ngIf="loading" class="loading">
+                            <div class="thread_loading">
+                                <div></div>
+                                <span></span>
+                            </div>
+                            <div class="thread_loading">
+                                <div></div>
+                                <span></span>
+                            </div>
+                            <div class="thread_loading">
+                                <div></div>
+                                <span></span>
+                            </div>
+                            <div class="thread_loading">
+                                <div></div>
+                                <span></span>
+                            </div>
+                            <div class="thread_loading">
+                                <div></div>
+                                <span></span>
+                            </div>
+                            <div class="thread_loading">
+                                <div></div>
+                                <span></span>
+                            </div>
+                        </div>
+                        <div *ngIf="allChats.length == 0 && !loading" class="no-chat">
                             <p class="empty-message">У вас пока нет сообщений</p>
                         </div>
                     </div>
                 </div>
+
                 <div class="mesgs">
-                    <div #msgContainer [scrollTop]="msgContainer.scrollHeight" ngxInfiniteScroller
-                        initialScrollPosition="BOTTOM" strategy="scrollingToTop" (onScrollUp)="onScrolledUp()"
-                        *ngIf="allChats?.length > 0" class="msg_history">
-                        <app-message-item [previousMessage]="ind > 0 ? allChats[activeChatIndex].items[ind - 1] : null "
-                            [isIncoming]="getPhotoByUserIdAndCheckIfIncoming(message.user_id).isIncoming"
-                            [senderPhoto]="getPhotoByUserIdAndCheckIfIncoming(message.user_id).picture"
-                            [message]="message"
-                            *ngFor="let message of allChats[activeChatIndex].items.reverse();let ind = index">
+                    <div *ngIf="loading">
+                        <app-message-item mode="skeletion" [isIncoming]="true">
                         </app-message-item>
-                        <div *ngIf="allChats[activeChatIndex].items.length == 0" class="no-chat">
-                            <p class="text-center empty-message">У вас пока нет сообщений</p>
-                        </div>
-                        <!-- <div class="incoming-msg d-flex align-items-start">
+                        <app-message-item mode="skeletion" [isIncoming]="false">
+                        </app-message-item>
+                        <app-message-item mode="skeletion" [isIncoming]="true">
+                        </app-message-item>
+                        <app-message-item mode="skeletion" [isIncoming]="false">
+                        </app-message-item>
+                        <app-message-item mode="skeletion" [isIncoming]="true">
+                        </app-message-item>
+                        <app-message-item mode="skeletion" [isIncoming]="false">
+                        </app-message-item>
+                    </div>
+                    <div *ngIf="!loading">
+                        <div id="aaaa" initialScrollPosition="BOTTOM" strategy="scrollingToTop" ngxInfiniteScroller
+                            (onScrollUp)="onScrolledUp()" *ngIf="allChats?.length > 0" class="msg_history">
+                            <app-message-item [previousMessage]="ind > 0 ? activeChatMessages[ind - 1] : null "
+                                [isIncoming]="getPhotoByUserIdAndCheckIfIncoming(message.user_id).isIncoming"
+                                [senderPhoto]="getPhotoByUserIdAndCheckIfIncoming(message.user_id).picture"
+                                [message]="message"
+                                *ngFor="let message of activeChatMessages;let ind = index">
+                            </app-message-item>
+                            <div *ngIf="activeChatMessages.length == 0" class="no-chat">
+                                <p class="text-center empty-message">У вас пока нет сообщений</p>
+                            </div>
+                            <!-- <div class="incoming-msg d-flex align-items-start">
                             <div class="incoming-msg-text additional">
                                 <span class="message-body">Проголосуй пожалуйста за мое фото у меня странице
                                     https://www.instagram.com/p/B7o2SXTJtVx/</span>
@@ -158,7 +200,9 @@
                             </div>
                         </div> -->
 
+                        </div>
                     </div>
+
                     <form [formGroup]="messageForm"
                         class="type_msg d-flex w-100 justify-content-between align-items-baseline">
                         <!-- <div class="image-upload">

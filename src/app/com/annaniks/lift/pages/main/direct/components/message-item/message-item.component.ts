@@ -18,6 +18,8 @@ export class MessageItemComponent implements OnInit {
 
   @Input('isIncoming') public isIncoming: boolean = false;
 
+  @Input('mode') public mode: 'skeletion' | 'normal' = 'normal';
+
   public iframe: SafeResourceUrl = '';
 
   constructor(
@@ -45,18 +47,6 @@ export class MessageItemComponent implements OnInit {
     }
     return response
   }
-
-  // public readThenSendFile(data) {
-
-  //   var reader = new FileReader();
-  //   reader.onload = function (evt) {
-  //     var msg: any;
-  //     msg.file = evt.target.result;
-  //     msg.fileName = data.name;
-  //     this.socket.emit('base64 file', msg);
-  //   };
-  //   reader.readAsDataURL(data);
-  // }
 
   private get getCompressedImage() {
     return this.directMessage.media.image_versions2.candidates

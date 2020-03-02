@@ -169,6 +169,25 @@
 }
 .calendar-main-content{
   flex-direction: column !important;
+  .subscribes-limits {
+    // flex-wrap: wrap;
+    display: block !important;
+    &-item {
+      margin-right: 0 !important;
+      input {
+        width: 60px !important;
+        height: 35px !important;
+        // margin-right: 0 !important;
+        // margin-bottom: 0 !important;
+      }
+      span {
+        font-size: 16px !important;
+      }
+      &:not(:last-child) {
+        margin-bottom: 20px;
+      }
+    }
+  }
 }
 .add-content{
   display: none !important;

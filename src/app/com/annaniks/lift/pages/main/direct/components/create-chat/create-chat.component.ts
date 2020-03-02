@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MessagingService } from '../../messaging.service';
 import { SearchTerm, Search } from 'src/app/com/annaniks/lift/core/models/search';
@@ -15,11 +15,11 @@ import { map, takeUntil } from 'rxjs/operators';
 export class CreateChatComponent implements OnInit {
 
   @Input() allChats: any;
-  @Input() activeChatIndex: number;
+  @Input() activeChat: any;
   @Input() createChatOpened: boolean;
 
   @Output() allChatsChange: EventEmitter<any> = new EventEmitter<any>();
-  @Output() activeChatIndexChange: EventEmitter<number> = new EventEmitter<number>();
+  @Output() activeChatChange: EventEmitter<any> = new EventEmitter<any>();
   @Output() createChatOpenedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   public chatMembers: FormControl = new FormControl('');
@@ -27,6 +27,7 @@ export class CreateChatComponent implements OnInit {
   private _unsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(
+    private _messagingService: MessagingService,
     private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService,
   ) {
   }
@@ -40,7 +41,7 @@ export class CreateChatComponent implements OnInit {
     this.chatMembers.value.filter(element => {
       memebers.push(Number(element.pk));
     });
-    MessagingService.createChat(memebers);
+    this._messagingService.createChat(memebers);
   }
 
   public searchFor(searchEvent): void {
@@ -53,7 +54,7 @@ export class CreateChatComponent implements OnInit {
   }
 
   public subscribeToChatCreating(): void {
-    MessagingService.subscribeToChat()
+    this._messagingService.subscribeToChat()
       .pipe(
         takeUntil(this._unsubscribe$)
       )
@@ -68,19 +69,19 @@ export class CreateChatComponent implements OnInit {
         })
         if (!isChatExists) {
           this.allChats.unshift(data.newThreed)
-          this._actionsAfterChatCreating(chatIndex)
+          this._actionsAfterChatCreating(this.allChats[chatIndex])
           this.allChatsChange.emit(this.allChats)
         } else {
-          this._actionsAfterChatCreating(chatIndex)
+          this._actionsAfterChatCreating(this.allChats[chatIndex])
         }
       })
   }
 
   private _actionsAfterChatCreating(chatIndex): void {
-    MessagingService.setActiveChat(this.allChats[chatIndex])
-    this.activeChatIndex = chatIndex;
+    this._messagingService.setActiveChat(this.allChats[chatIndex])
+    this.activeChat = chatIndex;
     this.createChatOpened = false;
-    this.activeChatIndexChange.emit(this.activeChatIndex);
+    this.activeChatChange.emit(this.activeChat);
     this.createChatOpenedChange.emit(this.createChatOpened)
   }
 }

@@ -14,7 +14,7 @@
             <div class="input-content">
                 <input id="code" name="code" placeholder="Код подтверждения" class="form-control here"
                     type="text" formControlName="code"
-                    [ngClass]="{'border':checkIsValid('code')}">
+                    [ngClass]="{'border':checkIsValid('code')}" OnlyNumber="true">
                     <p class="text mt-2 text-right cursor-pointer" (click)="onClickSendCodeAgain()">Запросить код еще раз?</p>
             </div>
         </div>
