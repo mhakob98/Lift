@@ -1,8 +1,9 @@
 .preview-content {
   margin: 31px auto;
-  background-color: #f6f6f6;
-
+  .preview-container{
+    background-color: #f6f6f6;
   .statistics {
+
     .statistic-content {
       margin-top: 25px;
 
@@ -94,9 +95,14 @@
       }
     }
   }
-
+.post-slider{
+  background: white;
+  .post-item {
+    background: #f6f6f6 !important;
+  }
+}
   .slider-content {
-    margin-top: 50px;
+    padding: 10px 0;
 
     .title {
       font-weight: bold;
@@ -259,6 +265,7 @@
     margin-top: 15px;
     color: #3399cc;
   }
+}
 }
 
 ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {

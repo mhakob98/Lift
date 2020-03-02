@@ -1,6 +1,9 @@
 <div *ngIf="vm$ | async as vm">
-    <section class="pg-container preview-content">
+    <section class="preview-content">
+        <div class="pg-container">
         <app-user-details></app-user-details>
+        </div>
+        <div class="preview-container">
         <!--statistic card-->
         <div class="statistics">
             <div class="pg-container statistic-content">
@@ -33,7 +36,7 @@
             </div>
         </div>
         <!--action-->
-        <div class="action">
+        <div class="pg-container action">
             <div class="action-cards d-flex flex-wrap">
                 <div class="acton-item" *ngFor="let item of action">
                     <div class="card">
@@ -51,7 +54,8 @@
             </div>
         </div>
         <!--slider-->
-        <div class="slider-content">
+        <div class="post-slider">
+        <div class="pg-container slider-content">
             <p class="title d-flex align-items-center">Лучшие посты за последний месяц
                 <img src="assets/icons/arr_down_blue.png"
                     class="rounded img-responsive  cursor-pointer ml-2 down-image cursor-poiner" *ngIf="slide1"
@@ -62,7 +66,7 @@
             </p>
             <ngx-slick-carousel class="carousel-row mb-3" #slickModal="slick-carousel" [config]="slideConfig"
                 *ngIf="slide1">
-                <div ngxSlickItem class="slider-item" *ngFor="let item of slider">
+                <div ngxSlickItem class="post-item slider-item" *ngFor="let item of slider">
                     <div class="slider-description d-flex flex-wrap">
                         <img src="assets/images/post1.png" class="rounded img-responsive post-image">
                         <div class="posts d-flex flex-column justify-content-between">
@@ -85,10 +89,12 @@
             </ngx-slick-carousel>
 
         </div>
+        </div>
 
 
         <!--slider two-->
-        <div class="slider-content">
+
+        <div class="pg-container slider-content">
             <p class="title d-flex align-items-center">Рассылки за последний месяц
                 <img src="assets/icons/arr_down_blue.png"
                     class="rounded img-responsive  cursor-pointer ml-2 down-image cursor-poiner" *ngIf="slide2"
@@ -118,9 +124,10 @@
             </ngx-slick-carousel>
             <p class="title title-respons d-none">Автопродвижение</p>
         </div>
+      
         <!--settings-->
-        <div class="settings">
-            <div class="settings-details d-flex flex-wrap">
+        <div class=" settings">
+            <div class="pg-container settings-details d-flex flex-wrap">
                 <div class="settings-item">
                     <div class="settings-item-content">
                         <div class="seting-item-top-content d-flex justify-content-between align-items-center">
@@ -310,5 +317,6 @@
                     </div>
             </div>
         </div>
+    </div>
     </section>
 </div>
