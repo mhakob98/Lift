@@ -3,7 +3,7 @@
 <form [formGroup]="addPostStoryForm" class="ps-container d-flex justify-content-between">
     <div class="ps-body ">
         <div class="photo-video-place drop-zone">
-            <div class="drop-file d-flex align-items-center justify-content-center h-100" *ngIf="!file">
+            <div class="drop-file d-flex align-items-center justify-content-center h-100" *ngIf="files.length==0">
                 <div class="center">
                     <p class="inf">Перетащите сюда изображение или видеофайл <br>или</p>
                     <div class="upload-area">
@@ -16,8 +16,8 @@
                     </div>
                 </div>
             </div>
-            <div class="dropped-files h-100" *ngIf="file">
-                <img [src]="localImage" class="w-100 h-100">
+            <div class="dropped-files h-100" *ngIf="files.length>0">
+                <img [src]="localImages[0]" class="w-100 h-100">
             </div>
         </div>
         <button class="search-for-ideas">

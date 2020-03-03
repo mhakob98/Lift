@@ -1,53 +1,41 @@
 .user-details {
-  padding-top: 31px;
-  padding-bottom: 24px;
-
-  .user-image {
-    width: 130px;
-    height: 130px;
-  }
-
-  .user-respons-name {
-    display: none;
+  .user-name {
     font-family: "SF UI Display Regular";
     color: #3c3c3c;
     font-size: 23px;
-    margin-top: 10px;
+    font-weight: 600;
   }
-
-  .user-description {
-    .user-name {
-      font-family: "SF UI Display Regular";
-      color: #3c3c3c;
-      font-size: 23px;
+  .subscription-text {
+   padding: 10px;
+    font-size: 18px;
+    &:first-child{
+      padding-left: 0 !important;
     }
-
-    .user-subscription {
-      .subscription-text {
-        display: flex;
+  }
+  .user-details-left {
+    .user-image {
+      width: 130px;
+      height: 130px;
+    }
+    .user-details-left-botton-content {
+      margin-top: 15px;
+      display: none;
+    }
+  }
+  .user-details-right {
+    margin-left: 45px;
+    display: block;
+    .user-details-right-top-content {
+      .button {
+        background-color: #3399cc;
+        border-color: #3399cc;
+        color: #ffffff;
+        font-family: "SF UI Display SemiBold";
+        margin-left: 16px;
       }
     }
-
-
-    .button {
-      background-color: #3399cc;
-      border-color: #3399cc;
-      color: #ffffff;
-      font-family: "SF UI Display SemiBold";
+    .user-details-right-bottom-content {
+      margin-top: 15px;
     }
-  }
-}
-
-@media only screen and (max-width:900px) {
-  .user-description {
-    display: none !important;
-  }
-
-  .user-respons-name {
-    display: block !important;
-  }
-
-  .subscription-text {
-    flex-direction: column !important;
   }
 }

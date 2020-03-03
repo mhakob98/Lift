@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy, HostListener, Inject } from '@angular/cor
 import { MainService } from '../../pages/main/main.service';
 import { Subject } from 'rxjs';
 import { takeUntil, finalize } from 'rxjs/operators';
-import { ServerResponse } from '../../core/models/server-response';
 import { User, InstagramAccount } from '../../core/models/user';
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
@@ -124,8 +123,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    if (event.target.innerWidth <= 900) {
+  onResize() {
+    if (window.innerWidth <= 900) {
       this.leftMenuOpened = false;
       this.rightMenuOpened = false;
     }

@@ -114,7 +114,7 @@
                                 [isIncoming]="getPhotoByUserIdAndCheckIfIncoming(message.user_id).isIncoming"
                                 [senderPhoto]="getPhotoByUserIdAndCheckIfIncoming(message.user_id).picture"
                                 [message]="message"
-                                *ngFor="let message of activeChatMessages.reverse();let ind = index">
+                                *ngFor="let message of activeChatMessages;let ind = index">
                             </app-message-item>
                             <div *ngIf="activeChatMessages.length == 0" class="no-chat">
                                 <p class="text-center empty-message">У вас пока нет сообщений</p>

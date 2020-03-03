@@ -187,28 +187,28 @@
   }
 }
 
-@media only screen and (max-width:900px) {
-  .post-statistic-manage {
-    display: none !important;
-  }
+// @media only screen and (max-width:900px) {
+//   .post-statistic-manage {
+//     display: none !important;
+//   }
 
-  .post-statistic-sources {
-    display: block !important;
-  }
+//   .post-statistic-sources {
+//     display: block !important;
+//   }
 
-  .pie-statistic-chart-heading {
-    display: none !important;
-  }
+//   .pie-statistic-chart-heading {
+//     display: none !important;
+//   }
 
-  .form-group {
-    display: flex !important;
-  }
-  .chart-map{
-    flex-direction: column !important;
-    .map-container{
-      width: 100% !important;
-      margin-top: 50px !important;
-    }
-  }
+//   .form-group {
+//     display: flex !important;
+//   }
+//   .chart-map{
+//     flex-direction: column !important;
+//     .map-container{
+//       width: 100% !important;
+//       margin-top: 50px !important;
+//     }
+//   }
 
-}
+// }
