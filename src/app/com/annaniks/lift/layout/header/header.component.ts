@@ -123,7 +123,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize() {
+  onResize($event) {
     if (window.innerWidth <= 900) {
       this.leftMenuOpened = false;
       this.rightMenuOpened = false;
