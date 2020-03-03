@@ -1,7 +1,7 @@
 
 // Angular Core Modules
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { AddPostStoryComponent } from './add-post-story/add-post-story.component';
 
@@ -28,7 +28,7 @@ import { AutoPostingService } from './autoposting.service';
         FormsModule,
         ReactiveFormsModule
     ],
-    providers: [AutoPostingService],
+    providers: [AutoPostingService,DatePipe],
     entryComponents: [AddPostStoryComponent, PopUpModal],
     exports: []
 })

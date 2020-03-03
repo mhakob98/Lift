@@ -1,5 +1,5 @@
 <h3 class="add-ps-title">Добавить новый {{data.type == 'post' ? 'пост' : 'story'}}</h3>
-
+<p class="text-danger text-center">{{errorMessage}}</p>
 <form [formGroup]="addPostStoryForm" class="ps-container d-flex justify-content-between">
     <div class="ps-body ">
         <div class="photo-video-place drop-zone">
@@ -92,13 +92,10 @@
                         </div>
                     </div>
                 </div>
-
             </mat-expansion-panel>
-
         </mat-accordion>
         <div *ngIf="data.type == 'post'" class="description-form d-flex justify-content-between align-items-center">
-
-            <img src="assets/icons/ava.png" alt="">
+            <img [src]="userImage" alt="" width="64px" height="64px">
             <mat-form-field class="w-100">
                 <input formControlName="type_mark" matInput #message maxlength="256" placeholder="Введите подпись...">
                 <mat-hint align="start"><strong>
@@ -108,7 +105,6 @@
                 <mat-hint align="end">еще можно ввести {{ 345 - message.value.length }} символов и 12 хэштегов
                 </mat-hint>
             </mat-form-field>
-
         </div>
         <mat-accordion>
             <mat-expansion-panel [expanded]="true" class="settings">
@@ -118,18 +114,21 @@
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="w-100">
-                    <div class="publish-now d-flex align-items-baseline  w-100">
+                    <div class="publish-now  w-100">
                         <p class="publish-now-text">Опубликовать
-                            <span>сейчас</span>
-                            <mat-form-field>
-                                <input matInput [ngxMatDatetimePicker]="picker" formControlName="postLife">
-                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                <ngx-mat-datetime-picker #picker></ngx-mat-datetime-picker>
-                            </mat-form-field>
+                            <span (click)="onClickShowCalendar()">{{selectedDate}}</span>
                         </p>
+                        <mat-form-field [class.d-none]="!showCalendar">
+                            <input matInput [ngxMatDatetimePicker]="picker" formControlName="time">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <ngx-mat-datetime-picker #picker></ngx-mat-datetime-picker>
+                        </mat-form-field>
                     </div>
                     <div class="add-ps-form" *ngIf="data.type == 'post'">
                         <mat-checkbox formControlName="showFirstComment">Указать первый комментарий</mat-checkbox>
+                        <mat-form-field class="w-100" *ngIf="showComment">
+                            <textarea matInput formControlName="comment" placeholder="Напишите комментарий..."></textarea>
+                        </mat-form-field>
                         <div class="inline-checkoxes" formGroupName="postLife">
                             <mat-checkbox formControlName="status">Удаление поста через</mat-checkbox>
                             <span class="checkbox-label"> <input formControlName="age" class="range-input"
@@ -146,14 +145,12 @@
                         </div>
                     </div>
                 </div>
-
             </mat-expansion-panel>
-
         </mat-accordion>
         <div class="add-ps-actions d-flex justify-content-between">
-            <button class="publish">Опубликовать</button>
-            <button class="save" (click)="createPost()">Сохранить</button>
-            <button class="discard">Отмена</button>
+            <!-- <button class="publish">Опубликовать</button> -->
+            <button class="save" (click)="onClickCreatePost()" [disabled]="addPostStoryForm?.invalid || loading">Сохранить</button>
+            <button class="discard" (click)="onClickCancel()">Отмена</button>
         </div>
     </div>
 </form>

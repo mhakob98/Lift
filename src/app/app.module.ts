@@ -1,7 +1,7 @@
 import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { GestureConfig } from '@angular/material';
 
-import { NgModule, Injector } from '@angular/core';
+import { NgModule, Injector, LOCALE_ID } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +19,10 @@ import { LoadingComponent } from './com/annaniks/lift/layout/loading/loading.com
 import { ToastrModule } from 'ngx-toastr';
 import { AppService } from './app.service';
 
+import localeRu from '@angular/common/locales/ru';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localeRu);
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,6 +60,7 @@ import { AppService } from './app.service';
       useClass: JwtInterceptor,
       multi: true
     },
+    { provide: LOCALE_ID, useValue: "ru" },
     { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig },
   ],
   bootstrap: [AppComponent]

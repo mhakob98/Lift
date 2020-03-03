@@ -33,3 +33,17 @@ export interface GetPostAndStoriesData {
     month: number;
     year: number;
 }
+
+export interface PostOrStory {
+    id: number;
+    instagramAccountId: number;
+    type: "post" | "story"
+    date: {
+        caption: string; 
+    }
+    time: string;
+    active: boolean;
+    done: boolean;
+    createdAt: string;
+    updatedAt: string;
+}

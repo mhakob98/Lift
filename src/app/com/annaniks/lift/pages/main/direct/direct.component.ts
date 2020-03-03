@@ -60,7 +60,6 @@ export class DirectComponent implements OnInit, OnDestroy {
         takeUntil(this._unsubscribe$),
       )
       .subscribe((data) => {
-        console.log(data);
         this.allChats = data;
         this.setActiveChat(this.allChats[0])
       })
@@ -145,7 +144,6 @@ export class DirectComponent implements OnInit, OnDestroy {
     this._messagingService.subscribeToActiveThread()
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe((data) => {
-        console.log(data);
         let index: number;
         this.allChats.map((chat, ind: number) => {
           if (chat.thread_id == data.threed.thread_id) {
