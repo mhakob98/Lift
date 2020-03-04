@@ -35,9 +35,11 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import localeRu from '@angular/common/locales/ru';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgxInfiniteScrollerModule } from 'ngx-infinite-scroller';
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from 'ngx-mat-datetime-picker';
 
 //Forms
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material';
 
 registerLocaleData(localeRu);
 
@@ -69,7 +71,10 @@ registerLocaleData(localeRu);
             provide: DateAdapter,
             useFactory: adapterFactory
         }),
-        NgxMaskModule.forRoot()
+        NgxMaskModule.forRoot(),
+        NgxMatDatetimePickerModule,
+        NgxMatTimepickerModule,
+        MatDatepickerModule
 
     ],
     entryComponents: [],
@@ -94,7 +99,11 @@ registerLocaleData(localeRu);
         OnlyNumberDirective,
         NgxMaskModule,
         NgxInfiniteScrollerModule,
-        FormsModule
+        FormsModule,
+        NgxMatDatetimePickerModule,
+        NgxMatTimepickerModule,
+        MatDatepickerModule,
+
     ],
 })
 export class SharedModule { }

@@ -1,12 +1,21 @@
 export interface CreatePostData {
-    accountId: string;
-    usertags: {
-        in: UserTag[];
-    };
-    location: Location;
+    accountId: number;
     caption: string;
     time: string;
-    file: File;
+    photo: File;
+    removeAt: number;
+    firstComment?: string;
+    usertags?: {
+        in: UserTag[];
+    };
+    location?: Location;
+}
+
+export interface CreateStoryData {
+    accountId: number;
+    time: string;
+    photo: File
+    removeAt: number;
 }
 
 interface UserTag {
@@ -30,4 +39,32 @@ export interface GetPostAndStoriesData {
     accountId: number;
     month: number;
     year: number;
+}
+
+export interface PostOrStory {
+    id: number;
+    instagramAccountId: number;
+    type: "post" | "story"
+    date: {
+        caption: string;
+        firstComment: string;
+        file: AttachedFile
+        removeAt: string;
+    }
+    time: string;
+    active: boolean;
+    done: boolean;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export interface AttachedFile {
+    fieldname: string;
+    originalname: string;
+    encoding: string;
+    mimetype: string;
+    destination: string;
+    filename: string;
+    path: string;
+    size: number;
 }
