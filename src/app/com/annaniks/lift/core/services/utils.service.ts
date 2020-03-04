@@ -13,7 +13,12 @@ export class UtilsService {
                         formData.append(element, file, file.name);
                     }
                     else {
-                        formData.append(element, JSON.stringify(body[element]));
+                        let parsedElement = body[element];
+                        if (typeof parsedElement != 'string') {
+                            if (!(parsedElement instanceof Date))
+                                parsedElement = JSON.stringify(parsedElement);
+                        }
+                        formData.append(element, parsedElement);
                     }
                 }
             })

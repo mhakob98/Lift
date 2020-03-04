@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CreatePostData, GetPostAndStoriesData, PostOrStory } from '../../../core/models/autoposting';
+import {
+    CreatePostData,
+    GetPostAndStoriesData,
+    PostOrStory,
+    CreateStoryData
+} from '../../../core/models/autoposting';
 import { ServerResponse } from '../../../core/models/server-response';
 import { UtilsService } from '../../../core/services/utils.service';
 
@@ -13,6 +18,11 @@ export class AutoPostingService {
     public createPost(data: CreatePostData): Observable<ServerResponse<any>> {
         const formData: FormData = UtilsService.createFormData(data);
         return this._httpClient.post<ServerResponse<any>>('auto-posting/post', formData);
+    }
+
+    public createStory(data: CreateStoryData): Observable<ServerResponse<any>> {
+        const formData: FormData = UtilsService.createFormData(data);
+        return this._httpClient.post<ServerResponse<any>>('auto-posting/story', formData);
     }
 
     public getPostsAndStoriesByMonth(data: GetPostAndStoriesData): Observable<ServerResponse<PostOrStory[]>> {

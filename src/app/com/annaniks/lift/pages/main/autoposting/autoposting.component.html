@@ -29,7 +29,7 @@
   </div>
   <div class="calendar">
     <mwl-calendar-month-view [locale]="locale" [viewDate]="viewDate" [events]="events"
-      (dayClicked)="dayClicked($event.day)" (eventClicked)="addPostOrStory('post', 'new', $event.event)">
+      (dayClicked)="dayClicked($event.day)" (eventClicked)="addPostOrStory('post', $event.event)">
     </mwl-calendar-month-view>
   </div>
 
