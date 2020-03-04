@@ -5,14 +5,17 @@ import { CommonModule } from '@angular/common';
 // 3rd part libraries
 import { SharedModule } from '../../../shared/shared.module';
 import { MessagingService } from './messaging.service';
-//DirectScheduleComponent
-import { DirectScheduleComponent } from './components';
+//DirectScheduleComponent DirectSentComponent
+import { DirectScheduleComponent, DirectSentComponent } from './components';
 ///CheckboxModule
 import {CheckboxModule} from 'primeng/checkbox';
+
+
 @NgModule({
     declarations: [
         DirectRoutingModule.components,
-        DirectScheduleComponent
+        DirectScheduleComponent,
+        DirectSentComponent
     ],
     imports: [
         DirectRoutingModule,
