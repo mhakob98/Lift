@@ -22,6 +22,7 @@ export class DirectComponent implements OnInit, OnDestroy {
   public messageForm: FormGroup;
   public createChatOpened: boolean = false;
   public loading: boolean = false;
+  public activeTab: number = 1;
 
   constructor(
     private _navbarService: NavbarService,
@@ -91,6 +92,10 @@ export class DirectComponent implements OnInit, OnDestroy {
     }
     this._messagingService.sendMessage(writeMessageData)
     this.messageForm.get('message').reset();
+  }
+
+  public setActiveTab(tabNumber?: number): void {
+    this.activeTab = tabNumber;
   }
 
   public getPhotoByUserIdAndCheckIfIncoming(userId: number): { picture: string, isIncoming: boolean } {
