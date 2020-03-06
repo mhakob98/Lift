@@ -8,6 +8,7 @@
 
     <div class="message-msg-text"
         [ngClass]="((previousMessage?.user_id == directMessage?.user_id) && (mode != 'skeletion')) ? 'additional' : 'first'">
+
         <span *ngIf="mode == 'skeletion'" class="message-msg-text-sceletion"></span>
         <span *ngIf="mode == 'skeletion'" class="message-msg-text-sceletion"></span>
         <span *ngIf="mode == 'skeletion'" class="message-msg-text-sceletion"></span>
@@ -18,7 +19,9 @@
         </div>
         <div *ngIf="directMessage?.reel_share?.type=='reaction'" class="story-replay position-relative">
             <span>Реакция на вашу историю {{directMessage?.reel_share?.reaction_info?.emoji}}</span>
-            <img *ngIf="!directMessage?.reel_share?.media?.video_versions"
+            <img [width]="directMessage?.reel_share?.media?.image_versions2?.candidates[1].width"
+                [height]="directMessage?.reel_share?.media?.image_versions2?.candidates[1].height"
+                *ngIf="!directMessage?.reel_share?.media?.video_versions"
                 [src]="directMessage?.reel_share?.media?.image_versions2?.candidates[1].url" alt="">
             <video *ngIf="directMessage?.reel_share?.media?.video_versions" controls>
                 <source [src]="directMessage?.reel_share?.media?.video_versions[0].url" type="video/mp4">
@@ -38,6 +41,8 @@
         <div *ngIf="directMessage?.reel_share?.type=='reply'" class="story-replay">
             <span>Ответил(а) на вашу историю</span>
             <img *ngIf="!directMessage?.reel_share?.media?.video_versions"
+                [width]="directMessage?.reel_share?.media?.image_versions2?.candidates[1].width"
+                [height]="directMessage?.reel_share?.media?.image_versions2?.candidates[1].height"
                 [src]="directMessage?.reel_share?.media?.image_versions2?.candidates[1].url" alt="">
             <video *ngIf="directMessage?.reel_share?.media?.video_versions" controls>
                 <source [src]="directMessage?.reel_share?.media?.video_versions[0].url" type="video/mp4">

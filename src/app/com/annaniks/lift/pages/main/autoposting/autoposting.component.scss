@@ -8,8 +8,8 @@
       color: #3399cc;
     }
   }
-  .add-post,
-  .add-story {
+  .action-button,
+  .action-button {
     font-family: "SF UI Display SemiBold";
     font-size: 16px;
     border-radius: 6px;
@@ -20,12 +20,12 @@
       margin-right: 11px;
     }
   }
-  .add-post {
+  .primary-btn {
     background: transparent;
     border: 2px solid #3399cc;
     color: #3399cc;
   }
-  .add-story {
+  .pink-btn {
     background: transparent;
     border: 2px solid #a076b2;
     color: #a076b2;
@@ -53,6 +53,9 @@
     img {
       margin-right: 10px;
     }
+  }
+  .calendar-actions{
+    margin-top: 20px;
   }
   .calendar {
     margin: 17px 0 40px 0;

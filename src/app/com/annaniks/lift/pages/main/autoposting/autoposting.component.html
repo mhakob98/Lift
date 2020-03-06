@@ -1,27 +1,40 @@
 <div class="autoposting pg-container">
-    <app-user-details></app-user-details>
-    <h3 class="calendar-title">Календарь публикации постов <span class="highlight">Январь 2020</span> </h3>
-    <div class="d-flex align-items-center w-100">
-        <button (click)="addPostOrStory('post')" type="button" class="btn btn-secondary add-post">
-            <img src="assets/icons/plus-blue.png" alt="">
-            Добавить пост</button>
-        <button (click)="addPostOrStory('story')" type="button" class="btn btn-danger add-story">
-            <img src="assets/icons/plus-pink.png" alt="">
-            Добавить story</button>
-        <button class="search-for-ideas" (click)="openPopUpModal()">
-            <img src="assets/icons/idea-white.png" alt="">
-            Поиск идей
-        </button>
-    </div>
-
-    <div class="calendar">
-        <mwl-calendar-month-view [locale]="locale" [viewDate]="viewDate" [events]="events"
-            (dayClicked)="dayClicked($event.day)" (eventClicked)="addPostOrStory('post', 'new', $event.event)">
-        </mwl-calendar-month-view>
-    </div>
-
-    <button class="watch-video">
-        <img src="assets/icons/play-button.png" alt="">
-        Смотреть видео как работает автопостинг
+  <app-user-details></app-user-details>
+  <h3 class="calendar-title">Календарь публикации постов <span
+      class="highlight text-capitalize">{{viewDate | date:'MMMM y'}}</span> </h3>
+  <div class="d-flex align-items-center w-100">
+    <button (click)="addPostOrStory('post')" type="button" class="btn btn-secondary primary-btn mr-2">
+      <img src="assets/icons/plus-blue.png" alt="">
+      Добавить пост</button>
+    <button (click)="addPostOrStory('story')" type="button" class="btn btn-danger pink-btn">
+      <img src="assets/icons/plus-pink.png" alt="">
+      Добавить story</button>
+    <button class="search-for-ideas">
+      <img src="assets/icons/idea-white.png" alt="">
+      Поиск идей
     </button>
+  </div>
+  <div class="calendar-actions d-flex align-items-center">
+    <div class="btn btn-secondary primary-btn mr-2" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+      (viewDateChange)="changeMonth($event)">
+      Назад
+    </div>
+    <div class="btn btn-secondary pink-btn mr-2" mwlCalendarToday [(viewDate)]="viewDate" (viewDateChange)="changeMonth($event)">
+      Сегодня
+    </div>
+    <div class="btn btn-secondary primary-btn" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+      (viewDateChange)="changeMonth($event)">
+      Вперед
+    </div>
+  </div>
+  <div class="calendar">
+    <mwl-calendar-month-view [locale]="locale" [viewDate]="viewDate" [events]="events"
+      (dayClicked)="dayClicked($event.day)" (eventClicked)="addPostOrStory('post', $event.event)">
+    </mwl-calendar-month-view>
+  </div>
+
+  <button class="watch-video">
+    <img src="assets/icons/play-button.png" alt="">
+    Смотреть видео как работает автопостинг
+  </button>
 </div>

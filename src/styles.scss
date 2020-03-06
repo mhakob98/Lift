@@ -16,3 +16,6 @@ span.ui-autocomplete {
   opacity: 0.9 !important;
   transition: all 0.5s;
 }
+.ui-datepicker {
+  z-index: 1004 !important;
+}

@@ -1,9 +1,9 @@
-<h3 class="add-ps-title">Добавить новый {{data.type == 'post' ? 'пост' : 'story'}}</h3>
-
+<h3 class="add-ps-title"> {{title}}</h3>
+<p class="text-danger text-center">{{errorMessage}}</p>
 <form [formGroup]="addPostStoryForm" class="ps-container d-flex justify-content-between">
     <div class="ps-body ">
         <div class="photo-video-place drop-zone">
-            <div class="drop-file d-flex align-items-center justify-content-center h-100" *ngIf="files.length==0">
+            <div class="drop-file d-flex align-items-center justify-content-center h-100" *ngIf="localImages.length==0">
                 <div class="center">
                     <p class="inf">Перетащите сюда изображение или видеофайл <br>или</p>
                     <div class="upload-area">
@@ -16,8 +16,9 @@
                     </div>
                 </div>
             </div>
-            <div class="dropped-files h-100" *ngIf="files.length>0">
+            <div class="dropped-files h-100" *ngIf="localImages.length>0">
                 <img [src]="localImages[0]" class="w-100 h-100">
+                <i class="material-icons close-icon cursor-pointer" (click)="onClickRemove()">close</i>
             </div>
         </div>
         <button class="search-for-ideas">
@@ -92,15 +93,12 @@
                         </div>
                     </div>
                 </div>
-
             </mat-expansion-panel>
-
         </mat-accordion>
         <div *ngIf="data.type == 'post'" class="description-form d-flex justify-content-between align-items-center">
-
-            <img src="assets/icons/ava.png" alt="">
+            <img [src]="userImage" alt="" width="64px" height="64px">
             <mat-form-field class="w-100">
-                <input matInput #message maxlength="256" placeholder="Введите подпись...">
+                <input formControlName="type_mark" matInput #message maxlength="256" placeholder="Введите подпись...">
                 <mat-hint align="start"><strong>
                         <img (click)="toggleShowEmojies()" src="assets/icons/smile.png" alt="">
                         <emoji-mart *ngIf="showEmojies" title="Pick your emoji…" emoji="point_up"></emoji-mart>
@@ -108,7 +106,6 @@
                 <mat-hint align="end">еще можно ввести {{ 345 - message.value.length }} символов и 12 хэштегов
                 </mat-hint>
             </mat-form-field>
-
         </div>
         <mat-accordion>
             <mat-expansion-panel [expanded]="true" class="settings">
@@ -118,38 +115,45 @@
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="w-100">
-                    <div class="publish-now d-flex align-items-baseline  w-100">
-                        <p class="publish-now-text">Опубликовать <a href="">сейчас</a></p>
-                        <img src="assets/icons/arrow_down.png" alt="">
+                    <div class="publish-now  w-100">
+                        <p class="publish-now-text">Опубликовать
+                            <span (click)="onClickShowCalendar()">{{selectedDate}}</span>
+                        </p>
+                        <mat-form-field [class.d-none]="!showCalendar">
+                            <input matInput [ngxMatDatetimePicker]="picker" formControlName="time">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <ngx-mat-datetime-picker #picker></ngx-mat-datetime-picker>
+                        </mat-form-field>
                     </div>
                     <div class="add-ps-form" *ngIf="data.type == 'post'">
                         <mat-checkbox formControlName="showFirstComment">Указать первый комментарий</mat-checkbox>
-
-                        <div class="inline-checkoxes" formGroupName="postLife">
+                        <mat-form-field class="w-100" *ngIf="showComment">
+                            <textarea matInput formControlName="comment"
+                                placeholder="Напишите комментарий..."></textarea>
+                        </mat-form-field>
+                        <div class="inline-checkoxes" formGroupName="life">
                             <mat-checkbox formControlName="status">Удаление поста через</mat-checkbox>
-
-                            <span class="checkbox-label"> <input formControlName="age" class="range-input"
-                                    type="number">
+                            <span class="checkbox-label"> <input formControlName="count" OnlyNumber="true" class="range-input"
+                                    type="text">
                                 дней</span>
                         </div>
                     </div>
                     <div class="add-ps-form" *ngIf="data.type == 'story'">
-                        <div class="inline-checkoxes" formGroupName="storyLife">
+                        <div class="inline-checkoxes" formGroupName="life">
                             <mat-checkbox formControlName="status">Удаление story через</mat-checkbox>
-                            <span class="checkbox-label"> <input formControlName="age" class="range-input"
-                                    type="number">
+                            <span class="checkbox-label"> <input formControlName="count" OnlyNumber="true" class="range-input"
+                                    type="text">
                                 дней</span>
                         </div>
                     </div>
                 </div>
-
             </mat-expansion-panel>
-
         </mat-accordion>
         <div class="add-ps-actions d-flex justify-content-between">
-            <button class="publish">Опубликовать</button>
-            <button class="save">Сохранить</button>
-            <button class="discard">Отмена</button>
+            <!-- <button class="publish">Опубликовать</button> -->
+            <button class="save" (click)="onClickCreate()"
+                [disabled]="addPostStoryForm?.invalid || loading">Сохранить</button>
+            <button class="discard" (click)="onClickCancel()">Отмена</button>
         </div>
     </div>
 </form>

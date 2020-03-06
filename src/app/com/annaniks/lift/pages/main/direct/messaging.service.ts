@@ -37,8 +37,6 @@ export class MessagingService {
     public subscribeToActiveThread = () => {
         return Observable.create((observer) => {
             this.socket.on('select-threed', (data) => {
-                console.log(data);
-
                 observer.next(data);
             });
         });
@@ -103,8 +101,4 @@ export class MessagingService {
             });
         });
     }
-
-
-
-
 }
