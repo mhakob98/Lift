@@ -19,6 +19,7 @@ export class AffiliateProgramComponent implements OnInit {
     public referalCodeControl = new FormControl();
     public affiliateProgramOperation: AffiliateProgramOperation[] = [];
     public page: number = 1;
+    public pageLength: number = 10;
     public loading: boolean = false;
 
     constructor(
@@ -56,12 +57,12 @@ export class AffiliateProgramComponent implements OnInit {
     }
 
     private _getAffiliateProgramOperation(): void {
-        this.loading=true;
-        this._affiliateProgramService.getAffiliateProgramOperation(this.page - 1, this.page * 10)
-        .subscribe((data) => {
-            this.affiliateProgramOperation.push(...data.data);
-            this.loading=false;
-        })
+        this.loading = true;
+        this._affiliateProgramService.getAffiliateProgramOperation((this.page - 1) * this.pageLength, this.page * this.pageLength)
+            .subscribe((data) => {
+                this.affiliateProgramOperation.push(...data.data);
+                this.loading = false;
+            })
     }
 
 }
