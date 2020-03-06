@@ -1,8 +1,8 @@
 <div class="user-details d-flex align-items-center">
     <div class="user-details-left text-center">
-        <img src="assets/images/preview_user_image.png" class="rounded-circle img-responsive user-image">
+        <img [src]="localImage" class="rounded-circle img-responsive user-image">
         <div class="user-details-left-botton-content">
-            <p class="user-name">jess.wandering</p>
+            <p class="user-name">{{activeAccount?.login}}</p>
             <div class="user-details-left-bottom-content d-flex text-center">
                 <div class="subscription-content d-flex">
                         <p class="subscription-text"><b>704</b> публикаций</p>
@@ -14,7 +14,7 @@
     </div>
     <div class="user-details-right">
         <div class="user-details-right-top-content d-flex align-items-center">
-            <p class="user-name">jess.wandering</p>
+            <p class="user-name">{{activeAccount?.login}}</p>
             <button class="btn button"><span>Перейти в профиль</span>
                 <img src="assets/icons/instagram_icon.png" class="rounded-circle img-responsive ml-2">
             </button>

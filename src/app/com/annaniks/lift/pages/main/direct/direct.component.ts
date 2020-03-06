@@ -2,11 +2,10 @@ import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ElementRef 
 import { NavbarService } from '../../../core/services/navbar.service';
 import { MessagingService } from './messaging.service'
 import { Subject } from 'rxjs';
-import { takeUntil, finalize } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { AuthService } from '../../../core/services/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WriteDirectMessageData, DirectMessage } from '../../../core/models/direct.message';
-import { CookieService } from 'ngx-cookie';
 
 
 @Component({
@@ -61,7 +60,6 @@ export class DirectComponent implements OnInit, OnDestroy {
         takeUntil(this._unsubscribe$),
       )
       .subscribe((data) => {
-        console.log(data);
         this.allChats = data;
         this.setActiveChat(this.allChats[0])
       })
@@ -146,7 +144,6 @@ export class DirectComponent implements OnInit, OnDestroy {
     this._messagingService.subscribeToActiveThread()
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe((data) => {
-        console.log(data);
         let index: number;
         this.allChats.map((chat, ind: number) => {
           if (chat.thread_id == data.threed.thread_id) {
