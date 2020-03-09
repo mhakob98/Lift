@@ -46,6 +46,7 @@
   .parameter-item {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     div {
       display: flex;
       flex-wrap: wrap;
