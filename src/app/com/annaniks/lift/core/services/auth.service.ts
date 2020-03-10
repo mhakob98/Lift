@@ -36,7 +36,9 @@ export class AuthService {
     public setAccount(account: InstagramAccount): void {
         this._activeAccount = account;
         this._activeAccountState$.next(this._activeAccount);
-        this._saveActiveAccount(account.id).subscribe();
+        if (account && account.id) {
+            this._saveActiveAccount(account.id).subscribe();
+        }
     }
 
     public getAccount(): InstagramAccount {
