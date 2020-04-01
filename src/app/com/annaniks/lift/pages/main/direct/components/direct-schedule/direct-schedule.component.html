@@ -12,35 +12,36 @@
         </div>
         <div class="signature-content" *ngSwitchCase="1">
             <form [formGroup]="signatureGroup">
+                <mat-checkbox class="w-100 d-block" formControlName="delayedSending">
                     <div class="form-item d-flex align-items-center">
-                            <p-checkbox name="groupname" value="val1" formControlName="signatureValue">
-                            </p-checkbox>
-                            <p class="lable">Отложенная отправка через </p>
-                            <input class="select ml-2" type="number" formControlName="select">
-                            <span class="ml-2" [ngStyle]="{'color':'#69aed5'}">часа</span>
-                            <img src="assets/icons/arrow_down.png" class="rounded img-responsive  ml-3">
-                        </div>
-
-                <div class="form-item d-flex align-items-center">
-                    <p-checkbox name="groupname" value="val1" formControlName="signatureValue">
-                    </p-checkbox>
-                    <p class="lable">Не отправлять, если есть переписка или запрос на переписку</p>
-                </div>
-                <div class="form-item d-flex align-items-center">
-                    <p-checkbox name="groupname" value="val2" formControlName="signatureValue"></p-checkbox>
-                    <p class="lable">Отправлять сообщение после подписки</p>
-                </div>
-                <div class="form-item d-flex align-items-center">
-                        <p-checkbox name="groupname" value="val3" formControlName="signatureValue"></p-checkbox>
+                        <p class="lable">Отложенная отправка через </p>
+                        <input class="select ml-2" type="number" formControlName="delayedSendingTime">
+                        <span class="ml-2" [ngStyle]="{'color':'#69aed5'}">часа</span>
+                        <img src="assets/icons/arrow_down.png" class="rounded img-responsive  ml-3">
+                    </div>
+                </mat-checkbox>
+                <mat-checkbox class="w-100 d-block" formControlName="dontSendIfCorrespondence">
+                    <div class="form-item d-flex align-items-center">
+                        <p class="lable">Не отправлять, если есть переписка или запрос на переписку</p>
+                    </div>
+                </mat-checkbox>
+                <mat-checkbox class="w-100 d-block" formControlName="sendAfterSubscription">
+                    <div class="form-item d-flex align-items-center">
+                        <p class="lable">Отправлять сообщение после подписки</p>
+                    </div>
+                </mat-checkbox>
+                <mat-checkbox class="w-100 d-block" formControlName="applyForSubscribers">
+                    <div class="form-item d-flex align-items-center">
                         <p class="lable">Применить фильтр для подписчиков</p>
                     </div>
+                </mat-checkbox>
+                <mat-checkbox class="w-100 d-block" formControlName="mailingText">
                     <div class="form-item d-flex align-items-center">
-                            <p-checkbox name="groupname" value="val3" formControlName="signatureValue"></p-checkbox>
-                            <p class="lable">Текст рассылки </p>
-                            <span class="ml-1" [ngStyle]="{'color':'#69aed5'}">вручную</span>
-                                <img src="assets/icons/arrow_down.png" class="rounded img-responsive  ml-3">
-                        </div>
-
+                        <p class="lable">Текст рассылки </p>
+                        <span class="ml-1" [ngStyle]="{'color':'#69aed5'}">вручную</span>
+                        <img src="assets/icons/arrow_down.png" class="rounded img-responsive  ml-3">
+                    </div>
+                </mat-checkbox>
             </form>
         </div>
     </div>

@@ -5,10 +5,9 @@ import { CommonModule } from '@angular/common';
 // 3rd part libraries
 import { SharedModule } from '../../../shared/shared.module';
 import { MessagingService } from './messaging.service';
-//DirectScheduleComponent DirectSentComponent
 import { DirectScheduleComponent, DirectSentComponent } from './components';
-///CheckboxModule
-import {CheckboxModule} from 'primeng/checkbox';
+import { CheckboxModule } from 'primeng/checkbox';
+import { DirectService } from './direct.service';
 
 
 @NgModule({
@@ -24,7 +23,8 @@ import {CheckboxModule} from 'primeng/checkbox';
         CheckboxModule
     ],
     providers: [
-        MessagingService
+        MessagingService,
+        DirectService
     ]
 })
 export class DirectModule { }

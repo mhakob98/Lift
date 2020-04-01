@@ -6,6 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { AuthService } from '../../../core/services/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WriteDirectMessageData, DirectMessage } from '../../../core/models/direct.message';
+import { DirectService } from './direct.service';
 
 
 @Component({
@@ -17,18 +18,21 @@ import { WriteDirectMessageData, DirectMessage } from '../../../core/models/dire
 export class DirectComponent implements OnInit, OnDestroy {
   private _unsubscribe$: Subject<void> = new Subject<void>();
   public allChats: any[] = [];
+  public newMailings: any[] = [];
+  public oldMailings: any[] = [];
   public activeChatMessages: DirectMessage[] = []
   public activeChat: any;
   public messageForm: FormGroup;
   public createChatOpened: boolean = false;
   public loading: boolean = false;
-  public activeTab: number = 1;
+  public activeTab: number = 4;
 
   constructor(
     private _navbarService: NavbarService,
     private _authService: AuthService,
     private _fb: FormBuilder,
-    private _messagingService: MessagingService
+    private _messagingService: MessagingService,
+    private _directService: DirectService
   ) {
     this.loading = true
     this._navbarService.setNavbarItems([]);
@@ -42,6 +46,7 @@ export class DirectComponent implements OnInit, OnDestroy {
     this._immediatlyFetchMessages()
     this.getMoreInbox();
     this._getUnreadChats();
+    this._fetchNewUserMailings();
     this._subscribeToMessageStatus();
   }
 
@@ -63,6 +68,15 @@ export class DirectComponent implements OnInit, OnDestroy {
       .subscribe((data) => {
         this.allChats = data;
         this.setActiveChat(this.allChats[0])
+      })
+  }
+
+  private _fetchNewUserMailings(): void {
+    this._directService.getNewUserMailings()
+      .pipe(takeUntil(this._unsubscribe$))
+      .subscribe((data) => {
+        this.newMailings = data.data.newMailing;
+        this.oldMailings = data.data.oldMailing;
       })
   }
 

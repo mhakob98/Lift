@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
+import { AutoSubscribeOrWatchStoryService } from '../../../pages/main/promotion/auto-subscribe-or-watch-story/auto-subscribe-watch-story.service';
 import { SubSink } from 'subsink'
 
 @Component({

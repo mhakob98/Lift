@@ -40,6 +40,7 @@ import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from 'ngx-mat-date
 //Forms
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material';
+import { AudienceFilterComponent } from '../pages/main/promotion/auto-subscribe-or-watch-story';
 
 registerLocaleData(localeRu);
 
@@ -49,6 +50,7 @@ registerLocaleData(localeRu);
         FooterNavigationComponent,
         LineChartComponent,
         UserDetailsComponent,
+        AudienceFilterComponent,
         OnlyNumberDirective,
     ],
     imports: [
@@ -77,7 +79,9 @@ registerLocaleData(localeRu);
         MatDatepickerModule
 
     ],
-    entryComponents: [],
+    entryComponents: [
+        AudienceFilterComponent
+    ],
 
     exports: [
         LimitsComponent,
@@ -103,7 +107,7 @@ registerLocaleData(localeRu);
         NgxMatDatetimePickerModule,
         NgxMatTimepickerModule,
         MatDatepickerModule,
-
+        AudienceFilterComponent
     ],
 })
 export class SharedModule { }
