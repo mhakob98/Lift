@@ -25,6 +25,7 @@ export class JwtInterceptor implements HttpInterceptor {
         return next.handle(req)
             .pipe(
                 catchError((err) => {
+                    console.log(err);
                     const status: number = err.status;
                     const error = err.error;
                     if ((status === 401 || error.status === 401) && req.url ==='refresh') { //ToDO fixing
