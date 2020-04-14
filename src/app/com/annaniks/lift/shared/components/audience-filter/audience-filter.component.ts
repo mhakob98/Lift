@@ -12,7 +12,6 @@ export class AudienceFilterComponent implements OnInit, OnDestroy {
 
   @Input('massData')
   set _massData(event) {
-    this._initForm()
     if (event && event.filter && event.filter.hasOwnProperty('haveSite')) {
       this._bindMassfollowing(event)
     }
@@ -25,6 +24,7 @@ export class AudienceFilterComponent implements OnInit, OnDestroy {
     private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService
   ) { }
   ngOnInit() {
+    this._initForm()
   }
 
   private _initForm(): void {
@@ -62,8 +62,12 @@ export class AudienceFilterComponent implements OnInit, OnDestroy {
         // gender?: 'string',
         // language?: 'string',
       }
-      this._autoSubscribeOrWatchStoryService.settings.filter = filters
+      this._autoSubscribeOrWatchStoryService.settings.filter = filters;
     })
+
+    setInterval(() => {
+      console.log(this._autoSubscribeOrWatchStoryService.settings);
+    }, 3000)
   }
 
   private _bindMassfollowing(event): void {

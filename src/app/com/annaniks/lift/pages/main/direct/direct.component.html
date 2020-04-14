@@ -109,8 +109,7 @@
                             <div class="chat_list" *ngFor="let item of newMailings;let ind = index">
                                 <div class="chat_people">
                                     <div class="chat_img">
-                                        <img *ngIf="!item.is_group" [src]="item.users[0].profile_pic_url"
-                                            alt="sunil">
+                                        <img *ngIf="!item.is_group" [src]="item.users[0].profile_pic_url" alt="sunil">
                                     </div>
                                     <div class="chat_ib">
                                         <p></p>
@@ -140,9 +139,8 @@
                             </app-message-item>
                         </div>
                         <div *ngIf="!loading">
-                            <div id="aaaa" initialScrollPosition="BOTTOM" strategy="scrollingToTop"
-                                ngxInfiniteScroller (onScrollUp)="onScrolledUp()" *ngIf="allChats?.length > 0"
-                                class="msg_history">
+                            <div id="aaaa" initialScrollPosition="BOTTOM" strategy="scrollingToTop" ngxInfiniteScroller
+                                (onScrollUp)="onScrolledUp()" *ngIf="allChats?.length > 0" class="msg_history">
                                 <app-message-item [previousMessage]="ind > 0 ? activeChatMessages[ind - 1] : null "
                                     [isIncoming]="getPhotoByUserIdAndCheckIfIncoming(message.user_id).isIncoming"
                                     [senderPhoto]="getPhotoByUserIdAndCheckIfIncoming(message.user_id).picture"
@@ -176,8 +174,7 @@
                                 <label for="file-input">
                                     <img src="assets/icons/gallery.png" />
                                 </label>
-                                <input (change)="handleInputChange($event)" class="file" id="file-input"
-                                    type="file" />
+                                <input (change)="handleInputChange($event)" class="file" id="file-input" type="file" />
                             </div>
                             <!-- <button class="chat-actions" type="button"><img src="assets/icons/smole.png"
                                 alt=""></button> -->
