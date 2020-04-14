@@ -104,20 +104,20 @@
                                     </div>
                                 </div>
                             </div>
-                            <div *ngIf="activeTab==3">
-                                <div class="chat_list" *ngFor="let item of newMailings;let ind = index">
-                                    <div class="chat_people">
-                                        <div class="chat_img">
-                                            <img *ngIf="!item.is_group" [src]="item.users[0].profile_pic_url"
-                                                alt="sunil">
-                                        </div>
-                                        <div class="chat_ib">
-                                            <p></p>
-                                        </div>
-                                        <!-- <div *ngIf="item.read_state != 0" class="chat-count">
-
-                                        </div> -->
+                        </div>
+                        <div *ngIf="activeTab==3">
+                            <div class="chat_list" *ngFor="let item of newMailings;let ind = index">
+                                <div class="chat_people">
+                                    <div class="chat_img">
+                                        <img *ngIf="!item.is_group" [src]="item.users[0].profile_pic_url"
+                                            alt="sunil">
                                     </div>
+                                    <div class="chat_ib">
+                                        <p></p>
+                                    </div>
+                                    <!-- <div *ngIf="item.read_state != 0" class="chat-count">
+
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
