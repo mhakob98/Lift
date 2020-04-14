@@ -289,6 +289,36 @@
       margin: 25px !important;
     }
   }
+  .profile-tab-content {
+    justify-content: center;
+    .tab-item {
+      margin: 6px;
+    }
+  }
+  .profile-tab {
+    .tab-inner {
+      padding: 13px !important;
+    }
+  }
+  .enable-notification {
+    margin: 15px 0 !important;
+  }
+  .email-nots {
+    display: block !important;
+  }
+  .presonal-settings-container {
+    .form-group {
+      display: block !important;
+    }
+  }
+  .basic-settings-container {
+    .form-group {
+      display: block !important;
+    }
+    .save-button {
+      margin-left: 0 !important;
+    }
+  }
 }
 
 @media only screen and (max-width: 480px) {
