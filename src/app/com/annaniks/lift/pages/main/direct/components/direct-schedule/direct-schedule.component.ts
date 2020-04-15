@@ -63,11 +63,10 @@ export class DirectScheduleComponent implements OnInit, OnDestroy {
 
     private _sendSchedule(typedMessage: string): void {
         this._loadingService.showLoading();
-        const now = new Date(Date.now());
         const signatureGroup = this.signatureGroup.value
         const sendingData: NewMailing = {
             accountId: this._authService.getAccount().id,
-            delay: signatureGroup.delayedSending ? new Date(now.setHours(now.getHours() + signatureGroup.delayedSendingTime)) : null,
+            delay: signatureGroup.delayedSending ? signatureGroup.delayedSendingTime * 60 : null,
             filter: signatureGroup.applyForSubscribers ? this._autoSubscribeOrWatchStoryService.settings.filter : {},
             messages: this.files.length > 0 ? this.files : Array(typedMessage),
             sendAfterFollow: signatureGroup.sendAfterSubscription
