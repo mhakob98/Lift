@@ -2,11 +2,13 @@ import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ElementRef 
 import { NavbarService } from '../../../core/services/navbar.service';
 import { MessagingService } from './messaging.service'
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, finalize } from 'rxjs/operators';
 import { AuthService } from '../../../core/services/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WriteDirectMessageData, DirectMessage } from '../../../core/models/direct.message';
 import { DirectService } from './direct.service';
+import { SendMessageTypes } from '../../../core/models/direct';
+import { LoadingService } from '../../../core/services/loading-service';
 
 
 @Component({
@@ -22,38 +24,40 @@ export class DirectComponent implements OnInit, OnDestroy {
   public oldMailings: any[] = [];
   public activeChatMessages: DirectMessage[] = []
   public activeChat: any;
-  public messageForm: FormGroup;
   public createChatOpened: boolean = false;
   public loading: boolean = false;
   public activeTab: number = 4;
-
+  public files: string[] = [];
+  public activeMailingTexts: string[];
   constructor(
     private _navbarService: NavbarService,
     private _authService: AuthService,
-    private _fb: FormBuilder,
     private _messagingService: MessagingService,
-    private _directService: DirectService
+    private _directService: DirectService,
+    private _loadingService: LoadingService
   ) {
     this.loading = true
     this._navbarService.setNavbarItems([]);
   }
 
   ngOnInit() {
-    this._initForm();
     this._fetchMessages();
     this.subscribeToActiveChatEvent();
     this.getMoreMessages()
     this._immediatlyFetchMessages()
     this.getMoreInbox();
     this._getUnreadChats();
-    this._fetchNewUserMailings();
+    this._fetchUserMailings();
     this._subscribeToMessageStatus();
+    this._subscribeToUpdateMailings()
   }
 
-  private _initForm(): void {
-    this.messageForm = this._fb.group({
-      message: [null, Validators.required]
-    })
+  private _subscribeToUpdateMailings(): void {
+    this._directService.updateMailingState
+      .pipe(takeUntil(this._unsubscribe$))
+      .subscribe(() => {
+        this._fetchUserMailings();
+      })
   }
 
   private _immediatlyFetchMessages(): void {
@@ -71,13 +75,21 @@ export class DirectComponent implements OnInit, OnDestroy {
       })
   }
 
-  private _fetchNewUserMailings(): void {
+  private _fetchUserMailings(): void {
+    this._loadingService.showLoading();
     this._directService.getNewUserMailings()
-      .pipe(takeUntil(this._unsubscribe$))
+      .pipe(
+        takeUntil(this._unsubscribe$),
+        finalize(() => this._loadingService.hideLoading()),
+      )
       .subscribe((data) => {
         this.newMailings = data.data.newMailing;
         this.oldMailings = data.data.oldMailing;
       })
+  }
+
+  public setActiveMailingText(text: string[]): void {
+    this.activeMailingTexts = [...text]
   }
 
   private _getUnreadChats(): void {
@@ -99,13 +111,17 @@ export class DirectComponent implements OnInit, OnDestroy {
       })
   }
 
-  public sendMessage(): void {
-    const writeMessageData: WriteDirectMessageData = {
-      thread_id: this.activeChat.thread_id,
-      message: this.messageForm.get('message').value,
+  public sendMessage(message: string, type: SendMessageTypes): void {
+    if (type == SendMessageTypes.Direct) {
+      const writeMessageData: WriteDirectMessageData = {
+        thread_id: this.activeChat.thread_id,
+        message: message,
+      }
+      this._messagingService.sendMessage(writeMessageData);
+    } else if (type == SendMessageTypes.Schedule) {
+      this._directService.sendSchedule.next(message);
     }
-    this._messagingService.sendMessage(writeMessageData)
-    this.messageForm.get('message').reset();
+
   }
 
   public setActiveTab(tabNumber?: number): void {
@@ -143,20 +159,23 @@ export class DirectComponent implements OnInit, OnDestroy {
       })
   }
 
-  public handleInputChange(e): void {
-    var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
-    var pattern = /image-*/;
-    var reader = new FileReader();
-    if (!file.type.match(pattern)) {
-      alert('invalid format');
-      return;
+
+  public handleFileSend(file: String | FormData): void {
+    if (file instanceof FormData) {
+      this._uploadTxt(file);
+    } else {
+      this._messagingService.uploadBase64(file.toString())
     }
-    reader.onload = this._handleReaderLoaded.bind(this);
-    reader.readAsDataURL(file);
   }
 
-  private _handleReaderLoaded(e): void {
-    this._messagingService.uploadBase64(e.target.result)
+  private _uploadTxt(file: FormData): void {
+    this._loadingService.showLoading();
+    this._directService.uploadTxt(file).pipe(
+      finalize(() => this._loadingService.hideLoading()),
+      takeUntil(this._unsubscribe$)
+    ).subscribe((data) => {
+      this.files = [...data.data]
+    })
   }
 
   public subscribeToActiveChatEvent(): void {

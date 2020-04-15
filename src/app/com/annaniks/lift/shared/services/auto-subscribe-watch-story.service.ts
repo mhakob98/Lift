@@ -4,11 +4,11 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 // Interfaces
-import { EmptyResponse } from '../../../../core/models/empty-response';
-import { ServerResponse } from '../../../../core/models/server-response';
-import { Search, SearchTerm } from '../../../../core/models/search';
-import { AuthService } from '../../../../core/services/auth.service';
-import { MassFollowingSettings } from '../../../../core/models/account';
+import { EmptyResponse } from '../../core/models/empty-response';
+import { ServerResponse } from '../../core/models/server-response';
+import { Search, SearchTerm } from '../../core/models/search';
+import { AuthService } from '../../core/services/auth.service';
+import { MassFollowingSettings } from '../../core/models/account';
 
 @Injectable()
 export class AutoSubscribeOrWatchStoryService {

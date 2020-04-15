@@ -76,7 +76,7 @@ registerLocaleData(localeRu);
         NgxMaskModule.forRoot(),
         NgxMatDatetimePickerModule,
         NgxMatTimepickerModule,
-        MatDatepickerModule
+        MatDatepickerModule,
 
     ],
     entryComponents: [

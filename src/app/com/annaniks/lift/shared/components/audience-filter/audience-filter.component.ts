@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AutoSubscribeOrWatchStoryService } from '../../../pages/main/promotion/auto-subscribe-or-watch-story/auto-subscribe-watch-story.service';
 import { SubSink } from 'subsink'
+import { AutoSubscribeOrWatchStoryService } from '../../services/auto-subscribe-watch-story.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-audience-filter',
@@ -19,12 +20,20 @@ export class AudienceFilterComponent implements OnInit, OnDestroy {
 
   public filterAudienceForm: FormGroup
   private _subs = new SubSink();
+
   constructor(
     private _formBuilder: FormBuilder,
-    private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService
+    private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService,
+    public dialogRef: MatDialogRef<AudienceFilterComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { showButton: boolean }
   ) { }
+
   ngOnInit() {
     this._initForm()
+  }
+
+  public closeModal(): void {
+    this.dialogRef.close()
   }
 
   private _initForm(): void {
@@ -63,11 +72,9 @@ export class AudienceFilterComponent implements OnInit, OnDestroy {
         // language?: 'string',
       }
       this._autoSubscribeOrWatchStoryService.settings.filter = filters;
-    })
-
-    setInterval(() => {
       console.log(this._autoSubscribeOrWatchStoryService.settings);
-    }, 3000)
+
+    })
   }
 
   private _bindMassfollowing(event): void {

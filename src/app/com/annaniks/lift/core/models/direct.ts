@@ -15,3 +15,16 @@ export interface MailingResponse {
     newMailing: Mailing[];
     oldMailing: Mailing[]
 }
+
+export enum SendMessageTypes {
+    Direct = "direct",
+    Schedule = "schedule"
+}
+
+export interface NewMailing {
+    accountId: number,
+    delay: Date,
+    sendAfterFollow: boolean,
+    filter: {},
+    messages: string[]
+}

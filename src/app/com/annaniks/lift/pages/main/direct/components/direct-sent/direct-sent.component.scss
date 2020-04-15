@@ -1,7 +1,6 @@
 .direct-sent {
-
     .top-content {
-        &::after{
+        &::after {
             content: "";
             border: 1px solid #dddddd;
             display: block;
@@ -38,10 +37,9 @@
             font-size: 16px;
             color: #848484;
             width: 100%;
+            &:not(:first-child) {
+                margin-top: 20px;
+            }
         }
-      
     }
 }
-
-
-  

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AutoSubscribeOrWatchStoryService } from './auto-subscribe-watch-story.service';
+import { AutoSubscribeOrWatchStoryService } from '../../../../shared/services/auto-subscribe-watch-story.service';
 import { SubSink } from 'subsink';
 import { AuthService } from '../../../../core/services/auth.service';
 import { switchMap, finalize } from 'rxjs/operators';

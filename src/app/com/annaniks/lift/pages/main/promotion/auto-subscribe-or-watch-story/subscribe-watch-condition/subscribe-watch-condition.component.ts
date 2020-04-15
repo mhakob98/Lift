@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { SubscriptionParam } from '../../../../../core/models/subscription-parameter';
-import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
+import { AutoSubscribeOrWatchStoryService } from '../../../../../shared/services/auto-subscribe-watch-story.service';
 import { startWith, pairwise, map } from 'rxjs/operators';
 import { SearchTerm, Search } from '../../../../../core/models/search';
 import { ActivatedRoute } from '@angular/router';
