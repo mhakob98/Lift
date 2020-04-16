@@ -8,14 +8,16 @@ import { MessagingService } from './messaging.service';
 import { DirectScheduleComponent, DirectSentComponent } from './components';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DirectService } from './direct.service';
-import { AutoSubscribeOrWatchStoryService } from '../promotion/auto-subscribe-or-watch-story/auto-subscribe-watch-story.service';
+import { AutoSubscribeOrWatchStoryService } from '../../../shared/services/auto-subscribe-watch-story.service';
+import { SendMessageComponent } from './components/send-message/send-message.component';
 
 
 @NgModule({
     declarations: [
         DirectRoutingModule.components,
         DirectScheduleComponent,
-        DirectSentComponent
+        DirectSentComponent,
+        SendMessageComponent
     ],
     imports: [
         DirectRoutingModule,

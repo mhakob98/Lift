@@ -77,7 +77,7 @@ interface FollowTime {
     end: string;
 }
 
-interface Filter {
+export interface Filter {
     followers: FilterRange;
     folowings: FilterRange;
     likeInPhoto: FilterRange;

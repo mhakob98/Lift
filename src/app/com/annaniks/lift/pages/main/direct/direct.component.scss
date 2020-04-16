@@ -111,7 +111,9 @@ img {
   width: 88%;
   margin: auto;
 }
-
+.mailing-item span {
+  font-weight: bold;
+}
 .chat_people {
   overflow: hidden;
   clear: both;
@@ -120,6 +122,7 @@ img {
   min-height: 60px;
 }
 .chat_list {
+  direction: ltr;
   border-radius: 4px;
   padding: 8px 16px 8px;
   margin-bottom: 11px;

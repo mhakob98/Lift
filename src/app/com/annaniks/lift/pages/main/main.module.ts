@@ -9,7 +9,7 @@ import { LayoutModule } from '../../layout/layout-module';
 import { AccountConnectionModal } from '../../core/modals';
 import { SharedModule } from '../../shared/shared.module';
 import { MainService } from './main.service';
-import { AutoSubscribeOrWatchStoryService } from './promotion/auto-subscribe-or-watch-story/auto-subscribe-watch-story.service';
+import { AutoSubscribeOrWatchStoryService } from '../../shared/services/auto-subscribe-watch-story.service';
 
 
 @NgModule({

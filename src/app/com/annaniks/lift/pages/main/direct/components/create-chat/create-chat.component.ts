@@ -3,8 +3,8 @@ import { FormControl } from '@angular/forms';
 import { MessagingService } from '../../messaging.service';
 import { SearchTerm, Search } from 'src/app/com/annaniks/lift/core/models/search';
 import { Observable, Subject } from 'rxjs';
-import { AutoSubscribeOrWatchStoryService } from '../../../promotion/auto-subscribe-or-watch-story/auto-subscribe-watch-story.service';
 import { map, takeUntil } from 'rxjs/operators';
+import { AutoSubscribeOrWatchStoryService } from '../../../../../shared/services/auto-subscribe-watch-story.service';
 
 
 @Component({
