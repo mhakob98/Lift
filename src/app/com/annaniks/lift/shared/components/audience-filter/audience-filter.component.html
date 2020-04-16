@@ -17,7 +17,7 @@
                 <form [formGroup]="filterAudienceForm" class="filters-container">
                     <div class="checkoboxes-filter">
 
-                        <div formGroupName="followers" class="inline-checkoxes">
+                        <div formGroupName="followers" class="inline-checkoxes double">
                             <mat-checkbox formControlName="status">
                                 Диапазон подписчиков от
                             </mat-checkbox>
@@ -27,7 +27,7 @@
                                 <input formControlName="max" OnlyNumber="true" class="range-input" type="text">
                             </span>
                         </div>
-                        <div formGroupName="folowings" class="inline-checkoxes">
+                        <div formGroupName="folowings" class="inline-checkoxes double">
                             <mat-checkbox formControlName="status">
                                 Диапазон подписок от
                             </mat-checkbox>
@@ -36,7 +36,7 @@
                                 <input class="range-input" OnlyNumber="true" formControlName="max" type="text">
                             </span>
                         </div>
-                        <div formGroupName="likeInPhoto" class="inline-checkoxes">
+                        <div formGroupName="likeInPhoto" class="inline-checkoxes double">
                             <mat-checkbox formControlName="status">Количество лайков последнего поста от</mat-checkbox>
                             <span class="checkbox-label">
                                 <input formControlName="min" OnlyNumber="true" class="range-input" type="text"> до
@@ -44,7 +44,7 @@
                             </span>
                         </div>
 
-                        <div formGroupName="postCount" class="inline-checkoxes">
+                        <div formGroupName="postCount" class="inline-checkoxes double">
                             <mat-checkbox formControlName="status"> Количество публикаций от </mat-checkbox>
                             <span class="checkbox-label">
                                 <input formControlName="min" OnlyNumber="true" class="range-input" type="text">

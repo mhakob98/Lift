@@ -41,14 +41,17 @@ export class AccountByLocationComponent implements OnInit {
   private _checkSelectedLocations(): void {
     this._subscribeStoryService.getSettingsByType('location')
       .pipe(takeUntil(this._unsubscribe$))
-      .subscribe((locations: Location[]) => {
+      .subscribe((response: Location[]) => {
         this._resetProperties();
         const items = this.locationForm.get('items') as FormArray;
-        if (locations && locations.length > 0) {
-          locations.map((location: Location, index: number) => {
+        if (response && response.length > 0) {
+          response.map((location: Location, index: number) => {
             this.locationsItems = this.locationForm.get('items') as FormArray;
             items.push(this._fb.group({ label: new FormControl(location, RequireMatchOfType) }));
-            this.createMarker({ lat: location.location.lat, lng: location.location.lng });
+            console.log(location);
+            if (location.location) {
+              this.createMarker({ lat: location.location.lat, lng: location.location.lng });
+            }
           })
           this._zoomMarkers();
         }
@@ -83,6 +86,8 @@ export class AccountByLocationComponent implements OnInit {
 
   private _zoomMarkers(): void {
     var bounds = new google.maps.LatLngBounds();
+    console.log(this._markers);
+
     for (var i = 0; i < this._markers.length; i++) {
       bounds.extend(this._markers[i].getPosition());
     }
