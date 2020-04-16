@@ -5,17 +5,19 @@ import { CommonModule } from '@angular/common';
 // 3rd part libraries
 import { SharedModule } from '../../../shared/shared.module';
 import { MessagingService } from './messaging.service';
-//DirectScheduleComponent DirectSentComponent
 import { DirectScheduleComponent, DirectSentComponent } from './components';
-///CheckboxModule
-import {CheckboxModule} from 'primeng/checkbox';
+import { CheckboxModule } from 'primeng/checkbox';
+import { DirectService } from './direct.service';
+import { AutoSubscribeOrWatchStoryService } from '../../../shared/services/auto-subscribe-watch-story.service';
+import { SendMessageComponent } from './components/send-message/send-message.component';
 
 
 @NgModule({
     declarations: [
         DirectRoutingModule.components,
         DirectScheduleComponent,
-        DirectSentComponent
+        DirectSentComponent,
+        SendMessageComponent
     ],
     imports: [
         DirectRoutingModule,
@@ -24,7 +26,9 @@ import {CheckboxModule} from 'primeng/checkbox';
         CheckboxModule
     ],
     providers: [
-        MessagingService
+        MessagingService,
+        DirectService,
+        AutoSubscribeOrWatchStoryService
     ]
 })
 export class DirectModule { }

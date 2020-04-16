@@ -3,10 +3,11 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { MainService } from '../../../pages/main/main.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { finalize, takeUntil } from 'rxjs/operators';
-import { TwoFactorLoginData, ChallengeLoginData } from '../../models/account';
+import { TwoFactorLoginData, ChallengeLoginData, SubscriptionData } from '../../models/account';
 import { Subject } from 'rxjs';
 import { UserType } from '../../models/account-settings';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -36,6 +37,7 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
         private _mainService: MainService,
         private _router: Router,
         private _dialogRef: MatDialogRef<AccountConnectionModal>,
+        private _authService: AuthService,
         @Inject(MAT_DIALOG_DATA) private _dialogData: { isFirstAccount?: boolean }
     ) { }
 
@@ -77,6 +79,7 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
                 takeUntil(this._unsubscribe$)
             )
             .subscribe((data) => {
+                console.log(data);
                 this.loginForm.get('email').disable();
                 this.loginForm.get('password').disable();
                 this._isAccountConnected = true;
@@ -92,6 +95,9 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
                     const response = error.data;
                     if (response.invalid_credentials) {
                         this.errorMessage = response.message;
+                    }
+                    else if (typeof response === 'string') {
+                        this.errorMessage = response;
                     }
                     if (response.two_factor_required || (response.error_type && response.error_type === 'checkpoint_challenge_required')) {
                         this.showCode = true;
@@ -164,6 +170,21 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
                 })
     }
 
+    private _setSubscriptionType(): void {
+        const sendingData: SubscriptionData = {
+            autoFollowing: this.promotionForm.get('autosubscription').value,
+            autoView: this.promotionForm.get('autoreviewstories').value,
+            liftBonus: this.promotionForm.get('bonus').value,
+            loginId: this._authService.getUserStateSync().id
+        }
+        this._mainService.setSubscriptionType(sendingData)
+            .subscribe((data) => {
+                console.log(data);
+                this.changeTab(4);
+            })
+    }
+
+
     public changedTab(tab): void {
         this.tab = tab;
     }
@@ -204,6 +225,12 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
     public onClickClose(): void {
         if (!this.loading) {
             this._dialogRef.close({ isAccountConnected: false });
+        }
+    }
+
+    public onClickSetSubscriptionType(): void {
+        if (this.promotionForm.valid) {
+            this._setSubscriptionType();
         }
     }
 

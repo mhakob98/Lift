@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
-import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
+import { AutoSubscribeOrWatchStoryService } from '../../../../../shared/services/auto-subscribe-watch-story.service';
 import { SearchTerm, Search } from 'src/app/com/annaniks/lift/core/models/search';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';

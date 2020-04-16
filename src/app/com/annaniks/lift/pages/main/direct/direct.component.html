@@ -16,7 +16,7 @@
                             Новое сообщение
                             <img src="assets/icons/message.png" alt="">
                         </button>
-                        <button class="new-bookmark">
+                        <button class="new-bookmark" (click)="setActiveTab(4)">
                             Новая рассылка
                             <img src="assets/icons/email.png" alt="">
                         </button>
@@ -90,11 +90,26 @@
                                 <p class="empty-message">У вас пока нет сообщений</p>
                             </div>
                         </div>
-                        <div *ngIf="activeTab==2"></div>
-                        <div *ngIf="activeTab==3"></div>
+                        <div *ngIf="activeTab==2">
+                            <div (click)="setActiveMailingText(item.messages.list)"
+                                class="chat_list d-flex align-items-center"
+                                *ngFor="let item of oldMailings;let ind = index">
+                                <div class="mailing-item w-100">
+                                    <p><span>Создано - </span>{{item.createdAt | date:'mediumDate'}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="activeTab==3 && newMailings">
+                            <div (click)="setActiveMailingText(item.messages.list)"
+                                class="chat_list d-flex align-items-center"
+                                *ngFor="let item of newMailings;let ind = index">
+                                <div class="mailing-item w-100">
+                                    <p><span>Создано - </span>{{item.createdAt | date:'mediumDate'}}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
                 <div class="mesgs">
                     <div class="mesgs_tab" *ngIf="activeTab==1">
                         <div *ngIf="loading">
@@ -122,124 +137,106 @@
                                 <div *ngIf="activeChatMessages.length == 0" class="no-chat">
                                     <p class="text-center empty-message">У вас пока нет сообщений</p>
                                 </div>
-                                <!-- <div class="incoming-msg d-flex align-items-start">
+                                <<<<<<< HEAD <!-- <div class="incoming-msg d-flex align-items-start">
                                     <div class="incoming-msg-text additional">
                                         <span class="message-body">Проголосуй пожалуйста за мое фото у меня странице
                                             https://www.instagram.com/p/B7o2SXTJtVx/</span>
                                         <span class="message-date">14:36</span>
                                     </div>
-                                </div>
-                                <div class="outgoing-msg d-flex align-items-start justify-content-end">
-                                    <div class="outgoing-msg-text first">
-                                        <span class="message-body">Привет! Уже проголосовала</span>
-                                        <span class="message-date">14:38</span>
-                                    </div>
-                                    <img src="assets/icons/avatar.png" class="outgoing-msg-img">
-                                </div>
-                                <div class="outgoing-msg d-flex align-items-start justify-content-end">
-                                    <div class="outgoing-msg-text additional">
-                                        <span class="message-body">Привет! Уже проголосовала</span>
-                                        <span class="message-date">14:38</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-center day-separator">
-                                    <span>19 Января</span>
-                                </div>
-                                <div class="incoming-msg d-flex align-items-start">
-                                    <img src="assets/icons/avatar.png" class="incoming-msg-img">
-                                    <div class="incoming-msg-text first">
-                                        <span class="message-body">Привет!</span>
-                                        <span class="message-date">14:35</span>
-                                    </div>
-                                </div>
-                                <div class="incoming-msg d-flex align-items-start">
-                                    <div class="incoming-msg-text additional">
-                                        <span class="message-body">Проголосуй пожалуйста за мое фото у меня странице
-                                            https://www.instagram.com/p/B7o2SXTJtVx/</span>
-                                        <span class="message-date">14:36</span>
-                                    </div>
-                                </div>
-                                <div class="outgoing-msg d-flex align-items-start justify-content-end">
-                                    <div class="outgoing-msg-text first">
-                                        <span class="message-body">Привет! Уже проголосовала</span>
-                                        <span class="message-date">14:38</span>
-                                    </div>
-                                    <img src="assets/icons/avatar.png" class="outgoing-msg-img">
-                                </div>
-                                <div class="outgoing-msg d-flex align-items-start justify-content-end">
-                                    <div class="outgoing-msg-text additional">
-                                        <span class="message-body">Привет! Уже проголосовала</span>
-                                        <span class="message-date">14:38</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-center day-separator">
-                                    <span>19 Января</span>
-                                </div>
-                                <div class="incoming-msg d-flex align-items-start">
-                                    <img src="assets/icons/avatar.png" class="incoming-msg-img">
-                                    <div class="incoming-msg-text first">
-                                        <span class="message-body">Привет!</span>
-                                        <span class="message-date">14:35</span>
-                                    </div>
-                                </div>
-                                <div class="incoming-msg d-flex align-items-start">
-                                    <div class="incoming-msg-text additional">
-                                        <span class="message-body">Проголосуй пожалуйста за мое фото у меня странице
-                                            https://www.instagram.com/p/B7o2SXTJtVx/</span>
-                                        <span class="message-date">14:36</span>
-                                    </div>
-                                </div>
-                                <div class="outgoing-msg d-flex align-items-start justify-content-end">
-                                    <div class="outgoing-msg-text first">
-                                        <span class="message-body">Привет! Уже проголосовала</span>
-                                        <span class="message-date">14:38</span>
-                                    </div>
-                                    <img src="assets/icons/avatar.png" class="outgoing-msg-img">
-                                </div>
-                                <div class="outgoing-msg d-flex align-items-start justify-content-end">
-                                    <div class="outgoing-msg-text additional">
-                                        <span class="message-body">Привет! Уже проголосовала</span>
-                                        <span class="message-date">14:38</span>
-                                    </div>
-                                </div> -->
                             </div>
-                        </div>
-                    </div>
-                    <div class="mesgs_tab" *ngIf="activeTab==2">
-                        <app-direct-schedule></app-direct-schedule>
-
-                    </div>
-                    <div class="mesgs_tab" *ngIf="activeTab==3">
-                        <app-direct-sent></app-direct-sent>
-                    </div>
-                    <form [formGroup]="messageForm"
-                        class="type_msg d-flex w-100 justify-content-between align-items-baseline">
-                        <div class="image-upload">
-                            <label for="file-input">
-                                <img height="20" src="assets/icons/attachment.png" />
-                            </label>
-                            <input (change)="handleInputChange($event)" class="file" id="file-input" type="file" />
-                        </div>
-                        <div class="input_msg_write d-flex  align-items-center">
-
-                            <input formControlName="message" type="text" class="write_msg"
-                                placeholder="Введите сообщение" />
-                            <div class="image-upload">
-                                <label for="file-input">
-                                    <img src="assets/icons/gallery.png" />
-                                </label>
-                                <input (change)="handleInputChange($event)" class="file" id="file-input" type="file" />
+                            <div class="outgoing-msg d-flex align-items-start justify-content-end">
+                                <div class="outgoing-msg-text first">
+                                    <span class="message-body">Привет! Уже проголосовала</span>
+                                    <span class="message-date">14:38</span>
+                                </div>
+                                <img src="assets/icons/avatar.png" class="outgoing-msg-img">
                             </div>
-                            <!-- <button class="chat-actions" type="button"><img src="assets/icons/smole.png"
-                                    alt=""></button> -->
+                            <div class="outgoing-msg d-flex align-items-start justify-content-end">
+                                <div class="outgoing-msg-text additional">
+                                    <span class="message-body">Привет! Уже проголосовала</span>
+                                    <span class="message-date">14:38</span>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center day-separator">
+                                <span>19 Января</span>
+                            </div>
+                            <div class="incoming-msg d-flex align-items-start">
+                                <img src="assets/icons/avatar.png" class="incoming-msg-img">
+                                <div class="incoming-msg-text first">
+                                    <span class="message-body">Привет!</span>
+                                    <span class="message-date">14:35</span>
+                                </div>
+                            </div>
+                            <div class="incoming-msg d-flex align-items-start">
+                                <div class="incoming-msg-text additional">
+                                    <span class="message-body">Проголосуй пожалуйста за мое фото у меня странице
+                                        https://www.instagram.com/p/B7o2SXTJtVx/</span>
+                                    <span class="message-date">14:36</span>
+                                </div>
+                            </div>
+                            <div class="outgoing-msg d-flex align-items-start justify-content-end">
+                                <div class="outgoing-msg-text first">
+                                    <span class="message-body">Привет! Уже проголосовала</span>
+                                    <span class="message-date">14:38</span>
+                                </div>
+                                <img src="assets/icons/avatar.png" class="outgoing-msg-img">
+                            </div>
+                            <div class="outgoing-msg d-flex align-items-start justify-content-end">
+                                <div class="outgoing-msg-text additional">
+                                    <span class="message-body">Привет! Уже проголосовала</span>
+                                    <span class="message-date">14:38</span>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center day-separator">
+                                <span>19 Января</span>
+                            </div>
+                            <div class="incoming-msg d-flex align-items-start">
+                                <img src="assets/icons/avatar.png" class="incoming-msg-img">
+                                <div class="incoming-msg-text first">
+                                    <span class="message-body">Привет!</span>
+                                    <span class="message-date">14:35</span>
+                                </div>
+                            </div>
+                            <div class="incoming-msg d-flex align-items-start">
+                                <div class="incoming-msg-text additional">
+                                    <span class="message-body">Проголосуй пожалуйста за мое фото у меня странице
+                                        https://www.instagram.com/p/B7o2SXTJtVx/</span>
+                                    <span class="message-date">14:36</span>
+                                </div>
+                            </div>
+                            <div class="outgoing-msg d-flex align-items-start justify-content-end">
+                                <div class="outgoing-msg-text first">
+                                    <span class="message-body">Привет! Уже проголосовала</span>
+                                    <span class="message-date">14:38</span>
+                                </div>
+                                <img src="assets/icons/avatar.png" class="outgoing-msg-img">
+                            </div>
+                            <div class="outgoing-msg d-flex align-items-start justify-content-end">
+                                <div class="outgoing-msg-text additional">
+                                    <span class="message-body">Привет! Уже проголосовала</span>
+                                    <span class="message-date">14:38</span>
+                                </div>
+                            </div> -->
+                            =======
+                            >>>>>>> 133f5040c8cf98db0b860d3d166a2aa757e6f7f0
                         </div>
-                        <button [disabled]="messageForm.invalid" (click)="sendMessage()" class="msg_send_btn"
-                            type="submit"><img src="assets/icons/send-chat.png" alt=""></button>
-                    </form>
+                    </div>
                 </div>
-
+                <div class="mesgs_tab" *ngIf="activeTab==4">
+                    <app-direct-schedule [files]="files"></app-direct-schedule>
+                </div>
+                <div class="mesgs_tab" *ngIf="activeTab==3 || activeTab==2">
+                    <app-direct-sent [texts]="activeMailingTexts"></app-direct-sent>
+                </div>
+                <ng-container [ngSwitch]="activeTab">
+                    <app-send-message *ngSwitchCase="1" [type]="'direct'" (onFileSend)="handleFileSend($event)"
+                        (onTextSend)="sendMessage($event,'direct')">
+                    </app-send-message>
+                    <app-send-message [foreignText]="files" *ngSwitchCase="4" [type]="'schedule'"
+                        (onFileSend)="handleFileSend($event)" (onTextSend)="sendMessage($event,'schedule')">
+                    </app-send-message>
+                </ng-container>
             </div>
-
         </div>
     </div>
 </div>

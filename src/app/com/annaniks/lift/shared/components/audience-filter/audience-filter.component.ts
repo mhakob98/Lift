@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
 import { SubSink } from 'subsink'
+import { AutoSubscribeOrWatchStoryService } from '../../services/auto-subscribe-watch-story.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-audience-filter',
@@ -12,7 +13,6 @@ export class AudienceFilterComponent implements OnInit, OnDestroy {
 
   @Input('massData')
   set _massData(event) {
-    this._initForm()
     if (event && event.filter && event.filter.hasOwnProperty('haveSite')) {
       this._bindMassfollowing(event)
     }
@@ -20,11 +20,20 @@ export class AudienceFilterComponent implements OnInit, OnDestroy {
 
   public filterAudienceForm: FormGroup
   private _subs = new SubSink();
+
   constructor(
     private _formBuilder: FormBuilder,
-    private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService
+    private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService,
+    public dialogRef: MatDialogRef<AudienceFilterComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { showButton: boolean }
   ) { }
+
   ngOnInit() {
+    this._initForm()
+  }
+
+  public closeModal(): void {
+    this.dialogRef.close()
   }
 
   private _initForm(): void {
@@ -62,7 +71,9 @@ export class AudienceFilterComponent implements OnInit, OnDestroy {
         // gender?: 'string',
         // language?: 'string',
       }
-      this._autoSubscribeOrWatchStoryService.settings.filter = filters
+      this._autoSubscribeOrWatchStoryService.settings.filter = filters;
+      console.log(this._autoSubscribeOrWatchStoryService.settings);
+
     })
   }
 

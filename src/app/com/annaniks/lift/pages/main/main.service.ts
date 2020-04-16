@@ -10,7 +10,8 @@ import { AuthService } from '../../core/services/auth.service';
 import {
     AccountConnectData,
     TwoFactorLoginData,
-    ChallengeLoginData
+    ChallengeLoginData,
+    SubscriptionData
 } from '../../core/models/account';
 import {
     ArticleShort
@@ -38,50 +39,7 @@ export class MainService {
         private _toastrService: ToastrService
     ) { }
 
-    public logOut(): Observable<ServerResponse<EmptyResponse>> {
-        let headers = new HttpHeaders();
-        headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('refreshToken'));
-        let params = new HttpParams();
-        params = params.set('authorization', 'false');
-        return this._httpClient.post<ServerResponse<EmptyResponse>>('logout', {}, { headers, params });
-    }
 
-    public fetchMainData(): void {
-        const joined = [this.getMe(false), this.getAccountSettingsVariants()];
-        forkJoin(joined)
-            .subscribe((response) => {
-                try {
-                    const userRes: ServerResponse<User> = response[0];
-                    const user = userRes.data;
-                    this._checkUserAccountsState(user);
-                } catch (error) {
-                    this._router.navigate(['/auth/login'])
-                }
-            }, () => {
-                this._router.navigate(['/auth/login']);
-                this._cookieService.remove('accessToken');
-                this._cookieService.remove('refreshToken');
-            });
-    }
-
-    public getMe(isCheckAccountsState: boolean = true): Observable<ServerResponse<User>> {
-        this.setShowDisabledView(true);
-        return this._httpClient.get<ServerResponse<User>>('me')
-            .pipe(
-                map((data: ServerResponse<User>) => {
-                    if (isCheckAccountsState) {
-                        const user: User = data.data;
-                        this._checkUserAccountsState(user);
-                    }
-                    return data;
-                }),
-                catchError((err) => {
-                    this.setShowDisabledView(true);
-                    this._authService.setAuthState(null);
-                    return throwError(err);
-                })
-            );
-    }
 
     private _checkUserAccountsState(user: User): void {
         this._authService.setUserState(user);
@@ -142,6 +100,51 @@ export class MainService {
         }
     }
 
+    public fetchMainData(): void {
+        const joined = [this.getMe(false), this.getAccountSettingsVariants()];
+        forkJoin(joined)
+            .subscribe((response) => {
+                try {
+                    const userRes: ServerResponse<User> = response[0];
+                    const user = userRes.data;
+                    this._checkUserAccountsState(user);
+                } catch (error) {
+                    this._router.navigate(['/auth/login'])
+                }
+            }, () => {
+                this._router.navigate(['/auth/login']);
+                this._cookieService.remove('accessToken');
+                this._cookieService.remove('refreshToken');
+            });
+    }
+
+    public logOut(): Observable<ServerResponse<EmptyResponse>> {
+        let headers = new HttpHeaders();
+        headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('refreshToken'));
+        let params = new HttpParams();
+        params = params.set('authorization', 'false');
+        return this._httpClient.post<ServerResponse<EmptyResponse>>('logout', {}, { headers, params });
+    }
+
+    public getMe(isCheckAccountsState: boolean = true): Observable<ServerResponse<User>> {
+        this.setShowDisabledView(true);
+        return this._httpClient.get<ServerResponse<User>>('me')
+            .pipe(
+                map((data: ServerResponse<User>) => {
+                    if (isCheckAccountsState) {
+                        const user: User = data.data;
+                        this._checkUserAccountsState(user);
+                    }
+                    return data;
+                }),
+                catchError((err) => {
+                    this.setShowDisabledView(true);
+                    this._authService.setAuthState(null);
+                    return throwError(err);
+                })
+            );
+    }
+
     public setShowDisabledView(isShow: boolean): void {
         this._isShowDisabledView = isShow;
         if (isShow) {
@@ -150,6 +153,10 @@ export class MainService {
             return;
         }
         document.body.style.overflow = 'auto';
+    }
+
+    public setSubscriptionType(subscriptionData: SubscriptionData): Observable<any> {
+        return this._httpClient.post('subscription', subscriptionData)
     }
 
     public getAccountSettingsVariants(): Observable<AccountSettings> {

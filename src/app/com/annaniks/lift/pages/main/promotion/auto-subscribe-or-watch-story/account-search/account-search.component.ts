@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AccountSearchParam } from '../../../../../core/models/subscription-parameter';
 import { SubSink } from 'subsink';
-import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
+import { AutoSubscribeOrWatchStoryService } from '../../../../../shared/services/auto-subscribe-watch-story.service';
 import { Search, SearchTerm } from 'src/app/com/annaniks/lift/core/models/search';
 import { Observable, Subject } from 'rxjs';
 import { FormControl } from '@angular/forms';

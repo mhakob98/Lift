@@ -77,7 +77,7 @@ interface FollowTime {
     end: string;
 }
 
-interface Filter {
+export interface Filter {
     followers: FilterRange;
     folowings: FilterRange;
     likeInPhoto: FilterRange;
@@ -147,4 +147,11 @@ export interface Location {
 
 export interface Condition {
     type: SubscriptionParam;
+}
+
+export interface SubscriptionData {
+    loginId: number,
+    autoFollowing: boolean,
+    autoView: boolean,
+    liftBonus: boolean
 }

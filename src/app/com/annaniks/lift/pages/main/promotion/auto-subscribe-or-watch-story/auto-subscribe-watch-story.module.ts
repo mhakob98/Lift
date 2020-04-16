@@ -6,7 +6,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 // Our Modules
 import { AutoSubscribeOrWatchStoryRoutingModule } from './auto-subscribe-watch-story.routing.module';
-import { AutoSubscribeOrWatchStoryService } from './auto-subscribe-watch-story.service';
+import { AutoSubscribeOrWatchStoryService } from '../../../../shared/services/auto-subscribe-watch-story.service';
 
 import { SubscribeWatchConditionComponent } from './subscribe-watch-condition/subscribe-watch-condition.component';
 import { AddHashtagComponent } from './add-hashtag/add-hashtag.component';

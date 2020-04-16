@@ -3,16 +3,16 @@
     <div class="accounts-content-modal-container" [ngSwitch]="tab">
         <div class="tabs row d-flex mt-3 ml-0 mr-0">
             <div class="tab-item col">
-                <div class="tab-item-content" [ngClass]="{'activeTab':tab==1}" (click)="changedTab(1)"></div>
+                <div class="tab-item-content" [ngClass]="{'activeTab':tab==1}"></div>
             </div>
             <div class="tab-item col" *ngIf="isFirstAccount">
-                <div class="tab-item-content ml-3" [ngClass]="{'activeTab':tab==2}" (click)="changedTab(2)"></div>
+                <div class="tab-item-content ml-3" [ngClass]="{'activeTab':tab==2}"></div>
             </div>
             <div class="tab-item col">
-                <div class="tab-item-content ml-3" [ngClass]="{'activeTab':tab==3}" (click)="changedTab(3)"></div>
+                <div class="tab-item-content ml-3" [ngClass]="{'activeTab':tab==3}"></div>
             </div>
             <div class="tab-item col">
-                <div class="tab-item-content ml-3" [ngClass]="{'activeTab':tab==4}" (click)="changedTab(4)"></div>
+                <div class="tab-item-content ml-3" [ngClass]="{'activeTab':tab==4}"></div>
             </div>
         </div>
         <div class="main mt-5">
@@ -80,7 +80,7 @@
                         </mat-slide-toggle>
                     </div>
                 </form>
-                <button type="submit" class="btn main-button mt-4 mb-4" (click)="changeTab(4)">Дальше</button>
+                <button type="submit" class="btn main-button mt-4 mb-4" (click)="onClickSetSubscriptionType()">Дальше</button>
 
             </div>
             <div class="action-content text-center" *ngSwitchCase="4">

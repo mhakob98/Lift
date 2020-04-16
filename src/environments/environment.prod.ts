@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://annaniks.com:18180/',
-  fileUrl: 'http://annaniks.com:18180/files',
-  socketUrl: 'http://annaniks.com:3031/direct'
+  apiUrl: 'http://176.118.165.95:18180/',
+  fileUrl: 'http://176.118.165.95:18180/files',
+  socketUrl: 'http://176.118.165.95:3031/direct'
 };

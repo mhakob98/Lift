@@ -65,7 +65,12 @@ export class SignUpComponent implements OnInit, OnDestroy {
           this._router.navigate(['/statistics/preview']);
         }),
         catchError((err) => {
-          this.errorMessage = err.error.message;
+          console.log(err);
+          try {
+            this.errorMessage = err.error.message;
+          } catch (error) {
+            this.errorMessage = 'Something is wrong';
+          }
           return throwError(err);
         })
       )

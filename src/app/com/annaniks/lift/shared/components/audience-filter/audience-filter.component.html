@@ -21,9 +21,10 @@
                             <mat-checkbox formControlName="status">
                                 Диапазон подписчиков от
                             </mat-checkbox>
-                            <span class="checkbox-label"><input formControlName="min"  OnlyNumber="true" class="range-input" type="text">
+                            <span class="checkbox-label"><input formControlName="min" OnlyNumber="true"
+                                    class="range-input" type="text">
                                 до
-                                <input formControlName="max"  OnlyNumber="true" class="range-input" type="text">
+                                <input formControlName="max" OnlyNumber="true" class="range-input" type="text">
                             </span>
                         </div>
                         <div formGroupName="folowings" class="inline-checkoxes double">
@@ -31,7 +32,7 @@
                                 Диапазон подписок от
                             </mat-checkbox>
                             <span class="checkbox-label">
-                                <input formControlName="min"  OnlyNumber="true"class="range-input" type="text"> до
+                                <input formControlName="min" OnlyNumber="true" class="range-input" type="text"> до
                                 <input class="range-input" OnlyNumber="true" formControlName="max" type="text">
                             </span>
                         </div>
@@ -99,8 +100,13 @@
 
 
                     </div>
+
                 </form>
+                <div *ngIf="data.showButton" class="close-button-wrapper">
+                    <button type="button" class="btn btn-primary close-button" (click)="closeModal()">Применить</button>
+                </div>
             </div>
+
         </div>
     </div>
 </div>

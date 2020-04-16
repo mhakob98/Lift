@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
-import { AutoSubscribeOrWatchStoryService } from '../auto-subscribe-watch-story.service';
+import { AutoSubscribeOrWatchStoryService } from '../../../../../shared/services/auto-subscribe-watch-story.service';
 import { Subject } from 'rxjs';
 import { MassFollowingSettings, Condition } from 'src/app/com/annaniks/lift/core/models/account';
 import { takeUntil } from 'rxjs/operators';

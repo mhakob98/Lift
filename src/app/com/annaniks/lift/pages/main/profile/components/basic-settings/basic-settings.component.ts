@@ -89,8 +89,6 @@ export class BasicSettingsComponent implements OnInit, OnDestroy {
                 })
     }
 
-
-
     public openNotificationModal(): void {
         this._dialog.open(NotificationModal, {
             width: "1200px",

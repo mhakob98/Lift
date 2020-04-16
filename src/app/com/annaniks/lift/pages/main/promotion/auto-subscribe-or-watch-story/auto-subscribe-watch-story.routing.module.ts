@@ -6,7 +6,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { AutoSubscribeOrWatchStoryComponent } from './auto-subscribe-watch-story.component';
 import {
     SubscriptionOrStorySuitableComponent,
-    AudienceFilterComponent,
     AfterSubscriptionComponent
 } from './index';
 
@@ -22,7 +21,6 @@ export class AutoSubscribeOrWatchStoryRoutingModule {
     static components = [
         AutoSubscribeOrWatchStoryComponent,
         SubscriptionOrStorySuitableComponent,
-        AudienceFilterComponent,
         AfterSubscriptionComponent
     ]
 }
