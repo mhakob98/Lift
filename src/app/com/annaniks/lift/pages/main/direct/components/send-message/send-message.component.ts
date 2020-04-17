@@ -1,14 +1,17 @@
-import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewChild, OnDestroy } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { SendMessageTypes } from '../../../../../core/models/direct';
 import { UtilsService } from 'src/app/com/annaniks/lift/core/services/utils.service';
+import { DirectService } from '../../direct.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-send-message',
   templateUrl: './send-message.component.html',
   styleUrls: ['./send-message.component.scss']
 })
-export class SendMessageComponent implements OnInit {
+export class SendMessageComponent implements OnInit, OnDestroy {
   @Output() onTextSend: EventEmitter<string> = new EventEmitter();
   @Output() onFileSend: EventEmitter<any> = new EventEmitter();
   @Input() type: SendMessageTypes;
@@ -16,18 +19,22 @@ export class SendMessageComponent implements OnInit {
   set setText(texts: string[]) {
     if (texts && this.messageForm) {
       this.messageForm.get('message').setValue([...texts])
+      this._texts = texts
     }
   }
   @ViewChild('fileInput', { static: false }) fileInput;
 
   public messageForm: FormGroup;
-
+  private _texts: string[] = []
+  private _unsubscribe: Subject<void> = new Subject<void>();
   constructor(
     private _fb: FormBuilder,
+    private _directService: DirectService
   ) { }
 
   ngOnInit() {
     this._initForm();
+    this._subscribeToDisableInput();
   }
 
   private _initForm(): void {
@@ -37,8 +44,6 @@ export class SendMessageComponent implements OnInit {
   }
 
   public handleInputChange(e): void {
-    console.log("ERa");
-
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
     var pattern = this.type == SendMessageTypes.Direct ? /image.*/ : /text.*/;
     var reader = new FileReader();
@@ -57,7 +62,19 @@ export class SendMessageComponent implements OnInit {
     this.fileInput.nativeElement.value = '';
   }
 
-
+  private _subscribeToDisableInput(): void {
+    this._directService.disableInputState.pipe(
+      takeUntil(this._unsubscribe)
+    ).subscribe((state: boolean) => {
+      if (state) {
+        this.messageForm.get('message').enable();
+        this.messageForm.get('message').reset();
+      } else {
+        this.messageForm.get('message').disable()
+        this.messageForm.get('message').setValue([...this._texts])
+      }
+    })
+  }
 
   private _handleReaderLoaded(e): void {
     this.onFileSend.emit(e.target.result)
@@ -68,5 +85,10 @@ export class SendMessageComponent implements OnInit {
     this.messageForm.get('message').reset();
     console.log(this.messageForm);
 
+  }
+
+  ngOnDestroy() {
+    this._unsubscribe.next();
+    this._unsubscribe.complete();
   }
 } 

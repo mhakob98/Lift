@@ -23,8 +23,17 @@ export enum SendMessageTypes {
 
 export interface NewMailing {
     accountId: number,
-    delay: Date,
+    delay: number,
     sendAfterFollow: boolean,
+    filter: {},
+    messages: string[]
+}
+
+export interface OldMailing {
+    accountId: number,
+    start: Date,
+    duration: number,
+    lastDays: number,
     filter: {},
     messages: string[]
 }
