@@ -28,3 +28,12 @@ export interface NewMailing {
     filter: {},
     messages: string[]
 }
+
+export interface OldMailing {
+    accountId: number,
+    start: Date,
+    duration: number,
+    lastDays: number,
+    filter: {},
+    messages: string[]
+}
