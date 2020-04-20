@@ -1,30 +1,47 @@
-<div *ngIf="bonuses$ | async as bonuses">
-    <app-bonuses-from-lift-item *ngFor="let bonus of bonuses" [bonusInfo]="bonus"></app-bonuses-from-lift-item>
+<div>
+    <!-- <app-bonuses-from-lift-item *ngFor="let bonus of bonuses" [bonusInfo]="bonus"></app-bonuses-from-lift-item> -->
     <section class="bonuses-content">
         <div class="pg-container">
-            <div class="bonuses-container">
+            <div [formGroup]="bonusesForm" class="bonuses-container">
                 <p class="text">Получать активность по тематике <b class="text-info">Красота и здоровье</b></p>
                 <p class="text">На каждый пост</p>
                 <div class="bonus-detailes">
                     <div class="detailes-content">
                         <div class="detailes-item comments-item d-flex align-items-center">
-                            <mat-checkbox></mat-checkbox>
+                            <mat-checkbox formControlName="commentStatus"></mat-checkbox>
                             <p class="title ml-2">Комментарии</p>
                             <div class="form-group ml-2 mt-3">
                                 <div>
-                                    <input class="fild-input form-control text-align-center" id="example-number-input">
+                                    <input formControlName="comment" type="number" [min]="1"
+                                        class="fild-input form-control text-align-center" id="example-number-input">
                                 </div>
                             </div>
                             <p class="ml-2">( От 1 до 30, рекомендовано 25 )</p>
 
                         </div>
                         <div class="d-flex align-items-center add-comments">
-                            <img class="bonuses-icon rounded img-responsive"
+                            <div class="image-upload">
+                                <label for="file-input">
+                                    <img class="bonuses-icon cursor-pointer rounded img-responsive" height="20"
+                                        src="assets/images/bonus-download-icon.png" />
+                                    Загрузить файл с примерами
+                                    <!--  -->
+                                </label>
+                                <input #fileInput (change)="handleInputChange($event)" class="file" id="file-input"
+                                    type="file" />
+                            </div>
+
+                            <img (click)="toggleIsUploaded()"
+                                class="bonuses-icon rounded cursor-pointer img-responsive ml-5"
                                 src="assets/images/bonuses-document-icon.png">
-                            <p class="title ml-2">Добавить шаблон комментариев</p>
-                            <img class="bonuses-icon rounded img-responsive ml-5"
-                                src="assets/images/bonus-download-icon.png">
-                            <p class="title ml-2">Загрузить файл с примерами</p>
+                            <p (click)="toggleIsUploaded()" class="title ml-2 cursor-pointer">Добавить шаблон
+                                комментариев</p>
+
+                        </div>
+                        <div *ngIf="!isUploaded" class="comment-template">
+                            <p class="title">Введите шаблон комментариев</p>
+                            <textarea placeholder="Введите шаблон комментариев разделенные точка запятой
+                            " name="" id="" cols="40" rows="5" formControlName="comments"></textarea>
                         </div>
                     </div>
                 </div>
@@ -32,11 +49,12 @@
                 <div class="bonus-detailes">
                     <div class="detailes-content">
                         <div class="detailes-item d-flex align-items-center">
-                            <mat-checkbox></mat-checkbox>
+                            <mat-checkbox formControlName="likeStatus"></mat-checkbox>
                             <p class="title ml-2">Лайки</p>
                             <div class="form-group ml-2 mt-3">
                                 <div>
-                                    <input class="fild-input form-control text-align-center" id="example-number-input">
+                                    <input formControlName="like" class="fild-input form-control text-align-center"
+                                        type="number" [min]="1" id="example-number-input">
                                 </div>
                             </div>
                             <p class="ml-2">( От 1 до 30, рекомендовано 25 )</p>
@@ -47,11 +65,12 @@
                 <div class="bonus-detailes">
                     <div class="detailes-content">
                         <div class="detailes-item d-flex align-items-center">
-                            <mat-checkbox></mat-checkbox>
+                            <mat-checkbox formControlName="saveStatus"></mat-checkbox>
                             <p class="title ml-2">Закладки</p>
                             <div class="form-group ml-2 mt-3">
                                 <div>
-                                    <input class="fild-input form-control text-align-center" id="example-number-input">
+                                    <input formControlName="save" class="fild-input form-control text-align-center"
+                                        type="number" [min]="1" id="example-number-input">
                                 </div>
                             </div>
                             <p class="ml-2">( От 1 до 30, рекомендовано 25 )</p>
@@ -59,9 +78,9 @@
                         </div>
                     </div>
                 </div>
-
-
-
+                <div class="save-settings">
+                    <button class="save" (click)="addActivity()">Сохранить</button>
+                </div>
             </div>
         </div>
     </section>

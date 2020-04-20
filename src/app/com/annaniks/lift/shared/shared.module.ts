@@ -107,7 +107,7 @@ registerLocaleData(localeRu);
         NgxMatDatetimePickerModule,
         NgxMatTimepickerModule,
         MatDatepickerModule,
-        AudienceFilterComponent
+        AudienceFilterComponent,
     ],
 })
 export class SharedModule { }
