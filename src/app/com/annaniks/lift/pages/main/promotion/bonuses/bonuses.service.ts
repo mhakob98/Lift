@@ -12,11 +12,17 @@ import { BonusSettings } from '../../../../core/models/bonus-settings';
 @Injectable()
 export class BonusesService {
 
-    public fetchAllBonuses$ = this.httpClient.get<ServerResponse<Bonus[]>>('http://dummy.restapiexample.com/api/v1/employees')
-        .pipe(catchError(of))
+    public getBonusesConfig(id: number): Observable<ServerResponse<BonusSettings>> {
+        return this.httpClient.get<ServerResponse<BonusSettings>>(`activity/${id}`)
+    }
 
-    public saveBonusesConfig(settings: BonusSettings): Observable<ServerResponse<EmptyResponse>> {
-        return this.httpClient.post<ServerResponse<EmptyResponse>>('bonuses/save/settings', settings)
+
+    public saveBonusesConfig(settings: BonusSettings): Observable<ServerResponse<BonusSettings>> {
+        return this.httpClient.post<ServerResponse<BonusSettings>>('activity', settings)
+    }
+
+    public uploadTxt(file: FormData): Observable<ServerResponse<string[]>> {
+        return this.httpClient.post<ServerResponse<string[]>>('mailing/parse', file);
     }
 
     constructor(private httpClient: HttpClient) { }

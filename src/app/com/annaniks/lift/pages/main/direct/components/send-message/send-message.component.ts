@@ -1,10 +1,10 @@
 import { Component, OnInit, Output, EventEmitter, Input, ViewChild, OnDestroy } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { SendMessageTypes } from '../../../../../core/models/direct';
-import { UtilsService } from 'src/app/com/annaniks/lift/core/services/utils.service';
-import { DirectService } from '../../direct.service';
+
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { SendMessageTypes } from 'src/app/com/annaniks/lift/core/models/direct';
+import { DirectService } from '../../direct.service';
 
 @Component({
   selector: 'app-send-message',

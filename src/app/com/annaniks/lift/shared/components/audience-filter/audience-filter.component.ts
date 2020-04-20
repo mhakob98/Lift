@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Inject, Injector } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SubSink } from 'subsink'
 import { AutoSubscribeOrWatchStoryService } from '../../services/auto-subscribe-watch-story.service';
@@ -24,16 +24,19 @@ export class AudienceFilterComponent implements OnInit, OnDestroy {
   constructor(
     private _formBuilder: FormBuilder,
     private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService,
-    public dialogRef: MatDialogRef<AudienceFilterComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { showButton: boolean }
-  ) { }
+    // public dialogRef: MatDialogRef<AudienceFilterComponent>,
+    // @Inject(MAT_DIALOG_DATA) public data: { showButton: boolean }
+  ) {
+
+
+  }
 
   ngOnInit() {
     this._initForm()
   }
 
   public closeModal(): void {
-    this.dialogRef.close()
+    // this.dialogRef.close()
   }
 
   private _initForm(): void {

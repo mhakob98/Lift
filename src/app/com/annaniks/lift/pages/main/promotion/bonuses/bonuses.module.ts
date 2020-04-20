@@ -6,7 +6,8 @@ import { CommonModule } from '@angular/common';
 // Our Modules
 import { BonusesRoutingModule } from './bonuses.routing.module';
 import { BonusesService } from './bonuses.service';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { SharedModule } from '../../../../shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -16,6 +17,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
         BonusesRoutingModule,
         CommonModule,
         MatCheckboxModule,
+        SharedModule
     ],
     providers: [
         BonusesService

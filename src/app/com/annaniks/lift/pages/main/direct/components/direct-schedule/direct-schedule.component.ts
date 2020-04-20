@@ -92,7 +92,7 @@ export class DirectScheduleComponent implements OnInit, OnDestroy {
             duration: oldMailing.durationStatus ? oldMailing.duration * 60 : null,
             lastDays: oldMailing.lastDaysStatus ? oldMailing.lastDaysStatus : null,
             filter: oldMailing.applyForSubscribers ? this._autoSubscribeOrWatchStoryService.settings.filter : {},
-            messages: oldMailing.mailingText ? Array(typedMessage) : this.files,
+            messages: oldMailing.mailingText ? typedMessage.split(';') : this.files,
         }
         this._directService.postOldUserMailings(sendingData).pipe(
             finalize(() => this._loadingService.hideLoading()),
@@ -110,7 +110,7 @@ export class DirectScheduleComponent implements OnInit, OnDestroy {
             accountId: this._authService.getAccount().id,
             delay: signatureGroup.delayedSending ? signatureGroup.delayedSendingTime * 60 : null,
             filter: signatureGroup.applyForSubscribers ? this._autoSubscribeOrWatchStoryService.settings.filter : {},
-            messages: signatureGroup.mailingText ? Array(typedMessage) : this.files,
+            messages: signatureGroup.mailingText ? typedMessage.split(';') : this.files,
             sendAfterFollow: signatureGroup.sendAfterSubscription
         }
         this._directService.postNewUserMailings(sendingData).pipe(
