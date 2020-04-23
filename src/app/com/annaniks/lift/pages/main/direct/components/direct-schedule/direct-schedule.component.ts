@@ -138,6 +138,9 @@ export class DirectScheduleComponent implements OnInit, OnDestroy {
         this.tab = tab;
         // this._autoSubscribeOrWatchStoryService.settings.filter;
     }
+
+    public onClickShowCalendar(): void { }
+    
     ngOnDestroy() {
         this._unsubscribe$.next();
         this._unsubscribe$.complete();

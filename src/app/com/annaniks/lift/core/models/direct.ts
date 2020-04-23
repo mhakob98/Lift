@@ -21,6 +21,7 @@ export enum SendMessageTypes {
     Schedule = "schedule"
 }
 
+
 export interface NewMailing {
     accountId: number,
     delay: number,

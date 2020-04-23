@@ -111,7 +111,7 @@ export class DirectComponent implements OnInit, OnDestroy {
       })
   }
 
-  public sendMessage(message: string, type: SendMessageTypes): void {
+  public sendMessage(message: string, type): void {
     if (type == SendMessageTypes.Direct) {
       const writeMessageData: WriteDirectMessageData = {
         thread_id: this.activeChat.thread_id,

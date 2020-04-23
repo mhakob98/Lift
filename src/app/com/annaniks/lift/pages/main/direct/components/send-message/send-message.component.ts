@@ -14,7 +14,7 @@ import { DirectService } from '../../direct.service';
 export class SendMessageComponent implements OnInit, OnDestroy {
   @Output() onTextSend: EventEmitter<string> = new EventEmitter();
   @Output() onFileSend: EventEmitter<any> = new EventEmitter();
-  @Input() type: SendMessageTypes;
+  @Input() type: any;
   @Input('foreignText')
   set setText(texts: string[]) {
     if (texts && this.messageForm) {

@@ -137,7 +137,7 @@
                                 <div *ngIf="activeChatMessages.length == 0" class="no-chat">
                                     <p class="text-center empty-message">У вас пока нет сообщений</p>
                                 </div>
-                                <<<<<<< HEAD <!-- <div class="incoming-msg d-flex align-items-start">
+                                <!-- <div class="incoming-msg d-flex align-items-start">
                                     <div class="incoming-msg-text additional">
                                         <span class="message-body">Проголосуй пожалуйста за мое фото у меня странице
                                             https://www.instagram.com/p/B7o2SXTJtVx/</span>
@@ -217,26 +217,24 @@
                                     <span class="message-date">14:38</span>
                                 </div>
                             </div> -->
-                            =======
-                            >>>>>>> 133f5040c8cf98db0b860d3d166a2aa757e6f7f0
+                            </div>
                         </div>
                     </div>
+                    <div class="mesgs_tab" *ngIf="activeTab==4">
+                        <app-direct-schedule [files]="files"></app-direct-schedule>
+                    </div>
+                    <div class="mesgs_tab" *ngIf="activeTab==3 || activeTab==2">
+                        <app-direct-sent [texts]="activeMailingTexts"></app-direct-sent>
+                    </div>
+                    <ng-container [ngSwitch]="activeTab">
+                        <app-send-message *ngSwitchCase="1" [type]="'direct'" (onFileSend)="handleFileSend($event)"
+                            (onTextSend)="sendMessage($event,'direct')">
+                        </app-send-message>
+                        <app-send-message [foreignText]="files" *ngSwitchCase="4" [type]="'schedule'"
+                            (onFileSend)="handleFileSend($event)" (onTextSend)="sendMessage($event,'schedule')">
+                        </app-send-message>
+                    </ng-container>
                 </div>
-                <div class="mesgs_tab" *ngIf="activeTab==4">
-                    <app-direct-schedule [files]="files"></app-direct-schedule>
-                </div>
-                <div class="mesgs_tab" *ngIf="activeTab==3 || activeTab==2">
-                    <app-direct-sent [texts]="activeMailingTexts"></app-direct-sent>
-                </div>
-                <ng-container [ngSwitch]="activeTab">
-                    <app-send-message *ngSwitchCase="1" [type]="'direct'" (onFileSend)="handleFileSend($event)"
-                        (onTextSend)="sendMessage($event,'direct')">
-                    </app-send-message>
-                    <app-send-message [foreignText]="files" *ngSwitchCase="4" [type]="'schedule'"
-                        (onFileSend)="handleFileSend($event)" (onTextSend)="sendMessage($event,'schedule')">
-                    </app-send-message>
-                </ng-container>
             </div>
         </div>
     </div>
-</div>

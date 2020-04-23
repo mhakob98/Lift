@@ -110,10 +110,10 @@
                     <p class="title d-flex align-items-center">Лучшие посты за последний месяц
                         <img src="assets/icons/arr_down_blue.png"
                             class="rounded img-responsive  cursor-pointer ml-2 down-image cursor-poiner" *ngIf="slide1"
-                            (click)="closeSlider('1')">
+                            (click)="closeSlider(1)">
                         <img src="assets/icons/arrow_up.png"
                             class="rounded img-responsive  cursor-pointer ml-2 down-image cursor-poiner" *ngIf="!slide1"
-                            (click)="closeSlider('1')">
+                            (click)="closeSlider(1)">
                     </p>
                     <ngx-slick-carousel class="carousel-row mb-3" #slickModal="slick-carousel" [config]="slideConfig"
                         *ngIf="slide1">
