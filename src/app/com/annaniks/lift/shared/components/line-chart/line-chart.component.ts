@@ -8,13 +8,16 @@ import { Chart } from 'chart.js';
 export class LineChartComponent implements OnInit, AfterViewInit {
 
   @Input()
-  data: Date[]
-  @Input()
   size: { width: string, height: string } = { width: '100%', height: '111px' }
   @Input()
   customId: string
   @Input()
   big: boolean = false;
+  @Input()
+  labels: string[] = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "MAY", "JUN", "JUL"];
+  @Input()
+  data: number[] = [5, 12, 10, 5, 15, 10, 20, 30, 40, 50];
+
   constructor() { }
 
   ngOnInit() {
@@ -29,10 +32,10 @@ export class LineChartComponent implements OnInit, AfterViewInit {
     var myLineChart = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "MAY", "JUN", "JUL"],
+        labels: this.labels,
 
         datasets: [{
-          data: [5, 12, 10, 5, 15, 10, 20, 30, 40, 50],
+          data: this.data,
           label: "Data",
           borderColor: "#3399cc",
           pointRadius: 0,

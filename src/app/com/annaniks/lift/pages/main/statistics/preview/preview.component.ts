@@ -1,26 +1,27 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { PreviewService } from './preview.service';
-import { catchError, map, filter, tap } from 'rxjs/operators';
-import { of, combineLatest } from 'rxjs';
-import { Preview } from '../../../../core/models/statistics-preview';
-
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { StatisticsService } from '../statistics.service';
+import { StatisticsData, Statistic, PostStatistic } from '../../../../core/models/statistics';
+import { Subject, forkJoin, Observable } from 'rxjs';
+import { takeUntil, map } from 'rxjs/operators';
+import { AuthService } from '../../../../core/services/auth.service';
+import { getDate } from 'date-fns';
 
 @Component({
   selector: 'app-preview',
   templateUrl: './preview.component.html',
   styleUrls: ['./preview.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PreviewComponent implements OnInit {
-  public card = [
-    { image: "assets/images/previw_card_icon.png", value: "80252", title: "подписчики", chart: "preview-subscribers" },
-    { image: "assets/images/preview_card_like_icon.png", value: "80252", title: "Лайки", chart: "preview-likes" }]
-  public action = [
-    { image: "assets/images/action_posts.png", title: "Посты", value: "152", date: "2 сегодня" },
-    { image: "assets/images/action_bookmark.png", title: "Закладки", value: "128", date: "0 сегодня" },
-    { image: "assets/images/action_comments.png", title: "Комментарии", value: "389", date: "+55 сегодня" },
-    { image: "assets/images/action_subscribe.png", title: "Подписки", value: "410", date: "-124 сегодня" }
-  ]
+export class PreviewComponent implements OnInit, OnDestroy {
+  private _unsubscribe$: Subject<void> = new Subject<void>();
+  public statistics: Statistic[] = [];
+  public postsCount: number = 0;
+  public followingsCount: number = 0;
+  public followersCount: number = 0;
+  public commentsCount: number = 0;
+  public todayPostsCount: number = 0;
+  public likesCount: number = 0;
+  public postStatistics: PostStatistic[] = [];
+
   public slider = [
     {},
     {},
@@ -64,40 +65,100 @@ export class PreviewComponent implements OnInit {
     ]
   }
 
-  private _preview$ = this._previewService.preview$
-    .pipe(catchError(of))
+  constructor(
+    private _statisticsServcie: StatisticsService,
+    private _authService: AuthService
+  ) { }
 
-  private _bestPostsForLastMonth$ = this._preview$.pipe(
-    map((p: Preview) => p ? p.bestPostsForLastMonth : null)
-  )
+  ngOnInit() {
+    this._getPreviewData();
+  }
 
-  private _mailingsForLastMonth$ = this._preview$.pipe(
-    map((p: Preview) => p ? p.mailingsForLastMonth : null)
-  )
+  private _getPreviewData(): void {
+    const { id } = this._authService.getAccount();
+    const endDate = new Date();
 
-  // TODO: Use async pipe to use this stream
-  // It will automaticly subscribe and unsubscribe
-  public vm$ = combineLatest(
-    [this._preview$,
-    this._bestPostsForLastMonth$,
-    this._mailingsForLastMonth$])
-    .pipe(
-      filter(([preview]) => !!preview),
-      map(([preview, bestPostsForLastMonth, mailingsForLastMonth]) =>
-        ({ preview, bestPostsForLastMonth, mailingsForLastMonth }))
+    const startDate = new Date(new Date().setMonth(endDate.getMonth() - 1))
+
+    const allStatisticsData: StatisticsData = {
+      accountId: id,
+      startDate: startDate,
+      endDate: endDate
+    }
+    const joined = forkJoin(
+      this._getAllStatistics(allStatisticsData),
+      this._getLikesAndComments(allStatisticsData),
+      this._getStatisticsPosts(allStatisticsData)
     )
+    joined
+      .pipe(takeUntil(this._unsubscribe$))
+      .subscribe()
 
-  constructor(private _previewService: PreviewService) { }
+  }
 
-  ngOnInit() { }
+  private _getAllStatistics(allStatisticsData: StatisticsData): Observable<void> {
+    return this._statisticsServcie.getAllStatistics(allStatisticsData)
+      .pipe(
+        takeUntil(this._unsubscribe$),
+        map((data) => {
+          const statistics: Statistic[] = data.data;
+          const { value, todayCount } = this._countStatistics('postsCount', statistics);
+          this.postsCount = value;
+          this.todayPostsCount = todayCount;
+          this.followingsCount = this._countStatistics('followings', statistics).value;
+          this.followersCount = this._countStatistics('followers', statistics).value;
+        })
+      )
+  }
 
-  public closeSlider(tab): void {
+  private _getLikesAndComments(allStatisticsData: StatisticsData): Observable<void> {
+    return this._statisticsServcie.getStatisticsLikesComments(allStatisticsData)
+      .pipe(
+        takeUntil(this._unsubscribe$),
+        map((data) => {
+          const statistics = data.data;
+          this.commentsCount = this._countStatistics('comment', statistics).value;
+          this.likesCount = this._countStatistics('like', statistics).value;
+        })
+      )
+  }
+
+  private _getStatisticsPosts(statisticsData: StatisticsData): Observable<void> {
+    return this._statisticsServcie.getStatisticsPosts(statisticsData)
+      .pipe(
+        map((data) => {
+          const statistics = data.data;
+          console.log(statistics);
+          this.postStatistics = data.data;
+        })
+      )
+  }
+
+  public closeSlider(tab: number): void {
     if (tab == 1) {
-      this.slide1 =! this.slide1;
+      this.slide1 = !this.slide1;
     }
-    else if(tab==2){
-      this.slide2 =! this.slide2;
+    else if (tab == 2) {
+      this.slide2 = !this.slide2;
     }
+  }
+
+  private _countStatistics(key: string, array: any[]): { value: number, todayCount: number } {
+    const today = new Date();
+    let value: number = 0;
+    let todayCount: number = 0
+    array.map((element, index) => {
+      value += element[key];
+      if (element.day === today.getDate() - 1) {
+        todayCount += element[key];
+      }
+    })
+    return { value, todayCount };
+  }
+
+  ngOnDestroy() {
+    this._unsubscribe$.next();
+    this._unsubscribe$.complete();
   }
 
 }

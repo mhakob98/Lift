@@ -1,99 +1,152 @@
-<div *ngIf="vm$ | async as vm">
+<div>
     <section class="preview-content">
         <div class="pg-container">
-        <app-user-details></app-user-details>
+            <app-user-details></app-user-details>
         </div>
         <div class="preview-container">
-        <!--statistic card-->
-        <div class="statistics">
-            <div class="pg-container statistic-content">
-                <div class="statistic-card d-flex flex-wrap">
-                    <div class="card-item" *ngFor="let item of card">
+            <div class="statistics">
+                <div class="pg-container statistic-content">
+                    <div class="statistic-card d-flex flex-wrap">
+                        <div class="card-item">
+                            <div class="card">
+                                <div class="card-description">
+                                    <div class="card-top-content d-flex align-items-center">
+                                        <img src="/assets/images/previw_card_icon.png"
+                                            class="rounded img-responsive card-image">
+                                        <div class="card-subscription">
+                                            <p class="text">Подписчики</p>
+                                            <p class="text value">{{followersCount}}</p>
+                                        </div>
+                                        <div class="card-progress text-center">
+                                            <p class="progress-text">+{{todayPostsCount}} сегодня
+                                                <img src="assets/images/preview_up_icon.png"
+                                                    class="rounded img-responsive">
+                                            </p>
+                                            <!-- <p class="progress-text">Прогресс <b class="progress-value">0.3%</b> </p> -->
+                                        </div>
+                                    </div>
+                                    <div class="card-chart">
+                                        <app-line-chart customId="1"></app-line-chart>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-item">
+                            <div class="card">
+                                <div class="card-description">
+                                    <div class="card-top-content d-flex align-items-center">
+                                        <img src="/assets/images/preview_card_like_icon.png"
+                                            class="rounded img-responsive card-image">
+                                        <div class="card-subscription">
+                                            <p class="text">Лайки</p>
+                                            <p class="text value">{{likesCount}}</p>
+                                        </div>
+                                        <div class="card-progress text-center">
+                                            <p class="progress-text">+23 сегодня
+                                                <img src="assets/images/preview_up_icon.png"
+                                                    class="rounded img-responsive">
+                                            </p>
+                                            <p class="progress-text">Прогресс <b class="progress-value">0.3%</b> </p>
+                                        </div>
+                                    </div>
+                                    <div class="card-chart">
+                                        <app-line-chart customId="2"></app-line-chart>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--action-->
+            <div class="pg-container action">
+                <div class="action-cards d-flex flex-wrap">
+                    <div class="acton-item">
                         <div class="card">
-                            <div class="card-description">
-                                <div class="card-top-content d-flex align-items-center">
-                                    <img src="{{item.image}}" class="rounded img-responsive card-image">
-                                    <div class="card-subscription">
-                                        <p class="text">{{item.title}}</p>
-                                        <p class="text value">{{item.value}}</p>
-                                    </div>
-
-                                    <div class="card-progress text-center">
-                                        <p class="progress-text">+23 сегодня
-                                            <img src="assets/images/preview_up_icon.png" class="rounded img-responsive">
-                                        </p>
-                                        <p class="progress-text">Прогресс <b class="progress-value">0.3%</b> </p>
-                                    </div>
-                                </div>
-                                <div class="card-chart">
-                                    <app-line-chart customId="{{item.chart}}"></app-line-chart>
+                            <div class="card-description d-flex">
+                                <img src="assets/images/action_posts.png" class="rounded img-responsive action-image">
+                                <div class="action-description">
+                                    <p class="text">Посты</p>
+                                    <p class="text value">{{postsCount}}</p>
+                                    <p class="text"> <img src="assets/images/preview_up_icon.png"
+                                            class="rounded img-responsive action-icon  ml-3">+{{todayPostsCount}} сегодня </p>
                                 </div>
                             </div>
-
+                        </div>
+                    </div>
+                    <div class="acton-item">
+                        <div class="card">
+                            <div class="card-description d-flex">
+                                <img src="assets/images/action_comments.png"
+                                    class="rounded img-responsive action-image">
+                                <div class="action-description">
+                                    <p class="text">Комментарии</p>
+                                    <p class="text value">{{commentsCount}}</p>
+                                    <p class="text"><img src="assets/images/preview_up_icon.png"
+                                            class="rounded img-responsive action-icon  ml-3"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="acton-item">
+                        <div class="card">
+                            <div class="card-description d-flex">
+                                <img src="assets/images/action_subscribe.png"
+                                    class="rounded img-responsive action-image">
+                                <div class="action-description">
+                                    <p class="text">Подписки</p>
+                                    <p class="text value">{{followingsCount}}</p>
+                                    <p class="text"> <img src="assets/images/preview_up_icon.png"
+                                            class="rounded img-responsive action-icon  ml-3"></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!--action-->
-        <div class="pg-container action">
-            <div class="action-cards d-flex flex-wrap">
-                <div class="acton-item" *ngFor="let item of action">
-                    <div class="card">
-                        <div class="card-description d-flex">
-                            <img src="assets/images/action_subscribe.png" class="rounded img-responsive action-image">
-                            <div class="action-description">
-                                <p class="text">{{item.title}}</p>
-                                <p class="text value">{{item.value}}</p>
-                                <p class="text"> {{item.date}} <img src="assets/images/preview_down_icon.png"
-                                        class="rounded img-responsive action-icon  ml-3"></p>
+            <!--slider-->
+            <div class="post-slider">
+                <div class="pg-container slider-content">
+                    <p class="title d-flex align-items-center">Лучшие посты за последний месяц
+                        <img src="assets/icons/arr_down_blue.png"
+                            class="rounded img-responsive  cursor-pointer ml-2 down-image cursor-poiner" *ngIf="slide1"
+                            (click)="closeSlider('1')">
+                        <img src="assets/icons/arrow_up.png"
+                            class="rounded img-responsive  cursor-pointer ml-2 down-image cursor-poiner" *ngIf="!slide1"
+                            (click)="closeSlider('1')">
+                    </p>
+                    <ngx-slick-carousel class="carousel-row mb-3" #slickModal="slick-carousel" [config]="slideConfig"
+                        *ngIf="slide1">
+                        <div ngxSlickItem class="post-item slider-item" *ngFor="let item of postStatistics">
+                            <div class="slider-description d-flex flex-wrap">
+                                <img [src]="item?.thumbnail" class="rounded img-responsive post-image">
+                                <div class="posts d-flex flex-column justify-content-between">
+                                    <div>
+                                        <p class="text-date">{{item?.createdAt | date:'dd:MM:yyyy'}} </p>
+                                        <p class="text post-caption">{{item?.caption}}</p>
+                                    </div>
+                                    <div class="post-review d-flex align-items-center">
+                                        <img class="rounded img-responsive review-icon mr-1"
+                                            src="assets/images/like.png ">
+                                        <p class="value">{{item?.like}}</p>
+                                        <img class="rounded img-responsive review-icon ml-1 mr-1"
+                                            src="assets/images/chat.png ">
+                                        <p class="value">{{item?.comment}}</p>
+                                        <!-- <img class="rounded img-responsive review-icon ml-1 mr-1"
+                                            src="assets/images/bookmark.png">
+                                        <p class="value">718</p> -->
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </ngx-slick-carousel>
+
                 </div>
             </div>
-        </div>
-        <!--slider-->
-        <div class="post-slider">
-        <div class="pg-container slider-content">
-            <p class="title d-flex align-items-center">Лучшие посты за последний месяц
-                <img src="assets/icons/arr_down_blue.png"
-                    class="rounded img-responsive  cursor-pointer ml-2 down-image cursor-poiner" *ngIf="slide1"
-                    (click)="closeSlider('1')">
-                <img src="assets/icons/arrow_up.png"
-                    class="rounded img-responsive  cursor-pointer ml-2 down-image cursor-poiner" *ngIf="!slide1"
-                    (click)="closeSlider('1')">
-            </p>
-            <ngx-slick-carousel class="carousel-row mb-3" #slickModal="slick-carousel" [config]="slideConfig"
-                *ngIf="slide1">
-                <div ngxSlickItem class="post-item slider-item" *ngFor="let item of slider">
-                    <div class="slider-description d-flex flex-wrap">
-                        <img src="assets/images/post1.png" class="rounded img-responsive post-image">
-                        <div class="posts d-flex flex-column justify-content-between">
-                            <div>
-                                <p class="text-date">14 Декабря </p>
-                                <p class="text">Utah Dream World </p>
-                            </div>
-                            <div class="post-review d-flex align-items-center">
-                                <img class="rounded img-responsive review-icon mr-1" src="assets/images/like.png ">
-                                <p class="value">12588</p>
-                                <img class="rounded img-responsive review-icon ml-1 mr-1" src="assets/images/chat.png ">
-                                <p class="value">126</p>
-                                <img class="rounded img-responsive review-icon ml-1 mr-1"
-                                    src="assets/images/bookmark.png">
-                                <p class="value">718</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </ngx-slick-carousel>
-
-        </div>
-        </div>
 
 
-        <!--slider two-->
-
+            <!--slider two-->
+            <!-- 
         <div class="pg-container slider-content">
             <p class="title d-flex align-items-center">Рассылки за последний месяц
                 <img src="assets/icons/arr_down_blue.png"
@@ -123,104 +176,105 @@
                 </div>
             </ngx-slick-carousel>
             <p class="title title-respons d-none">Автопродвижение</p>
-        </div>
-      
-        <!--settings-->
-        <div class="settings">
-            <div class="pg-container settings-details d-flex flex-wrap">
-                <div class="settings-item">
-                    <div class="settings-item-content">
-                        <div class="seting-item-top-content d-flex justify-content-between align-items-center">
-                            <p class="title">Автопродвижение</p>
-                            <p class="text">Изменить настройки <img class="rounded img-responsive ml-3"
-                                    src="assets/images/action_str.png"></p>
-                        </div>
-                        <div class="setting-item-main">
-                            <p class="text">Ваш тариф:</p>
-                            <p class="main-title"> Персональный <img class="rounded img-responsive ml-3 controles-image"
-                                    src="assets/images/controls.png"></p>
-                            <div class="main-content d-flex flex-wrap">
-                                <div class="main-item">
+        </div> -->
 
-                                    <div class="d-flex align-items-center">
-                                        <img class="rounded img-responsive rate-item-image"
-                                            src="assets/images/check.png">
-                                        <p class="item-text ml-3">Расширеная статистика</p>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <img class="rounded img-responsive rate-item-image"
-                                            src="assets/images/check.png">
-                                        <p class="item-text ml-3">Подписки по хештэгам
-                                        </p>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <img class="rounded img-responsive rate-item-image"
-                                            src="assets/images/check.png">
-                                        <p class="item-text ml-3">Подписки по регионам</p>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <img class="rounded img-responsive rate-item-image"
-                                            src="assets/images/check.png">
-                                        <p class="item-text ml-3">Подписки по спискам</p>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <img class="rounded img-responsive rate-item-image"
-                                            src="assets/images/check.png">
-                                        <p class="item-text ml-3">Отписка по параметрам</p>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <img class="rounded img-responsive rate-item-image"
-                                            src="assets/images/check.png">
-                                        <p class="item-text ml-3">Автопостинг</p>
-                                    </div>
-                                </div>
+            <!--settings-->
+            <div class="settings">
+                <div class="pg-container settings-details d-flex flex-wrap">
+                    <div class="settings-item">
+                        <div class="settings-item-content">
+                            <div class="seting-item-top-content d-flex justify-content-between align-items-center">
+                                <p class="title">Автопродвижение</p>
+                                <p class="text">Изменить настройки <img class="rounded img-responsive ml-3"
+                                        src="assets/images/action_str.png"></p>
+                            </div>
+                            <div class="setting-item-main">
+                                <p class="text">Ваш тариф:</p>
+                                <p class="main-title"> Персональный <img
+                                        class="rounded img-responsive ml-3 controles-image"
+                                        src="assets/images/controls.png"></p>
+                                <div class="main-content d-flex flex-wrap">
+                                    <div class="main-item">
 
-                                <div class="main-item">
-                                    <div class="d-flex align-items-center">
-                                        <img class="rounded img-responsive rate-item-image"
-                                            src="assets/images/check.png">
-                                        <p class="item-text ml-3">Просмотр Stories
-                                        </p>
+                                        <div class="d-flex align-items-center">
+                                            <img class="rounded img-responsive rate-item-image"
+                                                src="assets/images/check.png">
+                                            <p class="item-text ml-3">Расширеная статистика</p>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <img class="rounded img-responsive rate-item-image"
+                                                src="assets/images/check.png">
+                                            <p class="item-text ml-3">Подписки по хештэгам
+                                            </p>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <img class="rounded img-responsive rate-item-image"
+                                                src="assets/images/check.png">
+                                            <p class="item-text ml-3">Подписки по регионам</p>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <img class="rounded img-responsive rate-item-image"
+                                                src="assets/images/check.png">
+                                            <p class="item-text ml-3">Подписки по спискам</p>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <img class="rounded img-responsive rate-item-image"
+                                                src="assets/images/check.png">
+                                            <p class="item-text ml-3">Отписка по параметрам</p>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <img class="rounded img-responsive rate-item-image"
+                                                src="assets/images/check.png">
+                                            <p class="item-text ml-3">Автопостинг</p>
+                                        </div>
                                     </div>
-                                    <div class="d-flex align-items-center">
-                                        <img class="rounded img-responsive rate-item-image"
-                                            src="assets/images/check.png">
-                                        <p class="item-text ml-3">Комментирование</p>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <img class="rounded img-responsive rate-item-image"
-                                            src="assets/images/check.png">
-                                        <p class="item-text ml-3">Управление закладками</p>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                        <img class="rounded img-responsive rate-item-image"
-                                            src="assets/images/check.png">
-                                        <p class="item-text ml-3">Управление рассылками</p>
+
+                                    <div class="main-item">
+                                        <div class="d-flex align-items-center">
+                                            <img class="rounded img-responsive rate-item-image"
+                                                src="assets/images/check.png">
+                                            <p class="item-text ml-3">Просмотр Stories
+                                            </p>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <img class="rounded img-responsive rate-item-image"
+                                                src="assets/images/check.png">
+                                            <p class="item-text ml-3">Комментирование</p>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <img class="rounded img-responsive rate-item-image"
+                                                src="assets/images/check.png">
+                                            <p class="item-text ml-3">Управление закладками</p>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <img class="rounded img-responsive rate-item-image"
+                                                src="assets/images/check.png">
+                                            <p class="item-text ml-3">Управление рассылками</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="mat-toggle d-flex flex-wrap">
-                            <mat-slide-toggle class="slide-toggle w-50">
-                                <p>Автоподписка</p>
-                            </mat-slide-toggle>
-                            <mat-slide-toggle class="slide-toggle w-50">
-                                <p>Бонусы от LIFT</p>
-                            </mat-slide-toggle>
-                            <mat-slide-toggle class="slide-toggle w-50">
-                                <p>Просмотр Stories</p>
-                            </mat-slide-toggle>
+                            <div class="mat-toggle d-flex flex-wrap">
+                                <mat-slide-toggle class="slide-toggle w-50">
+                                    <p>Автоподписка</p>
+                                </mat-slide-toggle>
+                                <mat-slide-toggle class="slide-toggle w-50">
+                                    <p>Бонусы от LIFT</p>
+                                </mat-slide-toggle>
+                                <mat-slide-toggle class="slide-toggle w-50">
+                                    <p>Просмотр Stories</p>
+                                </mat-slide-toggle>
 
-                        </div>
-                        <div class="change-content align-items-center  mt-3 d-none">
-                            <p class="text">Изменить настройки
-                                <img class="rounded img-responsive ml-3" src="assets/images/action_str.png">
-                            </p>
+                            </div>
+                            <div class="change-content align-items-center  mt-3 d-none">
+                                <p class="text">Изменить настройки
+                                    <img class="rounded img-responsive ml-3" src="assets/images/action_str.png">
+                                </p>
 
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="settings-item">
+                    <!-- <div class="settings-item">
                     <div class="settings-item-content">
                         <div class="seting-item-top-content d-flex justify-content-between align-items-center">
                             <p class="title">Календарь</p>
@@ -278,11 +332,11 @@
                     </button>
                     <p class="text">Управление календаром
                         <img class="rounded img-responsive ml-3" src="assets/images/action_str.png"></p>
+                </div> -->
                 </div>
             </div>
-        </div>
-        <!--direct-->
-        <div class="pg-container direc">
+            <!--direct-->
+            <!-- <div class="pg-container direc">
                 <p class="title">Директ - последние события</p>
                 <div class="direc-content">
                     <div class="answer-content d-flex flex-wrap">
@@ -316,7 +370,7 @@
                             src="assets/images/direc-image2.png">
                     </div>
             </div>
+        </div> -->
         </div>
-    </div>
     </section>
 </div>

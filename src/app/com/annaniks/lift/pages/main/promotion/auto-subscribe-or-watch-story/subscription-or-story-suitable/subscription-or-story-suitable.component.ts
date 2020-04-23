@@ -68,6 +68,17 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
       maximumPerHour: [10],
       publicationTimeLimit: [false]
     })
+    this.suitableSubsOrStoryForm.get('maximumPerDay').valueChanges
+      .pipe(takeUntil(this._unsubscribe$))
+      .subscribe((data) => {
+        this._autoSubscribeOrWatchStoryService.settings.subscribesPerDay = Number(data);
+
+      })
+    this.suitableSubsOrStoryForm.get('maximumPerHour').valueChanges
+      .pipe(takeUntil(this._unsubscribe$))
+      .subscribe((data) => {
+        this._autoSubscribeOrWatchStoryService.settings.subscribesPerHour = Number(data);
+      })
   }
 
   public onChange($event, control: AbstractControl, time: string): void {

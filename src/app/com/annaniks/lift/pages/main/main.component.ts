@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MainService } from './main.service';
-import { Subject, Observable } from 'rxjs';
-import { takeUntil, map } from 'rxjs/operators';
+import { Subject, Observable, of } from 'rxjs';
+import { takeUntil, map, switchMap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { AccountConnectionModal } from '../../core/modals';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { User } from '../../core/models/user';
 
 @Component({
@@ -52,15 +52,20 @@ export class MainComponent implements OnInit, OnDestroy {
       data: accountData
     })
     dialofRef.afterClosed()
-      .pipe(takeUntil(this._unsubscribe$))
-      .subscribe((data: { isAccountConnected: boolean }) => {
-        if (data && data.isAccountConnected) {
-          this._getUser().subscribe();
-        }
-        else if (!this._user || (this._user.instagramAccounts && this._user.instagramAccounts.length == 0)) {
-          this._router.navigate(['/auth/login'])
-        }
-      })
+      .pipe(
+        takeUntil(this._unsubscribe$),
+        switchMap((data) => {
+          if (data && data.isAccountConnected) {
+            return this._getUser();
+          }
+          else if (!this._user || (this._user.instagramAccounts && this._user.instagramAccounts.length == 0)) {
+            this._router.navigate(['/auth/login'])
+            return of();
+          }
+          return of();
+        })
+      )
+      .subscribe()
   }
 
   private _getUser(): Observable<User> {

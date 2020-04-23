@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 // Our Modules
 import { StatisticsRoutingModule } from './statistics.routing.module';
 import { SharedModule } from '../../../shared/shared.module';
+import { StatisticsService } from './statistics.service';
 
 
 @NgModule({
@@ -16,6 +17,9 @@ import { SharedModule } from '../../../shared/shared.module';
         CommonModule,
         StatisticsRoutingModule,
         SharedModule
+    ],
+    providers: [
+        StatisticsService
     ],
     exports: []
 })
