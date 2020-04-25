@@ -26,6 +26,11 @@ export class PreviewComponent implements OnInit, OnDestroy {
   public followersChartData: LineChartData[] = [];
   public likesChartLabels: string[] = [];
   public likesChartData: LineChartData[] = [];
+  public currentStatistic = {
+    posts: 0,
+    followers: 0,
+    followings: 0
+  }
 
   public loading: boolean = false;
 
@@ -123,6 +128,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
           this.postsCount = this._countStatistics('postsCount', statistics);
           this.followingsCount = this._countStatistics('followings', statistics);
           this.followersCount = this._countStatistics('followers', statistics);
+
         })
       )
   }
@@ -165,17 +171,31 @@ export class PreviewComponent implements OnInit, OnDestroy {
       )
   }
 
-  private _countStatistics(key: string, array: any[]): { value: number, todayCount: number } {
-    const today = new Date();
+  private _countStatistics(key: string, array: any[]): StatisticValue {
     let value: number = 0;
-    let todayCount: number = 0
+    let todayCount: number = 0;
+    let icon: string;
     array.map((element, index) => {
       value += element[key];
-      if (element.day === today.getDate() - 1) {
-        todayCount += element[key];
-      }
     })
-    return { value, todayCount };
+    if (array && array.length && array.length >= 1) {
+      let lastDay = array[array.length - 1];
+      let beforYesterday;
+      try {
+        beforYesterday = array[array.length - 2];
+        todayCount = beforYesterday[key] - lastDay[key];
+      } catch (error) {
+        todayCount = lastDay[key];
+      }
+    }
+    if (todayCount >= 0) {
+      icon = 'assets/images/preview_up_icon.png'
+    }
+    else {
+      icon = 'assets/images/preview_down_icon.png'
+    }
+    return { value, todayCount, icon };
+
   }
 
   ngOnDestroy() {

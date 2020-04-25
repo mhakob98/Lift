@@ -16,7 +16,7 @@ export class LineChartComponent implements OnInit, AfterViewInit {
   @Input()
   big: boolean = false;
   @Input()
-  labels: string[] = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "MAY", "JUN", "JUL"];
+  labels: string[] = [];
   @Input()
   set dataSets($event) {
     const dataSets: LineChartData[] = $event;

@@ -18,9 +18,8 @@
                                             <p class="text value">{{followersCount?.value}}</p>
                                         </div>
                                         <div class="card-progress text-center">
-                                            <p class="progress-text">+{{followersCount?.todayCount}} сегодня
-                                                <img src="assets/images/preview_up_icon.png"
-                                                    class="rounded img-responsive">
+                                            <p class="progress-text">{{followersCount?.todayCount}} сегодня
+                                                <img [src]="followersCount.icon" class="rounded img-responsive">
                                             </p>
                                             <!-- <p class="progress-text">Прогресс <b class="progress-value">0.3%</b> </p> -->
                                         </div>
@@ -44,9 +43,8 @@
                                             <p class="text value">{{likesCount?.value}}</p>
                                         </div>
                                         <div class="card-progress text-center">
-                                            <p class="progress-text">+{{likesCount?.todayCount}} сегодня
-                                                <img src="assets/images/preview_up_icon.png"
-                                                    class="rounded img-responsive">
+                                            <p class="progress-text">{{likesCount?.todayCount}} сегодня
+                                                <img [src]="likesCount.icon" class="rounded img-responsive">
                                             </p>
                                             <!-- <p class="progress-text">Прогресс <b class="progress-value">0.3%</b> </p> -->
                                         </div>
@@ -72,8 +70,8 @@
                                 <div class="action-description">
                                     <p class="text">Посты</p>
                                     <p class="text value">{{postsCount?.value}}</p>
-                                    <p class="text"> <img src="assets/images/preview_up_icon.png"
-                                            class="rounded img-responsive action-icon  ml-3">+{{postsCount?.todayCount}}
+                                    <p class="text"> <img [src]="postsCount?.icon"
+                                            class="rounded img-responsive action-icon  ml-3">{{postsCount?.todayCount}}
                                         сегодня </p>
                                 </div>
                             </div>
@@ -86,10 +84,10 @@
                                     class="rounded img-responsive action-image">
                                 <div class="action-description">
                                     <p class="text">Комментарии</p>
-                                    <p class="text value">{{postsCount?.value}}</p>
-                                    <p class="text"><img src="assets/images/preview_up_icon.png"
-                                            class="rounded img-responsive action-icon  ml-3">+
-                                        {{postsCount?.todayCount}} сегодня</p>
+                                    <p class="text value">{{commentsCount?.value}}</p>
+                                    <p class="text"><img [src]="commentsCount?.icon"
+                                            class="rounded img-responsive action-icon  ml-3">
+                                        {{commentsCount?.todayCount}} сегодня</p>
                                 </div>
                             </div>
                         </div>
@@ -102,8 +100,8 @@
                                 <div class="action-description">
                                     <p class="text">Подписки</p>
                                     <p class="text value">{{followingsCount?.value}}</p>
-                                    <p class="text"> <img src="assets/images/preview_up_icon.png"
-                                            class="rounded img-responsive action-icon  ml-3">+
+                                    <p class="text"> <img [src]="followingsCount?.icon"
+                                            class="rounded img-responsive action-icon  ml-3">
                                         {{followingsCount?.todayCount}} сегодня</p>
                                 </div>
                             </div>

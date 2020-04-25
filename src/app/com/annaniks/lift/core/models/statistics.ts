@@ -38,6 +38,7 @@ export interface PostStatistic {
 export interface StatisticValue {
     value: number;
     todayCount: number;
+    icon: string;
 }
 
 export interface LineChartData {

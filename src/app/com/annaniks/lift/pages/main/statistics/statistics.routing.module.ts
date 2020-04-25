@@ -19,19 +19,19 @@ const statisticsRoutes: Routes = [
                 path: 'subscribers',
                 loadChildren: () => import('./subscribes-posts/subscribes-posts.module')
                     .then(m => m.SubscribesPostsModule),
-                data: { type: 'subscribers' }
+                data: { type: 'subscribers', showDataKey: 'followers', label: 'Followers' }
             },
             {
                 path: 'my-subscribes',
                 loadChildren: () => import('./subscribes-posts/subscribes-posts.module')
                     .then(m => m.SubscribesPostsModule),
-                data: { type: 'my-subscribes' }
+                data: { type: 'my-subscribes', showDataKey: 'followings', label: 'Followings' }
             },
             {
                 path: 'posts',
                 loadChildren: () => import('./subscribes-posts/subscribes-posts.module')
                     .then(m => m.SubscribesPostsModule),
-                data: { type: 'posts' }
+                data: { type: 'posts', showDataKey: 'postsCount', label: 'Posts' }
             },
             {
                 path: 'likes',

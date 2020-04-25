@@ -30,9 +30,9 @@
         </div>
 
         <!-- STATISTIC BY DAY -->
-        <h4 class="statistic-by-day-heading">Статистика по дням</h4>
+        <h4 class="statistic-by-day-heading" *ngIf="type=='posts'">Статистика по дням</h4>
 
-        <table class="table table-image sp-table">
+        <table class="table table-image sp-table" *ngIf="type=='posts'">
             <thead>
                 <tr>
                     <th scope="col">Пост</th>
