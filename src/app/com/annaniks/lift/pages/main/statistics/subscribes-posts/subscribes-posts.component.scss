@@ -30,8 +30,6 @@
           margin-left: 10px;
         }
       }
-
-
     }
 
     .post-statistic-sources {
@@ -136,15 +134,15 @@
         text-decoration-style: dashed;
       }
     }
-    .table-heading{
-      max-width: 900px;
+    .table-heading {
+      // max-width: 900px;
     }
 
     .sp-table {
       color: #7d7d7d;
       margin-bottom: 27px;
       overflow-x: auto;
-      max-width: 900px;
+      // max-width: 900px;
 
       td,
       th {
@@ -171,6 +169,14 @@
           width: 63px;
           height: auto;
         }
+        .caption {
+          margin-left: 10px;
+          max-width: 350px;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          display: block;
+          white-space: nowrap;
+        }
       }
     }
 
@@ -185,6 +191,14 @@
       font-family: "SF UI Display Regular";
     }
   }
+}
+
+:host ::ng-deep .mat-form-field-infix {
+  width: auto;
+}
+
+:host ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+  display: none !important;
 }
 
 // @media only screen and (max-width:900px) {

@@ -15,10 +15,10 @@
                                             class="rounded img-responsive card-image">
                                         <div class="card-subscription">
                                             <p class="text">Подписчики</p>
-                                            <p class="text value">{{followersCount}}</p>
+                                            <p class="text value">{{followersCount?.value}}</p>
                                         </div>
                                         <div class="card-progress text-center">
-                                            <p class="progress-text">+{{todayPostsCount}} сегодня
+                                            <p class="progress-text">+{{followersCount?.todayCount}} сегодня
                                                 <img src="assets/images/preview_up_icon.png"
                                                     class="rounded img-responsive">
                                             </p>
@@ -26,7 +26,9 @@
                                         </div>
                                     </div>
                                     <div class="card-chart">
-                                        <app-line-chart customId="1"></app-line-chart>
+                                        <app-line-chart customId="1" *ngIf="!loading" [labels]="followersChartLabels"
+                                            [dataSets]="followersChartData">
+                                        </app-line-chart>
                                     </div>
                                 </div>
                             </div>
@@ -39,18 +41,20 @@
                                             class="rounded img-responsive card-image">
                                         <div class="card-subscription">
                                             <p class="text">Лайки</p>
-                                            <p class="text value">{{likesCount}}</p>
+                                            <p class="text value">{{likesCount?.value}}</p>
                                         </div>
                                         <div class="card-progress text-center">
-                                            <p class="progress-text">+23 сегодня
+                                            <p class="progress-text">+{{likesCount?.todayCount}} сегодня
                                                 <img src="assets/images/preview_up_icon.png"
                                                     class="rounded img-responsive">
                                             </p>
-                                            <p class="progress-text">Прогресс <b class="progress-value">0.3%</b> </p>
+                                            <!-- <p class="progress-text">Прогресс <b class="progress-value">0.3%</b> </p> -->
                                         </div>
                                     </div>
                                     <div class="card-chart">
-                                        <app-line-chart customId="2"></app-line-chart>
+                                        <app-line-chart customId="2" *ngIf="!loading" [labels]="likesChartLabels"
+                                            [dataSets]="likesChartData">
+                                        </app-line-chart>
                                     </div>
                                 </div>
                             </div>
@@ -67,9 +71,10 @@
                                 <img src="assets/images/action_posts.png" class="rounded img-responsive action-image">
                                 <div class="action-description">
                                     <p class="text">Посты</p>
-                                    <p class="text value">{{postsCount}}</p>
+                                    <p class="text value">{{postsCount?.value}}</p>
                                     <p class="text"> <img src="assets/images/preview_up_icon.png"
-                                            class="rounded img-responsive action-icon  ml-3">+{{todayPostsCount}} сегодня </p>
+                                            class="rounded img-responsive action-icon  ml-3">+{{postsCount?.todayCount}}
+                                        сегодня </p>
                                 </div>
                             </div>
                         </div>
@@ -81,9 +86,10 @@
                                     class="rounded img-responsive action-image">
                                 <div class="action-description">
                                     <p class="text">Комментарии</p>
-                                    <p class="text value">{{commentsCount}}</p>
+                                    <p class="text value">{{postsCount?.value}}</p>
                                     <p class="text"><img src="assets/images/preview_up_icon.png"
-                                            class="rounded img-responsive action-icon  ml-3"></p>
+                                            class="rounded img-responsive action-icon  ml-3">+
+                                        {{postsCount?.todayCount}} сегодня</p>
                                 </div>
                             </div>
                         </div>
@@ -95,9 +101,10 @@
                                     class="rounded img-responsive action-image">
                                 <div class="action-description">
                                     <p class="text">Подписки</p>
-                                    <p class="text value">{{followingsCount}}</p>
+                                    <p class="text value">{{followingsCount?.value}}</p>
                                     <p class="text"> <img src="assets/images/preview_up_icon.png"
-                                            class="rounded img-responsive action-icon  ml-3"></p>
+                                            class="rounded img-responsive action-icon  ml-3">+
+                                        {{followingsCount?.todayCount}} сегодня</p>
                                 </div>
                             </div>
                         </div>
@@ -108,15 +115,14 @@
             <div class="post-slider">
                 <div class="pg-container slider-content">
                     <p class="title d-flex align-items-center">Лучшие посты за последний месяц
-                        <img src="assets/icons/arr_down_blue.png"
+                        <!-- <img src="assets/icons/arr_down_blue.png"
                             class="rounded img-responsive  cursor-pointer ml-2 down-image cursor-poiner" *ngIf="slide1"
                             (click)="closeSlider(1)">
                         <img src="assets/icons/arrow_up.png"
                             class="rounded img-responsive  cursor-pointer ml-2 down-image cursor-poiner" *ngIf="!slide1"
-                            (click)="closeSlider(1)">
+                            (click)="closeSlider(1)"> -->
                     </p>
-                    <ngx-slick-carousel class="carousel-row mb-3" #slickModal="slick-carousel" [config]="slideConfig"
-                        *ngIf="slide1">
+                    <ngx-slick-carousel class="carousel-row mb-3" #slickModal="slick-carousel" [config]="slideConfig">
                         <div ngxSlickItem class="post-item slider-item" *ngFor="let item of postStatistics">
                             <div class="slider-description d-flex flex-wrap">
                                 <img [src]="item?.thumbnail" class="rounded img-responsive post-image">

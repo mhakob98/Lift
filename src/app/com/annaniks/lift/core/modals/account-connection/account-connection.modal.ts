@@ -79,7 +79,6 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
                 takeUntil(this._unsubscribe$)
             )
             .subscribe((data) => {
-                console.log(data);
                 this.loginForm.get('email').disable();
                 this.loginForm.get('password').disable();
                 this._isAccountConnected = true;

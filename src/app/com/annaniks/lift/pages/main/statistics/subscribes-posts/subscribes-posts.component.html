@@ -1,63 +1,33 @@
 <div class="sp-container">
     <div class="cp-content">
         <div class="post-statistic-heading">
-            <h4>Статистика постов с <span>25.12.19</span> по <span>25.01.20</span> </h4>
+            <h4>Статистика постов с
+                <mat-form-field class="form-group-calendar">
+                    <span (click)="picker.open()">{{startDateControl.value | date:'dd.MM.yyyy'}}</span>
+                    <input class="d-none" matInput [matDatepicker]="picker" [matDatepickerFilter]="startDateFilter"
+                        [formControl]="startDateControl">
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                по <mat-form-field class="form-group-calendar">
+                    <span (click)="pickersecond.open()">{{endDateControl.value | date:'dd.MM.yyyy'}}</span>
+                    <input class="d-none" matInput [matDatepicker]="pickersecond" [matDatepickerFilter]="endDateFilter"
+                        [formControl]="endDateControl">
+                    <mat-datepicker #pickersecond></mat-datepicker>
+                </mat-form-field>
+            </h4>
             <div class="post-statistic-manage">
                 <span>Управление постами</span>
                 <img src="assets/icons/settings.png" alt="Manage posts">
             </div>
-
-
         </div>
         <div class="post-statistic-sources">
             <h4>Все источники <img src="assets/icons/arrow_down.png"></h4>
-
         </div>
         <!-- POST STATISTIC CHART -->
-        <div class="post-statistic-chart-heading">
-            <button class="post-statistic-action active">Лайки</button>
-            <button class="post-statistic-action">Комментарии</button>
-            <button class="post-statistic-action">Закладки</button>
+        <div  [ngStyle]="lineChartSize">
+            <app-line-chart big="true" *ngIf="!loading" [dataSets]="chartData" customId="post-subscribe"
+                [labels]="chartLabels" [size]="lineChartSize"></app-line-chart>
         </div>
-        <app-line-chart big="true" customId="post-subscribe" [size]="lineChartSize"></app-line-chart>
-        <!-- END POST STATISTIC CHART -->
-
-        <!-- PIE STATISTIC CHART -->
-        <div class="pie-statistic-chart-heading">
-            <button class="pie-statistic-action active">География</button>
-            <button class="pie-statistic-action">Пол</button>
-            <button class="pie-statistic-action">Открытость профиля</button>
-            <button class="pie-statistic-action">Популярность</button>
-            <button class="pie-statistic-action">Язык</button>
-            <button class="pie-statistic-action">Сайт</button>
-        </div>
-
-        <!--PIE STATISTIC CHART IN MOBILE VERSION-->
-        <div class="form-group">
-            <div class="input-content w-100">
-                <select id="select" name="select" class="custom-select">
-                    <option value="География">География </option>
-                    <option value="Пол">Пол </option>
-                    <option value="Открытость профиля">Открытость профиля </option>
-                    <option value="Популярность">Популярность </option>
-                    <option value="Язык">Язык </option>
-                    <option value="Сайт">Сайт </option>
-                </select>
-            </div>
-        </div>
-
-
-
-        <div class="chart-map">
-            <canvas id="myChart" class="pie-chart"></canvas>
-
-            <div class="map-container">
-                <div id="map"></div>
-            </div>
-        </div>
-
-        <!-- END PIE STATISTIC CHART -->
-
 
         <!-- STATISTIC BY DAY -->
         <h4 class="statistic-by-day-heading">Статистика по дням</h4>
@@ -68,28 +38,27 @@
                     <th scope="col">Пост</th>
                     <th scope="col">Лайков</th>
                     <th scope="col">Комментариев</th>
-                    <th scope="col">Закладок</th>
-                    <th scope="col">Подписчиков за сутки</th>
+                    <th scope="col">Прогресс лайков</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of [1,2,3,4,5,6,7]">
+                <tr *ngFor="let item of statistics">
                     <td>
-                        <img src="assets/squirell.png" class="img-fluid img-thumbnail" alt="Sheep">
-                        Название поста в одну строку
+                        <div class="d-flex align-items-center">
+                            <img [src]="item?.thumbnail" class="img-fluid img-thumbnail" alt="Sheep">
+                            <span class="caption">
+                                {{item?.caption}}
+                            </span>
+                        </div>
                     </td>
-                    <td>1500</td>
-                    <td>288</td>
-                    <td>106</td>
-                    <td>+52</td>
+                    <td>{{item?.like}}</td>
+                    <td>{{item?.comment}}</td>
+                    <td>{{item?.deltaLike}}%</td>
                 </tr>
 
             </tbody>
         </table>
-        <button class="load-more">Загрузить еще</button>
+        <!-- <button class="load-more">Загрузить еще</button> -->
         <!-- END STATISTIC BY DAY -->
-
-
     </div>
-
 </div>

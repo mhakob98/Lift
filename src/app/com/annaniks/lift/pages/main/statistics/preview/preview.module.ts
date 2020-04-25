@@ -1,6 +1,6 @@
 // Angular Core Modules
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 // Our Modules
 import { PreviewRoutingModule } from './preview.routing.module';
@@ -11,7 +11,7 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SharedModule } from '../../../../shared/shared.module';
 //FormsModule
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -23,10 +23,10 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
         CommonModule,
         SlickCarouselModule,
         MatSlideToggleModule,
-        SharedModule,FormsModule,
+        SharedModule, FormsModule,
         ReactiveFormsModule
     ],
-    entryComponents:[],
-    providers: [PreviewService]
+    entryComponents: [],
+    providers: [PreviewService, DatePipe]
 })
 export class PreviewModule { }

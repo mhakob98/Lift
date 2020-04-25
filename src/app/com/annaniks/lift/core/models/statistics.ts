@@ -32,4 +32,19 @@ export interface PostStatistic {
     owner: string;
     shortcode: string;
     thumbnail: string;
+    taken_at_timestamp: string;
+}
+
+export interface StatisticValue {
+    value: number;
+    todayCount: number;
+}
+
+export interface LineChartData {
+    data: number[];
+    label: string;
+    borderColor?: string;
+    pointRadius?: number;
+    fill?: boolean;
+    backgroundColor?: string;
 }

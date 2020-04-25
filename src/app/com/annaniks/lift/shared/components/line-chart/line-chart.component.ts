@@ -1,11 +1,13 @@
 import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { Chart } from 'chart.js';
+import { LineChartData } from '../../../core/models/statistics';
 @Component({
   selector: 'app-line-chart',
   templateUrl: './line-chart.component.html',
   styleUrls: ['./line-chart.component.scss']
 })
 export class LineChartComponent implements OnInit, AfterViewInit {
+  private _dataSets = [];
 
   @Input()
   size: { width: string, height: string } = { width: '100%', height: '111px' }
@@ -16,9 +18,26 @@ export class LineChartComponent implements OnInit, AfterViewInit {
   @Input()
   labels: string[] = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "MAY", "JUN", "JUL"];
   @Input()
-  data: number[] = [5, 12, 10, 5, 15, 10, 20, 30, 40, 50];
+  set dataSets($event) {
+    const dataSets: LineChartData[] = $event;
+    this._dataSets = [];
+    dataSets.map((element) => {
+      this._dataSets.push({
+        data: element.data,
+        label: element.label,
+        borderColor: element.borderColor,
+        pointRadius: 0,
+        fill: true,
+        backgroundColor: element.backgroundColor,
+        borderWidth: 4,
+        lineTension: this.big ? 0 : null
+      })
+    })
+  }
 
-  constructor() { }
+  constructor() {
+    this._dataSets = [];
+  }
 
   ngOnInit() {
   }
@@ -33,21 +52,10 @@ export class LineChartComponent implements OnInit, AfterViewInit {
       type: 'line',
       data: {
         labels: this.labels,
-
-        datasets: [{
-          data: this.data,
-          label: "Data",
-          borderColor: "#3399cc",
-          pointRadius: 0,
-          fill: true,
-          backgroundColor: "#3399cc8f",
-          borderWidth: 4,
-          lineTension: this.big ? 0 : null
-        }]
+        datasets: this._dataSets
       },
       options: {
         responsive: true,
-
         legend: {
           display: false
         },
@@ -63,7 +71,7 @@ export class LineChartComponent implements OnInit, AfterViewInit {
               return ''
             },
             label: (tooltipItem) => {
-              return `14:30 | +${tooltipItem.value}`
+              return (this.big) ? `+${tooltipItem.value} ${this._dataSets[tooltipItem.datasetIndex].label}` : `+${tooltipItem.value} | ${tooltipItem.xLabel}`
             }
           }
         },
@@ -84,12 +92,10 @@ export class LineChartComponent implements OnInit, AfterViewInit {
             },
             ticks: {
               display: this.big ? true : false,
-
             }
           }]
         }
       }
     });
   }
-
 }

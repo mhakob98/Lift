@@ -1,130 +1,132 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { SubscribesPostsService } from './subscribes-posts.service';
-
-import { catchError, map, filter, first } from 'rxjs/operators';
-import { of, combineLatest, Observable } from 'rxjs';
-import { Subscriber } from '../../../../core/models/subscriber';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscribe } from '../../../../core/models/subscribe';
-import { StatisticPost } from '../../../../core/models/statistic-post';
-import { Chart } from 'chart.js';
-declare var google: any;
+import { Subject, Observable, of } from 'rxjs';
+import { takeUntil, switchMap, map, finalize } from 'rxjs/operators';
+import { StatisticsService } from '../statistics.service';
+import { AuthService } from '../../../../core/services/auth.service';
+import { StatisticsData, PostStatistic, LineChartData } from '../../../../core/models/statistics';
+import { FormControl } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+
 @Component({
   selector: 'app-subscribers',
   templateUrl: './subscribes-posts.component.html',
   styleUrls: ['./subscribes-posts.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SubscribersPostsComponent implements OnInit {
+export class SubscribersPostsComponent implements OnInit, OnDestroy {
+  private _unsubscribe$: Subject<void> = new Subject<void>();
+  public loading: boolean = false;
+  public lineChartSize: { width: string, height: string } = { width: '100%', height: '381px' };
+  public type: string;
+  public statistics: PostStatistic[] = [];
+  public chartLabels: string[] = [];
+  public chartData: LineChartData[] = [];
+  public startDateControl: FormControl = new FormControl();
+  public endDateControl: FormControl = new FormControl();
 
-  private _data$: Observable<Subscriber | Subscribe | StatisticPost>;
-  private _dataByDate$: Observable<any>;
-  private _dataByDays$: Observable<any>;
-  public vm$: Observable<any>;
-  private _map: any;
-  public lineChartSize: { width: string, height: string } = { width: '100%', height: '381px' }
+  startDateFilter = (date: Date) => this.endDateControl.value.getTime() > date.getTime();
+  endDateFilter = (date: Date) => this.startDateControl.value.getTime() < date.getTime();
+
   constructor(
-    private _subscribersService: SubscribesPostsService,
-    _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private _statisticsService: StatisticsService,
+    private _authService: AuthService,
+    private _datePipe: DatePipe
   ) {
-    _activatedRoute.data.subscribe((data: { type: string }) => {
-      this._data$ = this._loadPreferedDataBasedOnPageType(data.type).pipe(catchError(of))
-      this._initializeStreams();
-    })
+    const endDate = new Date();
+    const startDate = new Date(new Date().setMonth(endDate.getMonth() - 1));
+
+    this.startDateControl.patchValue(startDate);
+    this.endDateControl.patchValue(endDate);
+
+    this._activatedRoute.data
+      .pipe(
+        takeUntil(this._unsubscribe$),
+        switchMap((data: { type: string }) => {
+          this.type = data.type;
+          if (data.type === "posts") {
+            return this._getPostsStatistics();
+          }
+          return of([]);
+        })
+      ).subscribe()
   }
 
   ngOnInit() {
-    this.vm$.subscribe((data) => {
-      if (data) this._initMap();
-    })
-    this._iniptPieChart()
+    this._handleControlChanges();
   }
 
-  private _initMap(corrdinates = { lat: 40.7865229, lng: 43.8476395 }, zoom = 15): void {
-    this._map = new google.maps.Map(document.getElementById("map"), {
-      zoom: zoom,
-      center: corrdinates,
-      disableDefaultUI: true
-    });
-  }
+  private _getPostsStatistics(): Observable<void> {
+    this.loading = true;
+    this.chartLabels = [];
+    this.chartData = [];
 
-  private _iniptPieChart(): void {
-    var ctx = document.getElementById('myChart');
-    var myChart = new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: [
-          'Параметр -',
-          'Параметр -',
-          'Параметр -',
-          'Параметр -',
-          'Параметр -'
-        ],
-        datasets: [{
-          label: '# of Votes',
-          data: [335, 310, 234, 135, 548],
-          borderWidth: 0,
-          backgroundColor: [
-            '#edb593',
-            '#e5d2aa',
-            '#737a7f',
-            '#9dceaa',
-            '#95b8c8',
-          ],
+    const { id } = this._authService.getAccount();
 
-        }]
-      },
-      options: {
-        legend: {
-          position: 'right',
-          labels: {
-            fontFamily: 'SF UI Display Regular',
-            fontSize: 26,
-            padding: 50,
-            usePointStyle: true,
+    const startDate = this.startDateControl.value;
+    const endDate = this.endDateControl.value;
 
-          },
-        },
-        tooltips: {
-          enabled: false
-        }
-      }
-    });
-
-  }
-
-  private _loadPreferedDataBasedOnPageType(pageType: string): Observable<Subscriber | Subscribe | StatisticPost> {
-    switch (pageType) {
-      case 'subscribers':
-        return this._subscribersService.subscribers$
-      case 'my-subscribes':
-        return this._subscribersService.mySubscribes$
-      case 'posts':
-        return this._subscribersService.posts$
-      default:
-        break;
+    const allStatisticsData: StatisticsData = {
+      accountId: id,
+      startDate: startDate,
+      endDate: endDate
     }
+    return this._statisticsService.getStatisticsPosts(allStatisticsData)
+      .pipe(
+        takeUntil(this._unsubscribe$),
+        finalize(() => this.loading = false),
+        map((data) => {
+          this.statistics = data.data;
+          const likes: number[] = [];
+          const comments: number[] = [];
+
+          let day = 1;
+
+          this.statistics.map((element) => {
+            likes.push(element.like);
+            comments.push(element.comment);
+
+            const date = `${day}/12/18`;
+            this.chartLabels.push(date);
+
+            day++;
+          })
+          this.chartData.push({
+            data: likes,
+            label: "Likes",
+            borderColor: '#3399cc',
+            backgroundColor: '#3399cc8f'
+          })
+          this.chartData.push({
+            data: comments,
+            label: "Comments",
+            borderColor: '#17a2b8',
+            backgroundColor: '#17a2b88f'
+          })
+        })
+      )
   }
-  private _initializeStreams(): void {
-    this._dataByDate$ = this._data$
+
+  private _handleControlChanges(): void {
+    this.startDateControl.valueChanges
       .pipe(
-        map((s: Subscriber) => s ? s.subscribersStatisticByDate : null),
-        catchError(of)
-      )
-    this._dataByDays$ = this._data$
-      .pipe(
-        map((s: Subscriber) => s ? s.subscribersStatisticByDays : null),
-        catchError(of)
-      )
-    this.vm$ = combineLatest(
-      [this._data$,
-      this._dataByDate$,
-      this._dataByDays$])
-      .pipe(
-        filter(([data]) => !!data),
-        map(([data, dataByDate, dataByDays]) =>
-          ({ data, dataByDate, dataByDays }))
-      )
+        takeUntil(this._unsubscribe$),
+        switchMap((value) => {
+          return this._getPostsStatistics();
+        })
+      ).subscribe()
+
+    this.endDateControl.valueChanges.pipe(
+      takeUntil(this._unsubscribe$),
+      switchMap((value) => {
+        return this._getPostsStatistics();
+      })
+    ).subscribe();
+  }
+
+  ngOnDestroy() {
+    this._unsubscribe$.next();
+    this._unsubscribe$.complete();
   }
 
 }

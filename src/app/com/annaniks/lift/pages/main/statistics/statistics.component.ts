@@ -35,10 +35,10 @@ export class StatisticsComponent implements OnInit {
         label: 'Комментарии',
         routerLink: '/statistics/comments'
       },
-      {
-        label: 'Закладки',
-        routerLink: '/statistics/bookmarks'
-      }
+      // {
+      //   label: 'Закладки',
+      //   routerLink: '/statistics/bookmarks'
+      // }
     ]
     this._navbarService.setNavbarItems(items);
   }

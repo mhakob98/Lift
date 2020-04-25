@@ -1,12 +1,13 @@
 
 // Angular Core Modules
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 // Our Modules
 import { SubscribersRoutingModule } from './subscribes-posts.routing.module';
 import { SubscribesPostsService } from './subscribes-posts.service';
 import { SharedModule } from '../../../../shared/shared.module';
+import { MatDatepickerModule } from '@angular/material';
 
 @NgModule({
     declarations: [
@@ -15,9 +16,12 @@ import { SharedModule } from '../../../../shared/shared.module';
     imports: [
         SubscribersRoutingModule,
         CommonModule,
-        SharedModule
+        SharedModule,
+        MatDatepickerModule
     ],
-
-    providers: [SubscribesPostsService]
+    providers: [
+        SubscribesPostsService,
+        DatePipe
+    ]
 })
 export class SubscribesPostsModule { }

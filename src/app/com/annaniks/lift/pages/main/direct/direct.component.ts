@@ -4,7 +4,6 @@ import { MessagingService } from './messaging.service'
 import { Subject } from 'rxjs';
 import { takeUntil, finalize } from 'rxjs/operators';
 import { AuthService } from '../../../core/services/auth.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { WriteDirectMessageData, DirectMessage } from '../../../core/models/direct.message';
 import { DirectService } from './direct.service';
 import { SendMessageTypes } from '../../../core/models/direct';

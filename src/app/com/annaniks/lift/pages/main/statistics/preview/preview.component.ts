@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { StatisticsService } from '../statistics.service';
-import { StatisticsData, Statistic, PostStatistic } from '../../../../core/models/statistics';
+import { StatisticsData, Statistic, PostStatistic, StatisticValue, LineChartData } from '../../../../core/models/statistics';
 import { Subject, forkJoin, Observable } from 'rxjs';
-import { takeUntil, map } from 'rxjs/operators';
+import { takeUntil, map, finalize } from 'rxjs/operators';
 import { AuthService } from '../../../../core/services/auth.service';
-import { getDate } from 'date-fns';
+import { DatePipe } from '@angular/common';
+import { LoadingService } from '../../../../core/services/loading-service';
 
 @Component({
   selector: 'app-preview',
@@ -14,23 +15,20 @@ import { getDate } from 'date-fns';
 export class PreviewComponent implements OnInit, OnDestroy {
   private _unsubscribe$: Subject<void> = new Subject<void>();
   public statistics: Statistic[] = [];
-  public postsCount: number = 0;
-  public followingsCount: number = 0;
-  public followersCount: number = 0;
-  public commentsCount: number = 0;
-  public todayPostsCount: number = 0;
-  public likesCount: number = 0;
+  public postsCount: StatisticValue = {} as StatisticValue;
+  public followingsCount: StatisticValue = {} as StatisticValue;
+  public followersCount: StatisticValue = {} as StatisticValue;
+  public commentsCount: StatisticValue = {} as StatisticValue;
+  public todayPostsCount: StatisticValue = {} as StatisticValue;
+  public likesCount: StatisticValue = {} as StatisticValue;
   public postStatistics: PostStatistic[] = [];
+  public followersChartLabels: string[] = [];
+  public followersChartData: LineChartData[] = [];
+  public likesChartLabels: string[] = [];
+  public likesChartData: LineChartData[] = [];
 
-  public slider = [
-    {},
-    {},
-    {},
-    {},
-    {},
-  ]
-  public slide1: boolean = true;
-  public slide2: boolean = true;
+  public loading: boolean = false;
+
   public slideConfig = {
     slidesToShow: 3,
     slidesToScroll: 3,
@@ -41,8 +39,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
     autoplay: false,
     autoplayTimeout: 1000,
     autoplayHoverPause: false,
-    // prevArrow: "<img class='a-left control-c prev slick-prev'  src='/assets/images/arrow-left.png' >",
-    // nextArrow: "<img class='a-right control-c next slick-next' src='/assets/images/arrow-right.png'>",
     responsive: [
       {
         breakpoint: 1200,
@@ -67,7 +63,9 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
   constructor(
     private _statisticsServcie: StatisticsService,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _datePipe: DatePipe,
+    private _loadingService: LoadingService
   ) { }
 
   ngOnInit() {
@@ -75,6 +73,8 @@ export class PreviewComponent implements OnInit, OnDestroy {
   }
 
   private _getPreviewData(): void {
+    this.loading = true;
+    this._loadingService.showLoading();
     const { id } = this._authService.getAccount();
     const endDate = new Date();
 
@@ -91,7 +91,10 @@ export class PreviewComponent implements OnInit, OnDestroy {
       this._getStatisticsPosts(allStatisticsData)
     )
     joined
-      .pipe(takeUntil(this._unsubscribe$))
+      .pipe(
+        takeUntil(this._unsubscribe$),
+        finalize(() => { this.loading = false; this._loadingService.hideLoading() })
+      )
       .subscribe()
 
   }
@@ -102,11 +105,24 @@ export class PreviewComponent implements OnInit, OnDestroy {
         takeUntil(this._unsubscribe$),
         map((data) => {
           const statistics: Statistic[] = data.data;
-          const { value, todayCount } = this._countStatistics('postsCount', statistics);
-          this.postsCount = value;
-          this.todayPostsCount = todayCount;
-          this.followingsCount = this._countStatistics('followings', statistics).value;
-          this.followersCount = this._countStatistics('followers', statistics).value;
+          this.followersChartLabels = statistics.map((element) => {
+            return this._datePipe.transform(element.date, 'dd/MM/yyyy');
+          })
+
+          const followers = statistics.map((element) => {
+            return element.followers;
+          })
+
+          this.followersChartData.push({
+            data: followers,
+            label: 'Folowers',
+            borderColor: '#3399cc',
+            backgroundColor: '#3399cc8f'
+          })
+
+          this.postsCount = this._countStatistics('postsCount', statistics);
+          this.followingsCount = this._countStatistics('followings', statistics);
+          this.followersCount = this._countStatistics('followers', statistics);
         })
       )
   }
@@ -117,8 +133,24 @@ export class PreviewComponent implements OnInit, OnDestroy {
         takeUntil(this._unsubscribe$),
         map((data) => {
           const statistics = data.data;
-          this.commentsCount = this._countStatistics('comment', statistics).value;
-          this.likesCount = this._countStatistics('like', statistics).value;
+
+          this.likesChartLabels = statistics.map((element) => {
+            return this._datePipe.transform(element.date, 'dd/MM/yyyy');
+          })
+
+          const likes = statistics.map((element) => {
+            return element.like;
+          })
+
+          this.likesChartData.push({
+            data: likes,
+            label: 'Likes',
+            borderColor: '#3399cc',
+            backgroundColor: '#3399cc8f'
+          })
+
+          this.commentsCount = this._countStatistics('comment', statistics);
+          this.likesCount = this._countStatistics('like', statistics);
         })
       )
   }
@@ -128,19 +160,9 @@ export class PreviewComponent implements OnInit, OnDestroy {
       .pipe(
         map((data) => {
           const statistics = data.data;
-          console.log(statistics);
-          this.postStatistics = data.data;
+          this.postStatistics = statistics;
         })
       )
-  }
-
-  public closeSlider(tab: number): void {
-    if (tab == 1) {
-      this.slide1 = !this.slide1;
-    }
-    else if (tab == 2) {
-      this.slide2 = !this.slide2;
-    }
   }
 
   private _countStatistics(key: string, array: any[]): { value: number, todayCount: number } {
