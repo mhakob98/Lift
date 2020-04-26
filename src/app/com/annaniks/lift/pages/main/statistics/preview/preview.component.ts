@@ -2,10 +2,16 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { StatisticsService } from '../statistics.service';
 import { StatisticsData, Statistic, PostStatistic, StatisticValue, LineChartData } from '../../../../core/models/statistics';
 import { Subject, forkJoin, Observable } from 'rxjs';
-import { takeUntil, map, finalize } from 'rxjs/operators';
+import { takeUntil, map, finalize, switchMap, mergeMap } from 'rxjs/operators';
 import { AuthService } from '../../../../core/services/auth.service';
 import { DatePipe } from '@angular/common';
 import { LoadingService } from '../../../../core/services/loading-service';
+import { TariffData } from '../../../../core/models/tariff';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { SubscriptionData } from '../../../../core/models/account';
+import { MainService } from '../../main.service';
+import { ToastrService } from 'ngx-toastr';
+import { InstagramAccount } from '../../../../core/models/user';
 
 @Component({
   selector: 'app-preview',
@@ -14,6 +20,7 @@ import { LoadingService } from '../../../../core/services/loading-service';
 })
 export class PreviewComponent implements OnInit, OnDestroy {
   private _unsubscribe$: Subject<void> = new Subject<void>();
+  private _activeAccount: InstagramAccount;
   public statistics: Statistic[] = [];
   public postsCount: StatisticValue = {} as StatisticValue;
   public followingsCount: StatisticValue = {} as StatisticValue;
@@ -31,6 +38,8 @@ export class PreviewComponent implements OnInit, OnDestroy {
     followers: 0,
     followings: 0
   }
+  public tariffInfo: TariffData;
+  public subscriptionForm: FormGroup;
 
   public loading: boolean = false;
 
@@ -70,16 +79,32 @@ export class PreviewComponent implements OnInit, OnDestroy {
     private _statisticsServcie: StatisticsService,
     private _authService: AuthService,
     private _datePipe: DatePipe,
-    private _loadingService: LoadingService
+    private _loadingService: LoadingService,
+    private _fb: FormBuilder,
+    private _mainService: MainService,
+    private _toastrService: ToastrService
   ) { }
 
   ngOnInit() {
-    this._getPreviewData();
+    this._initForm();
+    this._authService.getActiveAccount()
+      .pipe(
+        takeUntil(this._unsubscribe$),
+        mergeMap((account) => {
+          this._activeAccount = account;
+          this._setSubscriptionValues()
+          return this._getPreviewData();
+        })
+      ).subscribe();
   }
 
-  private _getPreviewData(): void {
+  private _getPreviewData(): Observable<void> {
     this.loading = true;
     this._loadingService.showLoading();
+
+    const { tariffs } = this._authService.getUserStateSync();
+    this.tariffInfo = tariffs[0];
+
     const { id } = this._authService.getAccount();
     const endDate = new Date();
 
@@ -95,12 +120,12 @@ export class PreviewComponent implements OnInit, OnDestroy {
       this._getLikesAndComments(allStatisticsData),
       this._getStatisticsPosts(allStatisticsData)
     )
-    joined
+    return joined
       .pipe(
         takeUntil(this._unsubscribe$),
-        finalize(() => { this.loading = false; this._loadingService.hideLoading() })
+        finalize(() => { this.loading = false; this._loadingService.hideLoading() }),
+        map(_ => { })
       )
-      .subscribe()
 
   }
 
@@ -129,6 +154,42 @@ export class PreviewComponent implements OnInit, OnDestroy {
           this.followingsCount = this._countStatistics('followings', statistics);
           this.followersCount = this._countStatistics('followers', statistics);
 
+        })
+      )
+  }
+
+  private _initForm(): void {
+    this.subscriptionForm = this._fb.group({
+      autosubscription: [false],
+      autoreviewstories: [false],
+      bonus: [false]
+    })
+    this.subscriptionForm.valueChanges
+      .pipe(
+        switchMap(() => this._setSubscriptionType())
+      )
+      .subscribe();
+  }
+
+  private _setSubscriptionValues(): void {
+    this.subscriptionForm.patchValue({
+      autosubscription: this._activeAccount.subscription.autoFollowing,
+      autoreviewstories: this._activeAccount.subscription.autoView,
+      bonus: this._activeAccount.subscription.liftBonus
+    }, { emitEvent: false })
+  }
+
+  private _setSubscriptionType(): Observable<void> {
+    const sendingData: SubscriptionData = {
+      autoFollowing: this.subscriptionForm.get('autosubscription').value,
+      autoView: this.subscriptionForm.get('autoreviewstories').value,
+      liftBonus: this.subscriptionForm.get('bonus').value,
+      loginId: this._authService.getAccount().id
+    }
+    return this._mainService.setSubscriptionType(sendingData)
+      .pipe(
+        map(() => {
+          this._toastrService.success('Изменения сохранены !')
         })
       )
   }
@@ -175,24 +236,22 @@ export class PreviewComponent implements OnInit, OnDestroy {
     let value: number = 0;
     let todayCount: number = 0;
     let icon: string;
-    array.map((element, index) => {
-      value += element[key];
-    })
     if (array && array.length && array.length >= 1) {
       let lastDay = array[array.length - 1];
       let beforYesterday;
+      value = lastDay[key];
       try {
         beforYesterday = array[array.length - 2];
-        todayCount = beforYesterday[key] - lastDay[key];
+        todayCount = lastDay[key] - beforYesterday[key];
       } catch (error) {
         todayCount = lastDay[key];
       }
     }
     if (todayCount >= 0) {
-      icon = 'assets/images/preview_up_icon.png'
+      icon = 'assets/images/preview_up_icon.png';
     }
     else {
-      icon = 'assets/images/preview_down_icon.png'
+      icon = 'assets/images/preview_down_icon.png';
     }
     return { value, todayCount, icon };
 

@@ -1,3 +1,6 @@
+import { TariffData } from './tariff';
+import { PostStatistic } from './statistics';
+
 export interface User {
     id: number;
     name: string;
@@ -8,6 +11,7 @@ export interface User {
     updatedAt: string;
     createdAt: string;
     refferalCode: string;
+    tariffs: TariffData[]
 }
 
 interface Role {
@@ -29,11 +33,42 @@ export interface InstagramAccount {
     createdAt?: string;
     updatedAt?: string;
     instagramId: string;
-    selected?:boolean;
-    needPassword:boolean;
+    selected?: boolean;
+    needPassword: boolean;
+    statistica: InstagramAccountStatistics;
+    subscription: InstagramAccountSubscription;
 }
 
 export interface Account {
     email: string;
     password: string;
+}
+
+export interface InstagramAccountStatistics {
+
+    createdAt: string;
+    date: string;
+    day: number;
+    followers: number;
+    followings: number;
+    id: number;
+    instagramAccountId: number;
+    mouth: number;
+    posts: {
+        posts: PostStatistic[];
+    }
+    postsCount: number;
+    updatedAt: string;
+    year: number;
+
+}
+
+export interface InstagramAccountSubscription {
+    autoFollowing: boolean;
+    autoView: boolean;
+    createdAt: string;
+    id: number;
+    liftBonus: boolean;
+    loginId: number;
+    updatedAt: string;
 }

@@ -5,9 +5,9 @@
             <p class="user-name">{{activeAccount?.login}}</p>
             <div class="user-details-left-bottom-content d-flex text-center">
                 <div class="subscription-content d-flex">
-                        <p class="subscription-text"><b>704</b> публикаций</p>
-                        <p class="subscription-text text-center"><b>739тыс.</b> подписчиков</p>
-                        <p class="subscription-text text-center"><b>739</b> подписки</p>
+                        <p class="subscription-text"><b>{{statistics?.postsCount}}</b> публикаций</p>
+                        <p class="subscription-text text-center"><b>{{statistics?.followers}}.</b> подписчиков</p>
+                        <p class="subscription-text text-center"><b>{{statistics?.following}}</b> подписки</p>
                 </div>
             </div>
         </div>
@@ -15,14 +15,14 @@
     <div class="user-details-right">
         <div class="user-details-right-top-content d-flex align-items-center">
             <p class="user-name">{{activeAccount?.login}}</p>
-            <button class="btn button"><span>Перейти в профиль</span>
+            <a class="btn button" [href]="'https://instagram.com/'+activeAccount.login" target="_blank"><span>Перейти в профиль</span>
                 <img src="assets/icons/instagram_icon.png" class="rounded-circle img-responsive ml-2">
-            </button>
+            </a>
         </div>
         <div class="user-details-right-bottom-content d-flex text-center">
-            <p class="subscription-text"><b>704</b> публикаций</p>
-            <p class="subscription-text text-center"><b>739тыс.</b> подписчиков</p>
-            <p class="subscription-text text-center"><b>739</b> подписки</p>
+            <p class="subscription-text"><b>{{statistics?.postsCount}}</b> публикаций</p>
+            <p class="subscription-text text-center"><b>{{statistics?.followers}}</b> подписчиков</p>
+            <p class="subscription-text text-center"><b>{{statistics?.followings}}</b> подписки</p>
         </div>
     </div>
 </div>

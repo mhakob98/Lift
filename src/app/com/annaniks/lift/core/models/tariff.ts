@@ -13,6 +13,26 @@ export interface TariffTransaction {
 }
 
 
+export interface TariffData {
+    createdAt: string;
+    expired: string;
+    id: number;
+    type: {
+        accountCount: number;
+        comments: number;
+        createdAt: string;
+        follow: number;
+        id: number;
+        like: number;
+        mention: number;
+        name: string;
+        price: number;
+        updatedAt: string;
+    }
+    typeId: number;
+    updatedAt: string;
+}
+
 
 
 

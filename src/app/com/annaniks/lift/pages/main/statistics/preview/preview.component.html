@@ -194,7 +194,7 @@
                             </div>
                             <div class="setting-item-main">
                                 <p class="text">Ваш тариф:</p>
-                                <p class="main-title"> Персональный <img
+                                <p class="main-title"> {{tariffInfo?.type?.name}} <img
                                         class="rounded img-responsive ml-3 controles-image"
                                         src="assets/images/controls.png"></p>
                                 <div class="main-content d-flex flex-wrap">
@@ -259,16 +259,17 @@
                                 </div>
                             </div>
                             <div class="mat-toggle d-flex flex-wrap">
-                                <mat-slide-toggle class="slide-toggle w-50">
-                                    <p>Автоподписка</p>
-                                </mat-slide-toggle>
-                                <mat-slide-toggle class="slide-toggle w-50">
-                                    <p>Бонусы от LIFT</p>
-                                </mat-slide-toggle>
-                                <mat-slide-toggle class="slide-toggle w-50">
-                                    <p>Просмотр Stories</p>
-                                </mat-slide-toggle>
-
+                                <form [formGroup]="subscriptionForm">
+                                    <mat-slide-toggle formControlName="autosubscription" class="slide-toggle w-50">
+                                        <p>Автоподписка</p>
+                                    </mat-slide-toggle>
+                                    <mat-slide-toggle formControlName="bonus" class="slide-toggle w-50">
+                                        <p>Бонусы от LIFT</p>
+                                    </mat-slide-toggle>
+                                    <mat-slide-toggle formControlName="autoreviewstories" class="slide-toggle w-50">
+                                        <p>Просмотр Stories</p>
+                                    </mat-slide-toggle>
+                                </form>
                             </div>
                             <div class="change-content align-items-center  mt-3 d-none">
                                 <p class="text">Изменить настройки

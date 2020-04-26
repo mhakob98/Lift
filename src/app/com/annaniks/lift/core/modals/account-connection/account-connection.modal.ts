@@ -79,6 +79,7 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
                 takeUntil(this._unsubscribe$)
             )
             .subscribe((data) => {
+                console.log(data);
                 this.loginForm.get('email').disable();
                 this.loginForm.get('password').disable();
                 this._isAccountConnected = true;
@@ -158,7 +159,7 @@ export class AccountConnectionModal implements OnInit, OnDestroy {
             })
     }
 
-    private _joinToTariff(id) {
+    private _joinToTariff(id): void {
         this._mainService.joinToTariff({
             tariffId: id,
         })

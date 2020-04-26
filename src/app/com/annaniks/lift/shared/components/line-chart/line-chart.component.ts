@@ -71,7 +71,7 @@ export class LineChartComponent implements OnInit, AfterViewInit {
               return ''
             },
             label: (tooltipItem) => {
-              return (this.big) ? `+${tooltipItem.value} ${this._dataSets[tooltipItem.datasetIndex].label}` : `+${tooltipItem.value} | ${tooltipItem.xLabel}`
+              return (this.big) ? `${tooltipItem.value} ${this._dataSets[tooltipItem.datasetIndex].label}` : `+${tooltipItem.value} | ${tooltipItem.xLabel}`
             }
           }
         },

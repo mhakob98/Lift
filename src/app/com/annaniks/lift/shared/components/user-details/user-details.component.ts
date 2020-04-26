@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../../core/services/auth.service';
-import { InstagramAccount } from '../../../core/models/user';
+import { InstagramAccount, InstagramAccountStatistics } from '../../../core/models/user';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -12,7 +12,8 @@ import { takeUntil } from 'rxjs/operators';
 export class UserDetailsComponent implements OnInit, OnDestroy {
   private _unsubscribe$: Subject<void> = new Subject<void>();
   public activeAccount: InstagramAccount = {} as InstagramAccount;
-  public localImage:string = '/assets/images/user.png';
+  public statistics: InstagramAccountStatistics;
+  public localImage: string = '/assets/images/user.png';
 
   constructor(private _authService: AuthService) {
   }
@@ -22,6 +23,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe((data) => {
         this.activeAccount = data;
+        this.statistics = this.activeAccount.statistica;
         this.localImage = (this.activeAccount.avatar) ? this.activeAccount.avatar : '/assets/images/user.png';
       });
   }
