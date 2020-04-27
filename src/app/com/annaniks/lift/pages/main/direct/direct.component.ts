@@ -6,7 +6,7 @@ import { takeUntil, finalize } from 'rxjs/operators';
 import { AuthService } from '../../../core/services/auth.service';
 import { WriteDirectMessageData, DirectMessage } from '../../../core/models/direct.message';
 import { DirectService } from './direct.service';
-import { SendMessageTypes } from '../../../core/models/direct';
+import { SendMessageTypes, Mailing } from '../../../core/models/direct';
 import { LoadingService } from '../../../core/services/loading-service';
 
 
@@ -19,8 +19,8 @@ import { LoadingService } from '../../../core/services/loading-service';
 export class DirectComponent implements OnInit, OnDestroy {
   private _unsubscribe$: Subject<void> = new Subject<void>();
   public allChats: any[] = [];
-  public newMailings: any[] = [];
-  public oldMailings: any[] = [];
+  public newMailings: Mailing[] = [];
+  public oldMailings: Mailing[] = [];
   public activeChatMessages: DirectMessage[] = []
   public activeChat: any;
   public createChatOpened: boolean = false;
@@ -28,6 +28,7 @@ export class DirectComponent implements OnInit, OnDestroy {
   public activeTab: number = 1;
   public files: string[] = [];
   public activeMailingTexts: string[];
+  
   constructor(
     private _navbarService: NavbarService,
     private _authService: AuthService,
