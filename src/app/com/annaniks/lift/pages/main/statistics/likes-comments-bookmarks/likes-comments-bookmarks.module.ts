@@ -2,6 +2,7 @@
 // Angular Core Modules
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatDatepickerModule } from '@angular/material';
 
 // Our Modules
 import { LikesCommentsBookmarksRoutingModule } from './likes-comments-bookmarks.routing.module';
@@ -16,7 +17,8 @@ import { SharedModule } from '../../../../shared/shared.module';
     imports: [
         LikesCommentsBookmarksRoutingModule,
         CommonModule,
-        SharedModule
+        SharedModule,
+        MatDatepickerModule
     ],
 
     providers: [LikesCommentsBookmarksService]

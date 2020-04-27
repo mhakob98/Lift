@@ -74,3 +74,12 @@ h4 {
     text-decoration-style: dashed;
   }
 }
+
+
+:host ::ng-deep .mat-form-field-infix {
+  width: auto;
+}
+
+:host ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+  display: none !important;
+}
