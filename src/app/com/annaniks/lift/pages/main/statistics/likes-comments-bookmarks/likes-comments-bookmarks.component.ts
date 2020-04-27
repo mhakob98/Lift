@@ -47,10 +47,20 @@ export class LikesCommentsBookmarksComponent implements OnInit, OnDestroy {
     this.type = this._activatedRoute.snapshot.data.type;
     this.dataKeyForPosts = this.type === 'likes' ? 'topLike' : 'topComment';
 
+    this._authService.getActiveAccount()
+      .pipe(
+        takeUntil(this._unsubscribe$),
+        switchMap((data) => {
+          const routeData = this._activatedRoute.snapshot.data;
+          this.type = routeData.type;
+          return this._getStatistics();
+        })
+      ).subscribe()
+
+
   }
 
   ngOnInit() {
-    this._getStatistics().subscribe();
     this._handleControlChanges();
   }
 
@@ -74,7 +84,6 @@ export class LikesCommentsBookmarksComponent implements OnInit, OnDestroy {
         finalize(() => this._loadingService.hideLoading()),
         map((data) => {
           this._fullStatistics = data.data;
-          console.log(this._fullStatistics);
           this.statistics = this._fullStatistics.slice(0, this._page * this._pageLength)
         })
       )

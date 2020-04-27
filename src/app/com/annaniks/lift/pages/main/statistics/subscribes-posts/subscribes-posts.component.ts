@@ -43,16 +43,18 @@ export class SubscribersPostsComponent implements OnInit, OnDestroy {
     this.startDateControl.patchValue(startDate);
     this.endDateControl.patchValue(endDate);
 
-    this._activatedRoute.data
+    this._authService.getActiveAccount()
       .pipe(
         takeUntil(this._unsubscribe$),
-        switchMap((data: { type: string, showDataKey: string, label: string }) => {
-          this.label = data.label;
-          this.showDataKey = data && data.showDataKey ? data.showDataKey : null;
-          this.type = data.type;
+        switchMap((data) => {
+          const routeData = this._activatedRoute.snapshot.data;
+          this.label = routeData.label;
+          this.showDataKey = routeData && routeData.showDataKey ? routeData.showDataKey : null;
+          this.type = routeData.type;
           return this._getStatistics();
         })
       ).subscribe()
+
   }
 
   ngOnInit() {
