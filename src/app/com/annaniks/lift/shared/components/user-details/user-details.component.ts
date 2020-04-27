@@ -23,6 +23,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe((data) => {
         this.activeAccount = data;
+        
         this.statistics = this.activeAccount.statistica;
         this.localImage = (this.activeAccount.avatar) ? this.activeAccount.avatar : '/assets/images/user.png';
       });
