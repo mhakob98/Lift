@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie';
 import { TokenResponse } from '../models/auth';
 import { ServerResponse } from '../models/server-response';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -27,7 +28,7 @@ export class JwtInterceptor implements HttpInterceptor {
                 catchError((err) => {
                     const status: number = err.status;
                     const error = err.error;
-                    if ((status === 401 || error.status === 401 || status === 0) && req.url === 'refresh') { //ToDO fixing
+                    if ((status === 401 || error.status === 401 || status === 0) && req.url === environment.apiUrl+'refresh') { //ToDO fixing
                         this._router.navigate(['/auth/login']);
                         return throwError(err);
                     }
@@ -72,6 +73,7 @@ export class JwtInterceptor implements HttpInterceptor {
                         this._updateTokenEvent$.next(true);
                     }),
                     catchError((err) => {
+                        console.log('errr');
                         this._router.navigate(['/auth/login']);
                         this._updateTokenEvent$.next(false);
                         return throwError(false);
