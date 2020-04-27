@@ -66,7 +66,7 @@ export class SendMessageComponent implements OnInit, OnDestroy {
     this._directService.disableInputState.pipe(
       takeUntil(this._unsubscribe)
     ).subscribe((state: boolean) => {
-      if (state) {
+      if (state || this.type=='direct') {
         this.messageForm.get('message').enable();
         this.messageForm.get('message').reset();
       } else {
@@ -83,8 +83,6 @@ export class SendMessageComponent implements OnInit, OnDestroy {
   sendMessage(): void {
     this.onTextSend.emit(this.messageForm.get('message').value);
     this.messageForm.get('message').reset();
-    console.log(this.messageForm);
-
   }
 
   ngOnDestroy() {

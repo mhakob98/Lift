@@ -37,7 +37,9 @@
                     <td>{{item?.comment}}</td>
                     <!-- <td>14%</td> -->
                     <td class="custom-items">
-                        <img class="stat-post" [src]="subitem?.thumbnail" *ngFor="let subitem of item[dataKeyForPosts]">
+                        <a class="d-block post-item" [href]="'https://instagram.com/p/'+subitem?.shortcode" target="_blank" *ngFor="let subitem of item[dataKeyForPosts]">
+                            <img class="stat-post" [src]="subitem?.thumbnail">
+                        </a>
                     </td>
                 </tr>
 

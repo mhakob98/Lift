@@ -74,6 +74,7 @@ export class LikesCommentsBookmarksComponent implements OnInit, OnDestroy {
         finalize(() => this._loadingService.hideLoading()),
         map((data) => {
           this._fullStatistics = data.data;
+          console.log(this._fullStatistics);
           this.statistics = this._fullStatistics.slice(0, this._page * this._pageLength)
         })
       )

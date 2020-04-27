@@ -21,6 +21,8 @@ export interface LikesCommentsStatistic {
     mouth: number;
     day: number;
     date: string;
+    topComment: PostStatistic[];
+    topLike: PostStatistic[];
 }
 
 export interface PostStatistic {

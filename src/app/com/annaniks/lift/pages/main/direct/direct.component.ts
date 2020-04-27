@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { NavbarService } from '../../../core/services/navbar.service';
 import { MessagingService } from './messaging.service'
 import { Subject } from 'rxjs';
@@ -25,7 +25,7 @@ export class DirectComponent implements OnInit, OnDestroy {
   public activeChat: any;
   public createChatOpened: boolean = false;
   public loading: boolean = false;
-  public activeTab: number = 4;
+  public activeTab: number = 1;
   public files: string[] = [];
   public activeMailingTexts: string[];
   constructor(
@@ -106,7 +106,6 @@ export class DirectComponent implements OnInit, OnDestroy {
           }
         })
         this.allChats = chatsArray;
-        // this.setActiveChat(this.allChats[0]);
       })
   }
 
@@ -142,8 +141,8 @@ export class DirectComponent implements OnInit, OnDestroy {
   }
 
   public setActiveChat(thread) {
-    this.loading = true
-    this.activeChat = thread
+    this.loading = true;
+    this.activeChat = thread;
     this.activeChatMessages = [];
     if (thread) {
       this._messagingService.setActiveChat(thread)
