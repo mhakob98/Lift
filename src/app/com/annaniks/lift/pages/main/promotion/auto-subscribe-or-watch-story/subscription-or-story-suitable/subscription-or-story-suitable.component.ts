@@ -18,6 +18,7 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
   public suitableSubsOrStoryForm: FormGroup;
   public conditions: Condition[] = [];
   public isAutosubscribe: boolean = false;
+  public statisticsRoute: string;
 
   constructor(
     private _fb: FormBuilder,
@@ -25,6 +26,7 @@ export class SubscriptionOrStorySuitableComponent implements OnInit, OnDestroy {
     private _activatedRoute: ActivatedRoute,
   ) {
     this.isAutosubscribe = this._activatedRoute.snapshot.data.type == 'subscribe';
+    this.statisticsRoute = (this.isAutosubscribe) ? '/statistics/subscribers' : '/statistics/preview'
   }
 
   ngOnInit() {

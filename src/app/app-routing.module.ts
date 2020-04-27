@@ -25,11 +25,11 @@ const appRoutes: Routes = [
     loadChildren: () => import('./com/annaniks/lift/pages/join/join.module')
       .then((m) => m.JoinModule)
   },
-  {
-    path: '**',
-    redirectTo: 'not-found',
-    pathMatch: 'full'
-  },
+  // {
+  //   path: '**',
+  //   redirectTo: 'not-found',
+  //   pathMatch: 'full'
+  // },
 
 ];
 

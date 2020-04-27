@@ -3,9 +3,9 @@
         <div class="subscription-title">
             <p>Автоматически {{isAutosubscribe ? 'подписываться' : 'просматривать stories'}} </p>
         </div>
-        <div class="subscribers-statistic">
+        <a class="subscribers-statistic" [routerLink]="statisticsRoute">
             <p> Статистика по {{isAutosubscribe ? 'подпискам' : 'просмотрам'}} </p> <img src="assets/icons/graph.png">
-        </div>
+        </a>
     </div>
     <div [formGroup]="suitableSubsOrStoryForm" class="subscription-accordion accordion" id="accordionExample">
         <div class="accordion-body">
