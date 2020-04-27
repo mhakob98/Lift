@@ -3,7 +3,7 @@
         <a routerLink="/">
             <img class="logo" src="assets/logo.png" alt="logo">
         </a>
-        <div class="switch-account" (clickOutside)="onClickedOutsideSwitch()">
+        <div class="switch-account">
             <div class="switch-account-action" (click)="toggleSwitchAccount()">
                 <img src="assets/icons/insta_icon.png" alt="Instagram">
                 <p>{{selectedAccount?.login}}</p>
@@ -41,7 +41,8 @@
             </div>
             <div class="account-questions" (clickOutside)="onClickedOutsideQuestions()">
                 <img (click)="toggleQuestions()" src="assets/icons/question_icon.png" alt="questions">
-                <app-header-help *ngIf="showQuestion" (close)="showQuestion = false" [articles]="articles"></app-header-help>
+                <app-header-help *ngIf="showQuestion" (close)="showQuestion = false" [articles]="articles">
+                </app-header-help>
             </div>
             <div class="account-details" (clickOutside)="onClickedOutsideUserDetails()">
                 <img class="user img-avatar img-center" [src]="localImage" alt="account">
@@ -61,12 +62,15 @@
             <img width="25px" height="25px"
                 src="{{leftMenuOpened ? 'assets/icons/close.png' : 'assets/icons/menu.png' }}">
         </button>
-        <div class="switch-account" >
+        <div class="switch-account">
             <div class="switch-account-action" (click)="toggleSwitchAccount()">
                 <img src="assets/icons/insta_icon.png" alt="Instagram">
                 <p class="small">{{selectedAccount?.login}}</p>
                 <img width="15px" src="assets/icons/arr_down_white.png" alt="">
             </div>
+            <app-header-switch-account *ngIf="showSwitchAccount" [userAccounts]="userAccounts"
+                (selectAccount)="handleSelectAccount($event)">
+            </app-header-switch-account>
         </div>
         <button (click)="toggleRightMenu()" class="toggle-right">
             <img width="40px" height="40px" *ngIf="!rightMenuOpened" src="assets/boy.png">
@@ -102,10 +106,24 @@
             <a routerLink="/statistics/bookmarks">Закладки</a>
         </mat-expansion-panel>
     </mat-accordion>
-    <a routerLink="/promotion" class="left-menu-links">
-        <img width="15px" src="assets/icons/rocket.png">
-        ПРОДВИЖЕНИЕ
-    </a>
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <div class="d-flex align-items-center">
+                        <img src="assets/icons/rocket.png">
+                        <p class="submenus-header">ПРОДВИЖЕНИЕ</p>
+                    </div>
+
+                </mat-panel-title>
+
+            </mat-expansion-panel-header>
+            <a routerLink="/promotion/autosubscribe">Автоподписка</a>
+            <a routerLink="/promotion/auto-watch-story">Автопросмотр Stories</a>
+            <a routerLink="/promotion/bonuses">Бонусы от LIFT</a>
+        </mat-expansion-panel>
+    </mat-accordion>
+
     <a class="left-menu-links">
         <img width="15px" src="assets/icons/wrench.png">
         ИНСТРУМЕНТЫ
