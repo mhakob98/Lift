@@ -111,10 +111,16 @@ export class AddPostStoryComponent implements OnInit, OnDestroy {
 
   private _createPost(): void {
     this.loading = true;
+
+    let time: string = this.addPostStoryForm.get('time').value;
+    if (time) {
+      time = this._datePipe.transform(time, 'yyyy-MM-dd hh:mm:ss');
+    }
+
     let postInfo: CreatePostData = {
       accountId: this._authService.getAccount().id,
       caption: this.addPostStoryForm.get('type_mark').value,
-      time: this.addPostStoryForm.get('time').value,
+      time: time,
       removeAt: this.addPostStoryForm.get('life').value.status ? this.addPostStoryForm.get('life').value.count : '',
       firstComment: this.addPostStoryForm.get('comment').value,
       photo: this.files[0]
