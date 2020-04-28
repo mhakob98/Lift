@@ -8,6 +8,7 @@ import { Observable, of } from 'rxjs';
 import { MassFollowingSettings } from '../../../../core/models/account';
 import { LoadingService } from '../../../../core/services/loading-service';
 import { ToastrService } from 'ngx-toastr';
+import { Limits } from '../../../../core/models/limits';
 
 @Component({
   selector: 'app-auto-subscribe-watch-story',
@@ -15,10 +16,11 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./auto-subscribe-watch-story.component.scss']
 })
 export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
-  public loading: boolean = false;
   private _subs = new SubSink();
+  public loading: boolean = false;
   public isAutosubscribe: boolean = false;
   public massfollowingData: MassFollowingSettings = new MassFollowingSettings();
+  public limits: Limits;
 
   constructor(
     private _autoSubscribeOrWatchStoryService: AutoSubscribeOrWatchStoryService,
@@ -51,6 +53,12 @@ export class AutoSubscribeOrWatchStoryComponent implements OnInit, OnDestroy {
         this._loadingService.hideLoading();
         window.scrollTo(0, 0);
         this.massfollowingData = data.data;
+        this.limits = {
+          subscribersForDay: this.massfollowingData.subscribesPerDay,
+          subscribersForHour: this.massfollowingData.subscribesPerHour,
+          accountAge: 0,
+          unsubscribe: ''
+        }
       });
   }
 
