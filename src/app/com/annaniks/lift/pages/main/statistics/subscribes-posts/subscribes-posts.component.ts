@@ -173,7 +173,6 @@ export class SubscribersPostsComponent implements OnInit, OnDestroy {
           this.isBusinessAccount = allStatistics.segment && Object.keys(allStatistics.segment).length > 0;
           if (this.isBusinessAccount) {
             this.segmentData = allStatistics.segment;
-            console.log(allStatistics.segment);
             // this._initMap();
             this._iniptPieChart();
             this._setPieChartData();
