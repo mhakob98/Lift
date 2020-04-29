@@ -2,7 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { StatisticsData, Statistic, LikesCommentsStatistic, PostStatistic } from '../../../core/models/statistics';
+import {
+    StatisticsData,
+    LikesCommentsStatistic,
+    PostStatistic,
+    AllStatisticsResponse
+} from '../../../core/models/statistics';
 import { ServerResponse } from '../../../core/models/server-response';
 
 @Injectable()
@@ -10,8 +15,8 @@ export class StatisticsService {
 
     constructor(private _httpClient: HttpClient) { }
 
-    public getAllStatistics(allStatisticsData: StatisticsData): Observable<ServerResponse<Statistic[]>> {
-        return this._httpClient.post<ServerResponse<Statistic[]>>('statistics/all', allStatisticsData);
+    public getAllStatistics(allStatisticsData: StatisticsData): Observable<ServerResponse<AllStatisticsResponse>> {
+        return this._httpClient.post<ServerResponse<AllStatisticsResponse>>('statistics/all', allStatisticsData);
     }
 
     public getStatisticsLikesComments(statisticsData: StatisticsData): Observable<ServerResponse<LikesCommentsStatistic[]>> {

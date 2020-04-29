@@ -134,7 +134,8 @@ export class PreviewComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this._unsubscribe$),
         map((data) => {
-          const statistics: Statistic[] = data.data;
+          console.log(data);
+          const statistics: Statistic[] = data.data.statistics;
           this.followersChartLabels = statistics.map((element) => {
             return this._datePipe.transform(element.date, 'dd/MM/yyyy');
           })

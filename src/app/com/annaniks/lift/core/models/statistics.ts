@@ -51,3 +51,8 @@ export interface LineChartData {
     fill?: boolean;
     backgroundColor?: string;
 }
+
+export interface AllStatisticsResponse {
+    statistics: Statistic[];
+    segment: any;
+}

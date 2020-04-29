@@ -88,7 +88,8 @@ export class AddPostStoryComponent implements OnInit, OnDestroy {
     }
     this.addPostStoryForm.get('time').valueChanges.subscribe((value) => {
       if (value) {
-        this.selectedDate = this._datePipe.transform(value, 'dd/MM/yyyy hh:mm:ss');
+        console.log(value);
+        this.selectedDate = this._datePipe.transform(value, 'dd/MM/yyyy HH:mm:ss');
       }
     })
     this.addPostStoryForm.get('life').get('status').valueChanges.subscribe((value) => {
@@ -112,15 +113,16 @@ export class AddPostStoryComponent implements OnInit, OnDestroy {
   private _createPost(): void {
     this.loading = true;
 
-    let time: string = this.addPostStoryForm.get('time').value;
-    if (time) {
-      time = this._datePipe.transform(time, 'yyyy-MM-dd hh:mm:ss');
+    let timeDate: string = this.addPostStoryForm.get('time').value;
+    let time: number = null;
+    if (timeDate) {
+      time = new Date(timeDate).getTime();
     }
 
     let postInfo: CreatePostData = {
       accountId: this._authService.getAccount().id,
       caption: this.addPostStoryForm.get('type_mark').value,
-      time: time,
+      time: String(time),
       removeAt: this.addPostStoryForm.get('life').value.status ? this.addPostStoryForm.get('life').value.count : '',
       firstComment: this.addPostStoryForm.get('comment').value,
       photo: this.files[0]
@@ -144,9 +146,16 @@ export class AddPostStoryComponent implements OnInit, OnDestroy {
 
   private _createStory(): void {
     this.loading = true;
+
+    let timeDate: string = this.addPostStoryForm.get('time').value;
+    let time: number = null;
+    if (timeDate) {
+      time = new Date(timeDate).getTime();
+    }
+
     const storyInfo: CreateStoryData = {
       accountId: this._authService.getAccount().id,
-      time: this.addPostStoryForm.get('time').value,
+      time: String(time),
       removeAt: this.addPostStoryForm.get('life').value.status ? this.addPostStoryForm.get('life').value.count : '',
       photo: this.files[0]
     }
@@ -170,14 +179,22 @@ export class AddPostStoryComponent implements OnInit, OnDestroy {
   private _setFormValues(): void {
     this._editable = this.data.editable;
     if (this._editable) {
+
       const postOrStory: PostOrStory = this.data.event;
       if (postOrStory.date.file) {
         this.localImages.push(`${this._fileUrl}/${postOrStory.date.file.filename}`);
       }
       if (postOrStory.type == 'post') {
+
+        let time: string = postOrStory.time;
+
+        if (time) {
+          time = this._datePipe.transform(time, 'yyyy-MM-dd HH:mm:ss', '+4');
+        }
+
         this.title = `Пост ${postOrStory.date.caption}`;
         this.addPostStoryForm.patchValue({
-          time: new Date(postOrStory.time),
+          time: time,
           showFirstComment: (postOrStory.date.firstComment) ? true : false,
           comment: (postOrStory.date.firstComment) ? postOrStory.date.firstComment : null,
           type_mark: postOrStory.date.caption,
@@ -188,8 +205,12 @@ export class AddPostStoryComponent implements OnInit, OnDestroy {
         }
       }
       if (postOrStory.type == 'story') {
+        let time: string = postOrStory.time;
+        if (time) {
+          time = this._datePipe.transform(time, 'yyyy-MM-dd HH:mm:ss');
+        }
         this.addPostStoryForm.patchValue({
-          time: new Date(postOrStory.time),
+          time: time,
         })
       }
       if (postOrStory.date.removeAt) {
