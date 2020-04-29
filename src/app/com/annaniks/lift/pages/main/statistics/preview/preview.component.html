@@ -121,7 +121,7 @@
                             (click)="closeSlider(1)"> -->
                     </p>
                     <ngx-slick-carousel class="carousel-row mb-3" #slickModal="slick-carousel" [config]="slideConfig">
-                        <div ngxSlickItem class="post-item slider-item" *ngFor="let item of postStatistics">
+                        <a ngxSlickItem target="_blank" [href]="'https://instagram.com/p/'+item?.shortcode"class="post-item slider-item" *ngFor="let item of postStatistics">
                             <div class="slider-description d-flex flex-wrap">
                                 <img [src]="item?.thumbnail" class="rounded img-responsive post-image">
                                 <div class="posts d-flex flex-column justify-content-between">
@@ -142,7 +142,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </ngx-slick-carousel>
 
                 </div>

@@ -28,7 +28,7 @@
             <app-line-chart big="true" *ngIf="!loading" [dataSets]="chartData" customId="post-subscribe"
                 [labels]="chartLabels" [size]="lineChartSize"></app-line-chart>
         </div>
-        <div class="business-account-statistics" [class.d-none]="!isBusinessAccount">
+        <div class="business-account-statistics" [class.d-none]="!isBusinessAccount || !pieChartData || pieChartData.length==0">
             <!-- PIE STATISTIC CHART -->
             <div class="pie-statistic-chart-heading">
                 <button class="pie-statistic-action" [class.active]="activePieChartDataType=='country'" (click)="onClickPieChartHeading('country')">Топ Страны</button>
@@ -40,13 +40,11 @@
             <!--PIE STATISTIC CHART IN MOBILE VERSION-->
             <div class="form-group">
                 <div class="input-content w-100">
-                    <select id="select" name="select" class="custom-select">
-                        <option value="География">Страна </option>
-                        <option value="Пол">Пол </option>
-                        <option value="Открытость профиля">По возрасту</option>
-                        <option value="Популярность">Популярность </option>
-                        <option value="Язык">Язык </option>
-                        <option value="Сайт">Сайт </option>
+                    <select id="select" name="select" class="custom-select" [formControl]="dataTypeControl">
+                        <option value="country">Топ Страны </option>
+                        <option value="city">Топ Города </option>
+                        <option value="gender">Пол</option>
+                        <option value="age">По возрасту </option>
                     </select>
                 </div>
             </div>

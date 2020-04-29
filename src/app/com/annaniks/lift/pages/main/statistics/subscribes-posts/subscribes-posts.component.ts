@@ -36,7 +36,8 @@ export class SubscribersPostsComponent implements OnInit, OnDestroy {
   public showDataKey: string;
   public segmentData: any;
   public isBusinessAccount: boolean = false;
-  public activePieChartDataType: string = 'gender';
+  public activePieChartDataType: string = 'country';
+  public dataTypeControl: FormControl = new FormControl('country');
 
   startDateFilter = (date: Date) => this.endDateControl.value.getTime() > date.getTime();
   endDateFilter = (date: Date) => this.startDateControl.value.getTime() < date.getTime();
@@ -70,6 +71,7 @@ export class SubscribersPostsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._handleControlChanges();
+    this._handleDataTypeControlChanges();
   }
 
   private _initMap(corrdinates = { lat: 40.7865229, lng: 43.8476395 }, zoom = 15): void {
@@ -197,7 +199,6 @@ export class SubscribersPostsComponent implements OnInit, OnDestroy {
     this.pieChartData = [];
     if (this.type === 'subscribers') {
       const statisticsData = this.segmentData.followers_unit;
-      console.log(this.segmentData.followers_unit);
       let propKey: string = '';
       if (this.activePieChartDataType === 'country') {
         propKey = 'followers_top_countries_graph';
@@ -219,6 +220,8 @@ export class SubscribersPostsComponent implements OnInit, OnDestroy {
       this._pieChart.data.labels = this.pieChartLabels;
       this._pieChart.data.datasets[0].data = this.pieChartData;
     }
+    console.log(this.pieChartData);
+
     this._pieChart.update();
   }
 
@@ -242,6 +245,16 @@ export class SubscribersPostsComponent implements OnInit, OnDestroy {
         return this._getStatistics();
       })
     ).subscribe();
+  }
+
+  private _handleDataTypeControlChanges(): void {
+    this.dataTypeControl.valueChanges
+      .pipe(takeUntil(this._unsubscribe$))
+      .subscribe((value) => {
+        this.activePieChartDataType = value;
+        this._setPieChartData();
+        console.log(value);
+      })
   }
 
   ngOnDestroy() {
